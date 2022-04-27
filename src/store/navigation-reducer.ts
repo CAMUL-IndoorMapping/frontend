@@ -11,7 +11,7 @@ type navigationState = {
 
 // ************ INITIAL STATE ************
 const initialState: navigationState = {
-  page: 1,
+  page: 0,
 };
 
 // ************ SLICE ************

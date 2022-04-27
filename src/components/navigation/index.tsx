@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./index.scss";
 import { ReactComponent as Logo } from "../../assets/svg/logo.svg";
+
+import { ReactComponent as LogoNavBar } from "../../assets/svg/logo_small.svg";
 import { ReactComponent as SingOut } from "../../assets/svg/signOut.svg";
 import useTranslation from "../../i18n/use-translation";
 import i18n from "../../i18n";
@@ -113,7 +115,7 @@ function Navigation() {
         <div className="container">
         {page !== Page.Login && (
         <div className="page_nav">
-          <Logo className="app_logo" />
+          <LogoNavBar className="app_logo" />
           <span
             id="homepage"
             onClick={handleNavigationClick}

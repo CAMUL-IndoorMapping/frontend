@@ -6,13 +6,15 @@ import useTranslation from "./i18n/use-translation";
 import { useStoreSelector, useStoreDispatch } from "./store";
 import { selectedPage, goToLoginPage } from "./store/navigation-reducer";
 import AdminFeedback from "./app/pages/admin/feedback";
-import { AppBar, Toolbar } from "@material-ui/core";
 
 import CustomButton from "./components/buttons";
 import AdminBeacons from "./app/pages/admin/beacons";
 import { BrowserView, MobileView } from "react-device-detect";
 import Feedback from "./app/pages/feedback";
 import UserSettings from "./app/pages/settings";
+
+import LoginPage from "./pages/login-page";
+
 function App() {
   const { t } = useTranslation();
   const page = useStoreSelector(selectedPage);
@@ -25,7 +27,8 @@ function App() {
   // });
 
   if (page === Page.Login) {
-    return <>Login Page</>;
+    // Login Screen
+    return <LoginPage />;
   }
 
   if (page === Page.FeedBack) {
