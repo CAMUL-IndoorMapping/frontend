@@ -87,7 +87,7 @@ function Feedback() {
     const [hasPhoto, setHasPhoto] = useState(false);
 
     const getVideo = () => {
-        navigator.mediaDevices.getUserMedia({ video: { width: 640, height: 360 } })
+        navigator.mediaDevices.getUserMedia({ video: { width: 300, height: 200 } })
             .then(stream => {
                 let video: any = videoRef.current;
                 video.srcObject = stream;
@@ -138,42 +138,41 @@ function Feedback() {
             <Heading as="h1" size="xl">
                 Feedback
             </Heading>
-
-
             <p>Upload here your feedback</p>
+
 
             <SimpleGrid columns={[1, 2]}>
                 <Box>
                     <Center>
                         <ButtonGroup marginTop='20%' marginBottom='10%'>
-                            <Button colorScheme='blue' onClick={uploadFile}><AttachmentIcon /></Button>
-                            <Button colorScheme='blue' onClick={uploadFeedbackText}><EditIcon /></Button>
-                            <Button colorScheme='blue' onClick={uploadAudio}><PhoneIcon /></Button>
+                            <Button width='67px' height='67px' colorScheme='blue' onClick={uploadFile}><AttachmentIcon /></Button>
+                            <Button width='67px' height='67px' colorScheme='blue' onClick={uploadFeedbackText}><EditIcon /></Button>
+                            <Button width='67px' height='67px' colorScheme='blue' onClick={uploadAudio}><PhoneIcon /></Button>
                         </ButtonGroup>
-                    </Center>
-
-                    <Center>
-                        <Button colorScheme='teal' width='40%' marginBottom='2%'>Confirm</Button>
-                    </Center>
-                    <Center>
-                        <Button colorScheme='red' width='40%' onClick={cancelUpload}>Cancel</Button>
                     </Center>
 
                 </Box>
 
-                <Box>
-                    <Center>
-                        <div style={{ display: selectedUploadFile ? 'inline-block' : 'none' }}>
+                <Box marginBottom='15%'>
 
+                    <div style={{ display: selectedUploadFile ? 'block' : 'none' }}>
+                        <Center>
                             <p>Upload images/videos</p>
-
+                        </Center>
+                        <Center>
                             <Button colorScheme='blue' onClick={uploadFileCamera}>Use camera</Button>
                             <Button colorScheme='blue' onClick={uploadFileGallery}>From gallery</Button>
-
-                            <div style={{ display: selectedUploadFileCamera ? 'inline-block' : 'none' }}>
+                        </Center>
+                        <div style={{ display: selectedUploadFileCamera ? 'block' : 'none' }}>
+                            
                                 <div className='camera'>
+                                    <Center>
                                     <video ref={videoRef}></video>
+                                    </Center>
+                                    <Center>
                                     <Button colorScheme='blue' onClick={takePhoto}>Take a photo</Button>
+                                    </Center>
+                                    <Center>
                                     <ReactMediaRecorder
                                         video
                                         render={({ status, startRecording, stopRecording, mediaBlobUrl }) => (
@@ -187,51 +186,57 @@ function Feedback() {
                                             </div>
                                         )}
                                     />
+                                    </Center>
                                 </div>
-                                <div className={'result' + (hasPhoto ? 'hasPhoto' : '')} >
+                           
+                            <div className={'result' + (hasPhoto ? 'hasPhoto' : '')} >
+                                <Center>
                                     <canvas ref={photoRef}></canvas>
+                                </Center>
+                                <Center>
                                     <Button colorScheme='blue' onClick={closePhoto}>close</Button>
-                                </div>
-                            </div>
-
-                            <div style={{ display: selectedUploadFileGallery ? 'inline-block' : 'none' }}>
-                                <input type="file" accept="image/*,video/*" onChange={handleImageChange}></input>
+                                </Center>
                             </div>
                         </div>
 
-
-                        <div style={{ display: selectedUploadFeedbackTex ? 'inline-block' : 'none' }}>
-                            <p>Upload text</p>
-                            <Textarea
-                                value={value}
-                                onChange={handleInputChange}
-                                placeholder='Place your text here...'
-                                size='sm'
-                            />
-                            <Text mb='8px'>Your text: {value}</Text>
+                        <div style={{ display: selectedUploadFileGallery ? 'block' : 'none' }}>
+                            <Center>
+                            <input type="file" accept="image/*,video/*" onChange={handleImageChange}></input>
+                            </Center>
                         </div>
+                    </div>
 
-                        <div style={{ display: selectedUploadAudio ? 'inline-block' : 'none' }}>
+
+                    <div style={{ display: selectedUploadFeedbackTex ? 'inline' : 'none' }}>
+                        <Center><p>Upload text</p></Center>
+
+                        <Textarea
+                            value={value}
+                            onChange={handleInputChange}
+                            placeholder='Place your text here...'
+                            size='sm'
+                        />
+                        <Text textAlign='center'>Your text: {value}</Text>
+                    </div>
+
+
+                    <div style={{ display: selectedUploadAudio ? 'block' : 'none' }}>
+                        <Center>
                             <p>Upload audio</p>
+                        </Center>
+                        <Center>
                             <Button colorScheme='blue' onClick={uploadAudioMic}>Use mic</Button>
                             <Button colorScheme='blue' onClick={uploadAudioFiles}>From files</Button>
+                        </Center>
 
-                            <div style={{ display: selectedUploadAudioFiles ? 'inline-block' : 'none' }}>
-
+                        <div style={{ display: selectedUploadAudioFiles ? 'block' : 'none' }}>
+                            <Center>
                                 <input type="file" accept="audio/*" onChange={handleImageChange}></input>
-                            </div>
+                            </Center>
+                        </div>
 
-                            <div style={{ display: selectedUploadAudioMic ? 'inline-block' : 'none' }}>
-                                {/** 
-                            <div>
-                                <p>{status}</p>
-                                <button onClick={startRecording}>Start Recording</button>
-                                <button onClick={stopRecording}>Stop Recording</button>
-                                <video src={mediaBlobUrl} controls autoPlay loop />
-
-                            </div>
-                        */}
-
+                        <div style={{ display: selectedUploadAudioMic ? 'block' : 'none' }}>
+                            <Center>
                                 <ReactMediaRecorder
                                     video
                                     render={({ status, startRecording, stopRecording, mediaBlobUrl }) => (
@@ -245,12 +250,21 @@ function Feedback() {
                                         </div>
                                     )}
                                 />
-
-
-                            </div>
+                            </Center>
 
 
                         </div>
+
+
+                    </div>
+                </Box>
+
+                <Box>
+                    <Center>
+                        <Button colorScheme='red' height='47px' width='206px' marginBottom='2%'>Confirm</Button>
+                    </Center>
+                    <Center>
+                        <Button color='rgba(0, 0, 0, 0.25)' height='47px' width='206px' onClick={cancelUpload}>Cancel</Button>
                     </Center>
                 </Box>
 
