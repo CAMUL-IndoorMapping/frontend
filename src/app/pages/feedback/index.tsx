@@ -24,9 +24,31 @@ function Feedback() {
 
     //const { status, startRecording, stopRecording, mediaBlobUrl } = useReactMediaRecorder({ audio: true });
 
-    const handleImageChange: any = (event: any) => {
-        console.log(event.target.files[0]);
+    const handleImageChange: any = async (event: any) => {
+        const file = event.target.files[0];
+        console.log(file);
+        const base64 = await convertBase64(file);
+        console.log("base 64: " + base64);
     }
+
+    const convertBase64: any = (file: any) => {
+        return new Promise((resolve, reject)=> {
+            const fileReader: any = new FileReader();
+            
+            fileReader.readAsDataURL(file);
+
+            fileReader.onload = ()=> {
+                resolve(fileReader.result);
+            };
+
+            fileReader.onerror = (error: any)=> {
+                reject("error: " + error);
+            };
+
+        })
+    }
+
+
     const [selectedUploadFile, setSelectedUploadFile] = useState(false);
     const [selectedUploadFileCamera, setSelectedUploadFileCamera] = useState(false);
     const [selectedUploadFileGallery, setSelectedUploadFileGallery] = useState(false);
