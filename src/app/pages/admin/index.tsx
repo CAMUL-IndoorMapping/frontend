@@ -8,6 +8,7 @@ import { Box,
     Text,
     Image } from '@chakra-ui/react'
 import ReactAudioPlayer from 'react-audio-player';
+import {BrowserView, MobileView} from 'react-device-detect';
 
     interface Feedback {
         date: string,
@@ -58,26 +59,53 @@ import ReactAudioPlayer from 'react-audio-player';
         render(){
             return(
                 <>
+                {/*{array1.map(({ date, feedback, name, type }) => (
+                 <MobileView>
+                    <Accordion allowToggle>
+                        <AccordionItem>
+                            <h2>
+                            <AccordionButton bg='isepBrick.300' w='100%' p={4} color='isepGrey.500'>
+                            {this.getIcon(type)}
+                                <Box flex='1' textAlign='left' textColor='#000000'>
+                                    {date}
+                                </Box>
+                                <AccordionIcon />
+                            </AccordionButton>
+                            </h2>
+                            <AccordionPanel pb={4}>
+                                {this.getFeedback(feedback, type)}
+                                <Text fontSize='xs' as='i'>
+                                    {name}
+                                </Text>
+                            </AccordionPanel>
+                        </AccordionItem>
+                    </Accordion>
+                </MobileView>
+                ))}*/}
                 {array1.map(({ date, feedback, name, type }) => (
-                <Accordion allowToggle>
-                    <AccordionItem>
-                        <h2>
-                        <AccordionButton bg='isepBrick.300' w='100%' p={4} color='isepGrey.500'>
-                        {this.getIcon(type)}
-                            <Box flex='1' textAlign='left' textColor='#000000'>
-                                {date}
-                            </Box>
-                            <AccordionIcon />
-                        </AccordionButton>
-                        </h2>
-                        <AccordionPanel pb={4}>
-                            {this.getFeedback(feedback, type)}
-                            <Text fontSize='xs' as='i'>
-                                {name}
-                            </Text>
-                        </AccordionPanel>
-                    </AccordionItem>
-                </Accordion>
+
+                <BrowserView>
+                {/* Write the code for browser components here*/}
+                    <Accordion allowToggle>
+                        <AccordionItem>
+                            <h2>
+                            <AccordionButton bg='isepBrick.300' w='100%' p={4} color='isepGrey.500'>
+                            {this.getIcon(type)}
+                                <Box flex='1' textAlign='left' textColor='#000000'>
+                                    {date}
+                                </Box>
+                                <AccordionIcon />
+                            </AccordionButton>
+                            </h2>
+                            <AccordionPanel pb={4}>
+                                {this.getFeedback(feedback, type)}
+                                <Text fontSize='xs' as='i'>
+                                    {name}
+                                </Text>
+                            </AccordionPanel>
+                        </AccordionItem>
+                    </Accordion>
+                </BrowserView>
                 ))}
                 </>
             )
