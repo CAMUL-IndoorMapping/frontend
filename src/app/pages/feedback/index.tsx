@@ -145,9 +145,11 @@ function Feedback() {
 
     let [value, setValue] = React.useState('')
 
-    let handleInputChange = (e: any) => {
+    const handleInputChange = (e: any) => {
         let inputValue = e.target.value
         setValue(inputValue)
+        let encodedBase64 = Buffer.from(inputValue).toString('base64');
+        console.log("base 64: " + encodedBase64);
     }
 
 
