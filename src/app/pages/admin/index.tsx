@@ -5,14 +5,15 @@ import { Box,
     AccordionButton,
     AccordionPanel,
     AccordionIcon,
-    Text } from '@chakra-ui/react'
-    import ReactAudioPlayer from 'react-audio-player';
+    Text,
+    Image } from '@chakra-ui/react'
+import ReactAudioPlayer from 'react-audio-player';
 
     interface Feedback {
         date: string,
         feedback: string,
         name: string,
-        type: string, // could be an enum
+        type: string,
       }
       
       const array1: Feedback[] = [
@@ -22,14 +23,11 @@ import { Box,
         {date: "qui. 31/03 23:45", feedback: "my_audio_file.ogg", name: "You don't wanna know", type: "audio"},
       ];
 
-
       export class AdminFeedback extends React.Component<{},{}>{
-
+        
         private getFeedback(feedback: string, type:string):ReactNode  {
             if(type === "image"){
-                return <div>
-                    <img src={feedback} alt=""></img>
-                </div>
+                return (<Image src={feedback} alt=""/>)
             }
             else if(type==="audio"){
                 return <ReactAudioPlayer
@@ -45,15 +43,27 @@ import { Box,
             }
         }
 
+        private getIcon(type:string):ReactNode  {
+            if(type === "image"){
+                return (<img src="../../../../public/uploadImage_darker.png" alt="uploadImage" width="30" height="30"/>);
+            }
+            else if(type==="audio"){
+                return (<img src="../../../../public/uploadAudio_darker.png" alt="uploadAudio" width="30" height="30"/>);            
+            }
+            else{
+                return (<img src="../../../../public/uploadText_darker.png" alt="uploadText" width="30" height="30"/>);            
+            }
+        }
+
         render(){
             return(
                 <>
-                Admin Feedback Page
                 {array1.map(({ date, feedback, name, type }) => (
                 <Accordion allowToggle>
                     <AccordionItem>
                         <h2>
                         <AccordionButton bg='isepBrick.300' w='100%' p={4} color='isepGrey.500'>
+                        {this.getIcon(type)}
                             <Box flex='1' textAlign='left' textColor='#000000'>
                                 {date}
                             </Box>
