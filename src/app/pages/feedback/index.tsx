@@ -12,11 +12,19 @@ import { AspectRatio } from '@chakra-ui/react'
 import { ReactMediaRecorder, useReactMediaRecorder } from "react-media-recorder";
 import { Stream } from 'stream';
 import { PhoneIcon, AddIcon, WarningIcon, DownloadIcon, EditIcon, AttachmentIcon } from '@chakra-ui/icons'
+import Webcam from 'react-webcam';
 
 //import useRecorder from "./useRecorder";
 //import {Recorder} from 'react-voice-recorder'
 
 //import AudioReactRecorder, { RecordState } from 'audio-react-recorder'
+
+const webRef: any = useRef(null);
+const [img, setImage] = useState(null);
+const showImage = () => {
+    setImage(webRef.current.getScreenshot());
+    console.log(webRef.current.getScreenshot());
+}
 
 
 function Feedback() {
@@ -32,16 +40,16 @@ function Feedback() {
     }
 
     const convertBase64: any = (file: any) => {
-        return new Promise((resolve, reject)=> {
+        return new Promise((resolve, reject) => {
             const fileReader: any = new FileReader();
-            
+
             fileReader.readAsDataURL(file);
 
-            fileReader.onload = ()=> {
+            fileReader.onload = () => {
                 resolve(fileReader.result);
             };
 
-            fileReader.onerror = (error: any)=> {
+            fileReader.onerror = (error: any) => {
                 reject("error: " + error);
             };
 
@@ -136,10 +144,7 @@ function Feedback() {
     }
 
     const closePhoto = () => {
-        let photo: any = photoRef.current;
-        let context = photo.getContext('2d');
-        context.clearRect(0, 0, photo.width, photo.height);
-        setHasPhoto(false);
+        setImage(null);
     }
 
 
@@ -188,15 +193,17 @@ function Feedback() {
                             <Button colorScheme='blue' onClick={uploadFileGallery}>From gallery</Button>
                         </Center>
                         <div style={{ display: selectedUploadFileCamera ? 'block' : 'none' }}>
-                            
-                                <div className='camera'>
-                                    <Center>
-                                    <video ref={videoRef}></video>
-                                    </Center>
-                                    <Center>
-                                    <Button colorScheme='blue' onClick={takePhoto}>Take a photo</Button>
-                                    </Center>
-                                    <Center>
+
+                            <div className='camera'>
+                                <Center>
+                                    <Webcam ref={webRef}></Webcam>
+                                </Center>
+                                <Center>
+                                    <Button colorScheme='blue' onClick={() => {
+                                        showImage();
+                                    }}>Take a photo</Button>
+                                </Center>
+                                <Center>
                                     <ReactMediaRecorder
                                         video
                                         render={({ status, startRecording, stopRecording, mediaBlobUrl }) => (
@@ -210,12 +217,12 @@ function Feedback() {
                                             </div>
                                         )}
                                     />
-                                    </Center>
-                                </div>
-                           
+                                </Center>
+                            </div>
+
                             <div className={'result' + (hasPhoto ? 'hasPhoto' : '')} >
                                 <Center>
-                                    <canvas ref={photoRef}></canvas>
+                                    <img src={img || undefined}></img>
                                 </Center>
                                 <Center>
                                     <Button colorScheme='blue' onClick={closePhoto}>close</Button>
@@ -225,7 +232,7 @@ function Feedback() {
 
                         <div style={{ display: selectedUploadFileGallery ? 'block' : 'none' }}>
                             <Center>
-                            <input type="file" accept="image/*,video/*" onChange={handleImageChange}></input>
+                                <input type="file" accept="image/*,video/*" onChange={handleImageChange}></input>
                             </Center>
                         </div>
                     </div>
