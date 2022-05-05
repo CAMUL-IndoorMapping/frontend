@@ -174,9 +174,9 @@ function Feedback() {
                 <Box>
                     <Center>
                         <ButtonGroup marginTop='20%' marginBottom='10%'>
-                            <Button width='67px' height='67px' colorScheme='blue' onClick={uploadFile}><AttachmentIcon /></Button>
-                            <Button width='67px' height='67px' colorScheme='blue' onClick={uploadFeedbackText}><EditIcon /></Button>
-                            <Button width='67px' height='67px' colorScheme='blue' onClick={uploadAudio}><PhoneIcon /></Button>
+                            <Button width='67px' height='67px' _hover={{ bg: '#CE7E5C' }} borderColor='#CE7E5C' borderRadius='62px' variant='outline' onClick={uploadFile}><img src="https://s3-alpha-sig.figma.com/img/5c37/7770/eced2bac8d7213431dc4807a6e524329?Expires=1652659200&Signature=UfMtDJqYCdsp1JugqHNKOyyH35cL7EbQ05e8uwmf-k4K3ShQwqXn676qqLZs7ma0xQUg7RZiz2-vu04xKFca8btN8AhHxl5U83dd3zYjyOtOl2rIzQKnBmfPFtCodlUlyBUwHb2ul7Qniji08dJts7Sh81p7JSWWtP3CeZMiFl9kg~Wb8nXhWhYg9dJyaUZUd0YuAhSwt8~DYH02fQd9JUbaB84neQplwy0LT9zIwTBHaBR5dyawTeM03J5MG3y-uAz1-p1bhpaByil2I35RlfgjpoC72HttNyajOMb3amfvr2AIUqrnu9zjkaraUHkHtGrzoZMMc40PMBskJoMjIw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" /></Button>
+                            <Button width='67px' height='67px' _hover={{ bg: '#CE7E5C' }} borderColor='#CE7E5C' borderRadius='62px' variant='outline' onClick={uploadFeedbackText}><img src='https://s3-alpha-sig.figma.com/img/2f03/7f76/ea4b824d46259756ee696c6311a3e9c2?Expires=1652659200&Signature=M78iAFpzCO4GFcvhqolOfU9obPGhP2mtJZxVIwPgAleeHuQz1Ka7pCT92McBPr-yxkhFupd~RjHYjtStFlsQotJyLD9WWVDJUFBxekzDDV9YTl70vsbtB8YdOxI3xGs-Ui0cKqCbtNECDtvgHd6AoPGSmULb-WsWE669lnH8ZCba7CSRqh3qYCHCMxaf6qcAPhg07jDXGKVWzkTkKCW6qYRxG69060oFzu-R4a3u9K4SQvqa2AEU1NlWT2Mr4d7ImbagetBQBQSTQdoYhX4gatI7EZMqix3qt5UZkX3048OgYsU0OO0oMceGqdiHjWAYkvnF~ztPUTzdbX7xQp52lQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'></img></Button>
+                            <Button width='67px' height='67px' _hover={{ bg: '#CE7E5C' }} borderColor='#CE7E5C' borderRadius='62px' variant='outline' onClick={uploadAudio}><img src='https://s3-alpha-sig.figma.com/img/9570/6275/02fe629724c6451bfc58e8b408959b7f?Expires=1652659200&Signature=ersh~djo0M0azAQXkkTt4atepCPDgD7pfkNhGnpDDINizApqLzAFk8SMm-PpkHFaMqzOW-xSqAfeDd8V8mXslKQY7g97M6zXewSuftfpQkewSOmHfT8s3OINRHV3iqDEW4z8f0j~8q5D9Q7iEhCOVXWWiklU9PYEpJOrXNpTib75MigEcus2~vkeBGPNvtWLUxXlbKELRs1lJ4Bi~qr2hxGiRdeGELKk~WBl0qchXBivzZEevHwInxe7Huusa1Ug1QE3CFctUOk2xxDU569K4PKG7siFbZQ4gNZUlUXsZa9w6bFmzwBZHuu7c8gph3ooZQXf3c65Ew99zAjkdd5CxA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'></img></Button>
                         </ButtonGroup>
                     </Center>
 
@@ -189,8 +189,10 @@ function Feedback() {
                             <p>Upload images/videos</p>
                         </Center>
                         <Center>
-                            <Button colorScheme='blue' onClick={uploadFileCamera}>Use camera</Button>
-                            <Button colorScheme='blue' onClick={uploadFileGallery}>From gallery</Button>
+                            <Button backgroundColor='#CE7E5C' color='#FFFFFF' borderRadius='200px'  _hover={{ bg: '#A2543D' }} borderColor='#A2543D' width='206px' height='47px' marginBottom='2%' onClick={uploadFileCamera}>Use camera</Button>
+                            </Center>
+                            <Center>
+                            <Button backgroundColor='#CE7E5C' color='#FFFFFF' borderRadius='200px'  _hover={{ bg: '#A2543D' }} borderColor='#A2543D' width='206px' height='47px' onClick={uploadFileGallery}>From gallery</Button>
                         </Center>
                         <div style={{ display: selectedUploadFileCamera ? 'block' : 'none' }}>
 
@@ -241,11 +243,12 @@ function Feedback() {
                     <div style={{ display: selectedUploadFeedbackTex ? 'inline' : 'none' }}>
                         <Center><p>Upload text</p></Center>
 
-                        <Textarea
+                        <Textarea borderColor='#A2543D'
                             value={value}
                             onChange={handleInputChange}
-                            placeholder='Place your text here...'
-                            size='sm'
+                            placeholder ='Place your text here...'
+                            _placeholder={{textColor:'#CE7E5C'}}
+                            color='#CE7E5C'
                         />
                         <Text textAlign='center'>Your text: {value}</Text>
                     </div>
@@ -256,8 +259,10 @@ function Feedback() {
                             <p>Upload audio</p>
                         </Center>
                         <Center>
-                            <Button colorScheme='blue' onClick={uploadAudioMic}>Use mic</Button>
-                            <Button colorScheme='blue' onClick={uploadAudioFiles}>From files</Button>
+                            <Button backgroundColor='#CE7E5C' color='#FFFFFF' borderRadius='200px' _hover={{ bg: '#A2543D' }} borderColor='#A2543D' width='206px' height='47px' marginBottom='2%' onClick={uploadAudioMic}>Use mic</Button>
+                        </Center>
+                        <Center>
+                            <Button backgroundColor='#CE7E5C' color='#FFFFFF' borderRadius='200px' _hover={{ bg: '#A2543D' }} borderColor='#A2543D' width='206px' height='47px' onClick={uploadAudioFiles}>From files</Button>
                         </Center>
 
                         <div style={{ display: selectedUploadAudioFiles ? 'block' : 'none' }}>
@@ -292,10 +297,10 @@ function Feedback() {
 
                 <Box>
                     <Center>
-                        <Button colorScheme='red' height='47px' width='206px' marginBottom='2%'>Confirm</Button>
+                        <Button backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} borderColor='#CE7E5C' height='47px' width='206px' marginBottom='2%'>Confirm</Button>
                     </Center>
                     <Center>
-                        <Button color='rgba(0, 0, 0, 0.25)' height='47px' width='206px' onClick={cancelUpload}>Cancel</Button>
+                        <Button _hover={{ bg: '#CE7E5C' }} borderColor='#CE7E5C' borderRadius='200px' variant='outline' height='47px' width='206px' onClick={cancelUpload}>Cancel</Button>
                     </Center>
                 </Box>
 
