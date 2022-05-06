@@ -17,7 +17,12 @@ import { SimpleGrid } from '@chakra-ui/react'
         name: string,
         type: string,
       }
+    
+      interface CustomEvent{
+          target: HTMLInputElement
+      }
       
+
       const array1: Feedback[] = [
         {date: "qui. 31/03 19:32", feedback: "Não tenho nada a dizer a aplicação é incrivel", name: "João das Neves", type: "text"},
         {date: "qui. 31/03 20:02", feedback: "Os devs são muito fofinhos", name: "John", type: "text"},
@@ -26,6 +31,20 @@ import { SimpleGrid } from '@chakra-ui/react'
       ];
 
       export class AdminFeedback extends React.Component<{},{}>{
+
+        state: Feedback = {
+            date: '',
+            feedback: '',
+            name: '',
+            type: '',
+        }
+
+        private setFeedBackAndName(event: string, eventName:string, eventType:string){
+            this.setState({feedback: event})
+            this.setState({name: eventName})
+            this.setState({type: eventType})
+            console.log("setting feedback to: "+ event + ' ' + eventName)
+        }
         
         private getFeedback(feedback: string, type:string):ReactNode  {
             if(type === "image"){
@@ -90,7 +109,7 @@ import { SimpleGrid } from '@chakra-ui/react'
                 <Box>
                     <Center>
                         <ButtonGroup marginTop='1%' marginBottom='0.5%'>
-                            <Button width='500px' height='67px' _hover={{ bg: '#CE7E5C' }} variant='outline' > 
+                            <Button width='500px' height='67px' _hover={{ bg: '#CE7E5C' }} variant='outline' onClick={() => this.setFeedBackAndName(feedback, name, type)}> 
                                 <Box margin={'2'}>
                                     {this.getIcon(type)}
                                 </Box> 
@@ -102,14 +121,20 @@ import { SimpleGrid } from '@chakra-ui/react'
                     </Center>
                 </Box>
                 <Box marginBottom='1%'>
-                   wurt
+                {this.getFeedback(this.state.feedback, this.state.type)}
+                <Text fontSize='xs' as='i'>
+                                    {this.state.name}
+                                </Text>
                 </Box>
+                
                 </SimpleGrid>
-                {/* Write the code for browser components here*/}
                     
                 </BrowserView>
                 ))}
                 </>
             )
         }
+          clickMe(feedback: string, name: string): void {
+              throw new Error('Method not implemented.');
+          }
       }
