@@ -62,7 +62,15 @@ function Feedback() {
         })
     }
 
-    
+    const [deviceId, setDeviceId] = useState({});
+    const [devices, setDevices] = useState([]);
+
+    const handleDevices: any = React.useCallback(
+        (mediaDevices: { filter: (arg0: ({ kind }: { kind: any; }) => boolean) => React.SetStateAction<never[]>; }) =>
+            setDevices(mediaDevices.filter(({ kind }) => kind === "videoinput")),
+        [setDevices]
+    );
+
     const [selectedUploadFile, setSelectedUploadFile] = useState(false);
     const [selectedUploadFileCamera, setSelectedUploadFileCamera] = useState(false);
     const [selectedUploadFileGallery, setSelectedUploadFileGallery] = useState(false);
@@ -231,8 +239,8 @@ function Feedback() {
     }
 
     useEffect(() => {
-        getVideo();
-    }, [videoRef])
+        { getVideo(); navigator.mediaDevices.enumerateDevices().then(handleDevices); }
+    }, [videoRef, handleDevices])
     return (
         <>
             <Heading as="h1" size="xl">
@@ -273,14 +281,27 @@ function Feedback() {
                             </Center>
                             <Center>
                                 <Button _focus={{ boxShadow: "none" }} backgroundColor='#CE7E5C' color='#FFFFFF' borderRadius='200px' _hover={{ bg: '#A2543D' }}
-                                    borderColor='#A2543D' width='206px' height='47px' onClick={uploadFileGallery}>From gallery</Button>
+                                    borderColor='#A2543D' width='206px' height='47px' marginBottom='5%' onClick={uploadFileGallery}>From gallery</Button>
                             </Center>
                             <div style={{ display: selectedUploadFileCamera ? 'block' : 'none' }}>
 
                                 <div className='camera'>
+                                    <div>
+                                        <Center>
+                                            {devices.map((device: any, key: any) => (
+                                                <Button _focus={{ boxShadow: "none" }} _hover={{ bg: '#DA8E71' }} borderColor='#A2543D' borderRadius='200px' color='#A2543D'
+                                                    variant='outline' height='47px' width='206px'
+                                                    key={device.deviceId}
+                                                    onClick={() => setDeviceId(device.deviceId)}>
+                                                    {device.label || `Device ${key + 1}`}
+                                                </Button>
+                                            ))}
+                                        </Center>
+                                    </div>
                                     <Center>
-                                        <Webcam width='70%' ref={webRef}></Webcam>
+                                        <Webcam width='70%' ref={webRef} videoConstraints={{ deviceId }} ></Webcam>
                                     </Center>
+
                                     <Center>
                                         <Button _focus={{ boxShadow: "none" }} _hover={{ bg: '#DA8E71' }} borderColor='#A2543D' borderRadius='200px' color='#A2543D'
                                             variant='outline' height='47px' width='206px' onClick={() => {
@@ -297,7 +318,7 @@ function Feedback() {
                                                 variant='outline' height='47px' width='206px' onClick={() => { video.stopRecording(); stopRecordVideo(); }}>Stop Recording</Button>
 
                                             <Center>
-                                            <video width='30%' style={{ display: selectedSubmitRecordVideo ? 'block' : 'none' }} src={video.mediaBlobUrl || undefined} controls autoPlay loop></video>
+                                                <video width='30%' style={{ display: selectedSubmitRecordVideo ? 'block' : 'none' }} src={video.mediaBlobUrl || undefined} controls autoPlay loop></video>
                                             </Center>
 
                                             <Center>
