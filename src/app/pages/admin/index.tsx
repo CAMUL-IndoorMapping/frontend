@@ -12,6 +12,9 @@ import {
   Button,
   ButtonGroup,
   SimpleGrid,
+  Grid,
+  GridItem,
+  Divider,
 } from "@chakra-ui/react";
 import ReactAudioPlayer from "react-audio-player";
 import { BrowserView, MobileView } from "react-device-detect";
@@ -149,10 +152,13 @@ export class AdminFeedback extends React.Component<{}, {}> {
                 <Center>
                   <ButtonGroup marginTop="1%" marginBottom="0.5%">
                     <Button
-                      width="700px"
+                      width="900px"
                       height="67px"
-                      _hover={{ bg: "#CE7E5C" }}
+                      _hover={{ bg: "isepBrick.300" }}
                       variant="outline"
+                      _focus={{
+                        boxShadow: "none"
+                        }}
                       onClick={() =>
                         this.setFeedBackAndName(feedback, name, type)
                       }
@@ -169,12 +175,22 @@ export class AdminFeedback extends React.Component<{}, {}> {
               marginBottom="1%"
               textAlign={"center"}
               borderRadius="3xl"
-              width="700px"
+              width="500px"
             >
-              {this.getFeedback(this.state.feedback, this.state.type)}
-              <Text fontSize="xs" as="i">
-                {this.state.name}
-              </Text>
+              <Grid templateColumns="repeat(5, 1fr)" gap={4}>
+                <GridItem colSpan={1} h="320" w="10" >
+                    <Divider orientation="vertical" />
+                </GridItem>
+                <GridItem colStart={2} colEnd={7} h="320">
+                <Box>
+                    {this.getFeedback(this.state.feedback, this.state.type)}
+                    <Text fontSize="xs" as="i">
+                      {this.state.name}
+                    </Text>
+                  </Box>
+                </GridItem> 
+              </Grid>
+              
             </Box>
           </SimpleGrid>
         </BrowserView>
