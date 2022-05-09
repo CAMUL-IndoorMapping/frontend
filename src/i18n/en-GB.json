@@ -160,6 +160,10 @@
   "rgpd_33":"ISEP Indoor Mapping may change this Privacy Policy from time to time. We encourage you to visit this page to stay informed. If the changes are material, we may provide you additional notice to your email address or through our Services. Your continued use of the Services indicates your acceptance of the modified Privacy Policy."  ,
   "notes_for_user": "Notes for the user ",
   "note_add_error":"Note couldn't be added 😓",
-  "note_add_success": "Note successfully added!"
-
+  "note_add_success": "Note successfully added!",
+  "where_to_go": "Where to go?",
+  "origin": "Origin",
+  "destination": "Destination",
+  "building": "Building",
+  "my_location": "My Location"
 }
