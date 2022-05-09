@@ -9,7 +9,7 @@ import { AdminFeedback } from "./app/pages/admin/feedback";
 import { AppBar, Toolbar } from "@material-ui/core";
 
 import CustomButton from "./components/buttons";
-import { AdminBeacons } from "./app/pages/admin/beacons";
+import AdminBeacons from "./app/pages/admin/beacons";
 
 function App() {
   const { t } = useTranslation();

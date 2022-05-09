@@ -1,4 +1,5 @@
 import React, { ReactNode } from "react";
+import {useState} from 'react'
 import {
   Box,
   Editable,
@@ -16,8 +17,6 @@ import {
 } from "@chakra-ui/react";
 import { BrowserView, MobileView } from "react-device-detect";
 import CustomButton from "../../../../components/buttons";
-
-// import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 
 interface Beacon {
   deviceId: string;
@@ -59,31 +58,23 @@ const array1: Beacon[] = [
   },
 ];
 
-export class AdminBeacons extends React.Component<{}, {}> {
-  state: Beacon = {
-    deviceId: "Device Id",
-    classRoom: "Classroom",
-    x: 0,
-    y: 0,
-    z: 0,
-  };
+function AdminBeacons() {
+const[isModalVisible, setIsModalVisible] = useState(false);
 
-  private setBeaconProperties(
-    eventDeviceId: string,
-    eventClassRoom: string,
-    eventX: number,
-    eventY: number,
-    eventZ: number
-  ) {
-    this.setState({ deviceId: eventDeviceId });
-    this.setState({ classRoom: eventClassRoom });
-    this.setState({ x: eventX });
-    this.setState({ y: eventY });
-    this.setState({ z: eventZ });
-    console.log("setting states i swear");
-  }
+const[stateDeviceId, setDeviceId] = useState("Device Id");
+const[stateClassRoom, setClassRoom] = useState("Classroom");
+const[stateX, setX] = useState(0);
+const[stateY, setY] = useState(0);
+const[stateZ, setZ] = useState(0);
 
-  render() {
+function setStates(device:string, classRoom:string, x:number, y:number, z:number): void {
+  setDeviceId(device)
+  setClassRoom(classRoom)
+  setX(x)
+  setY(y)
+  setZ(z)
+}
+
     return (
       <>
         {/* <MobileView>
@@ -130,7 +121,7 @@ export class AdminBeacons extends React.Component<{}, {}> {
                         boxShadow: "none",
                       }}
                       onClick={() =>
-                        this.setBeaconProperties(deviceId, classRoom, x, y, z)
+                        setStates(deviceId,classRoom,x,y,z)                        
                       }
                     >
                       {/* <Box margin={"2"}>
@@ -158,9 +149,9 @@ export class AdminBeacons extends React.Component<{}, {}> {
                     Device Id
                   </Text>
                   <Editable
-                    defaultValue={this.state.deviceId}
+                    defaultValue={stateDeviceId}
                     isDisabled={
-                      this.state.deviceId === "Device Id" ? true : false
+                      stateDeviceId === "Device Id" ? true : false
                     }
                   >
                     <EditablePreview textAlign={"left"} />
@@ -171,9 +162,9 @@ export class AdminBeacons extends React.Component<{}, {}> {
                     Classroom
                   </Text>
                   <Editable
-                    defaultValue={this.state.classRoom}
+                    defaultValue={stateClassRoom}
                     isDisabled={
-                      this.state.classRoom === "Classroom" ? true : false
+                      stateClassRoom === "Classroom" ? true : false
                     }
                   >
                     <EditablePreview textAlign={"left"} />
@@ -184,22 +175,22 @@ export class AdminBeacons extends React.Component<{}, {}> {
                     Coordinates
                   </Text>
                   <Editable
-                    defaultValue={this.state.x.toString()}
-                    isDisabled={this.state.x === 0 ? true : false}
+                    defaultValue={stateX.toString()}
+                    isDisabled={stateX === 0 ? true : false}
                   >
                     <EditablePreview textAlign={"left"} />
                     <EditableInput />
                   </Editable>
                   <Editable
-                    defaultValue={this.state.y.toString()}
-                    isDisabled={this.state.y === 0 ? true : false}
+                    defaultValue={stateY.toString()}
+                    isDisabled={stateY === 0 ? true : false}
                   >
                     <EditablePreview textAlign={"left"} />
                     <EditableInput />
                   </Editable>
                   <Editable
-                    defaultValue={this.state.z.toString()}
-                    isDisabled={this.state.z === 0 ? true : false}
+                    defaultValue={stateZ.toString()}
+                    isDisabled={stateZ === 0 ? true : false}
                   >
                     <EditablePreview textAlign={"left"} />
                     <EditableInput />
@@ -214,7 +205,7 @@ export class AdminBeacons extends React.Component<{}, {}> {
                     textColor="#FFFFFF"
                     width="280px"
                     handleButtonClick={() => [
-                      [alert("Beacon " + this.state.deviceId + " Updated!")],
+                      [alert("Beacon " + stateDeviceId + " Updated!")],
                     ]}
                   />
                 </GridItem>
@@ -225,4 +216,5 @@ export class AdminBeacons extends React.Component<{}, {}> {
       </>
     );
   }
-}
+
+export default AdminBeacons;
