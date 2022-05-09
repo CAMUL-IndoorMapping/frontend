@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { BrowserView } from 'react-device-detect';
 import { Helmet } from 'react-helmet';
 import { Box, Flex, Heading, IconButton, Select } from '@chakra-ui/react'
-import { Icon } from '@chakra-ui/icons'
+import { Icon, ChevronRightIcon } from '@chakra-ui/icons'
 import { BsPinAngleFill } from 'react-icons/bs';
 import useTranslation from "../../../i18n/use-translation";
 import { useWindowSize } from '@react-hook/window-size'
@@ -48,6 +48,10 @@ function Home() {
     }
 
     const handleAddBeaconClick = (e: any) => {
+        console.log(e)
+    }
+
+    const handleChangeLevelMenu = (e: any) => {
         console.log(e)
     }
 
@@ -1450,6 +1454,22 @@ function Home() {
                     </Flex>
                 </Flex>
             </Box>
+
+            <IconButton
+                aria-label='Change Level'
+                color='white'
+                bg='isepBrick.500'
+                _hover={{ backgroundColor: 'isepBrick.400' }}
+                _active={{ backgroundColor: 'isepBrick.300' }}
+                size='lg'
+                rounded='100'
+                position='fixed'
+                bottom='200px'
+                left='0'
+                margin='2rem'
+                icon={<ChevronRightIcon />}
+                onClick={handleChangeLevelMenu}
+            />
 
             <IconButton
                 aria-label='Add Beacon'
