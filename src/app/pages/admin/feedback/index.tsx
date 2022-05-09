@@ -19,14 +19,14 @@ import {
 import ReactAudioPlayer from "react-audio-player";
 import { BrowserView, MobileView } from "react-device-detect";
 
-interface Feedback {
+interface Feedback { 
   date: string;
   feedback: string;
   name: string;
   type: string;
 }
 
-const array1: Feedback[] = [
+const array1: Feedback[] = [ //endpoint Feedback/GET ALL
   {
     date: "qui. 31/03 19:32",
     feedback: "Não tenho nada a dizer a aplicação é incrivel",
@@ -61,6 +61,7 @@ export class AdminFeedback extends React.Component<{}, {}> {
     type: "",
   };
 
+
   private setFeedBackAndName(
     event: string,
     eventName: string,
@@ -69,7 +70,6 @@ export class AdminFeedback extends React.Component<{}, {}> {
     this.setState({ feedback: event });
     this.setState({ name: eventName });
     this.setState({ type: eventType });
-    console.log("setting feedback to: " + event + " " + eventName);
   }
 
   private getFeedback(feedback: string, type: string): ReactNode {
@@ -86,7 +86,7 @@ export class AdminFeedback extends React.Component<{}, {}> {
     if (type === "image") {
       return (
         <img
-          src="https://s3-alpha-sig.figma.com/img/2f03/7f76/ea4b824d46259756ee696c6311a3e9c2?Expires=1652659200&Signature=M78iAFpzCO4GFcvhqolOfU9obPGhP2mtJZxVIwPgAleeHuQz1Ka7pCT92McBPr-yxkhFupd~RjHYjtStFlsQotJyLD9WWVDJUFBxekzDDV9YTl70vsbtB8YdOxI3xGs-Ui0cKqCbtNECDtvgHd6AoPGSmULb-WsWE669lnH8ZCba7CSRqh3qYCHCMxaf6qcAPhg07jDXGKVWzkTkKCW6qYRxG69060oFzu-R4a3u9K4SQvqa2AEU1NlWT2Mr4d7ImbagetBQBQSTQdoYhX4gatI7EZMqix3qt5UZkX3048OgYsU0OO0oMceGqdiHjWAYkvnF~ztPUTzdbX7xQp52lQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
+          src="https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1653264000&Signature=DO-5QTTdSrt52S62TeXnUDv5kGF7x-H~XS2i9F7U4guJhpn1vX8oK4P5pZatIZw9UbnpJxN~D5MbvX~cCsnaNlIP5lVq3oTujy~hOUNMhwcbFpLrhhUXd0ZxLO1a1Ru-hQrrdOuskQoi55G4NjJFPm6rO9TynhaQzLlGiM~wdNb8xYA34f6a5N1TvtEp6GR~Z5vELnqHpZvfcMVCEALJwy8PsxbzyzA5-myfIIBa53xL9fixwJg~u2u5pEEeElhiRS7FyvZMeWQyb7jb3A7nyH8bbWbdXROqHDV1FozpluMmrmWMGG-8mT1DRBRRrBmPxF46tOa9n6ouvj13SUNxLw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
           alt="uploadImage"
           width="30"
           height="30"
@@ -95,7 +95,7 @@ export class AdminFeedback extends React.Component<{}, {}> {
     } else if (type === "audio") {
       return (
         <img
-          src="https://s3-alpha-sig.figma.com/img/9570/6275/02fe629724c6451bfc58e8b408959b7f?Expires=1652659200&Signature=ersh~djo0M0azAQXkkTt4atepCPDgD7pfkNhGnpDDINizApqLzAFk8SMm-PpkHFaMqzOW-xSqAfeDd8V8mXslKQY7g97M6zXewSuftfpQkewSOmHfT8s3OINRHV3iqDEW4z8f0j~8q5D9Q7iEhCOVXWWiklU9PYEpJOrXNpTib75MigEcus2~vkeBGPNvtWLUxXlbKELRs1lJ4Bi~qr2hxGiRdeGELKk~WBl0qchXBivzZEevHwInxe7Huusa1Ug1QE3CFctUOk2xxDU569K4PKG7siFbZQ4gNZUlUXsZa9w6bFmzwBZHuu7c8gph3ooZQXf3c65Ew99zAjkdd5CxA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
+          src="https://s3-alpha-sig.figma.com/img/abbf/e27e/6f1500175f3a3d76ec9c1a7059e54f25?Expires=1653264000&Signature=FmMKd065R0gy0I8PEdz1QnFwru-2n1nMgBNpuORPuMcAD~QWvpFeqU1Y1393eeqEf9LVLsCbRmiW5BGBEw3RInKlfdIhCUl0tSc8We7gPz1X~coLje3JfIiAl3GCCQplfXD6aZsBJemgyP0TB7L~Y1zbOX2PVhw0xtfTgg1YEUTKuVK2s1HY81BKVl1qTgpSus4hkHJeTXPgRjNFE~vVS~PQCGkLaqunTxqGd3ElIVyO6Q0gEQZIKvE7qTrz77tAYTydVQy9ktpGymUVlwd16d1O704jJSDnIBncOICFAMP6I7FxA9UI55t9RVjeh~o49-PlmZnhWogwZYdPxPGgww__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
           alt="uploadAudio"
           width="20"
           height="20"
@@ -104,7 +104,7 @@ export class AdminFeedback extends React.Component<{}, {}> {
     } else {
       return (
         <img
-          src="https://s3-alpha-sig.figma.com/img/5c37/7770/eced2bac8d7213431dc4807a6e524329?Expires=1652659200&Signature=UfMtDJqYCdsp1JugqHNKOyyH35cL7EbQ05e8uwmf-k4K3ShQwqXn676qqLZs7ma0xQUg7RZiz2-vu04xKFca8btN8AhHxl5U83dd3zYjyOtOl2rIzQKnBmfPFtCodlUlyBUwHb2ul7Qniji08dJts7Sh81p7JSWWtP3CeZMiFl9kg~Wb8nXhWhYg9dJyaUZUd0YuAhSwt8~DYH02fQd9JUbaB84neQplwy0LT9zIwTBHaBR5dyawTeM03J5MG3y-uAz1-p1bhpaByil2I35RlfgjpoC72HttNyajOMb3amfvr2AIUqrnu9zjkaraUHkHtGrzoZMMc40PMBskJoMjIw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
+          src="https://s3-alpha-sig.figma.com/img/cda8/3877/709be7a41235698ee4017e8255d3e63d?Expires=1653264000&Signature=Q0rrwhrxp~41XJkU4VvKE0Pwd~k5yKs4RW72p7m0UJlrwUPZoG7JEmUO8ZqeUbT0I~DV67Wp5Lyo0ckSNBG2MjTboTLhzAT0g6WZavD8EnfktxHl7C6UfplQUt39fhzZEYVS4eKBC~cGOaFsuCAQsdsmvi-zB2YgvdITpeBDQzf~iBE5DKc1LjE~ocuSEXSkMx-X9b~v3ErpJN90jIJ1FAKfTni6eq3MqX1pmFIsXP0dhBF534S-4IlfamH-QOGP4Bh5b7ZpkQ-Rwgly4ZywFgOIzD4Js2DCA2xb664QXCVOUBjPE1wWEh0UcjAgeeCQmdpOBR4kWKPMyHUIr4SiMA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
           alt="uploadText"
           width="30"
           height="30"
@@ -157,12 +157,11 @@ export class AdminFeedback extends React.Component<{}, {}> {
                       _hover={{ bg: "isepBrick.300" }}
                       variant="outline"
                       _focus={{
-                        boxShadow: "none"
-                        }}
+                        boxShadow: "none",
+                      }}
                       onClick={() =>
                         this.setFeedBackAndName(feedback, name, type)
                       }
-                      
                     >
                       <Box margin={"2"}>{this.getIcon(type)}</Box>
                       <Text>{date}</Text>
@@ -179,20 +178,20 @@ export class AdminFeedback extends React.Component<{}, {}> {
               width="500px"
             >
               <Grid templateColumns="repeat(5, 1fr)" gap={4}>
-                <GridItem colSpan={1} h="320" w="10" >
-                    <Divider orientation="vertical" />
+                <GridItem colSpan={1} h="320" w="10">
+                  <Divider orientation="vertical" />
                 </GridItem>
                 <GridItem colStart={2} colEnd={7} h="320">
-                  <Box height={'110px'}></Box>
-                <Box>
+                  <Box height={"110px"}></Box>
+                  <Box>
                     {this.getFeedback(this.state.feedback, this.state.type)}
-                    <Text fontSize="xs" as="i" align={'left'}>
+                    <Box height={'100px'}></Box>
+                    <Text fontSize="xs" as="i" align={"left"}>
                       {this.state.name}
                     </Text>
                   </Box>
-                </GridItem> 
+                </GridItem>
               </Grid>
-              
             </Box>
           </SimpleGrid>
         </BrowserView>

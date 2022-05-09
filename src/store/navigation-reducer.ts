@@ -34,11 +34,14 @@ const navigationSlice = createSlice({
     goToAdminFeedbackPage: (state) => {
       state.page = Page.AdminFeedback;
     },
+    goToBeaconsPage: (state) => {
+      state.page = Page.Beacons;
+    },
   },
 });
 
 // ************ ACTIONS ************
-export const { goToLoginPage, goToHomePage, goToFeedBackPage, goSettingsPage, goToAdminFeedbackPage } =
+export const { goToLoginPage, goToHomePage, goToFeedBackPage, goSettingsPage, goToAdminFeedbackPage, goToBeaconsPage } =
   navigationSlice.actions;
 
 // ************ SELECTORS ************

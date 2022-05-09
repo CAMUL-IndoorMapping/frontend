@@ -9,6 +9,7 @@ type ButtonProps = {
   buttonVariant?: "solid" | "outline" | "ghost" | "link";
   width?: string;
   height?: string;
+  textColor?: string;
   text: ReactChild;
   handleButtonClick: () => void;
 };
@@ -21,6 +22,7 @@ function CustomButton({
   buttonVariant = "solid",
   width = "529px",
   height = "47px",
+  textColor,
   text,
   handleButtonClick,
 }: ButtonProps) {
@@ -36,6 +38,7 @@ function CustomButton({
         variant={buttonVariant}
         width={width}
         height={height}
+        textColor={textColor}
         onClick={handleButtonClick}
       >
         {text}

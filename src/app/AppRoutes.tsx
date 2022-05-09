@@ -2,7 +2,7 @@ import React from 'react'
 import { Routes, Route } from "react-router-dom"
 import Home from './pages/home';
 import Login from './pages/login';
-import {AdminFeedback} from './pages/admin';
+import {AdminFeedback} from './pages/admin/feedback';
 import Settings from './pages/settings';
 import Feedback from './pages/feedback';
 

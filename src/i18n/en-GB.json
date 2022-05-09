@@ -4,5 +4,6 @@
   "feedback": "Feedback",
   "settings": "Settings",
   "admin_feedback": "Users Feedback",
-  "feedback_admin_page": "Diary Entries from Users"
+  "feedback_admin_page": "Diary Entries from Users",
+  "admin_beacons": "Beacons"
 }

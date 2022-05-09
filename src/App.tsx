@@ -5,10 +5,11 @@ import useTranslation from "./i18n/use-translation";
 
 import { useStoreSelector, useStoreDispatch } from "./store";
 import { selectedPage, goToLoginPage } from "./store/navigation-reducer";
-import { AdminFeedback } from "./app/pages/admin";
+import { AdminFeedback } from "./app/pages/admin/feedback";
 import { AppBar, Toolbar } from "@material-ui/core";
 
 import CustomButton from "./components/buttons";
+import { AdminBeacons } from "./app/pages/admin/beacons";
 
 function App() {
   const { t } = useTranslation();
@@ -38,9 +39,20 @@ function App() {
     return (
       <div className="App">
         <header className="App-header">
-          <Box height={'100px'}></Box>
-          <Text fontSize='3xl'>{t("feedback_admin_page")}</Text>
+          <Box height={'110px'}></Box>
+          <Text fontSize='3xl' margin='7'>{t("feedback_admin_page")}</Text>
           <AdminFeedback></AdminFeedback>
+        </header>
+       </div>
+       );
+  }
+  if (page === Page.Beacons) {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <Box height={'110px'}></Box>
+          <Text fontSize='3xl' margin='7'>{t("admin_beacons")}</Text>
+          <AdminBeacons></AdminBeacons>
         </header>
        </div>
        );
