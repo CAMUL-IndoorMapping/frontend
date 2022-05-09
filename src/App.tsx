@@ -6,8 +6,10 @@ import useTranslation from "./i18n/use-translation";
 import { useStoreSelector, useStoreDispatch } from "./store";
 import { selectedPage, goToLoginPage } from "./store/navigation-reducer";
 import { AdminFeedback } from "./app/pages/admin";
+import CustomButton from "./components/buttons";
 
 function App() {
+  const { t } = useTranslation();
   const page = useStoreSelector(selectedPage);
   const dispatch = useStoreDispatch();
 
