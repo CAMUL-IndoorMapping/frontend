@@ -11,6 +11,7 @@ import {
   goToFeedBackPage,
   goSettingsPage,
   goToLoginPage,
+  goToAdminFeedbackPage,
 } from "../../store/navigation-reducer";
 import Page from "../../types/pages";
 import { BrowserView, MobileView } from 'react-device-detect';
@@ -23,6 +24,7 @@ import { AiFillHome } from 'react-icons/ai'
 function Navigation() {
   const { t } = useTranslation();
   const [langCod, setLangCode] = useState<"PT" | "EN">("PT");
+  const [user, setUser] = useState<"Admin" | "User">("Admin");
 
   const page = useStoreSelector(selectedPage);
   const dispatch = useStoreDispatch();
@@ -37,10 +39,13 @@ function Navigation() {
 
   const handleNavigationClick = (e: MouseEvent<HTMLElement>) => {
     const { id } = e.currentTarget;
-
     if (id === "homepage") dispatch(goToHomePage());
     if (id === "feedback") dispatch(goToFeedBackPage());
     if (id === "settings") dispatch(goSettingsPage());
+    if (id === "adminFeedback"){
+      console.log(id);
+      dispatch(goToAdminFeedbackPage());
+    }
   };
 
   const handleNavigationClickMobile = (id: string) => {
@@ -83,16 +88,66 @@ function Navigation() {
   }
 
   return (
-    <>
-      <MobileView>
-        <Center>
-          <Box
-            w="234px"
-            h="52px"
-            bg='isepBrick.500'
-            rounded='100'
-            position='fixed'
-            bottom='30'
+    <div className="container">
+      {page !== Page.Login && (
+        <div className="page_nav">
+          <Logo className="app_logo" />
+          <span
+            id="homepage"
+            onClick={handleNavigationClick}
+            className="first_child"
+            style={{
+              fontWeight: page === 1 ? "700" : "400",
+            }}
+          >
+            {t("homepage")}
+          </span>
+          <span
+            id="feedback"
+            onClick={handleNavigationClick}
+            style={{
+              fontWeight: page === 2 ? "700" : "400",
+            }}
+          >
+            {t("feedback")}
+          </span>
+          <span
+            id="settings"
+            onClick={handleNavigationClick}
+            style={{
+              fontWeight: page === 3 ? "700" : "400",
+            }}
+          >
+            {t("settings")}
+          </span>
+
+          {user === "Admin" && (
+            <span
+              id="adminFeedback"
+              onClick={handleNavigationClick}
+              style={{
+                fontWeight: page === 3 ? "700" : "400",
+              }}
+            >
+              {t("admin_feedback")}
+            </span>
+          )}
+        </div>
+      )}
+
+      <div className="lang_options">
+        {page === Page.Login && (
+          <span className="about_us_copy">{t("about_us")}</span>
+        )}
+
+        <div className="lang_options_wrapper">
+          <span
+            onClick={() => {
+              setLangCode("PT");
+            }}
+            style={{
+              fontWeight: langCod === "PT" ? "700" : "300",
+            }}
           >
             <Flex direction='row' justifyContent='space-around' py='7px' px='14px'>
               {renderMobileNavItem(2, BsFillChatFill, 'feedback')}

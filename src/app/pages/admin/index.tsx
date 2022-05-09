@@ -152,7 +152,7 @@ export class AdminFeedback extends React.Component<{}, {}> {
                 <Center>
                   <ButtonGroup marginTop="1%" marginBottom="0.5%">
                     <Button
-                      width="900px"
+                      width="700px"
                       height="67px"
                       _hover={{ bg: "isepBrick.300" }}
                       variant="outline"
@@ -162,6 +162,7 @@ export class AdminFeedback extends React.Component<{}, {}> {
                       onClick={() =>
                         this.setFeedBackAndName(feedback, name, type)
                       }
+                      
                     >
                       <Box margin={"2"}>{this.getIcon(type)}</Box>
                       <Text>{date}</Text>
@@ -182,9 +183,10 @@ export class AdminFeedback extends React.Component<{}, {}> {
                     <Divider orientation="vertical" />
                 </GridItem>
                 <GridItem colStart={2} colEnd={7} h="320">
+                  <Box height={'110px'}></Box>
                 <Box>
                     {this.getFeedback(this.state.feedback, this.state.type)}
-                    <Text fontSize="xs" as="i">
+                    <Text fontSize="xs" as="i" align={'left'}>
                       {this.state.name}
                     </Text>
                   </Box>

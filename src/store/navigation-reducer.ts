@@ -11,7 +11,7 @@ type navigationState = {
 
 // ************ INITIAL STATE ************
 const initialState: navigationState = {
-  page: 4,
+  page: 1,
 };
 
 // ************ SLICE ************
@@ -31,11 +31,14 @@ const navigationSlice = createSlice({
     goSettingsPage: (state) => {
       state.page = Page.Settings;
     },
+    goToAdminFeedbackPage: (state) => {
+      state.page = Page.AdminFeedback;
+    },
   },
 });
 
 // ************ ACTIONS ************
-export const { goToLoginPage, goToHomePage, goToFeedBackPage, goSettingsPage } =
+export const { goToLoginPage, goToHomePage, goToFeedBackPage, goSettingsPage, goToAdminFeedbackPage } =
   navigationSlice.actions;
 
 // ************ SELECTORS ************
