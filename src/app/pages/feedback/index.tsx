@@ -11,7 +11,6 @@ import { AspectRatio } from '@chakra-ui/react'
 
 import { ReactMediaRecorder, useReactMediaRecorder } from "react-media-recorder";
 import { Stream } from 'stream';
-import { PhoneIcon, AddIcon, WarningIcon, DownloadIcon, EditIcon, AttachmentIcon } from '@chakra-ui/icons'
 import Webcam from 'react-webcam';
 import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
 
@@ -55,7 +54,7 @@ function Feedback() {
                 resolve(fileReader.result);
             };
 
-            fileReader.onerror = (error: any) => {
+            fileReader.onerror = (error: string) => {
                 reject("error: " + error);
             };
 
@@ -181,6 +180,7 @@ function Feedback() {
     const photoRef = useRef(null);
     const [hasPhoto, setHasPhoto] = useState(false);
 
+    /**
     const getVideo = () => {
         navigator.mediaDevices.getUserMedia({ video: { width: 300, height: 200 } })
             .then(stream => {
@@ -207,6 +207,7 @@ function Feedback() {
 
         setHasPhoto(true);
     }
+     */
 
     const closePhoto = () => {
         setImage(null);
@@ -239,22 +240,17 @@ function Feedback() {
     }
 
     useEffect(() => {
-        { getVideo(); navigator.mediaDevices.enumerateDevices().then(handleDevices); }
+        { navigator.mediaDevices.enumerateDevices().then(handleDevices); }
     }, [videoRef, handleDevices])
     return (
         <>
-            <Heading as="h1" size="xl">
-                Feedback
-            </Heading>
-            <p>Upload here your feedback</p>
-
             <MobileView>
                 <SimpleGrid columns={[1]}>
 
-                    {/**Main buttons */}
+                    {/**Main buttons mobile view*/}
                     <Box>
                         <Center>
-                            <ButtonGroup marginTop='20%' marginBottom='10%' spacing='12'>
+                            <ButtonGroup marginTop='10%' marginBottom='10%' spacing='12'>
                                 <Button _focus={{ boxShadow: "none" }} width='67px' height='67px' _hover={{ bg: '#CE7E5C' }} borderColor='#CE7E5C'
                                     borderRadius='62px' variant='outline' onClick={uploadFeedbackText}>
                                     <img src="https://s3-alpha-sig.figma.com/img/5c37/7770/eced2bac8d7213431dc4807a6e524329?Expires=1652659200&Signature=UfMtDJqYCdsp1JugqHNKOyyH35cL7EbQ05e8uwmf-k4K3ShQwqXn676qqLZs7ma0xQUg7RZiz2-vu04xKFca8btN8AhHxl5U83dd3zYjyOtOl2rIzQKnBmfPFtCodlUlyBUwHb2ul7Qniji08dJts7Sh81p7JSWWtP3CeZMiFl9kg~Wb8nXhWhYg9dJyaUZUd0YuAhSwt8~DYH02fQd9JUbaB84neQplwy0LT9zIwTBHaBR5dyawTeM03J5MG3y-uAz1-p1bhpaByil2I35RlfgjpoC72HttNyajOMb3amfvr2AIUqrnu9zjkaraUHkHtGrzoZMMc40PMBskJoMjIw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" /></Button>
@@ -273,7 +269,7 @@ function Feedback() {
 
                     <Box marginBottom='15%'>
 
-                        {/**Upload photo/video */}
+                        {/**Upload photo/video mobile*/}
                         <div style={{ display: selectedUploadFile ? 'block' : 'none' }}>
                             <Center>
                                 <Button _focus={{ boxShadow: "none" }} backgroundColor='#CE7E5C' color='#FFFFFF' borderRadius='200px' _hover={{ bg: '#A2543D' }}
@@ -309,7 +305,7 @@ function Feedback() {
                                             }}>Take a photo</Button>
                                     </Center>
                                     <Center>
-                                        {/**record video */}
+                                        {/**record video mobile*/}
                                         <div>
                                             <Button style={{ display: selectedStartRecordVideo ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} _hover={{ bg: '#DA8E71' }} borderColor='#A2543D' borderRadius='200px' color='#A2543D'
                                                 variant='outline' height='47px' width='206px' onClick={() => { video.startRecording(); startRecordVideo() }}>Start Recording</Button>
@@ -330,7 +326,7 @@ function Feedback() {
                                     </Center>
                                 </div>
 
-                                {/**Photo*/}
+                                {/**Photo mobile*/}
                                 <div className={'result' + (hasPhoto ? 'hasPhoto' : '')} >
                                     <Center>
                                         <img src={img || undefined}></img>
@@ -342,7 +338,7 @@ function Feedback() {
                                 </div>
                             </div>
 
-                            {/**upload image/video */}
+                            {/**upload image/video mobile*/}
                             <div style={{ display: selectedUploadFileGallery ? 'block' : 'none' }}>
                                 <Center>
                                     <input type="file" accept="image/*,video/*" onChange={handleImageChange}></input>
@@ -350,7 +346,7 @@ function Feedback() {
                             </div>
                         </div>
 
-                        {/**Text feedback */}
+                        {/**Text feedback mobile*/}
                         <div style={{ display: selectedUploadFeedbackTex ? 'inline' : 'none' }}>
                             <Center>
                                 <Textarea borderColor='#A2543D' width='50%' height='200px' _hover={{ boxShadow: 'none' }} _focus={{ boxShadow: "none" }}
@@ -363,7 +359,7 @@ function Feedback() {
                             </Center>
                         </div>
 
-                        {/**Audio feedback */}
+                        {/**Audio feedback mobile*/}
                         <div style={{ display: selectedUploadAudio ? 'block' : 'none' }}>
                             <Center>
                                 <Button _focus={{ boxShadow: "none" }} backgroundColor='#CE7E5C' color='#FFFFFF' borderRadius='200px' _hover={{ bg: '#A2543D' }}
@@ -374,14 +370,14 @@ function Feedback() {
                                     borderColor='#A2543D' width='206px' height='47px' marginBottom='5%' onClick={uploadAudioFiles}>From files</Button>
                             </Center>
 
-                            {/**Upload audio */}
+                            {/**Upload audio mobile*/}
                             <div style={{ display: selectedUploadAudioFiles ? 'block' : 'none' }}>
                                 <Center>
                                     <input type="file" accept="audio/*" onChange={handleImageChange}></input>
                                 </Center>
                             </div>
 
-                            {/**Record audio */}
+                            {/**Record audio mobile*/}
                             <div style={{ display: selectedUploadAudioMic ? 'block' : 'none' }}>
                                 <Center>
                                     <div>
@@ -433,10 +429,10 @@ function Feedback() {
             <BrowserView>
 
                 <SimpleGrid columns={[3]}>
-                    {/**main buttons */}
+                    {/**main buttons desktop*/}
                     <Box marginLeft='100px'>
                         <Center>
-                            <ButtonGroup marginTop='20%' marginBottom='10%' spacing='12'>
+                            <ButtonGroup marginTop='5%' marginBottom='10%' spacing='12'>
                                 <Button _focus={{ boxShadow: "none" }} width='93px' height='93px' _hover={{ bg: '#CE7E5C' }} borderColor='#CE7E5C'
                                     borderRadius='62px' variant='outline' onClick={uploadFeedbackText}>
                                     <img src="https://s3-alpha-sig.figma.com/img/5c37/7770/eced2bac8d7213431dc4807a6e524329?Expires=1652659200&Signature=UfMtDJqYCdsp1JugqHNKOyyH35cL7EbQ05e8uwmf-k4K3ShQwqXn676qqLZs7ma0xQUg7RZiz2-vu04xKFca8btN8AhHxl5U83dd3zYjyOtOl2rIzQKnBmfPFtCodlUlyBUwHb2ul7Qniji08dJts7Sh81p7JSWWtP3CeZMiFl9kg~Wb8nXhWhYg9dJyaUZUd0YuAhSwt8~DYH02fQd9JUbaB84neQplwy0LT9zIwTBHaBR5dyawTeM03J5MG3y-uAz1-p1bhpaByil2I35RlfgjpoC72HttNyajOMb3amfvr2AIUqrnu9zjkaraUHkHtGrzoZMMc40PMBskJoMjIw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" /></Button>
@@ -447,7 +443,7 @@ function Feedback() {
 
                                 <Button _focus={{ boxShadow: "none" }} width='93px' height='93px' _hover={{ bg: '#CE7E5C' }} borderColor='#CE7E5C'
                                     borderRadius='62px' variant='outline' onClick={uploadAudio}>
-                                    <img src='https://s3-alpha-sig.figma.com/img/9570/6275/02fe629724c6451bfc58e8b408959b7f?Expires=1652659200&Signature=ersh~djo0M0azAQXkkTt4atepCPDgD7pfkNhGnpDDINizApqLzAFk8SMm-PpkHFaMqzOW-xSqAfeDd8V8mXslKQY7g97M6zXewSuftfpQkewSOmHfT8s3OINRHV3iqDEW4z8f0j~8q5D9Q7iEhCOVXWWiklU9PYEpJOrXNpTib75MigEcus2~vkeBGPNvtWLUxXlbKELRs1lJ4Bi~qr2hxGiRdeGELKk~WBl0qchXBivzZEevHwInxe7Huusa1Ug1QE3CFctUOk2xxDU569K4PKG7siFbZQ4gNZUlUXsZa9w6bFmzwBZHuu7c8gph3ooZQXf3c65Ew99zAjkdd5CxA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'></img></Button>
+                                    <img width='90%' src='https://s3-alpha-sig.figma.com/img/9570/6275/02fe629724c6451bfc58e8b408959b7f?Expires=1652659200&Signature=ersh~djo0M0azAQXkkTt4atepCPDgD7pfkNhGnpDDINizApqLzAFk8SMm-PpkHFaMqzOW-xSqAfeDd8V8mXslKQY7g97M6zXewSuftfpQkewSOmHfT8s3OINRHV3iqDEW4z8f0j~8q5D9Q7iEhCOVXWWiklU9PYEpJOrXNpTib75MigEcus2~vkeBGPNvtWLUxXlbKELRs1lJ4Bi~qr2hxGiRdeGELKk~WBl0qchXBivzZEevHwInxe7Huusa1Ug1QE3CFctUOk2xxDU569K4PKG7siFbZQ4gNZUlUXsZa9w6bFmzwBZHuu7c8gph3ooZQXf3c65Ew99zAjkdd5CxA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'></img></Button>
                             </ButtonGroup>
                         </Center>
 
@@ -464,13 +460,13 @@ function Feedback() {
                                 variant='outline' height='47px' width='529px'>SENT FEEDBACK</Button>
                         </Center>
                     </Box>
-                    <Box marginLeft='100px' backgroundColor='#000000' width='0px' height='550px' border='1px'></Box>
+                    <Box marginLeft='100px' backgroundColor='#000000' width='0px' marginTop='-120px' height='550px' border='1px'></Box>
 
-                    <Box marginLeft='-400px'>
-                        {/**Upload photo/video */}
+                    <Box marginLeft='-400px'marginTop='-30px'>
+                        {/**Upload photo/video desktop*/}
                         <div style={{ display: selectedUploadFile ? 'block' : 'none' }}>
 
-                            <Box marginLeft='150px' marginTop='50px' width='600px' height='100%' backgroundColor='#FCE5D7' p={4} color='#575757'>
+                            <Box marginLeft='150px' width='600px' height='100%' backgroundColor='#FCE5D7' p={4} color='#575757'>
                                 <label onChange={handleImageChange} htmlFor="formId">
 
                                     {/**<input name="" type="file" accept="image/*,video/*" id="formId" hidden />*/}
@@ -487,10 +483,10 @@ function Feedback() {
                             </Box>
                         </div>
 
-                        {/**Text feedback */}
+                        {/**Text feedback desktop*/}
                         <div style={{ display: selectedUploadFeedbackTex ? 'inline' : 'none' }}>
 
-                            <Box marginLeft='150px' marginTop='50px' width='600px' backgroundColor='#FCE5D7' p={4} color='#575757'>
+                            <Box marginLeft='150px' width='600px' backgroundColor='#FCE5D7' p={4} color='#575757'>
                                 <Center>
                                     <img width='25%' src="https://s3-alpha-sig.figma.com/img/5c37/7770/eced2bac8d7213431dc4807a6e524329?Expires=1652659200&Signature=UfMtDJqYCdsp1JugqHNKOyyH35cL7EbQ05e8uwmf-k4K3ShQwqXn676qqLZs7ma0xQUg7RZiz2-vu04xKFca8btN8AhHxl5U83dd3zYjyOtOl2rIzQKnBmfPFtCodlUlyBUwHb2ul7Qniji08dJts7Sh81p7JSWWtP3CeZMiFl9kg~Wb8nXhWhYg9dJyaUZUd0YuAhSwt8~DYH02fQd9JUbaB84neQplwy0LT9zIwTBHaBR5dyawTeM03J5MG3y-uAz1-p1bhpaByil2I35RlfgjpoC72HttNyajOMb3amfvr2AIUqrnu9zjkaraUHkHtGrzoZMMc40PMBskJoMjIw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
                                 </Center>
@@ -506,9 +502,9 @@ function Feedback() {
                             </Box>
                         </div>
 
-                        {/**Audio feedback */}
+                        {/**Audio feedback desktop*/}
                         <div style={{ display: selectedUploadAudio ? 'block' : 'none' }}>
-                            <Box marginLeft='150px' marginTop='50px' width='600px' height='100%' backgroundColor='#FCE5D7' p={4} color='#575757'>
+                            <Box marginLeft='150px' width='600px' height='100%' backgroundColor='#FCE5D7' p={4} color='#575757'>
                                 <Center>
                                     <Button _focus={{ boxShadow: "none" }} marginTop='2%' backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }}
                                         color='#FFFFFF' borderColor='#CE7E5C' width='206px' height='47px' marginBottom='2%' onClick={uploadAudioMic}>Use mic</Button>
@@ -524,7 +520,7 @@ function Feedback() {
                                     </Center>
                                 </div>
 
-                                {/**upload audio*/}
+                                {/**upload audio desktop*/}
                                 <div style={{ display: selectedUploadAudioFiles ? 'block' : 'none' }}>
                                     <label onChange={handleImageChange} htmlFor="formIdAudio">
                                         <input id="formIdAudio" hidden type="file" accept="audio/*" onChange={handleImageChange}></input>
@@ -537,7 +533,7 @@ function Feedback() {
                                     </label>
                                 </div>
 
-                                {/**record audio */}
+                                {/**record audio desktop*/}
                                 <div style={{ display: selectedUploadAudioMic ? 'block' : 'none' }}>
                                     <Center>
                                         <div>
@@ -565,15 +561,10 @@ function Feedback() {
                                     </Center>
                                 </div>
                             </Box>
-
                         </div>
                     </Box>
                 </SimpleGrid>
-
             </BrowserView>
-
-
-
         </>
     )
 }
