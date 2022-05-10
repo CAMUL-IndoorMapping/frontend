@@ -5,5 +5,8 @@
   "settings": "Settings",
   "admin_feedback": "Users Feedback",
   "feedback_admin_page": "Diary Entries from Users",
-  "admin_beacons": "Beacons"
+  "admin_beacons": "Beacons",
+  "beacon_device_id": "Device Id",
+  "beacon_classroom": "Classroom",
+  "beacon_coordinates": "Coordinates"
 }

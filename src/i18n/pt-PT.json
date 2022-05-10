@@ -5,5 +5,8 @@
   "settings": "Definições",
   "admin_feedback": "Feedback",
   "feedback_admin_page": "Feedback de Utilizadores",
-  "admin_beacons": "Beacons"
+  "admin_beacons": "Beacons",
+  "beacon_device_id": "Id do Dispositivo",
+  "beacon_classroom": "Sala de aula",
+  "beacon_coordinates": "Coordenadas"
 }

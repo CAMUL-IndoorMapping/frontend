@@ -17,6 +17,7 @@ import {
 } from "@chakra-ui/react";
 import { BrowserView, MobileView } from "react-device-detect";
 import CustomButton from "../../../../components/buttons";
+import useTranslation from "../../../../i18n/use-translation";
 
 interface Beacon {
   deviceId: string;
@@ -59,7 +60,13 @@ const array1: Beacon[] = [
 ];
 
 function AdminBeacons() {
+  const { t } = useTranslation();
+
 const[isModalVisible, setIsModalVisible] = useState(false);
+
+const toggleModel = () =>{
+  setIsModalVisible(wasModalVisible => !wasModalVisible)
+}
 
 const[stateDeviceId, setDeviceId] = useState("Device Id");
 const[stateClassRoom, setClassRoom] = useState("Classroom");
@@ -146,7 +153,7 @@ function setStates(device:string, classRoom:string, x:number, y:number, z:number
                 </GridItem>
                 <GridItem colStart={2} colEnd={7} h="320">
                   <Text color="isepBrick.500" align="left">
-                    Device Id
+                  {t("beacon_device_id")}
                   </Text>
                   <Editable
                     defaultValue={stateDeviceId}
@@ -159,7 +166,7 @@ function setStates(device:string, classRoom:string, x:number, y:number, z:number
                   </Editable>
                   <Box height={"9px"}></Box>
                   <Text color="isepBrick.500" align="left">
-                    Classroom
+                  {t("beacon_classroom")}
                   </Text>
                   <Editable
                     defaultValue={stateClassRoom}
@@ -172,7 +179,7 @@ function setStates(device:string, classRoom:string, x:number, y:number, z:number
                   </Editable>
                   <Box height={"9px"}></Box>
                   <Text color="isepBrick.500" align="left">
-                    Coordinates
+                  {t("beacon_coordinates")}
                   </Text>
                   <Editable
                     defaultValue={stateX.toString()}
