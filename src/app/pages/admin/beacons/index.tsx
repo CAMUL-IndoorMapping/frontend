@@ -6,7 +6,7 @@ import {
   EditablePreview,
   EditableInput,
   Text,
-  Image,
+  Icon,
   Center,
   Button,
   ButtonGroup,
@@ -15,9 +15,11 @@ import {
   GridItem,
   Divider,
 } from "@chakra-ui/react";
+import { useToast } from '@chakra-ui/react'
 import { BrowserView, MobileView } from "react-device-detect";
 import CustomButton from "../../../../components/buttons";
 import useTranslation from "../../../../i18n/use-translation";
+import {FaBacon} from "react-icons/fa";
 
 interface Beacon {
   deviceId: string;
@@ -59,10 +61,16 @@ const array1: Beacon[] = [
   },
 ];
 
+
 function AdminBeacons() {
   const { t } = useTranslation();
+  
 
+  const toast = useToast()
+  const statuses = ['success', 'error', 'warning', 'info']
+  
 const[isModalVisible, setIsModalVisible] = useState(false);
+
 
 const toggleModel = () =>{
   setIsModalVisible(wasModalVisible => !wasModalVisible)
@@ -131,14 +139,8 @@ function setStates(device:string, classRoom:string, x:number, y:number, z:number
                         setStates(deviceId,classRoom,x,y,z)                        
                       }
                     >
-                      {/* <Box margin={"2"}>
-                        <img
-                          src="https://www.figma.com/file/lHhs3EwlCUjqeNLCunwZb9/Application-UI?node-id=369%3A451"
-                          alt="beaconImage"
-                          width="30"
-                          height="30"
-                        />
-                      </Box> */}
+                      <Icon as={FaBacon} color={'isepBrick.500'}  w={6} h={6}/>
+                      <Box  w={3} h={6}></Box>
                       <Text>{deviceId}</Text>
                     </Button>
                   </ButtonGroup>
@@ -211,9 +213,13 @@ function setStates(device:string, classRoom:string, x:number, y:number, z:number
                     text="UPDATE"
                     textColor="#FFFFFF"
                     width="280px"
-                    handleButtonClick={() => [
-                      [alert("Beacon " + stateDeviceId + " Updated!")],
-                    ]}
+                    handleButtonClick={() =>
+                      toast({
+                        title: `Beacon successfully updated!`,
+                        status: 'success',
+                        isClosable: true,
+                      })
+                    }
                   />
                 </GridItem>
               </Grid>
