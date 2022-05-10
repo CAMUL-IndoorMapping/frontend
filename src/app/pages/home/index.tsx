@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import { BrowserView } from 'react-device-detect';
 import { Helmet } from 'react-helmet';
-import { Box, Flex, Heading, IconButton, Select } from '@chakra-ui/react'
-import { Icon, ChevronRightIcon } from '@chakra-ui/icons'
+import { Box, Button, Flex, Heading, IconButton, Select } from '@chakra-ui/react'
+import { Icon, ChevronRightIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-ui/icons'
 import { BsPinAngleFill } from 'react-icons/bs';
 import useTranslation from "../../../i18n/use-translation";
-import { useWindowSize } from '@react-hook/window-size'
+import { isMobile } from 'react-device-detect';
+
 const locations = [
     {
         key: 'a',
@@ -25,13 +26,15 @@ const locations = [
     },
 ]
 
+const levels = ['1', '2', '3', '4']
+
 function Home() {
 
     const { t } = useTranslation()
-    const [width, height] = useWindowSize()
     const [origin, setOrigin] = useState('')
     const [destination, setDestination] = useState('')
-    const isMobile = width < 768
+    const [isLevelMenuOpen, setIsLevelsMenuOpen] = useState<true | false>(false)
+    const [activeLevel, setActiveLevel] = useState('1')
 
     const renderCircle = (size: string, marginTop?: string, marginLeft?: string) => (
         <Box w={size} h={size} rounded='10' bg='white' ml={marginLeft} mt={marginTop}></Box>
@@ -48,11 +51,15 @@ function Home() {
     }
 
     const handleAddBeaconClick = (e: any) => {
-        console.log(e)
+        console.log('origin', origin)
+        console.log('destination', destination)
+        console.log('isLevelMenuOpen', isLevelMenuOpen)
+        console.log('activeLevel', activeLevel)
     }
 
-    const handleChangeLevelMenu = (e: any) => {
-        console.log(e)
+    const handleChangeLevel = (e: any, level: string) => {
+        setActiveLevel(level)
+        setIsLevelsMenuOpen(false)
     }
 
     return (
@@ -1432,7 +1439,7 @@ function Home() {
                     </Flex>
 
                     <Flex direction='column' w={{ base: '100%', md: '20rem' }}>
-                        <Select variant='filled' isFullWidth _focus={{ backgroundColor: 'white' }} onChange={handleSelectOrigin}>
+                        <Select variant='filled' placeholder=' ' isFullWidth _focus={{ backgroundColor: 'white' }} onChange={handleSelectOrigin}>
                             {
                                 locations.map((e, i) => (
                                     <>
@@ -1442,7 +1449,7 @@ function Home() {
                                 ))
                             }
                         </Select>
-                        <Select variant='filled' isFullWidth _focus={{ backgroundColor: 'white' }} mt='1rem' onChange={handleSelectDestination} >
+                        <Select variant='filled' placeholder=' ' isFullWidth _focus={{ backgroundColor: 'white' }} mt='1rem' onChange={handleSelectDestination} >
                             {
                                 locations.map(e => (
                                     <>
@@ -1456,36 +1463,65 @@ function Home() {
             </Box>
 
             <IconButton
-                aria-label='Change Level'
-                color='white'
-                bg='isepBrick.500'
-                _hover={{ backgroundColor: 'isepBrick.400' }}
-                _active={{ backgroundColor: 'isepBrick.300' }}
-                size='lg'
-                rounded='100'
-                position='fixed'
-                bottom='200px'
-                left='0'
-                margin='2rem'
-                icon={<ChevronRightIcon />}
-                onClick={handleChangeLevelMenu}
-            />
-
-            <IconButton
                 aria-label='Add Beacon'
                 color='white'
                 bg='isepBrick.500'
                 _hover={{ backgroundColor: 'isepBrick.400' }}
                 _active={{ backgroundColor: 'isepBrick.300' }}
+                _focus={{ boxShadow: 'none' }}
                 size='lg'
                 rounded='100'
                 position='fixed'
-                bottom='0'
+                bottom={isMobile ? 'none' : '0'}
                 right='0'
-                margin='2rem'
+                margin={isMobile ? '1rem' : '2rem'}
+                marginTop='0rem'
                 icon={<Icon as={BsPinAngleFill} />}
                 onClick={handleAddBeaconClick}
             />
+
+            <Flex
+                direction={isMobile ? 'column' : 'column-reverse'}
+                ml={isMobile ? '1rem' : '2rem'}
+                mt={isMobile ? '67px' : '0px'}
+                position='fixed'
+                top={isMobile ? '133px' : 'none'}
+                bottom={isMobile ? 'none' : '220px'}
+            >
+
+                <IconButton
+                    aria-label='Change Level'
+                    color='white'
+                    bg='isepBrick.500'
+                    _hover={{ backgroundColor: 'isepBrick.400' }}
+                    _active={{ backgroundColor: 'isepBrick.300' }}
+                    _focus={{ boxShadow: 'none' }}
+                    rounded='100'
+                    w='48px'
+                    h='48px'
+                    mt={isMobile ? '0' : '.3rem'}
+                    icon={isLevelMenuOpen ?
+                        (isMobile ? <ChevronDownIcon /> : <ChevronUpIcon />)
+                        : <ChevronRightIcon />}
+                    onClick={() => setIsLevelsMenuOpen(!isLevelMenuOpen)}
+                />
+
+                {isLevelMenuOpen &&
+                    levels.map(level => (
+                        <Button
+                            w='48px'
+                            h='48px'
+                            rounded='100'
+                            mt='.3rem'
+                            bg={level === activeLevel ? 'isepBrick.300' : 'isepBrick.400'}
+                            onClick={(e) => { handleChangeLevel(e, level) }}
+                            _focus={{ boxShadow: 'none' }}
+                            _hover={{ backgroundColor: 'isepBrick.300' }}
+                        >
+                            {level}
+                        </Button>
+                    ))}
+            </Flex>
 
         </>
     )
