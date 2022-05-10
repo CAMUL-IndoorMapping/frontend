@@ -19,7 +19,6 @@ import {
   Table,
   Thead,
   Tbody,
-  Tfoot,
   Tr,
   Th,
   Td,
@@ -32,6 +31,7 @@ import CustomButton from "../../../../components/buttons";
 import useTranslation from "../../../../i18n/use-translation";
 import { FaBacon } from "react-icons/fa";
 import { MdAddBox } from "react-icons/md";
+import { render } from "@testing-library/react";
 
 interface Beacon {
   deviceId: string;
@@ -79,12 +79,6 @@ function AdminBeacons() {
   const toast = useToast();
   const statuses = ["success", "error", "warning", "info"];
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const toggleModel = () => {
-    setIsModalVisible((wasModalVisible) => !wasModalVisible);
-  };
-
   const [stateDeviceId, setDeviceId] = useState("Device Id");
   const [stateClassRoom, setClassRoom] = useState("Classroom");
   const [stateX, setX] = useState(0);
@@ -109,6 +103,22 @@ function AdminBeacons() {
     // setX(parseInt(event.target.getAttribute('value')?.));
   }
 
+  function handleSave(): void {
+    //chamar o endpoint de PUT de device
+    //if 200
+    toast({
+      title: `Beacon successfully updated!`,
+      status: "success",
+      isClosable: true,
+    });
+    //else
+    // toast({
+    //   title: `Beacon couldn't be updated 😓`,
+    //   status: "error",
+    //   isClosable: true,
+    // })
+  }
+
   return (
     <>
       <MobileView>
@@ -125,12 +135,20 @@ function AdminBeacons() {
         </Box>
         <TableContainer>
           <Table variant="simple">
-            <TableCaption>{t("beacon_list")}</TableCaption>
+            <TableCaption fontFamily={"Montserrat-SemiBold"}>
+              {t("beacon_list")}
+            </TableCaption>
             <Thead>
               <Tr>
-                <Th color={"isepBrick.500"}>{t("beacon_device_id")}</Th>
-                <Th color={"isepBrick.500"}>{t("beacon_classroom")}</Th>
-                <Th color={"isepBrick.500"}>{t("beacon_coordinates")}</Th>
+                <Th fontFamily={"Montserrat-Medium"} color={"isepBrick.500"}>
+                  {t("beacon_device_id")}
+                </Th>
+                <Th fontFamily={"Montserrat-Medium"} color={"isepBrick.500"}>
+                  {t("beacon_classroom")}
+                </Th>
+                <Th fontFamily={"Montserrat-Medium"} color={"isepBrick.500"}>
+                  {t("beacon_coordinates")}
+                </Th>
               </Tr>
             </Thead>
             <Tbody>
@@ -149,110 +167,123 @@ function AdminBeacons() {
       </MobileView>
 
       <BrowserView>
-          <SimpleGrid columns={[1, 2]}>
-            <Box>
-              {array1.map(({ deviceId, classRoom, x, y, z }) => (
-                <Center>
-                  <ButtonGroup marginTop="1%" marginBottom="0.5%">
-                    <Button
-                      width="700px"
-                      height="67px"
-                      _hover={{ bg: "isepBrick.300" }}
-                      variant="outline"
-                      _focus={{
-                        boxShadow: "none",
-                      }}
-                      onClick={() =>
-                        setStates(deviceId,classRoom,x,y,z)                        
-                      }
-                    >
-                      <Icon as={FaBacon} color={'isepBrick.500'}  w={6} h={6}/>
-                      <Box  w={3} h={6}></Box>
-                      <Text>{deviceId}</Text>
-                    </Button>
-                  </ButtonGroup>
-                </Center>
-              ))}
-            </Box>
+        <SimpleGrid columns={[1, 2]}>
+          <Box>
+            {array1.map(({ deviceId, classRoom, x, y, z }) => (
+              <Center>
+                <ButtonGroup marginTop="1%" marginBottom="0.5%">
+                  <Button
+                    width="700px"
+                    height="67px"
+                    _hover={{ bg: "isepBrick.300" }}
+                    variant="outline"
+                    _focus={{
+                      boxShadow: "none",
+                    }}
+                    onClick={() => setStates(deviceId, classRoom, x, y, z)}
+                  >
+                    <Icon as={FaBacon} color={"isepBrick.500"} w={6} h={6} />
+                    <Box w={3} h={6}></Box>
+                    <Text fontFamily={"Montserrat-SemiBold"}>{deviceId}</Text>
+                  </Button>
+                </ButtonGroup>
+              </Center>
+            ))}
+          </Box>
 
-            <Box marginBottom="1%" borderRadius="3xl" width="500px">
-              <Grid templateColumns="repeat(5, 1fr)" gap={4}>
-                <GridItem colSpan={1} h="320" w="10">
-                  <Divider orientation="vertical" />
-                </GridItem>
-                <GridItem colStart={2} colEnd={7} h="320">
-                  <Text color="isepBrick.500" align="left">
+          <Box marginBottom="1%" borderRadius="3xl" width="500px">
+            <Grid templateColumns="repeat(5, 1fr)" gap={4}>
+              <GridItem colSpan={1} h="320" w="10">
+                <Divider orientation="vertical" />
+              </GridItem>
+              <GridItem colStart={2} colEnd={7} h="320">
+                <Text
+                  fontFamily={"Montserrat-SemiBold"}
+                  color="isepBrick.500"
+                  align="left"
+                >
                   {t("beacon_device_id")}
-                  </Text>
-                  <Editable
-                    defaultValue={stateDeviceId}
-                    isDisabled={
-                      stateDeviceId === "Device Id" ? true : false
-                    }
-                  >
-                    <EditablePreview textAlign={"left"} />
-                    <EditableInput />
-                  </Editable>
-                  <Box height={"9px"}></Box>
-                  <Text color="isepBrick.500" align="left">
+                </Text>
+
+                <Editable
+                  fontFamily={"Montserrat-Medium"}
+                  value={stateDeviceId}
+                  isDisabled={stateDeviceId === "Device Id" ? true : false}
+                >
+                  <EditablePreview textAlign={"left"} />
+                  <EditableInput />
+                </Editable>
+                <Divider color={"isepBrick.500"}></Divider>
+                <Box height={"11px"}></Box>
+                <Text
+                  fontFamily={"Montserrat-SemiBold"}
+                  color="isepBrick.500"
+                  align="left"
+                >
                   {t("beacon_classroom")}
-                  </Text>
-                  <Editable
-                    defaultValue={stateClassRoom}
-                    isDisabled={
-                      stateClassRoom === "Classroom" ? true : false
-                    }
-                  >
-                    <EditablePreview textAlign={"left"} />
-                    <EditableInput />
-                  </Editable>
-                  <Box height={"9px"}></Box>
-                  <Text color="isepBrick.500" align="left">
+                </Text>
+                <Editable
+                  fontFamily={"Montserrat-Medium"}
+                  value={stateClassRoom}
+                  isDisabled={stateClassRoom === "Classroom" ? true : false}
+                >
+                  <EditablePreview textAlign={"left"} />
+                  <EditableInput />
+                </Editable>
+                <Divider style={{ background: "isepBrick.500" }}></Divider>
+                <Box height={"11px"}></Box>
+                <Text
+                  fontFamily={"Montserrat-SemiBold"}
+                  color="isepBrick.500"
+                  align="left"
+                >
                   {t("beacon_coordinates")}
-                  </Text>
-                  <Editable
-                    defaultValue={stateX.toString()}
-                    isDisabled={stateX === 0 ? true : false}
-                  >
-                    <EditablePreview textAlign={"left"} />
-                    <EditableInput onChange={e => handleInputChange(e)}/>
-                  </Editable>
-                  <Editable
-                    defaultValue={stateY.toString()}
-                    isDisabled={stateY === 0 ? true : false}
-                  >
-                    <EditablePreview textAlign={"left"} />
-                    <EditableInput />
-                  </Editable>
-                  <Editable
-                    defaultValue={stateZ.toString()}
-                    isDisabled={stateZ === 0 ? true : false}
-                  >
-                    <EditablePreview textAlign={"left"} />
-                    <EditableInput />
-                  </Editable>
-                  <Box height="15px"></Box>
-                  <CustomButton
-                    backgroundColor="isepBrick.500"
-                    borderColor="isepGreen.500"
-                    buttonColor="isepGrey.600"
-                    hoverColor="isepBrick.400"
-                    text="UPDATE"
-                    textColor="#FFFFFF"
-                    width="280px"
-                    handleButtonClick={() =>
-                      toast({
-                        title: `Beacon successfully updated!`,
-                        status: 'success',
-                        isClosable: true,
-                      })
-                    }
-                  />
-                </GridItem>
-              </Grid>
-            </Box>
-          </SimpleGrid>
-        </BrowserView>
+                </Text>
+                <Editable
+                  fontFamily={"Montserrat-Medium"}
+                  border={"thin"}
+                  value={stateX.toString()}
+                  isDisabled={stateX === 0 ? true : false}
+                >
+                  <EditablePreview textAlign={"left"} border={"thin"} />
+                  <EditableInput onChange={(e) => handleInputChange(e)} />
+                </Editable>
+                <Divider color={"isepBrick.500"}></Divider>
+                <Editable
+                  fontFamily={"Montserrat-Medium"}
+                  value={stateY.toString()}
+                  isDisabled={stateY === 0 ? true : false}
+                >
+                  <EditablePreview textAlign={"left"} />
+                  <EditableInput />
+                </Editable>
+                <Divider color={"isepBrick.500"}></Divider>
+                <Editable
+                  fontFamily={"Montserrat-Medium"}
+                  value={stateZ.toString()}
+                  isDisabled={stateZ === 0 ? true : false}
+                >
+                  <EditablePreview textAlign={"left"} />
+                  <EditableInput />
+                </Editable>
+
+                <Divider color={"isepBrick.500"}></Divider>
+                <Box height="15px"></Box>
+                <CustomButton
+                  backgroundColor="isepBrick.500"
+                  borderColor="isepGreen.500"
+                  buttonColor="isepGrey.600"
+                  hoverColor="isepBrick.400"
+                  text="UPDATE"
+                  textColor="#FFFFFF"
+                  width="280px"
+                  handleButtonClick={() => handleSave()}
+                />
+              </GridItem>
+            </Grid>
+          </Box>
+        </SimpleGrid>
+      </BrowserView>
     </>
   );
 }

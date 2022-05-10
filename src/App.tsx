@@ -51,7 +51,7 @@ function App() {
       <div className="App">
         <header className="App-header">
           <Box height={'110px'}></Box>
-          <Text fontSize='3xl' margin='7'>{t("admin_beacons")}</Text>
+          <Text fontFamily={"Montserrat-SemiBold"} fontSize='3xl' margin='7'>{t("admin_beacons")}</Text>
           <AdminBeacons></AdminBeacons>
         </header>
        </div>
