@@ -8,5 +8,6 @@
   "admin_beacons": "Beacons",
   "beacon_device_id": "Device Id",
   "beacon_classroom": "Classroom",
-  "beacon_coordinates": "Coordinates"
+  "beacon_coordinates": "Coordinates",
+  "beacon_list":"List of Beacons"
 }

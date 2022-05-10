@@ -1,5 +1,5 @@
 import React, { ReactNode } from "react";
-import {useState} from 'react'
+import { useState } from "react";
 import {
   Box,
   Editable,
@@ -15,11 +15,23 @@ import {
   GridItem,
   Divider,
 } from "@chakra-ui/react";
-import { useToast } from '@chakra-ui/react'
+import {
+  Table,
+  Thead,
+  Tbody,
+  Tfoot,
+  Tr,
+  Th,
+  Td,
+  TableCaption,
+  TableContainer,
+} from "@chakra-ui/react";
+import { useToast } from "@chakra-ui/react";
 import { BrowserView, MobileView } from "react-device-detect";
 import CustomButton from "../../../../components/buttons";
 import useTranslation from "../../../../i18n/use-translation";
-import {FaBacon} from "react-icons/fa";
+import { FaBacon } from "react-icons/fa";
+import { MdAddBox } from "react-icons/md";
 
 interface Beacon {
   deviceId: string;
@@ -61,67 +73,82 @@ const array1: Beacon[] = [
   },
 ];
 
-
 function AdminBeacons() {
   const { t } = useTranslation();
-  
 
-  const toast = useToast()
-  const statuses = ['success', 'error', 'warning', 'info']
-  
-const[isModalVisible, setIsModalVisible] = useState(false);
+  const toast = useToast();
+  const statuses = ["success", "error", "warning", "info"];
 
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-const toggleModel = () =>{
-  setIsModalVisible(wasModalVisible => !wasModalVisible)
-}
+  const toggleModel = () => {
+    setIsModalVisible((wasModalVisible) => !wasModalVisible);
+  };
 
-const[stateDeviceId, setDeviceId] = useState("Device Id");
-const[stateClassRoom, setClassRoom] = useState("Classroom");
-const[stateX, setX] = useState(0);
-const[stateY, setY] = useState(0);
-const[stateZ, setZ] = useState(0);
+  const [stateDeviceId, setDeviceId] = useState("Device Id");
+  const [stateClassRoom, setClassRoom] = useState("Classroom");
+  const [stateX, setX] = useState(0);
+  const [stateY, setY] = useState(0);
+  const [stateZ, setZ] = useState(0);
 
-function setStates(device:string, classRoom:string, x:number, y:number, z:number): void {
-  setDeviceId(device)
-  setClassRoom(classRoom)
-  setX(x)
-  setY(y)
-  setZ(z)
-}
+  function setStates(
+    device: string,
+    classRoom: string,
+    x: number,
+    y: number,
+    z: number
+  ): void {
+    setDeviceId(device);
+    setClassRoom(classRoom);
+    setX(x);
+    setY(y);
+    setZ(z);
+  }
 
-    return (
-      <>
-        {/* <MobileView>
-          {array1.map(({ deviceId, classRoom, x, y, z }) => (
-            <Accordion allowToggle>
-              <AccordionItem>
-                <h2>
-                  <AccordionButton
-                    bg="isepBrick.300"
-                    w="100%"
-                    p={4}
-                    color="isepGrey.500"
-                  >
-                    {this.getIcon(type)}
-                    <Box flex="1" textAlign="left" textColor="#000000">
-                      {date}
-                    </Box>
-                    <AccordionIcon />
-                  </AccordionButton>
-                </h2>
-                <AccordionPanel pb={4}>
-                  {this.getFeedback(feedback, type)}
-                  <Text fontSize="xs" as="i">
-                    {name}
-                  </Text>
-                </AccordionPanel>
-              </AccordionItem>
-            </Accordion>
-          ))}
-        </MobileView> */}
+  function handleInputChange(event: React.ChangeEvent): void {
+    // setX(parseInt(event.target.getAttribute('value')?.));
+  }
 
-        <BrowserView>
+  return (
+    <>
+      <MobileView>
+        <Box textAlign={"right"} margin={6}>
+          {" "}
+          <Button width={7} height={7} bg={"#FFFFFF"}>
+            <Icon
+              as={MdAddBox}
+              color="isepBrick.500"
+              width={7}
+              height={7}
+            ></Icon>
+          </Button>
+        </Box>
+        <TableContainer>
+          <Table variant="simple">
+            <TableCaption>{t("beacon_list")}</TableCaption>
+            <Thead>
+              <Tr>
+                <Th color={"isepBrick.500"}>{t("beacon_device_id")}</Th>
+                <Th color={"isepBrick.500"}>{t("beacon_classroom")}</Th>
+                <Th color={"isepBrick.500"}>{t("beacon_coordinates")}</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              {array1.map(({ deviceId, classRoom, x, y, z }) => (
+                <Tr _hover={{ bg: "isepBrick.300" }}>
+                  <Td>{deviceId}</Td>
+                  <Td>{classRoom}</Td>
+                  <Td>
+                    {x}, {y}, {z}
+                  </Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </TableContainer>
+      </MobileView>
+
+      <BrowserView>
           <SimpleGrid columns={[1, 2]}>
             <Box>
               {array1.map(({ deviceId, classRoom, x, y, z }) => (
@@ -188,7 +215,7 @@ function setStates(device:string, classRoom:string, x:number, y:number, z:number
                     isDisabled={stateX === 0 ? true : false}
                   >
                     <EditablePreview textAlign={"left"} />
-                    <EditableInput />
+                    <EditableInput onChange={e => handleInputChange(e)}/>
                   </Editable>
                   <Editable
                     defaultValue={stateY.toString()}
@@ -226,8 +253,8 @@ function setStates(device:string, classRoom:string, x:number, y:number, z:number
             </Box>
           </SimpleGrid>
         </BrowserView>
-      </>
-    );
-  }
+    </>
+  );
+}
 
 export default AdminBeacons;
