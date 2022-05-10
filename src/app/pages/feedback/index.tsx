@@ -239,6 +239,25 @@ function Feedback() {
         console.log(video.mediaBlobUrl);
     }
 
+    const fileInput: any = document.querySelector('input[id=file]');
+    const fileInputAudio: any = document.querySelector('input[id=audio]');
+    const filenameContainer: any = document.querySelector('#filename');
+    const filenameContainerAudio: any = document.querySelector('#filenameAudio');
+
+
+    if (fileInput) {
+        fileInput.addEventListener('change', function () {
+            filenameContainer.innerText = fileInput.value.split('\\').pop();
+        });
+    }
+
+    if (fileInputAudio) {
+        fileInputAudio.addEventListener('change', function () {
+            filenameContainerAudio.innerText = fileInputAudio.value.split('\\').pop();
+        });
+    }
+
+
     useEffect(() => {
         { navigator.mediaDevices.enumerateDevices().then(handleDevices); }
     }, [videoRef, handleDevices])
@@ -340,9 +359,19 @@ function Feedback() {
 
                             {/**upload image/video mobile*/}
                             <div style={{ display: selectedUploadFileGallery ? 'block' : 'none' }}>
+                                <label onChange={handleImageChange} htmlFor="file">
+                                    <input name="" type="file" accept="image/*,video/*" id="file" hidden />
+                                    <Center marginTop='5%'>
+                                        <img width='10%' src="https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1652659200&Signature=URLDx3p2s8~-sw~0ToQSzVYZQntaSlYpFwCKnw-Wb94HVTr448gEWOEPMkrMPNb0tnTsMiiCKTusgmmPnk5EJr3lK66zGOMbgUxqPvJdx6i0Tv6umys4UTeMwq~MAdwiPNTce9HQ5rBRWOWgVE3EmDgiAhh-dfM6U73VfeUShGkeU5yNv-yifAPBU5r~mgx2dh3YoMIQ4iKfS--pzUFW4BE6YMdNiPoDfMwMpJrYdaFPQpmGK0lsJPdEn5nxnzVLQkn-JrH9uyGi0FXsL9cxCH6Ofcy5BDEKtL90dk3jnEzc3YXvlXKJaQ2M8Z40yW7HaF5fmp987hV7SpJZjSsipw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
+                                    </Center>
+                                    <Center>
+                                        <h1>Click to upload a photo/video</h1>
+                                    </Center>
+                                </label>
                                 <Center>
-                                    <input type="file" accept="image/*,video/*" onChange={handleImageChange}></input>
+                                    <p id="filename"></p>
                                 </Center>
+
                             </div>
                         </div>
 
@@ -372,8 +401,17 @@ function Feedback() {
 
                             {/**Upload audio mobile*/}
                             <div style={{ display: selectedUploadAudioFiles ? 'block' : 'none' }}>
+                                <label onChange={handleImageChange} htmlFor="audio">
+                                    <input id="audio" hidden type="file" accept="audio/*" onChange={handleImageChange}></input>
+                                    <Center>
+                                        <img width='10%' src="https://s3-alpha-sig.figma.com/img/9570/6275/02fe629724c6451bfc58e8b408959b7f?Expires=1652659200&Signature=ersh~djo0M0azAQXkkTt4atepCPDgD7pfkNhGnpDDINizApqLzAFk8SMm-PpkHFaMqzOW-xSqAfeDd8V8mXslKQY7g97M6zXewSuftfpQkewSOmHfT8s3OINRHV3iqDEW4z8f0j~8q5D9Q7iEhCOVXWWiklU9PYEpJOrXNpTib75MigEcus2~vkeBGPNvtWLUxXlbKELRs1lJ4Bi~qr2hxGiRdeGELKk~WBl0qchXBivzZEevHwInxe7Huusa1Ug1QE3CFctUOk2xxDU569K4PKG7siFbZQ4gNZUlUXsZa9w6bFmzwBZHuu7c8gph3ooZQXf3c65Ew99zAjkdd5CxA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
+                                    </Center>
+                                    <Center>
+                                        <h1>Click to upload audio</h1>
+                                    </Center>
+                                </label>
                                 <Center>
-                                    <input type="file" accept="audio/*" onChange={handleImageChange}></input>
+                                    <p id="filenameAudio"></p>
                                 </Center>
                             </div>
 
@@ -462,24 +500,23 @@ function Feedback() {
                     </Box>
                     <Box marginLeft='100px' backgroundColor='#000000' width='0px' marginTop='-120px' height='550px' border='1px'></Box>
 
-                    <Box marginLeft='-400px'marginTop='-30px'>
+                    <Box marginLeft='-400px' marginTop='-30px'>
                         {/**Upload photo/video desktop*/}
                         <div style={{ display: selectedUploadFile ? 'block' : 'none' }}>
 
                             <Box marginLeft='150px' width='600px' height='100%' backgroundColor='#FCE5D7' p={4} color='#575757'>
-                                <label onChange={handleImageChange} htmlFor="formId">
-
-                                    {/**<input name="" type="file" accept="image/*,video/*" id="formId" hidden />*/}
+                                <label onChange={handleImageChange} htmlFor="file">
+                                    <input name="" type="file" accept="image/*,video/*" id="file" hidden />
                                     <Center marginTop='15%'>
                                         <img width='25%' src="https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1652659200&Signature=URLDx3p2s8~-sw~0ToQSzVYZQntaSlYpFwCKnw-Wb94HVTr448gEWOEPMkrMPNb0tnTsMiiCKTusgmmPnk5EJr3lK66zGOMbgUxqPvJdx6i0Tv6umys4UTeMwq~MAdwiPNTce9HQ5rBRWOWgVE3EmDgiAhh-dfM6U73VfeUShGkeU5yNv-yifAPBU5r~mgx2dh3YoMIQ4iKfS--pzUFW4BE6YMdNiPoDfMwMpJrYdaFPQpmGK0lsJPdEn5nxnzVLQkn-JrH9uyGi0FXsL9cxCH6Ofcy5BDEKtL90dk3jnEzc3YXvlXKJaQ2M8Z40yW7HaF5fmp987hV7SpJZjSsipw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
                                     </Center>
-                                    <Center marginBottom='15%'>
+                                    <Center marginBottom='5%'>
                                         <h1>Click to upload a photo/video</h1>
                                     </Center>
-                                    <Center>
-                                        <input name="" type="file" accept="image/*,video/*" id="formId" />
-                                    </Center>
                                 </label>
+                                <Center marginBottom='15%'>
+                                    <p id="filename"></p>
+                                </Center>
                             </Box>
                         </div>
 
@@ -522,15 +559,18 @@ function Feedback() {
 
                                 {/**upload audio desktop*/}
                                 <div style={{ display: selectedUploadAudioFiles ? 'block' : 'none' }}>
-                                    <label onChange={handleImageChange} htmlFor="formIdAudio">
-                                        <input id="formIdAudio" hidden type="file" accept="audio/*" onChange={handleImageChange}></input>
+                                    <label onChange={handleImageChange} htmlFor="audio">
+                                        <input id="audio" hidden type="file" accept="audio/*" onChange={handleImageChange}></input>
                                         <Center>
                                             <img width='20%' src="https://s3-alpha-sig.figma.com/img/9570/6275/02fe629724c6451bfc58e8b408959b7f?Expires=1652659200&Signature=ersh~djo0M0azAQXkkTt4atepCPDgD7pfkNhGnpDDINizApqLzAFk8SMm-PpkHFaMqzOW-xSqAfeDd8V8mXslKQY7g97M6zXewSuftfpQkewSOmHfT8s3OINRHV3iqDEW4z8f0j~8q5D9Q7iEhCOVXWWiklU9PYEpJOrXNpTib75MigEcus2~vkeBGPNvtWLUxXlbKELRs1lJ4Bi~qr2hxGiRdeGELKk~WBl0qchXBivzZEevHwInxe7Huusa1Ug1QE3CFctUOk2xxDU569K4PKG7siFbZQ4gNZUlUXsZa9w6bFmzwBZHuu7c8gph3ooZQXf3c65Ew99zAjkdd5CxA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
                                         </Center>
-                                        <Center>
+                                        <Center marginBottom='5%'>
                                             <h1>Click to upload audio</h1>
                                         </Center>
                                     </label>
+                                    <Center marginBottom='5%'>
+                                        <p id="filenameAudio"></p>
+                                    </Center>
                                 </div>
 
                                 {/**record audio desktop*/}
