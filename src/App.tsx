@@ -10,6 +10,7 @@ import { AppBar, Toolbar } from "@material-ui/core";
 
 import CustomButton from "./components/buttons";
 import AdminBeacons from "./app/pages/admin/beacons";
+import { Settings } from "./app/pages/settings";
 
 function App() {
   const { t } = useTranslation();
@@ -28,35 +29,29 @@ function App() {
 
   if (page === Page.FeedBack) {
     //FeedBack
-    return <>FeedBack Page</>;
-  }
-
-  if (page === Page.Settings) {
-    //Setting
-    return <>Setting</>;
-  }
-  if (page === Page.AdminFeedback) {
-    return (
+    return(
       <div className="App">
         <header className="App-header">
           <Box height={'110px'}></Box>
-          <Text fontSize='3xl' margin='7'>{t("feedback_admin_page")}</Text>
+          <Text fontSize='3xl' margin='7'>{t("settings")}</Text>
           <AdminFeedback></AdminFeedback>
         </header>
        </div>
        );
   }
-  if (page === Page.Beacons) {
+
+  if (page === Page.Settings) {
     return (
       <div className="App">
         <header className="App-header">
           <Box height={'110px'}></Box>
-          <Text fontFamily={"Montserrat-SemiBold"} fontSize='3xl' margin='7'>{t("admin_beacons")}</Text>
-          <AdminBeacons></AdminBeacons>
+          <Text fontSize='3xl' margin='7'>{t("settings")}</Text>
+          <Settings></Settings>
         </header>
        </div>
        );
   }
+
   return (
     <CustomButton
       backgroundColor="isepBrick.300"
