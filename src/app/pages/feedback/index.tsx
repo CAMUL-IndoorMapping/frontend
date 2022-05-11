@@ -1,25 +1,9 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Box, Center, Heading, Stack, Square, Circle, Flex } from '@chakra-ui/react'
-import { Button, ButtonGroup } from '@chakra-ui/react'
-import { Textarea } from '@chakra-ui/react'
-import { Text } from '@chakra-ui/react'
-import { Divider } from '@chakra-ui/react'
-import { Grid, GridItem } from '@chakra-ui/react'
-import { SimpleGrid } from '@chakra-ui/react'
-import AudioRecorder from 'react-audio-recorder';
-import { AspectRatio } from '@chakra-ui/react'
-
+import { Box, Center, Button, ButtonGroup, Textarea, SimpleGrid } from '@chakra-ui/react'
 import { ReactMediaRecorder, useReactMediaRecorder } from "react-media-recorder";
-import { Stream } from 'stream';
 import Webcam from 'react-webcam';
-import { BrowserView, MobileView, isBrowser, isMobile } from 'react-device-detect';
-
-
-//import useRecorder from "./useRecorder";
-//import {Recorder} from 'react-voice-recorder'
-
-//import AudioReactRecorder, { RecordState } from 'audio-react-recorder'
-
+import { BrowserView, MobileView } from 'react-device-detect';
+import axios from 'axios';
 
 
 function Feedback() {
@@ -34,14 +18,107 @@ function Feedback() {
         console.log(webRef.current.getScreenshot());
     }
 
+    //const [value, setValue] = React.useState('')
+    let inputValueTextarea: any = null || undefined;
+
+    const handleInputChange = (e: any) => {
+        //let inputValue = e.target.value
+        //setValue(inputValue)
+        inputValueTextarea = e.target.value;
+        console.log(inputValueTextarea)
+        //let encodedBase64 = Buffer.from(inputValue).toString('base64');
+        //console.log("base 64: " + encodedBase64);
+    }
+
+    //input name upload
+    const fileInput: any = document.querySelector('input[id=file]');
+    const fileInputAudio: any = document.querySelector('input[id=audio]');
+    const filenameContainer: any = document.querySelector('#filename');
+    const filenameContainerAudio: any = document.querySelector('#filenameAudio');
+
+
+    if (fileInput) {
+        fileInput.addEventListener('change', function () {
+            filenameContainer.innerText = fileInput.value.split('\\').pop();
+        });
+    }
+
+    if (fileInputAudio) {
+        fileInputAudio.addEventListener('change', function () {
+            filenameContainerAudio.innerText = fileInputAudio.value.split('\\').pop();
+        });
+    }
+
+    let file: any = null;
 
     //submit file
-    const handleImageChange: any = async (event: any) => {
-        const file = event.target.files[0];
-        console.log(file);
+    const handleUploadFileChange: any = async (event: any) => {
+
+        //const file = event.target.files[0];
+        file = event.target.files[0];
+        console.log("type:" + event.target.files[0].type.split("/")[0]);
         const base64 = await convertBase64(file);
         console.log(base64);
     }
+
+    const handleSubmission: any = async (event: any) => {
+
+        event.preventDefault();
+
+        if (inputValueTextarea != (null || undefined)) {
+            console.log("upload text");
+            const params = JSON.stringify({
+                "idUser": 1,
+                "body": inputValueTextarea,
+            });
+
+            var textAreaValue:any = document.getElementById("textUpload");
+            textAreaValue.value = '';
+            inputValueTextarea = null;
+
+            axios.post('http://127.0.0.1:5000/account/reviews', params, {
+                "headers": {
+                    "content-type": "application/json",
+                    "authToken": "a",
+                },
+
+            }).then((response) => {
+                console.log("response:" + response);
+            }, (error) => {
+                console.log("erro:" + error);
+            });
+
+           
+        }
+        else {
+            console.log("upload file");
+            
+            const params = JSON.stringify({
+                "idBeacon": 1,
+                "idUser": 1,
+                "type": file.type,
+                "content": file
+            });
+
+            axios.post('http://127.0.0.1:5000/account/feedback', params, {
+
+                "headers": {
+                    "content-type": "application/json",
+                    "authToken": "a",
+                },
+
+            }).then((response) => {
+                console.log("response:" + response);
+            }, (error) => {
+                console.log("erro:" + error);
+            });
+
+            filenameContainer.innerText = "";
+            filenameContainerAudio.innerText = "";
+
+        }
+    }
+
 
     //convert file base64 
     const convertBase64: any = (file: any) => {
@@ -60,6 +137,8 @@ function Feedback() {
 
         })
     }
+
+
 
     const [deviceId, setDeviceId] = useState({});
     const [devices, setDevices] = useState([]);
@@ -135,6 +214,7 @@ function Feedback() {
     }
 
     const cancelUpload = (event: any) => {
+        file = null;
         setSelectedUploadAudio(false);
         setSelectedUploadFile(false);
         setSelectedUploadFeedbackText(false);
@@ -215,15 +295,7 @@ function Feedback() {
     }
 
 
-    const [value, setValue] = React.useState('')
 
-    const handleInputChange = (e: any) => {
-        let inputValue = e.target.value
-        setValue(inputValue)
-        console.log(inputValue)
-        //let encodedBase64 = Buffer.from(inputValue).toString('base64');
-        //console.log("base 64: " + encodedBase64);
-    }
 
     const { status, startRecording, stopRecording, mediaBlobUrl } =
         useReactMediaRecorder({ audio: true });
@@ -238,25 +310,6 @@ function Feedback() {
     const recordVideo = () => {
         console.log(video.mediaBlobUrl);
     }
-
-    const fileInput: any = document.querySelector('input[id=file]');
-    const fileInputAudio: any = document.querySelector('input[id=audio]');
-    const filenameContainer: any = document.querySelector('#filename');
-    const filenameContainerAudio: any = document.querySelector('#filenameAudio');
-
-
-    if (fileInput) {
-        fileInput.addEventListener('change', function () {
-            filenameContainer.innerText = fileInput.value.split('\\').pop();
-        });
-    }
-
-    if (fileInputAudio) {
-        fileInputAudio.addEventListener('change', function () {
-            filenameContainerAudio.innerText = fileInputAudio.value.split('\\').pop();
-        });
-    }
-
 
     useEffect(() => {
         { navigator.mediaDevices.enumerateDevices().then(handleDevices); }
@@ -359,7 +412,7 @@ function Feedback() {
 
                             {/**upload image/video mobile*/}
                             <div style={{ display: selectedUploadFileGallery ? 'block' : 'none' }}>
-                                <label onChange={handleImageChange} htmlFor="file">
+                                <label onChange={handleUploadFileChange} htmlFor="file">
                                     <input name="" type="file" accept="image/*,video/*" id="file" hidden />
                                     <Center marginTop='5%'>
                                         <img width='10%' src="https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1652659200&Signature=URLDx3p2s8~-sw~0ToQSzVYZQntaSlYpFwCKnw-Wb94HVTr448gEWOEPMkrMPNb0tnTsMiiCKTusgmmPnk5EJr3lK66zGOMbgUxqPvJdx6i0Tv6umys4UTeMwq~MAdwiPNTce9HQ5rBRWOWgVE3EmDgiAhh-dfM6U73VfeUShGkeU5yNv-yifAPBU5r~mgx2dh3YoMIQ4iKfS--pzUFW4BE6YMdNiPoDfMwMpJrYdaFPQpmGK0lsJPdEn5nxnzVLQkn-JrH9uyGi0FXsL9cxCH6Ofcy5BDEKtL90dk3jnEzc3YXvlXKJaQ2M8Z40yW7HaF5fmp987hV7SpJZjSsipw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
@@ -378,8 +431,8 @@ function Feedback() {
                         {/**Text feedback mobile*/}
                         <div style={{ display: selectedUploadFeedbackTex ? 'inline' : 'none' }}>
                             <Center>
-                                <Textarea borderColor='#A2543D' width='50%' height='200px' _hover={{ boxShadow: 'none' }} _focus={{ boxShadow: "none" }}
-                                    value={value}
+                                <Textarea id='textUpload' borderColor='#A2543D' width='50%' height='200px' _hover={{ boxShadow: 'none' }} _focus={{ boxShadow: "none" }}
+                                    value={inputValueTextarea}
                                     onChange={handleInputChange}
                                     placeholder='Place your text here...'
                                     _placeholder={{ textColor: '#CE7E5C' }}
@@ -401,8 +454,8 @@ function Feedback() {
 
                             {/**Upload audio mobile*/}
                             <div style={{ display: selectedUploadAudioFiles ? 'block' : 'none' }}>
-                                <label onChange={handleImageChange} htmlFor="audio">
-                                    <input id="audio" hidden type="file" accept="audio/*" onChange={handleImageChange}></input>
+                                <label onChange={handleUploadFileChange} htmlFor="audio">
+                                    <input id="audio" hidden type="file" accept="audio/*"></input>
                                     <Center>
                                         <img width='10%' src="https://s3-alpha-sig.figma.com/img/9570/6275/02fe629724c6451bfc58e8b408959b7f?Expires=1652659200&Signature=ersh~djo0M0azAQXkkTt4atepCPDgD7pfkNhGnpDDINizApqLzAFk8SMm-PpkHFaMqzOW-xSqAfeDd8V8mXslKQY7g97M6zXewSuftfpQkewSOmHfT8s3OINRHV3iqDEW4z8f0j~8q5D9Q7iEhCOVXWWiklU9PYEpJOrXNpTib75MigEcus2~vkeBGPNvtWLUxXlbKELRs1lJ4Bi~qr2hxGiRdeGELKk~WBl0qchXBivzZEevHwInxe7Huusa1Ug1QE3CFctUOk2xxDU569K4PKG7siFbZQ4gNZUlUXsZa9w6bFmzwBZHuu7c8gph3ooZQXf3c65Ew99zAjkdd5CxA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
                                     </Center>
@@ -448,7 +501,7 @@ function Feedback() {
                     <Box>
                         <Center>
                             <Button _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
-                                borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%'>CONFIRM</Button>
+                                borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%' onClick={handleSubmission}>CONFIRM</Button>
                         </Center>
                         <Center>
                             <Button _focus={{ boxShadow: "none" }} _hover={{ bg: '#DA8E71' }} borderColor='#A2543D' borderRadius='200px' color='#A2543D'
@@ -487,7 +540,7 @@ function Feedback() {
 
                         <Center>
                             <Button _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
-                                borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%'>CONFIRM</Button>
+                                borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%' onClick={handleSubmission}>CONFIRM</Button>
                         </Center>
                         <Center>
                             <Button _focus={{ boxShadow: "none" }} _hover={{ bg: '#DA8E71' }} borderColor='#A2543D' borderRadius='200px' color='#A2543D'
@@ -505,7 +558,7 @@ function Feedback() {
                         <div style={{ display: selectedUploadFile ? 'block' : 'none' }}>
 
                             <Box marginLeft='150px' width='600px' height='100%' backgroundColor='#FCE5D7' p={4} color='#575757'>
-                                <label onChange={handleImageChange} htmlFor="file">
+                                <label onChange={handleUploadFileChange} htmlFor="file">
                                     <input name="" type="file" accept="image/*,video/*" id="file" hidden />
                                     <Center marginTop='15%'>
                                         <img width='25%' src="https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1652659200&Signature=URLDx3p2s8~-sw~0ToQSzVYZQntaSlYpFwCKnw-Wb94HVTr448gEWOEPMkrMPNb0tnTsMiiCKTusgmmPnk5EJr3lK66zGOMbgUxqPvJdx6i0Tv6umys4UTeMwq~MAdwiPNTce9HQ5rBRWOWgVE3EmDgiAhh-dfM6U73VfeUShGkeU5yNv-yifAPBU5r~mgx2dh3YoMIQ4iKfS--pzUFW4BE6YMdNiPoDfMwMpJrYdaFPQpmGK0lsJPdEn5nxnzVLQkn-JrH9uyGi0FXsL9cxCH6Ofcy5BDEKtL90dk3jnEzc3YXvlXKJaQ2M8Z40yW7HaF5fmp987hV7SpJZjSsipw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
@@ -528,8 +581,8 @@ function Feedback() {
                                     <img width='25%' src="https://s3-alpha-sig.figma.com/img/5c37/7770/eced2bac8d7213431dc4807a6e524329?Expires=1652659200&Signature=UfMtDJqYCdsp1JugqHNKOyyH35cL7EbQ05e8uwmf-k4K3ShQwqXn676qqLZs7ma0xQUg7RZiz2-vu04xKFca8btN8AhHxl5U83dd3zYjyOtOl2rIzQKnBmfPFtCodlUlyBUwHb2ul7Qniji08dJts7Sh81p7JSWWtP3CeZMiFl9kg~Wb8nXhWhYg9dJyaUZUd0YuAhSwt8~DYH02fQd9JUbaB84neQplwy0LT9zIwTBHaBR5dyawTeM03J5MG3y-uAz1-p1bhpaByil2I35RlfgjpoC72HttNyajOMb3amfvr2AIUqrnu9zjkaraUHkHtGrzoZMMc40PMBskJoMjIw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
                                 </Center>
                                 <Center>
-                                    <Textarea _focus={{ boxShadow: "none" }} _hover={{ boxShadow: 'none' }} marginBottom='10%' width='70%' height='150px' borderColor='#A2543D'
-                                        value={value}
+                                    <Textarea id='textUpload' _focus={{ boxShadow: "none" }} _hover={{ boxShadow: 'none' }} marginBottom='10%' width='70%' height='150px' borderColor='#A2543D'
+                                        value={inputValueTextarea}
                                         onChange={handleInputChange}
                                         placeholder='Place your text here...'
                                         _placeholder={{ textColor: '#A2543D' }}
@@ -559,8 +612,8 @@ function Feedback() {
 
                                 {/**upload audio desktop*/}
                                 <div style={{ display: selectedUploadAudioFiles ? 'block' : 'none' }}>
-                                    <label onChange={handleImageChange} htmlFor="audio">
-                                        <input id="audio" hidden type="file" accept="audio/*" onChange={handleImageChange}></input>
+                                    <label onChange={handleUploadFileChange} htmlFor="audio">
+                                        <input id="audio" hidden type="file" accept="audio/*"></input>
                                         <Center>
                                             <img width='20%' src="https://s3-alpha-sig.figma.com/img/9570/6275/02fe629724c6451bfc58e8b408959b7f?Expires=1652659200&Signature=ersh~djo0M0azAQXkkTt4atepCPDgD7pfkNhGnpDDINizApqLzAFk8SMm-PpkHFaMqzOW-xSqAfeDd8V8mXslKQY7g97M6zXewSuftfpQkewSOmHfT8s3OINRHV3iqDEW4z8f0j~8q5D9Q7iEhCOVXWWiklU9PYEpJOrXNpTib75MigEcus2~vkeBGPNvtWLUxXlbKELRs1lJ4Bi~qr2hxGiRdeGELKk~WBl0qchXBivzZEevHwInxe7Huusa1Ug1QE3CFctUOk2xxDU569K4PKG7siFbZQ4gNZUlUXsZa9w6bFmzwBZHuu7c8gph3ooZQXf3c65Ew99zAjkdd5CxA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
                                         </Center>
@@ -608,6 +661,4 @@ function Feedback() {
         </>
     )
 }
-
-
 export default Feedback
