@@ -217,8 +217,8 @@ function Feedback() {
 
         audioFile = new File(
             [mediaBlob],
-            "audio.mp3",
-            { type: 'audio/mp3' }
+            "audio.wav",
+            { type: 'audio/wav' }
         );
         var reader = new FileReader();
         reader.readAsDataURL(mediaBlob);
@@ -228,12 +228,12 @@ function Feedback() {
 
             const params = JSON.stringify({
                 "idBeacon": 1,
-                "idUser": 1,
+                "idUser": 2,
                 "type": "audio",
                 "content": audioFileBase64
             });
 
-            axios.post('http://127.0.0.1:5000/account/feedback', params, {
+            axios.post('https://camul2022.pythonanywhere.com/account/feedback', params, {
 
                 "headers": {
                     "content-type": "application/json",
@@ -275,12 +275,12 @@ function Feedback() {
             console.log(base64data);
             const params = JSON.stringify({
                 "idBeacon": 1,
-                "idUser": 1,
+                "idUser": 2,
                 "type": "video",
                 "content": base64data
             });
 
-            axios.post('http://127.0.0.1:5000/account/feedback', params, {
+            axios.post('https://camul2022.pythonanywhere.com/account/feedback', params, {
 
                 "headers": {
                     "content-type": "application/json",
@@ -304,15 +304,17 @@ function Feedback() {
         if (inputValueTextarea != (null || undefined)) {
             console.log("upload text");
             const params = JSON.stringify({
-                "idUser": 1,
-                "body": inputValueTextarea,
+                "idBeacon": 1,
+                "idUser": 2,
+                "type": "text",
+                "content": inputValueTextarea
             });
 
             var textAreaValue: any = document.getElementById("textUpload");
             textAreaValue.value = '';
             inputValueTextarea = null;
 
-            axios.post('http://127.0.0.1:5000/account/reviews', params, {
+            axios.post('https://camul2022.pythonanywhere.com/account/feedback', params, {
                 "headers": {
                     "content-type": "application/json",
                     "authToken": "a",
@@ -341,12 +343,12 @@ function Feedback() {
 
             const params = JSON.stringify({
                 "idBeacon": 1,
-                "idUser": 1,
+                "idUser": 2,
                 "type": "image",
                 "content": img
             });
 
-            axios.post('http://127.0.0.1:5000/account/feedback', params, {
+            axios.post('https://camul2022.pythonanywhere.com/account/feedback', params, {
 
                 "headers": {
                     "content-type": "application/json",
@@ -367,12 +369,12 @@ function Feedback() {
 
             const params = JSON.stringify({
                 "idBeacon": 1,
-                "idUser": 1,
-                "type": file.type,
+                "idUser": 2,
+                "type": file.type.split("/")[0],
                 "content": fileBase64
             });
 
-            axios.post('http://127.0.0.1:5000/account/feedback', params, {
+            axios.post('https://camul2022.pythonanywhere.com/account/feedback', params, {
 
                 "headers": {
                     "content-type": "application/json",
