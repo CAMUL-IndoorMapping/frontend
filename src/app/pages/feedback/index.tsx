@@ -5,14 +5,6 @@ import Webcam from 'react-webcam';
 import { BrowserView, MobileView } from 'react-device-detect';
 import axios from 'axios';
 
-/**
-declare global {
-    interface Window {
-        Recorder: any;
-    }
-  }
- */
-
 
 function Feedback() {
 
@@ -91,7 +83,23 @@ function Feedback() {
     }
 
     const cancelUpload = (event: any) => {
+
+        var textAreaValue: any = document.getElementById("textUpload");
+        textAreaValue.value = '';
+        inputValueTextarea = null;
+
+        video.mediaBlobUrl = null;
+
+        mediaBlobUrl = null;
+
+        setImage(null);
+        setSelectedPhoto(false);
+
+        filenameContainer.innerText = "";
+        filenameContainerAudio.innerText = "";
+
         file = null;
+
         setSelectedUploadAudio(false);
         setSelectedUploadFile(false);
         setSelectedUploadFeedbackText(false);
@@ -179,6 +187,7 @@ function Feedback() {
     }
 
     let file: any = null;
+    let fileBase64: any;
 
     //submit file
     const handleUploadFileChange: any = async (event: any) => {
@@ -186,12 +195,12 @@ function Feedback() {
         //const file = event.target.files[0];
         file = event.target.files[0];
         console.log("type:" + event.target.files[0].type.split("/")[0]);
-        const base64 = await convertBase64(file);
-        console.log(base64);
+        fileBase64 = await convertBase64(file);
+        //console.log(base64);
     }
 
     //record video and audio
-    const { status, startRecording, stopRecording, mediaBlobUrl } =
+    let { status, startRecording, stopRecording, mediaBlobUrl } =
         useReactMediaRecorder({ audio: true });
 
     const video = useReactMediaRecorder({ video: true });
@@ -200,7 +209,7 @@ function Feedback() {
     let audioFile: any;
     const recordAudio = async () => {
 
-        console.log(mediaBlobUrl);
+        //console.log(mediaBlobUrl);
         const mediaBlob = await fetch(mediaBlobUrl || "")
             .then(response => response.blob());
 
@@ -209,15 +218,35 @@ function Feedback() {
             "audio.mp3",
             { type: 'audio/mp3' }
         );
-
-        console.log(audioFile);
-
         var reader = new FileReader();
         reader.readAsDataURL(mediaBlob);
         reader.onloadend = function () {
-            var base64data = reader.result;
-            console.log(base64data);
+            var audioFileBase64 = reader.result;
+            console.log("audio base 64: " + audioFileBase64);
+
+            const params = JSON.stringify({
+                "idBeacon": 1,
+                "idUser": 1,
+                "type": "audio",
+                "content": audioFileBase64
+            });
+
+            axios.post('http://127.0.0.1:5000/account/feedback', params, {
+
+                "headers": {
+                    "content-type": "application/json",
+                    "authToken": "a",
+                },
+
+            }).then((response) => {
+                console.log("response:" + response);
+            }, (error) => {
+                console.log("erro:" + error);
+            });
+
+            setSelectedSubmitRecordAudio(false);
         }
+
 
     }
 
@@ -242,6 +271,26 @@ function Feedback() {
         reader.onloadend = function () {
             var base64data = reader.result;
             console.log(base64data);
+            const params = JSON.stringify({
+                "idBeacon": 1,
+                "idUser": 1,
+                "type": "video",
+                "content": base64data
+            });
+
+            axios.post('http://127.0.0.1:5000/account/feedback', params, {
+
+                "headers": {
+                    "content-type": "application/json",
+                    "authToken": "a",
+                },
+
+            }).then((response) => {
+                console.log("response:" + response);
+            }, (error) => {
+                console.log("erro:" + error);
+            });
+            setSelectedSubmitRecordVideo(false);
         }
     }
 
@@ -277,49 +326,11 @@ function Feedback() {
         }
         else if (video.mediaBlobUrl != null) {
             console.log("record video");
-            recordVideo()
-            const params = JSON.stringify({
-                "idBeacon": 1,
-                "idUser": 1,
-                "type": "video",
-                "content": videoFile
-            });
-
-            axios.post('http://127.0.0.1:5000/account/feedback', params, {
-
-                "headers": {
-                    "content-type": "application/json",
-                    "authToken": "a",
-                },
-
-            }).then((response) => {
-                console.log("response:" + response);
-            }, (error) => {
-                console.log("erro:" + error);
-            });
+            recordVideo();
         }
         else if (mediaBlobUrl != null) {
             console.log("record audio");
             recordAudio();
-            const params = JSON.stringify({
-                "idBeacon": 1,
-                "idUser": 1,
-                "type": "audio",
-                "content": audioFile
-            });
-
-            axios.post('http://127.0.0.1:5000/account/feedback', params, {
-
-                "headers": {
-                    "content-type": "application/json",
-                    "authToken": "a",
-                },
-
-            }).then((response) => {
-                console.log("response:" + response);
-            }, (error) => {
-                console.log("erro:" + error);
-            });
 
         }
         else if (img != null) {
@@ -346,15 +357,17 @@ function Feedback() {
                 console.log("erro:" + error);
             });
             setImage(null);
+            setSelectedPhoto(false);
         }
-        else {
+        else if (file != null) {
             console.log("upload file");
+            console.log(fileBase64);
 
             const params = JSON.stringify({
                 "idBeacon": 1,
                 "idUser": 1,
                 "type": file.type,
-                "content": file
+                "content": fileBase64
             });
 
             axios.post('http://127.0.0.1:5000/account/feedback', params, {
@@ -372,7 +385,9 @@ function Feedback() {
 
             filenameContainer.innerText = "";
             filenameContainerAudio.innerText = "";
-
+        }
+        else {
+            alert("nothing to confirm!");
         }
     }
 
@@ -394,43 +409,6 @@ function Feedback() {
 
         })
     }
-
-
-
-    /**
-    const getVideo = () => {
-        navigator.mediaDevices.getUserMedia({ video: { width: 300, height: 200 } })
-            .then(stream => {
-                let video: any = videoRef.current;
-                video.srcObject = stream;
-                video.play();
-            }).catch(err => {
-                console.log("error: " + err);
-            })
-    }
-
-    const takePhoto = () => {
-        const width = 414;
-        const height = width / (16 / 9);
-
-        let video: any = videoRef.current;
-        let photo: any = photoRef.current;
-
-        photo.width = width;
-        photo.height = height;
-
-        let context = photo.getContext('2d');
-        context.drawImage(video, 0, 0, width, height);
-
-        setHasPhoto(true);
-    }
-     */
-
-    const closePhoto = () => {
-        setImage(null);
-        setSelectedPhoto(false);
-    }
-
     useEffect(() => {
         { navigator.mediaDevices.enumerateDevices().then(handleDevices); }
     }, [videoRef, handleDevices])
@@ -518,11 +496,7 @@ function Feedback() {
                                 {/**Photo mobile*/}
                                 <div className={'result' + (hasPhoto ? 'hasPhoto' : '')} >
                                     <Center>
-                                        <img src={img || undefined}></img>
-                                    </Center>
-                                    <Center>
-                                        <Button style={{ display: selectedPhoto ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} _hover={{ bg: '#DA8E71' }} borderColor='#A2543D' borderRadius='200px' color='#A2543D'
-                                            variant='outline' height='47px' width='206px' onClick={closePhoto}>close</Button>
+                                        <img width='20%' src={img || undefined}></img>
                                     </Center>
                                 </div>
                             </div>
@@ -747,7 +721,7 @@ function Feedback() {
                                             <Center>
                                                 <p>recording status: {status}</p>
                                             </Center>
-                                            <audio style={{ display: selectedSubmitRecordAudio ? 'block' : 'none' }} src={mediaBlobUrl || undefined} controls></audio>
+                                            <audio id='srcAudioDesktop' style={{ display: selectedSubmitRecordAudio ? 'block' : 'none' }} src={mediaBlobUrl || undefined} controls></audio>
 
                                             <Center>
                                                 <Button style={{ display: selectedStartRecordAudio ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#CE7E5C' borderRadius='200px' _hover={{ bg: '#CE7E5C' }}
