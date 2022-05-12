@@ -2,5 +2,20 @@
   "about_us": "About US",
   "homepage": "Homepage",
   "feedback": "Feedback",
-  "settings": "Settings"
+  "settings": "Settings",
+  "admin_feedback": "Users Feedback",
+  "feedback_admin_page": "Diary Entries from Users",
+  "admin_beacons": "Beacons",
+  "beacon_device_id": "Device Id",
+  "beacon_classroom": "Classroom",
+  "beacon_coordinates": "Coordinates",
+  "beacon_list":"List of Beacons",
+  "beacon_add":"Add Beacon",
+  "beacon_update":"Update Beacon",
+  "beacon_add_button":"ADD BEACON",
+  "beacon_update_button":"UPDATE",
+  "beacon_update_success_message": "Beacon successfully updated!",
+  "beacon_add_success_message": "Beacon successfully added!",
+  "beacon_update_error_message": "Beacon couldn't be updated 😓",
+  "beacon_add_error_message": "Beacon couldn't be added 😓"
 }

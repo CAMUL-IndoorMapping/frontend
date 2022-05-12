@@ -3,6 +3,8 @@ export enum Page {
   HomePage,
   FeedBack,
   Settings,
+  AdminFeedback,
+  Beacons
 }
 
 export default Page;
