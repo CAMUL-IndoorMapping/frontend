@@ -17,5 +17,20 @@
   "beacon_update_success_message": "Beacon atualizado com sucesso!",
   "beacon_add_success_message": "Beacon adicionado com sucesso!",
   "beacon_update_error_message": "Beacon não pode ser atualizado 😓",
-  "beacon_add_error_message": "Beacon não pode ser adicionado 😓"
+  "beacon_add_error_message": "Beacon não pode ser adicionado 😓",
+  "daily_entries": "Faça upload aqui das suas entradas diárias",
+  "use_camera": "Usar camera",
+  "from_gallery": "Da galeria",
+  "take_photo": "Tirar foto",
+  "recording_status": "Estado de gravação",
+  "start_recording":"Começar a gravar",
+  "stop_recording": "Terminar de gravar",
+  "upload_photo_video": "Clique aqui fazer upload a foto/video",
+  "placeholder": "Escreva aqui o seu texto...",
+  "use_mic": "Usar microfone",
+  "from_files": "De ficheiros",
+  "upload_audio": "Clique aqui para fazer upload a audio",
+  "confirm": "CONFIRMAR",
+  "cancel": "CANCELAR",
+  "sent_feedback": "FEEDBACK ENVIADO"
 }

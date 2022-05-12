@@ -17,5 +17,20 @@
   "beacon_update_success_message": "Beacon successfully updated!",
   "beacon_add_success_message": "Beacon successfully added!",
   "beacon_update_error_message": "Beacon couldn't be updated 😓",
-  "beacon_add_error_message": "Beacon couldn't be added 😓"
+  "beacon_add_error_message": "Beacon couldn't be added 😓",
+  "daily_entries": "Upload here your diary entries",
+  "use_camera": "Use camera",
+  "from_gallery": "From gallery",
+  "take_photo": "Take a photo",
+  "recording_status": "recording status",
+  "start_recording":"Start Recording",
+  "stop_recording": "Stop Recording",
+  "upload_photo_video": "Click to upload a photo/video",
+  "placeholder": "Place your text here...",
+  "use_mic": "Use mic",
+  "from_files": "From files",
+  "upload_audio": "Click to upload audio",
+  "confirm": "CONFIRM",
+  "cancel": "CANCEL",
+  "sent_feedback": "SENT FEEDBACK"
 }
