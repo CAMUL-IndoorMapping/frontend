@@ -18,7 +18,18 @@ import {
     extendTheme,
     ColorModeScript,
     useColorMode,
-    useColorModeValue
+    useColorModeValue,
+    Drawer,
+    DrawerBody,
+    DrawerCloseButton,
+    useDisclosure,
+    RadioGroup,
+    Stack,
+    Radio,
+    DrawerOverlay,
+    DrawerContent,
+    DrawerHeader,
+    DrawerFooter
 } from "@chakra-ui/react";
 import ReactAudioPlayer from "react-audio-player";
 import { BrowserView, MobileView } from "react-device-detect";
@@ -75,59 +86,62 @@ function UserSettings() {
         setSettingName(settingName);
     }
 
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const [placement, setPlacement] = React.useState('bottom')
+    const btnRef = React.useRef()
+
+    const handleClick = (newSettingName: React.SetStateAction<string>) => {
+        setSettingName(newSettingName)
+        onOpen()
+    }
+
     function getSettingContent(settingName: string): ReactNode {
         switch (settingName) {
             case t("themes"):
                 return (
-                    <div>
-                        <Text fontSize="xx-large">
-                            Themes
-                        </Text>
+                    <>
                         <br></br>
                         <Text fontSize="large">
                             In this section you will be able to change between theme styles of the application - white and dark mode.
                         </Text>
                         <Toggle></Toggle>
-                    </div>
+                    </>
                 );
 
                 break;
             case t("sounds"): //t("sounds")
                 return (
-                    <div>
+                    <>
                         <Text fontSize="md">
                             My new sound update section
                             Edit content of HTML here
                         </Text>
-                    </div>
+                    </>
                 );
                 break;
             case t("delete_account"): //t("delete_account")
                 return (
-                    <div>
+                    <>
                         <Text fontSize="md">
                             My new delete acoount section
                             Edit content of HTML here
                         </Text>
-                    </div>
+                    </>
                 );
                 break;
             case t("change_password"): //t("change_password")
                 return (
-                    <div>
+                    <>
                         <Text fontSize="md">
                             My new change password section
                             Edit content of HTML here
                         </Text>
-                    </div>
+                    </>
                 );
                 break;
             case t("about_app"): //t("about_app")
                 return (
-                    <div>
-                        <Text fontSize="xx-large">
-                            About Us
-                        </Text>
+                    <>
                         <br></br>
                         <Text fontSize="large">
                             How it all started.
@@ -138,38 +152,38 @@ function UserSettings() {
                             Just use it please... thank you for your attention.
                         </Text>
                         <Image src={"https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1653264000&Signature=DO-5QTTdSrt52S62TeXnUDv5kGF7x-H~XS2i9F7U4guJhpn1vX8oK4P5pZatIZw9UbnpJxN~D5MbvX~cCsnaNlIP5lVq3oTujy~hOUNMhwcbFpLrhhUXd0ZxLO1a1Ru-hQrrdOuskQoi55G4NjJFPm6rO9TynhaQzLlGiM~wdNb8xYA34f6a5N1TvtEp6GR~Z5vELnqHpZvfcMVCEALJwy8PsxbzyzA5-myfIIBa53xL9fixwJg~u2u5pEEeElhiRS7FyvZMeWQyb7jb3A7nyH8bbWbdXROqHDV1FozpluMmrmWMGG-8mT1DRBRRrBmPxF46tOa9n6ouvj13SUNxLw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"} alt="uploadImage" />
-                    </div>
+                    </>
                 );
                 break;
             case t("contact_us"): //t("contact_us")
                 return (
-                    <div>
+                    <>
 
                         <Text fontSize="md">
                             My new Contact us section
                             Edit content of HTML here
                         </Text>
-                    </div>
+                    </>
                 );
                 break;
             case t("terms_conditions"): //t("terms_conditions")
                 return (
-                    <div>
+                    <>
                         <Text fontSize="md">
                             My new terms and conditions section
                             Edit content of HTML here
                         </Text>
-                    </div>
+                    </>
                 );
                 break;
             case t("patch_notes"): //t("patch_notes")
                 return (
-                    <div>
+                    <>
                         <Text fontSize="md">
                             My new patch notes section
                             Edit content of HTML here
                         </Text>
-                    </div>
+                    </>
                 );
                 break;
             default:
@@ -181,27 +195,54 @@ function UserSettings() {
         <>
             <MobileView>
                 {array1.map(({ settingName }) => (
-                    <Accordion allowToggle>
-                        <AccordionItem>
-                            <h2>
-                                <AccordionButton
-                                    bg="isepBrick.300"
-                                    w="100%"
-                                    p={4}
-                                    color="isepGrey.500"
-                                >
-                                    <Box flex="1" textAlign="left" textColor="#000000">
-                                        {settingName}
-                                    </Box>
-                                    <AccordionIcon />
-                                </AccordionButton>
-                            </h2>
-                            <AccordionPanel pb={4}>
-                                {getSettingContent(settingName)}
-                            </AccordionPanel>
-                        </AccordionItem>
-                    </Accordion>
+                    <>
+                        {/* <Accordion allowToggle>
+                            <AccordionItem>
+                                <h2>
+                                    <AccordionButton onClick={() => handleClick(settingName)}
+                                        bg="isepBrick.300"
+                                        m={4}
+                                        color="isepGrey.500"
+                                    >
+                                        <Box textAlign="left" textColor="#000000">
+                                            {settingName}
+                                        </Box>
+                                        <AccordionIcon />
+                                    </AccordionButton>
+                                </h2>
+                            </AccordionItem>
+                        </Accordion> */}
+
+
+                        <Button onClick={() => handleClick(settingName)}
+                            bg="isepBrick.300"
+                            m={4}
+                            color="isepGrey.500"
+                            key={stateSettingName}
+                        >
+                            {settingName}
+                        </Button>
+                    </>
                 ))}
+                <Drawer
+                    isOpen={isOpen}
+                    placement='bottom'
+                    onClose={onClose}
+                >
+                    <DrawerOverlay />
+                    <DrawerContent>
+                        <DrawerCloseButton />
+                        <DrawerHeader>{stateSettingName}</DrawerHeader>
+                        <DrawerBody>
+                            {getSettingContent(stateSettingName)}
+                        </DrawerBody>
+                        <DrawerFooter>
+                            <Button variant='outline' mr={3} onClick={onClose}>
+                                Exit
+                            </Button>
+                        </DrawerFooter>
+                    </DrawerContent>
+                </Drawer>
             </MobileView>
 
             <BrowserView>
