@@ -10,6 +10,9 @@ import { AppBar, Toolbar } from "@material-ui/core";
 
 import CustomButton from "./components/buttons";
 import AdminBeacons from "./app/pages/admin/beacons";
+import Feedback from "./app/pages/feedback";
+
+import { BrowserView, MobileView } from 'react-device-detect';
 
 function App() {
   const { t } = useTranslation();
@@ -28,7 +31,19 @@ function App() {
 
   if (page === Page.FeedBack) {
     //FeedBack
-    return <>FeedBack Page</>;
+    return (<div className="App">
+    <header className="App-header">
+      <BrowserView>
+        <Box height={'110px'}></Box>
+      </BrowserView>
+      <MobileView>
+        <Box height={'5px'}></Box>
+      </MobileView>
+      <Text fontSize='3xl' margin='7' fontFamily={"Montserrat-Medium"}>{t("feedback")}</Text>
+      <Text fontSize='md' margin='7' marginTop='-20px'>{t("daily_entries")}</Text>
+      <Feedback></Feedback>
+    </header>
+   </div>);
   }
 
   if (page === Page.Settings) {

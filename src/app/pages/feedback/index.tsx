@@ -4,10 +4,12 @@ import { ReactMediaRecorder, useReactMediaRecorder } from "react-media-recorder"
 import Webcam from 'react-webcam';
 import { BrowserView, MobileView } from 'react-device-detect';
 import axios from 'axios';
+import useTranslation from '../../../i18n/use-translation';
 
 
 function Feedback() {
 
+    const { t } = useTranslation();
 
     const [deviceId, setDeviceId] = useState({});
     const [devices, setDevices] = useState([]);
@@ -443,11 +445,11 @@ function Feedback() {
                         <div style={{ display: selectedUploadFile ? 'block' : 'none' }}>
                             <Center>
                                 <Button _focus={{ boxShadow: "none" }} backgroundColor='#CE7E5C' color='#FFFFFF' borderRadius='200px' _hover={{ bg: '#A2543D' }}
-                                    borderColor='#A2543D' width='206px' height='47px' marginBottom='2%' onClick={uploadFileCamera}>Use camera</Button>
+                                    borderColor='#A2543D' width='206px' height='47px' marginBottom='2%' onClick={uploadFileCamera}>{t("use_camera")}</Button>
                             </Center>
                             <Center>
                                 <Button _focus={{ boxShadow: "none" }} backgroundColor='#CE7E5C' color='#FFFFFF' borderRadius='200px' _hover={{ bg: '#A2543D' }}
-                                    borderColor='#A2543D' width='206px' height='47px' marginBottom='5%' onClick={uploadFileGallery}>From gallery</Button>
+                                    borderColor='#A2543D' width='206px' height='47px' marginBottom='5%' onClick={uploadFileGallery}>{t("from_gallery")}</Button>
                             </Center>
                             <div style={{ display: selectedUploadFileCamera ? 'block' : 'none' }}>
 
@@ -472,17 +474,17 @@ function Feedback() {
                                         <Button _focus={{ boxShadow: "none" }} _hover={{ bg: '#DA8E71' }} borderColor='#A2543D' borderRadius='200px' color='#A2543D'
                                             variant='outline' height='47px' width='206px' onClick={() => {
                                                 showImage();
-                                            }}>Take a photo</Button>
+                                            }}>{t("take_photo")}</Button>
                                     </Center>
                                     <Center>
                                         {/**record video mobile*/}
                                         <div>
                                             <Center>
                                                 <Button style={{ display: selectedStartRecordVideo ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} _hover={{ bg: '#DA8E71' }} borderColor='#A2543D' borderRadius='200px' color='#A2543D'
-                                                    variant='outline' height='47px' width='206px' onClick={() => { video.startRecording(); startRecordVideo() }}>Start Recording</Button>
+                                                    variant='outline' height='47px' width='206px' onClick={() => { video.startRecording(); startRecordVideo() }}>{t("start_recording")}</Button>
                                             </Center>
                                             <Button style={{ display: selectedStopRecordVideo ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} _hover={{ bg: '#DA8E71' }} borderColor='#A2543D' borderRadius='200px' color='#A2543D'
-                                                variant='outline' height='47px' width='206px' onClick={() => { video.stopRecording(); stopRecordVideo(); }}>Stop Recording</Button>
+                                                variant='outline' height='47px' width='206px' onClick={() => { video.stopRecording(); stopRecordVideo(); }}>{t("stop_recording")}</Button>
 
                                             <Center>
                                                 <video width='30%' style={{ display: selectedSubmitRecordVideo ? 'block' : 'none' }} src={video.mediaBlobUrl || undefined} controls autoPlay loop></video>
@@ -509,7 +511,7 @@ function Feedback() {
                                         <img width='10%' src="https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1652659200&Signature=URLDx3p2s8~-sw~0ToQSzVYZQntaSlYpFwCKnw-Wb94HVTr448gEWOEPMkrMPNb0tnTsMiiCKTusgmmPnk5EJr3lK66zGOMbgUxqPvJdx6i0Tv6umys4UTeMwq~MAdwiPNTce9HQ5rBRWOWgVE3EmDgiAhh-dfM6U73VfeUShGkeU5yNv-yifAPBU5r~mgx2dh3YoMIQ4iKfS--pzUFW4BE6YMdNiPoDfMwMpJrYdaFPQpmGK0lsJPdEn5nxnzVLQkn-JrH9uyGi0FXsL9cxCH6Ofcy5BDEKtL90dk3jnEzc3YXvlXKJaQ2M8Z40yW7HaF5fmp987hV7SpJZjSsipw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
                                     </Center>
                                     <Center>
-                                        <h1>Click to upload a photo/video</h1>
+                                        <h1>{t("upload_photo_video")}</h1>
                                     </Center>
                                 </label>
                                 <Center>
@@ -525,7 +527,7 @@ function Feedback() {
                                 <Textarea id='textUpload' borderColor='#A2543D' width='50%' height='200px' _hover={{ boxShadow: 'none' }} _focus={{ boxShadow: "none" }}
                                     value={inputValueTextarea}
                                     onChange={handleInputChange}
-                                    placeholder='Place your text here...'
+                                    placeholder={t("placeholder")}
                                     _placeholder={{ textColor: '#CE7E5C' }}
                                     color='#CE7E5C'
                                 />
@@ -536,11 +538,11 @@ function Feedback() {
                         <div style={{ display: selectedUploadAudio ? 'block' : 'none' }}>
                             <Center>
                                 <Button _focus={{ boxShadow: "none" }} backgroundColor='#CE7E5C' color='#FFFFFF' borderRadius='200px' _hover={{ bg: '#A2543D' }}
-                                    borderColor='#A2543D' width='206px' height='47px' marginBottom='2%' onClick={uploadAudioMic}>Use mic</Button>
+                                    borderColor='#A2543D' width='206px' height='47px' marginBottom='2%' onClick={uploadAudioMic}>{t("use_mic")}</Button>
                             </Center>
                             <Center>
                                 <Button _focus={{ boxShadow: "none" }} backgroundColor='#CE7E5C' color='#FFFFFF' borderRadius='200px' _hover={{ bg: '#A2543D' }}
-                                    borderColor='#A2543D' width='206px' height='47px' marginBottom='5%' onClick={uploadAudioFiles}>From files</Button>
+                                    borderColor='#A2543D' width='206px' height='47px' marginBottom='5%' onClick={uploadAudioFiles}>{t("from_files")}</Button>
                             </Center>
 
                             {/**Upload audio mobile*/}
@@ -551,7 +553,7 @@ function Feedback() {
                                         <img width='10%' src="https://s3-alpha-sig.figma.com/img/9570/6275/02fe629724c6451bfc58e8b408959b7f?Expires=1652659200&Signature=ersh~djo0M0azAQXkkTt4atepCPDgD7pfkNhGnpDDINizApqLzAFk8SMm-PpkHFaMqzOW-xSqAfeDd8V8mXslKQY7g97M6zXewSuftfpQkewSOmHfT8s3OINRHV3iqDEW4z8f0j~8q5D9Q7iEhCOVXWWiklU9PYEpJOrXNpTib75MigEcus2~vkeBGPNvtWLUxXlbKELRs1lJ4Bi~qr2hxGiRdeGELKk~WBl0qchXBivzZEevHwInxe7Huusa1Ug1QE3CFctUOk2xxDU569K4PKG7siFbZQ4gNZUlUXsZa9w6bFmzwBZHuu7c8gph3ooZQXf3c65Ew99zAjkdd5CxA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
                                     </Center>
                                     <Center>
-                                        <h1>Click to upload audio</h1>
+                                        <h1>{t("upload_audio")}</h1>
                                     </Center>
                                 </label>
                                 <Center>
@@ -563,16 +565,16 @@ function Feedback() {
                             <div style={{ display: selectedUploadAudioMic ? 'block' : 'none' }}>
                                 <Center>
                                     <div>
-                                        <p>status: {status}</p>
+                                        <p>{t("recording_status")}: {status}</p>
 
                                         <Center>
                                             <Button style={{ display: selectedStartRecordAudio ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} _hover={{ bg: '#DA8E71' }} borderColor='#A2543D' borderRadius='200px' color='#A2543D'
-                                                variant='outline' height='47px' width='220px' onClick={() => { startRecording(); startRecordAudio() }}>Start Recording</Button>
+                                                variant='outline' height='47px' width='220px' onClick={() => { startRecording(); startRecordAudio() }}>{t("start_recording")}</Button>
                                         </Center>
 
                                         <Center>
                                             <Button style={{ display: selectedStopRecordAudio ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} _hover={{ bg: '#DA8E71' }} borderColor='#A2543D' borderRadius='200px' color='#A2543D'
-                                                variant='outline' height='47px' width='220px' onClick={() => { stopRecording(); stopRecordAudio(); }}>Stop Recording</Button>
+                                                variant='outline' height='47px' width='220px' onClick={() => { stopRecording(); stopRecordAudio(); }}>{t("stop_recording")}</Button>
                                         </Center>
 
                                         <Center>
@@ -587,15 +589,15 @@ function Feedback() {
                     <Box>
                         <Center>
                             <Button _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
-                                borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%' onClick={handleSubmission}>CONFIRM</Button>
+                                borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%' onClick={handleSubmission}>{t("confirm")}</Button>
                         </Center>
                         <Center>
                             <Button _focus={{ boxShadow: "none" }} _hover={{ bg: '#DA8E71' }} borderColor='#A2543D' borderRadius='200px' color='#A2543D'
-                                variant='outline' height='47px' width='220px' marginBottom='15%' onClick={cancelUpload}>CANCEL</Button>
+                                variant='outline' height='47px' width='220px' marginBottom='15%' onClick={cancelUpload}>{t("cancel")}</Button>
                         </Center>
                         <Center>
                             <Button _focus={{ boxShadow: "none" }} _hover={{ bg: '#A2543D' }} borderColor='#DA8E71' borderRadius='200px' color='#DA8E71'
-                                variant='outline' height='47px' width='220px'>SENT FEEDBACK</Button>
+                                variant='outline' height='47px' width='220px'>{t("sent_feedback")}</Button>
                         </Center>
                     </Box>
 
@@ -626,15 +628,15 @@ function Feedback() {
 
                         <Center>
                             <Button _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
-                                borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%' onClick={handleSubmission}>CONFIRM</Button>
+                                borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%' onClick={handleSubmission}>{t("confirm")}</Button>
                         </Center>
                         <Center>
                             <Button _focus={{ boxShadow: "none" }} _hover={{ bg: '#DA8E71' }} borderColor='#A2543D' borderRadius='200px' color='#A2543D'
-                                variant='outline' height='47px' width='529px' marginBottom='10%' onClick={cancelUpload}>CANCEL</Button>
+                                variant='outline' height='47px' width='529px' marginBottom='10%' onClick={cancelUpload}>{t("cancel")}</Button>
                         </Center>
                         <Center>
                             <Button _focus={{ boxShadow: "none" }} _hover={{ bg: '#A2543D' }} borderColor='#DA8E71' borderRadius='200px' color='#DA8E71'
-                                variant='outline' height='47px' width='529px'>SENT FEEDBACK</Button>
+                                variant='outline' height='47px' width='529px'>{t("sent_feedback")}</Button>
                         </Center>
                     </Box>
                     <Box marginLeft='100px' backgroundColor='#000000' width='0px' marginTop='-120px' height='550px' border='1px'></Box>
@@ -650,7 +652,7 @@ function Feedback() {
                                         <img width='25%' src="https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1652659200&Signature=URLDx3p2s8~-sw~0ToQSzVYZQntaSlYpFwCKnw-Wb94HVTr448gEWOEPMkrMPNb0tnTsMiiCKTusgmmPnk5EJr3lK66zGOMbgUxqPvJdx6i0Tv6umys4UTeMwq~MAdwiPNTce9HQ5rBRWOWgVE3EmDgiAhh-dfM6U73VfeUShGkeU5yNv-yifAPBU5r~mgx2dh3YoMIQ4iKfS--pzUFW4BE6YMdNiPoDfMwMpJrYdaFPQpmGK0lsJPdEn5nxnzVLQkn-JrH9uyGi0FXsL9cxCH6Ofcy5BDEKtL90dk3jnEzc3YXvlXKJaQ2M8Z40yW7HaF5fmp987hV7SpJZjSsipw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
                                     </Center>
                                     <Center marginBottom='5%'>
-                                        <h1>Click to upload a photo/video</h1>
+                                        <h1>{t("upload_photo_video")}</h1>
                                     </Center>
                                 </label>
                                 <Center marginBottom='15%'>
@@ -670,7 +672,7 @@ function Feedback() {
                                     <Textarea id='textUpload' _focus={{ boxShadow: "none" }} _hover={{ boxShadow: 'none' }} marginBottom='10%' width='70%' height='150px' borderColor='#A2543D'
                                         value={inputValueTextarea}
                                         onChange={handleInputChange}
-                                        placeholder='Place your text here...'
+                                        placeholder={t("placeholder")}
                                         _placeholder={{ textColor: '#A2543D' }}
                                         color='#A2543D'
                                     />
@@ -683,11 +685,11 @@ function Feedback() {
                             <Box marginLeft='150px' width='600px' height='100%' backgroundColor='#FCE5D7' p={4} color='#575757'>
                                 <Center>
                                     <Button _focus={{ boxShadow: "none" }} marginTop='2%' backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }}
-                                        color='#FFFFFF' borderColor='#CE7E5C' width='206px' height='47px' marginBottom='2%' onClick={uploadAudioMic}>Use mic</Button>
+                                        color='#FFFFFF' borderColor='#CE7E5C' width='206px' height='47px' marginBottom='2%' onClick={uploadAudioMic}>{t("use_mic")}</Button>
                                 </Center>
                                 <Center>
                                     <Button _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
-                                        borderColor='#CE7E5C' width='206px' height='47px' marginBottom='2%' onClick={uploadAudioFiles}>From files</Button>
+                                        borderColor='#CE7E5C' width='206px' height='47px' marginBottom='2%' onClick={uploadAudioFiles}>{t("from_files")}</Button>
                                 </Center>
 
                                 <div style={{ display: selectedUploadAudioFiles ? 'none' : 'block' }}>
@@ -704,7 +706,7 @@ function Feedback() {
                                             <img width='20%' src="https://s3-alpha-sig.figma.com/img/9570/6275/02fe629724c6451bfc58e8b408959b7f?Expires=1652659200&Signature=ersh~djo0M0azAQXkkTt4atepCPDgD7pfkNhGnpDDINizApqLzAFk8SMm-PpkHFaMqzOW-xSqAfeDd8V8mXslKQY7g97M6zXewSuftfpQkewSOmHfT8s3OINRHV3iqDEW4z8f0j~8q5D9Q7iEhCOVXWWiklU9PYEpJOrXNpTib75MigEcus2~vkeBGPNvtWLUxXlbKELRs1lJ4Bi~qr2hxGiRdeGELKk~WBl0qchXBivzZEevHwInxe7Huusa1Ug1QE3CFctUOk2xxDU569K4PKG7siFbZQ4gNZUlUXsZa9w6bFmzwBZHuu7c8gph3ooZQXf3c65Ew99zAjkdd5CxA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
                                         </Center>
                                         <Center marginBottom='5%'>
-                                            <h1>Click to upload audio</h1>
+                                            <h1>{t("upload_audio")}</h1>
                                         </Center>
                                     </label>
                                     <Center marginBottom='5%'>
@@ -719,18 +721,18 @@ function Feedback() {
                                     <Center>
                                         <div>
                                             <Center>
-                                                <p>recording status: {status}</p>
+                                                <p>{t("recording_status")}: {status}</p>
                                             </Center>
                                             <audio id='srcAudioDesktop' style={{ display: selectedSubmitRecordAudio ? 'block' : 'none' }} src={mediaBlobUrl || undefined} controls></audio>
 
                                             <Center>
                                                 <Button style={{ display: selectedStartRecordAudio ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#CE7E5C' borderRadius='200px' _hover={{ bg: '#CE7E5C' }}
-                                                    color='#FFFFFF' borderColor='#CE7E5C' onClick={() => { startRecording(); startRecordAudio() }}>Start Recording</Button>
+                                                    color='#FFFFFF' borderColor='#CE7E5C' onClick={() => { startRecording(); startRecordAudio() }}>{t("start_recording")}</Button>
                                             </Center>
 
                                             <Center>
                                                 <Button style={{ display: selectedStopRecordAudio ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#CE7E5C' borderRadius='200px' _hover={{ bg: '#CE7E5C' }}
-                                                    color='#FFFFFF' borderColor='#CE7E5C' onClick={() => { stopRecording(); stopRecordAudio(); }}>Stop Recording</Button>
+                                                    color='#FFFFFF' borderColor='#CE7E5C' onClick={() => { stopRecording(); stopRecordAudio(); }}>{t("stop_recording")}</Button>
                                             </Center>
 
                                         </div>
