@@ -10,7 +10,7 @@ import { AppBar, Toolbar } from "@material-ui/core";
 
 import CustomButton from "./components/buttons";
 import AdminBeacons from "./app/pages/admin/beacons";
-import { Settings } from "./app/pages/settings";
+import UserSettings from "./app/pages/settings";
 
 function App() {
   const { t } = useTranslation();
@@ -46,7 +46,7 @@ function App() {
         <header className="App-header">
           <Box height={'110px'}></Box>
           <Text fontSize='3xl' margin='7'>{t("settings")}</Text>
-          <Settings></Settings>
+          <UserSettings></UserSettings>
         </header>
        </div>
        );
