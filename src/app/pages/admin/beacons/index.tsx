@@ -37,8 +37,10 @@ import { useStoreSelector } from "../../../../store";
 import { selectedPage } from "../../../../store/navigation-reducer";
 
 interface Beacon {
-  deviceId: string;
-  classRoom: string;
+  beaconName: string;
+  beaconId?: number;
+  classroomName: string;
+  classroomId?: number;
   x: number;
   y: number;
   z: number;
@@ -47,29 +49,29 @@ interface Beacon {
 const array1: Beacon[] = [
   //endpoint beacon/GET ALL
   {
-    deviceId: "Beacon 1",
-    classRoom: "B404",
+    beaconName: "Beacon 1",
+    classroomName: "B404",
     x: 1,
     y: 1,
     z: 2,
   },
   {
-    deviceId: "Beacon 2",
-    classRoom: "B401",
+    beaconName: "Beacon 2",
+    classroomName: "B401",
     x: 1,
     y: 1,
     z: 2,
   },
   {
-    deviceId: "Beacon 3",
-    classRoom: "B405",
+    beaconName: "Beacon 3",
+    classroomName: "B405",
     x: 1,
     y: 1,
     z: 2,
   },
   {
-    deviceId: "Beacon 4",
-    classRoom: "B407",
+    beaconName: "Beacon 4",
+    classroomName: "B407",
     x: 1,
     y: 1,
     z: 2,
@@ -103,12 +105,17 @@ function AdminBeacons() {
     setX(x);
     setY(y);
     setZ(z);
+    myAsynFunction()
   }
 
-  function handleInputChange(event: React.ChangeEvent): void {
-    console.log(event.target.getAttribute("value"));
-    // setX(parseInt(event.target.getAttribute('value')?.));
-  }
+  const api = 'https://camul2022.pythonanywhere.com';
+
+  const myAsynFunction = async (): Promise<Array<Beacon> | string> => {
+    const response = await fetch(api+'/map/beacons')
+    const { data } = await response.json()
+    console.log(data);
+    return data;
+}
 
   function handleInputDeviceId(device: string): void {
     setDeviceId(device);
@@ -245,7 +252,7 @@ function AdminBeacons() {
                       </Tr>
                     </Thead>
                     <Tbody>
-                      {array1.map(({ deviceId, classRoom, x, y, z }) => (
+                      {array1.map(({ beaconName: deviceId, classroomName: classRoom, x, y, z }) => (
                         <Tr
                           _hover={{ bg: "isepBrick.300" }}
                           onClick={() => getBeaconUpdateForm(deviceId, classRoom, x, y, z)}
@@ -345,7 +352,7 @@ function AdminBeacons() {
                     onChange={(e) => handleInputX(e)}
                   >
                     <EditablePreview textAlign={"left"} border={"thin"} />
-                    <EditableInput onChange={(e) => handleInputChange(e)} />
+                    <EditableInput />
                   </Editable>
                   <Divider color={"isepBrick.500"}></Divider>
                   <Editable
@@ -393,7 +400,7 @@ function AdminBeacons() {
         </Text>
         <SimpleGrid columns={[1, 2]}>
           <Box>
-            {array1.map(({ deviceId, classRoom, x, y, z }) => (
+            {array1.map(({ beaconName: deviceId, classroomName: classRoom, x, y, z }) => (
               <Center>
                 <ButtonGroup marginTop="1%" marginBottom="0.5%">
                   <Button
@@ -473,7 +480,7 @@ function AdminBeacons() {
                   isDisabled={stateX === 0 ? true : false}
                 >
                   <EditablePreview textAlign={"left"} border={"thin"} />
-                  <EditableInput onChange={(e) => handleInputChange(e)} />
+                  <EditableInput />
                 </Editable>
                 <Divider color={"isepBrick.500"}></Divider>
                 <Editable

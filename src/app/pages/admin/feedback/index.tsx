@@ -131,19 +131,13 @@ export class AdminFeedback extends React.Component<{}, {}> {
                     bg="isepBrick.300"
                     w="100%"
                     p={4}
-                    color="isepGrey.500"
                     fontFamily={"Montserrat-Medium"}
                   >
-                    {this.getIcon(type)}
-                    <Box
-                      flex="1"
-                      textAlign="left"
-                      textColor="#000000"
-                      fontFamily={"Montserrat-Medium"}
-                    >
-                      {date}
-                    </Box>
-                    <AccordionIcon />
+                    <Center>
+                      <Box margin={"2"}>{this.getIcon(type)}</Box>
+                      <Text>{date}</Text>
+                      <AccordionIcon />
+                    </Center>
                   </AccordionButton>
                 </h2>
                 <AccordionPanel pb={4} fontFamily={"Montserrat-Medium"}>
@@ -178,14 +172,7 @@ export class AdminFeedback extends React.Component<{}, {}> {
                     >
                       <Box margin={"2"}>{this.getIcon(type)}</Box>
                       <Text fontFamily={"Montserrat-Medium"}>{date}</Text>
-                      {/* <Box w={"15"}></Box>
-                        <Icon
-                          as={MdOutlineKeyboardArrowRight}
-                          width={8}
-                          height={8}
-                          color="isepGrey.600"
-                          alignContent={"right"}
-                        ></Icon> */}
+                      
                     </Button>
                   </ButtonGroup>
                 </Center>
