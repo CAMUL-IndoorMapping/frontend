@@ -1,5 +1,6 @@
 import React from "react";
 import { Button, Flex, useColorMode } from "@chakra-ui/react";
+import CustomButton from ".";
 
 const themeModeString = (colorMode: string) => {
     const arr = colorMode.split(" ");
@@ -13,18 +14,25 @@ const themeModeString = (colorMode: string) => {
     return arr.join(" ");
 }
 
-const Toggle = () => {
+const ThemeToggle = () => {
     const { colorMode, toggleColorMode } = useColorMode();
 
     return (
         <div>
             <Flex marginTop={"20px"}>
-                <Button size="lg" onClick={() => toggleColorMode()}>
-                    {themeModeString(colorMode)} Mode
-                </Button>
+                <CustomButton
+                    backgroundColor="isepBrick.500"
+                    borderColor="isepGreen.500"
+                    buttonColor="isepGrey.600"
+                    hoverColor="isepBrick.400"
+                    text={themeModeString(colorMode)}
+                    textColor="#FFFFFF"
+                    width="280px"
+                    handleButtonClick={() => toggleColorMode()}
+                />
             </Flex>
         </div>
     );
 };
 
-export default Toggle;
+export default ThemeToggle;
