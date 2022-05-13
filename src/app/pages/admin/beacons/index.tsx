@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useEffect, useLayoutEffect } from "react";
 import { useState } from "react";
 import {
   Box,
@@ -15,6 +15,7 @@ import {
   GridItem,
   Divider,
   HStack,
+  Spinner,
 } from "@chakra-ui/react";
 import {
   Table,
@@ -37,46 +38,18 @@ import { useStoreSelector } from "../../../../store";
 import { selectedPage } from "../../../../store/navigation-reducer";
 
 interface Beacon {
+  beaconId: number;
   beaconName: string;
-  beaconId?: number;
+  classroomId: number;
   classroomName: string;
-  classroomId?: number;
   x: number;
   y: number;
   z: number;
 }
 
-const array1: Beacon[] = [
-  //endpoint beacon/GET ALL
-  {
-    beaconName: "Beacon 1",
-    classroomName: "B404",
-    x: 1,
-    y: 1,
-    z: 2,
-  },
-  {
-    beaconName: "Beacon 2",
-    classroomName: "B401",
-    x: 1,
-    y: 1,
-    z: 2,
-  },
-  {
-    beaconName: "Beacon 3",
-    classroomName: "B405",
-    x: 1,
-    y: 1,
-    z: 2,
-  },
-  {
-    beaconName: "Beacon 4",
-    classroomName: "B407",
-    x: 1,
-    y: 1,
-    z: 2,
-  },
-];
+interface BeaconData {
+  beacons: Beacon[];
+}
 
 function AdminBeacons() {
   const { t } = useTranslation();
@@ -85,6 +58,8 @@ function AdminBeacons() {
 
   const [stateDeviceId, setDeviceId] = useState(t("beacon_device_id"));
   const [stateClassRoom, setClassRoom] = useState(t("beacon_classroom"));
+  const [stateBeaconId, setBeaconId] = useState(0);
+  const [stateClassroomId, setClassRoomId] = useState(0);
   const [stateX, setX] = useState(0);
   const [stateY, setY] = useState(0);
   const [stateZ, setZ] = useState(0);
@@ -92,30 +67,38 @@ function AdminBeacons() {
   const [buttonState, setButton] = useState("UPDATE");
   const [operationState, setOperation] = useState("UPDATE");
   const [titleState, setTitle] = useState("Beacons");
+  const [beaconList, setBeacons] = useState<BeaconData>();
 
   function setStates(
     device: string,
     classRoom: string,
     x: number,
     y: number,
-    z: number
+    z: number,
+    beaconId: number,
+    classroomId: number
   ): void {
     setDeviceId(device);
     setClassRoom(classRoom);
+    setBeaconId(beaconId);
+    setClassRoomId(classroomId);
     setX(x);
     setY(y);
     setZ(z);
-    myAsynFunction()
   }
 
-  const api = 'https://camul2022.pythonanywhere.com';
+  const api = "https://camul2022.pythonanywhere.com";
 
-  const myAsynFunction = async (): Promise<Array<Beacon> | string> => {
-    const response = await fetch(api+'/map/beacons')
-    const { data } = await response.json()
-    console.log(data);
-    return data;
-}
+  const myAsyncFunction = async () => {
+    await fetch(api + "/map/beacons")
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        const items = data;
+        setBeacons(items);
+      });
+  };
 
   function handleInputDeviceId(device: string): void {
     setDeviceId(device);
@@ -137,9 +120,19 @@ function AdminBeacons() {
     setZ(parseInt(z));
   }
 
-  function getBeaconUpdateForm(deviceId: string, classRoom: string, x: number, y: number, z:number): void {
+  function getBeaconUpdateForm(
+    deviceId: string,
+    classRoom: string,
+    x: number,
+    y: number,
+    z: number,
+    beaconId: number,
+    classroomId: number
+  ): void {
     setDeviceId(deviceId);
     setClassRoom(classRoom);
+    setBeaconId(beaconId);
+    setClassRoomId(classroomId);
     setX(x);
     setY(y);
     setZ(z);
@@ -155,6 +148,7 @@ function AdminBeacons() {
     setTitle(t("beacon_add"));
     setOperation("ADD");
   }
+
   function getStartPage(): void {
     setState("start");
   }
@@ -164,6 +158,7 @@ function AdminBeacons() {
 
     // if state === ADD -> chamar endpoint de POST
     if (operationState === "ADD") {
+      console.log("adding beacon "+stateBeaconId)
       //if 200
       toast({
         title: t("beacon_add_success_message"),
@@ -180,6 +175,7 @@ function AdminBeacons() {
 
     // if state === UPDATE -> chamar enpoint de PUT
     if (operationState === "UPDATE") {
+      console.log("updating beacon "+stateBeaconId)
       //if 200
       toast({
         title: t("beacon_update_success_message"),
@@ -195,11 +191,17 @@ function AdminBeacons() {
     }
   }
 
+  useEffect(() => {
+        myAsyncFunction();
+
+  }, []);
+
+  console.log("Occurs EVERY time the component is invoked.");
   return (
     <>
       <MobileView>
         <div>
-          {state === "start" && (
+          {state === "start" && beaconList!==undefined && (
             <div>
               <Text
                 fontFamily={"Montserrat-SemiBold"}
@@ -252,25 +254,37 @@ function AdminBeacons() {
                       </Tr>
                     </Thead>
                     <Tbody>
-                      {array1.map(({ beaconName: deviceId, classroomName: classRoom, x, y, z }) => (
-                        <Tr
-                          _hover={{ bg: "isepBrick.300" }}
-                          onClick={() => getBeaconUpdateForm(deviceId, classRoom, x, y, z)}
-                        >
-                          <Td>{deviceId}</Td>
-                          <Td>{classRoom}</Td>
-                          <Td>
-                            {x}, {y}, {z}
-                          </Td>
-                        </Tr>
-                      ))}
+                      {beaconList.beacons.map(
+                        ({
+                          beaconName: deviceId,
+                          beaconId,
+                          classroomId,
+                          classroomName: classRoom,
+                          x,
+                          y,
+                          z,
+                        }) => (
+                          <Tr
+                            _hover={{ bg: "isepBrick.300" }}
+                            onClick={() =>
+                              getBeaconUpdateForm(deviceId, classRoom, x, y, z, beaconId, classroomId)
+                            }
+                          >
+                            <Td>{deviceId}</Td>
+                            <Td>{classRoom}</Td>
+                            <Td>
+                              {x}, {y}, {z}
+                            </Td>
+                          </Tr>
+                        )
+                      )}
                     </Tbody>
                   </Table>
                 </TableContainer>
               </Center>
             </div>
           )}
-          {state === "updateform" && (
+          {state === "updateform" && beaconList!==undefined &&  (
             <div>
               {" "}
               <Box>
@@ -391,134 +405,191 @@ function AdminBeacons() {
               </Center>
             </div>
           )}
+          {beaconList === undefined && (
+          <div>
+            <Center>
+              <Box height={"300px"}></Box>
+              <Text fontFamily={"Montserrat-SemiBold"}>Loading data...</Text>
+              <Box  width={"75px"}></Box>
+
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.500"
+              size="xl"
+            /></Center>
+            
+          </div>
+        )}
         </div>
       </MobileView>
 
       <BrowserView>
-        <Text fontFamily={"Montserrat-SemiBold"} fontSize="3xl" margin="7">
-          {t("admin_beacons")}
-        </Text>
-        <SimpleGrid columns={[1, 2]}>
-          <Box>
-            {array1.map(({ beaconName: deviceId, classroomName: classRoom, x, y, z }) => (
-              <Center>
-                <ButtonGroup marginTop="1%" marginBottom="0.5%">
-                  <Button
-                    width="700px"
-                    height="67px"
-                    _hover={{ bg: "isepBrick.300" }}
-                    variant="outline"
-                    _focus={{
-                      boxShadow: "none",
-                    }}
-                    onClick={() => setStates(deviceId, classRoom, x, y, z)}
-                  >
-                    <Icon as={FaBacon} color={"isepBrick.500"} w={6} h={6} />
-                    <Box w={3} h={6}></Box>
-                    <Text fontFamily={"Montserrat-SemiBold"}>{deviceId}</Text>
-                  </Button>
-                </ButtonGroup>
-              </Center>
-            ))}
-          </Box>
+        {beaconList !== undefined && (
+          <div>
+            <Text fontFamily={"Montserrat-SemiBold"} fontSize="3xl" margin="7">
+              {t("admin_beacons")}
+            </Text>
+            <SimpleGrid columns={[1, 2]}>
+              <Box>
+                {beaconList.beacons.map(
+                  ({
+                    beaconName: deviceId,
+                    beaconId,
+                    classroomId,
+                    classroomName: classRoom,
+                    x,
+                    y,
+                    z,
+                  }) => (
+                    <Center>
+                      <ButtonGroup marginTop="1%" marginBottom="0.5%">
+                        <Button
+                          width="700px"
+                          height="67px"
+                          _hover={{ bg: "isepBrick.300" }}
+                          variant="outline"
+                          _focus={{
+                            boxShadow: "none",
+                          }}
+                          onClick={() =>
+                            setStates(deviceId, classRoom, x, y, z, beaconId, classroomId)
+                          }
+                        >
+                          <Icon
+                            as={FaBacon}
+                            color={"isepBrick.500"}
+                            w={6}
+                            h={6}
+                          />
+                          <Box w={3} h={6}></Box>
+                          <Text fontFamily={"Montserrat-SemiBold"}>
+                            {deviceId}
+                          </Text>
+                        </Button>
+                      </ButtonGroup>
+                    </Center>
+                  )
+                )}
+              </Box>
 
-          <Box marginBottom="1%" borderRadius="3xl" width="500px">
-            <Grid templateColumns="repeat(5, 1fr)" gap={4}>
-              <GridItem colSpan={1} h="320" w="10">
-                <Divider orientation="vertical" />
-              </GridItem>
-              <GridItem colStart={2} colEnd={7} h="320">
-                <Text
-                  fontFamily={"Montserrat-SemiBold"}
-                  color="isepBrick.500"
-                  align="left"
-                >
-                  {t("beacon_device_id")}
-                </Text>
+              <Box marginBottom="1%" borderRadius="3xl" width="500px">
+                <Grid templateColumns="repeat(5, 1fr)" gap={4}>
+                  <GridItem colSpan={1} h="320" w="10">
+                    <Divider orientation="vertical" />
+                  </GridItem>
+                  <GridItem colStart={2} colEnd={7} h="320">
+                    <Text
+                      fontFamily={"Montserrat-SemiBold"}
+                      color="isepBrick.500"
+                      align="left"
+                    >
+                      {t("beacon_device_id")}
+                    </Text>
 
-                <Editable
-                  fontFamily={"Montserrat-Medium"}
-                  value={stateDeviceId}
-                  onChange={(e) => handleInputDeviceId(e)}
-                  isDisabled={stateDeviceId === "Device Id" ? true : false}
-                >
-                  <EditablePreview textAlign={"left"} />
-                  <EditableInput />
-                </Editable>
-                <Divider color={"isepBrick.500"}></Divider>
-                <Box height={"11px"}></Box>
-                <Text
-                  fontFamily={"Montserrat-SemiBold"}
-                  color="isepBrick.500"
-                  align="left"
-                >
-                  {t("beacon_classroom")}
-                </Text>
-                <Editable
-                  fontFamily={"Montserrat-Medium"}
-                  value={stateClassRoom}
-                  onChange={(e) => handleInputClassroom(e)}
-                  isDisabled={stateClassRoom === "Classroom" ? true : false}
-                >
-                  <EditablePreview textAlign={"left"} />
-                  <EditableInput />
-                </Editable>
-                <Divider style={{ background: "isepBrick.500" }}></Divider>
-                <Box height={"11px"}></Box>
-                <Text
-                  fontFamily={"Montserrat-SemiBold"}
-                  color="isepBrick.500"
-                  align="left"
-                >
-                  {t("beacon_coordinates")}
-                </Text>
-                <Editable
-                  fontFamily={"Montserrat-Medium"}
-                  border={"thin"}
-                  value={stateX.toString()}
-                  onChange={(e) => handleInputX(e)}
-                  isDisabled={stateX === 0 ? true : false}
-                >
-                  <EditablePreview textAlign={"left"} border={"thin"} />
-                  <EditableInput />
-                </Editable>
-                <Divider color={"isepBrick.500"}></Divider>
-                <Editable
-                  fontFamily={"Montserrat-Medium"}
-                  value={stateY.toString()}
-                  onChange={(e) => handleInputY(e)}
-                  isDisabled={stateY === 0 ? true : false}
-                >
-                  <EditablePreview textAlign={"left"} />
-                  <EditableInput />
-                </Editable>
-                <Divider color={"isepBrick.500"}></Divider>
-                <Editable
-                  fontFamily={"Montserrat-Medium"}
-                  value={stateZ.toString()}
-                  onChange={(e) => handleInputZ(e)}
-                  isDisabled={stateZ === 0 ? true : false}
-                >
-                  <EditablePreview textAlign={"left"} />
-                  <EditableInput />
-                </Editable>
+                    <Editable
+                      fontFamily={"Montserrat-Medium"}
+                      value={stateDeviceId}
+                      onChange={(e) => handleInputDeviceId(e)}
+                      isDisabled={stateDeviceId === "Device Id" ? true : false}
+                    >
+                      <EditablePreview textAlign={"left"} />
+                      <EditableInput />
+                    </Editable>
+                    <Divider color={"isepBrick.500"}></Divider>
+                    <Box height={"11px"}></Box>
+                    <Text
+                      fontFamily={"Montserrat-SemiBold"}
+                      color="isepBrick.500"
+                      align="left"
+                    >
+                      {t("beacon_classroom")}
+                    </Text>
+                    <Editable
+                      fontFamily={"Montserrat-Medium"}
+                      value={stateClassRoom}
+                      onChange={(e) => handleInputClassroom(e)}
+                      isDisabled={stateClassRoom === "Classroom" ? true : false}
+                    >
+                      <EditablePreview textAlign={"left"} />
+                      <EditableInput />
+                    </Editable>
+                    <Divider style={{ background: "isepBrick.500" }}></Divider>
+                    <Box height={"11px"}></Box>
+                    <Text
+                      fontFamily={"Montserrat-SemiBold"}
+                      color="isepBrick.500"
+                      align="left"
+                    >
+                      {t("beacon_coordinates")}
+                    </Text>
+                    <Editable
+                      fontFamily={"Montserrat-Medium"}
+                      border={"thin"}
+                      value={stateX.toString()}
+                      onChange={(e) => handleInputX(e)}
+                      isDisabled={stateX === 0 ? true : false}
+                    >
+                      <EditablePreview textAlign={"left"} border={"thin"} />
+                      <EditableInput />
+                    </Editable>
+                    <Divider color={"isepBrick.500"}></Divider>
+                    <Editable
+                      fontFamily={"Montserrat-Medium"}
+                      value={stateY.toString()}
+                      onChange={(e) => handleInputY(e)}
+                      isDisabled={stateY === 0 ? true : false}
+                    >
+                      <EditablePreview textAlign={"left"} />
+                      <EditableInput />
+                    </Editable>
+                    <Divider color={"isepBrick.500"}></Divider>
+                    <Editable
+                      fontFamily={"Montserrat-Medium"}
+                      value={stateZ.toString()}
+                      onChange={(e) => handleInputZ(e)}
+                      isDisabled={stateZ === 0 ? true : false}
+                    >
+                      <EditablePreview textAlign={"left"} />
+                      <EditableInput />
+                    </Editable>
 
-                <Divider color={"isepBrick.500"}></Divider>
-                <Box height="15px"></Box>
-                <CustomButton
-                  backgroundColor="isepBrick.500"
-                  borderColor="isepGreen.500"
-                  buttonColor="isepGrey.600"
-                  hoverColor="isepBrick.400"
-                  text={t("beacon_update_button")}
-                  textColor="#FFFFFF"
-                  width="280px"
-                  handleButtonClick={() => handleAddOrUpdate()}
-                />
-              </GridItem>
-            </Grid>
-          </Box>
-        </SimpleGrid>
+                    <Divider color={"isepBrick.500"}></Divider>
+                    <Box height="15px"></Box>
+                    <CustomButton
+                      backgroundColor="isepBrick.500"
+                      borderColor="isepGreen.500"
+                      buttonColor="isepGrey.600"
+                      hoverColor="isepBrick.400"
+                      text={t("beacon_update_button")}
+                      textColor="#FFFFFF"
+                      width="280px"
+                      handleButtonClick={() => handleAddOrUpdate()}
+                    />
+                  </GridItem>
+                </Grid>
+              </Box>
+            </SimpleGrid>
+          </div>
+        )}
+        {beaconList === undefined && (
+          <div>
+            <Center>
+              <Box height={"300px"}></Box>
+              <Text fontFamily={"Montserrat-SemiBold"}>Loading data...</Text>
+              <Box  width={"75px"}></Box>
+
+            <Spinner
+              thickness="4px"
+              speed="0.65s"
+              emptyColor="gray.200"
+              color="blue.500"
+              size="xl"
+            /></Center>
+            
+          </div>
+        )}
       </BrowserView>
     </>
   );
