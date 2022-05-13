@@ -38,6 +38,9 @@ import {
     ModalCloseButton,
     ModalBody,
     ModalFooter,
+    Input,
+    InputGroup,
+    InputRightElement,
 } from "@chakra-ui/react";
 import ReactAudioPlayer from "react-audio-player";
 import { BrowserView, MobileView } from "react-device-detect";
@@ -93,21 +96,27 @@ function UserSettings() {
 
     const [stateSettingName, setSettingName] = useState("Setting Name");
 
+    // Set das OPTIONS
     function setStates(
         settingName: string
     ): void {
         setSettingName(settingName);
     }
 
+    //Open e close para Dialog e Modal
     const { isOpen, onOpen, onClose } = useDisclosure();
-    const [placement, setPlacement] = React.useState('bottom')
-    const btnRef = React.useRef()
 
+    //Ação do botão de show password
+    const [show, setShow] = React.useState(false)
+    const handleClickShowButton = () => setShow(!show)
+
+    //Click numa opção
     const handleClick = (newSettingName: React.SetStateAction<string>) => {
         setSettingName(newSettingName)
         onOpen()
     }
 
+    //Click num botão de confirmar uma ação
     const handleClickConfirm = () => {
         onOpen()
     }
@@ -117,6 +126,24 @@ function UserSettings() {
         onClose()
         alert("You just deleted your account... how dare u :(")
     }
+
+    function handleChangePasswordConfirm(old : string, newPass : string) : void{
+        console.log(old)
+        console.log(newPass)
+        //Verificar se os dados são válidos
+        //MANDAR MUDAR PASS A CONTA PELO PEDIDO
+        onClose()
+        alert("You just updated your password... noice xD")
+    }
+
+    //Guardar valores das passwords no Change password
+    const [valuePasswordOld, setValueOld] = React.useState('')
+    const [valuePasswordNew, setValueNew] = React.useState('');
+    const [valuePasswordNewConfirm, setValueNewConfirm] = React.useState('');
+
+    const handleChangeOld = (event: { target: { value: React.SetStateAction<string>; }; }) => setValueOld(event.target.value)
+    const handleChangeNew = (event: { target: { value: React.SetStateAction<string>; }; }) => setValueNew(event.target.value)
+    const handleChangeNewConfirm = (event: { target: { value: React.SetStateAction<string>; }; }) => setValueNewConfirm(event.target.value)
 
     function getSettingContentBrowser(settingName: string): ReactNode {
         switch (settingName) {
@@ -149,7 +176,7 @@ function UserSettings() {
                             In this section you will be able to delete your account from the current application system.
                         </Text>
                         <Text fontSize="xx-small">
-                            <Text textStyle={{ fontWeight: 'bold' }}></Text>: You won't be able to use it at its fullest after the action confirmation.
+                            <strong>Warning</strong>: You won't be able to use it at its fullest after the action confirmation.
                         </Text>
                         <br></br>
                         <CustomButton
@@ -205,9 +232,91 @@ function UserSettings() {
                 return (
                     <>
                         <Text fontSize="md">
-                            My new change password section
-                            Edit content of HTML here
+                            In this section you will be able to change your current password to a new one from.
                         </Text>
+                        <Text fontSize="xx-small">
+                            <strong>Warning</strong>: You won't be able to use your old password after the action confirmation.
+                        </Text>
+                        <br></br>
+                        <CustomButton
+                            backgroundColor="isepBrick.500"
+                            borderColor="isepGreen.500"
+                            buttonColor="isepGrey.600"
+                            hoverColor="isepBrick.400"
+                            text="Change Password"
+                            textColor="#FFFFFF"
+                            width="280px"
+                            handleButtonClick={() => handleClickConfirm()}
+                        />
+
+                        <Modal isOpen={isOpen} onClose={onClose}>
+                            <ModalOverlay />
+                            <ModalContent>
+                                <ModalHeader>Password change action</ModalHeader>
+                                <ModalCloseButton />
+                                <ModalBody>
+
+                                    <InputGroup size='md'>
+                                        {/* <Text mb='8px'>Value: {valuePasswordOld}</Text> */}
+                                        <Input
+                                            variant='flushed' placeholder='Old password' marginBottom={"20px"}
+                                            pr='4.5rem'
+                                            type={show ? 'text' : 'password'}
+                                            onChange={handleChangeOld}
+                                            value={valuePasswordOld}
+                                        />
+                                        <InputRightElement width='4.5rem'>
+                                            <Button h='1.75rem' size='sm' onClick={handleClickShowButton}>
+                                                {show ? 'Hide' : 'Show'}
+                                            </Button>
+                                        </InputRightElement>
+                                    </InputGroup>
+                                    <InputGroup size='md'>
+                                        {/* <Text mb='8px'>Value: {valuePasswordNew}</Text> */}
+                                        <Input
+                                            variant='flushed' placeholder='New password' marginBottom={"20px"}
+                                            pr='4.5rem'
+                                            type={show ? 'text' : 'password'}
+                                            onChange={handleChangeNew}
+                                            value={valuePasswordNew}
+                                        />
+                                        <InputRightElement width='4.5rem'>
+                                            <Button h='1.75rem' size='sm' onClick={handleClickShowButton}>
+                                                {show ? 'Hide' : 'Show'}
+                                            </Button>
+                                        </InputRightElement>
+                                    </InputGroup>
+                                    <InputGroup size='md'>
+                                        {/* <Text mb='8px'>Value: {valuePasswordNewConfirm}</Text> */}
+                                        <Input
+                                            variant='flushed' placeholder='Confirm password' marginBottom={"20px"}
+                                            pr='4.5rem'
+                                            type={show ? 'text' : 'password'}
+                                            onChange={handleChangeNewConfirm}
+                                            value={valuePasswordNewConfirm}
+                                        />
+                                        <InputRightElement width='4.5rem'>
+                                            <Button h='1.75rem' size='sm' onClick={handleClickShowButton}>
+                                                {show ? 'Hide' : 'Show'}
+                                            </Button>
+                                        </InputRightElement>
+                                    </InputGroup>
+
+                                    <CustomButton
+                                        backgroundColor="isepBrick.500"
+                                        borderColor="isepGreen.500"
+                                        buttonColor="isepGrey.600"
+                                        hoverColor="isepBrick.400"
+                                        text="SAVE CHANGES"
+                                        textColor="#FFFFFF"
+                                        width="280px"
+                                        handleButtonClick={() => handleChangePasswordConfirm(valuePasswordOld, valuePasswordNew)}
+                                        disabledCondition={valuePasswordNewConfirm!=valuePasswordNew || (valuePasswordNewConfirm === "" || valuePasswordNew === "" || valuePasswordOld === "")}
+                                    />
+                                    <br></br>
+                                </ModalBody>
+                            </ModalContent>
+                        </Modal>
                     </>
                 );
                 break;
@@ -321,10 +430,64 @@ function UserSettings() {
             case t("change_password"): //t("change_password")
                 return (
                     <>
-                        <Text fontSize="md">
-                            My new change password section
-                            Edit content of HTML here
-                        </Text>
+                        <InputGroup size='md'>
+                            {/* <Text mb='8px'>Value: {valuePasswordOld}</Text> */}
+                            <Input
+                                variant='flushed' placeholder='Old password' marginBottom={"20px"}
+                                pr='4.5rem'
+                                type={show ? 'text' : 'password'}
+                                onChange={handleChangeOld}
+                                value={valuePasswordOld}
+                            />
+                            <InputRightElement width='4.5rem'>
+                                <Button h='1.75rem' size='sm' onClick={handleClickShowButton}>
+                                    {show ? 'Hide' : 'Show'}
+                                </Button>
+                            </InputRightElement>
+                        </InputGroup>
+                        <InputGroup size='md'>
+                            {/* <Text mb='8px'>Value: {valuePasswordNew}</Text> */}
+                            <Input
+                                variant='flushed' placeholder='New password' marginBottom={"20px"}
+                                pr='4.5rem'
+                                type={show ? 'text' : 'password'}
+                                onChange={handleChangeNew}
+                                value={valuePasswordNew}
+                            />
+                            <InputRightElement width='4.5rem'>
+                                <Button h='1.75rem' size='sm' onClick={handleClickShowButton}>
+                                    {show ? 'Hide' : 'Show'}
+                                </Button>
+                            </InputRightElement>
+                        </InputGroup>
+                        <InputGroup size='md'>
+                            {/* <Text mb='8px'>Value: {valuePasswordNewConfirm}</Text> */}
+                            <Input
+                                variant='flushed' placeholder='Confirm password' marginBottom={"20px"}
+                                pr='4.5rem'
+                                type={show ? 'text' : 'password'}
+                                onChange={handleChangeNewConfirm}
+                                value={valuePasswordNewConfirm}
+                            />
+                            <InputRightElement width='4.5rem'>
+                                <Button h='1.75rem' size='sm' onClick={handleClickShowButton}>
+                                    {show ? 'Hide' : 'Show'}
+                                </Button>
+                            </InputRightElement>
+                        </InputGroup>
+
+                        <CustomButton
+                            backgroundColor="isepBrick.500"
+                            borderColor="isepGreen.500"
+                            buttonColor="isepGrey.600"
+                            hoverColor="isepBrick.400"
+                            text="SAVE CHANGES"
+                            textColor="#FFFFFF"
+                            width="280px"
+                            handleButtonClick={() => handleChangePasswordConfirm(valuePasswordOld, valuePasswordNew)}
+                            disabledCondition={valuePasswordNewConfirm!=valuePasswordNew || (valuePasswordNewConfirm === "" || valuePasswordNew === "" || valuePasswordOld === "")}
+                        />
+                        <br></br>
                     </>
                 );
                 break;
@@ -453,7 +616,7 @@ function UserSettings() {
                                 width="100%"
                                 marginBottom="5"
 
-                                _hover={{ bg: "isepBrick.300" }}
+                                _hover={{ bg: "isepBrick.300", textColor: "black" }}
                                 _focus={{
                                     boxShadow: "none",
                                 }}
