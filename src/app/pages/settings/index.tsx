@@ -127,7 +127,7 @@ function UserSettings() {
         alert("You just deleted your account... how dare u :(")
     }
 
-    function handleChangePasswordConfirm(old : string, newPass : string) : void{
+    function handleChangePasswordConfirm(old: string, newPass: string): void {
         console.log(old)
         console.log(newPass)
         //Verificar se os dados são válidos
@@ -150,6 +150,9 @@ function UserSettings() {
             case t("themes"):
                 return (
                     <>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("themes")}
+                        </Text>
                         <br></br>
                         <Text fontSize="large">
                             In this section you will be able to change between theme styles of the application - white and dark mode.
@@ -162,6 +165,10 @@ function UserSettings() {
             case t("sounds"): //t("sounds")
                 return (
                     <>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("sounds")}
+                        </Text>
+                        <br></br>
                         <Text fontSize="md">
                             My new sound update section
                             Edit content here
@@ -172,6 +179,10 @@ function UserSettings() {
             case t("delete_account"): //t("delete_account")
                 return (
                     <>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("delete_account")}
+                        </Text>
+                        <br></br>
                         <Text fontSize="md">
                             In this section you will be able to delete your account from the current application system.
                         </Text>
@@ -231,6 +242,10 @@ function UserSettings() {
             case t("change_password"): //t("change_password")
                 return (
                     <>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("change_password")}
+                        </Text>
+                        <br></br>
                         <Text fontSize="md">
                             In this section you will be able to change your current password to a new one from.
                         </Text>
@@ -311,7 +326,7 @@ function UserSettings() {
                                         textColor="#FFFFFF"
                                         width="280px"
                                         handleButtonClick={() => handleChangePasswordConfirm(valuePasswordOld, valuePasswordNew)}
-                                        disabledCondition={valuePasswordNewConfirm!=valuePasswordNew || (valuePasswordNewConfirm === "" || valuePasswordNew === "" || valuePasswordOld === "")}
+                                        disabledCondition={valuePasswordNewConfirm != valuePasswordNew || (valuePasswordNewConfirm === "" || valuePasswordNew === "" || valuePasswordOld === "")}
                                     />
                                     <br></br>
                                 </ModalBody>
@@ -323,6 +338,9 @@ function UserSettings() {
             case t("about_app"): //t("about_app")
                 return (
                     <>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("about_app")}
+                        </Text>
                         <br></br>
                         <Text fontSize="large">
                             How it all started.
@@ -332,14 +350,17 @@ function UserSettings() {
                             This is our about the App section. It's not much but you don't need information to know our app is dope!
                             Just use it please... thank you for your attention.
                         </Text>
-                        <Image src={"https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1653264000&Signature=DO-5QTTdSrt52S62TeXnUDv5kGF7x-H~XS2i9F7U4guJhpn1vX8oK4P5pZatIZw9UbnpJxN~D5MbvX~cCsnaNlIP5lVq3oTujy~hOUNMhwcbFpLrhhUXd0ZxLO1a1Ru-hQrrdOuskQoi55G4NjJFPm6rO9TynhaQzLlGiM~wdNb8xYA34f6a5N1TvtEp6GR~Z5vELnqHpZvfcMVCEALJwy8PsxbzyzA5-myfIIBa53xL9fixwJg~u2u5pEEeElhiRS7FyvZMeWQyb7jb3A7nyH8bbWbdXROqHDV1FozpluMmrmWMGG-8mT1DRBRRrBmPxF46tOa9n6ouvj13SUNxLw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"} alt="uploadImage" />
+                        <Image src={"https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1653264000&Signature=DO-5QTTdSrt52S62TeXnUDv5kGF7x-H~XS2i9F7U4guJhpn1vX8oK4P5pZatIZw9UbnpJxN~D5MbvX~cCsnaNlIP5lVq3oTujy~hOUNMhwcbFpLrhhUXd0ZxLO1a1Ru-hQrrdOuskQoi55G4NjJFPm6rO9TynhaQzLlGiM~wdNb8xYA34f6a5N1TvtEp6GR~Z5vELnqHpZvfcMVCEALJwy8PsxbzyzA5-myfIIBa53xL9fixwJg~u2u5pEEeElhiRS7FyvZMeWQyb7jb3A7nyH8bbWbdXROqHDV1FozpluMmrmWMGG-8mT1DRBRRrBmPxF46tOa9n6ouvj13SUNxLw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"} alt="uploadImage" width={"50%"}/>
                     </>
                 );
                 break;
             case t("contact_us"): //t("contact_us")
                 return (
                     <>
-
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("contact_us")}
+                        </Text>
+                        <br></br>
                         <Text fontSize="md">
                             My new Contact us section
                             Edit content of HTML here
@@ -350,6 +371,10 @@ function UserSettings() {
             case t("terms_conditions"): //t("terms_conditions")
                 return (
                     <>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("terms_conditions")}
+                        </Text>
+                        <br></br>
                         <Text fontSize="md">
                             My new terms and conditions section
                             Edit content of HTML here
@@ -360,6 +385,10 @@ function UserSettings() {
             case t("patch_notes"): //t("patch_notes")
                 return (
                     <>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("patch_notes")}
+                        </Text>
+                        <br></br>
                         <Text fontSize="md">
                             My new patch notes section
                             Edit content of HTML here
@@ -485,7 +514,7 @@ function UserSettings() {
                             textColor="#FFFFFF"
                             width="280px"
                             handleButtonClick={() => handleChangePasswordConfirm(valuePasswordOld, valuePasswordNew)}
-                            disabledCondition={valuePasswordNewConfirm!=valuePasswordNew || (valuePasswordNewConfirm === "" || valuePasswordNew === "" || valuePasswordOld === "")}
+                            disabledCondition={valuePasswordNewConfirm != valuePasswordNew || (valuePasswordNewConfirm === "" || valuePasswordNew === "" || valuePasswordOld === "")}
                         />
                         <br></br>
                     </>
@@ -604,8 +633,8 @@ function UserSettings() {
             </MobileView>
 
             <BrowserView>
-                <SimpleGrid columns={[1, 2]}>
-                    <Box>
+                <SimpleGrid columns={[1,2]} minChildWidth={"200px"}>
+                    <Box width={"200px"}>
                         {array1.map(({ settingName }) => (
 
                             <Button variant='link'
@@ -649,9 +678,6 @@ function UserSettings() {
                                 <Box>
                                     {getSettingContentBrowser(stateSettingName)}
                                     <Box height={'100px'}></Box>
-                                    <Text fontSize="xs" as="i" align={"left"}>
-                                        {stateSettingName}
-                                    </Text>
                                 </Box>
                             </GridItem>
                         </Grid>

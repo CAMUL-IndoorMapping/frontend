@@ -27,7 +27,7 @@ const ThemeToggle = () => {
                     hoverColor="isepBrick.400"
                     text={themeModeString(colorMode)}
                     textColor="#FFFFFF"
-                    width="280px"
+                    width="140px"
                     handleButtonClick={() => toggleColorMode()}
                 />
             </Flex>
