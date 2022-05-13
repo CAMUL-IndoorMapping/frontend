@@ -1,4 +1,4 @@
-import React, { ReactNode, useEffect, useLayoutEffect } from "react";
+import React, { ReactNode, useEffect } from "react";
 import { useState } from "react";
 import {
   Box,
@@ -193,7 +193,6 @@ function AdminBeacons() {
 
   useEffect(() => {
         myAsyncFunction();
-
   }, []);
 
   console.log("Occurs EVERY time the component is invoked.");

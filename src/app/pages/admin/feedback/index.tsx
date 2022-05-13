@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React, { ReactNode, useState } from "react";
 import {
   Box,
   Accordion,
@@ -20,6 +20,7 @@ import {
 import ReactAudioPlayer from "react-audio-player";
 import { BrowserView, MobileView } from "react-device-detect";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
+import useTranslation from "../../../../i18n/use-translation";
 
 interface Feedback {
   date: string;
@@ -56,25 +57,32 @@ const array1: Feedback[] = [
   },
 ];
 
-export class AdminFeedback extends React.Component<{}, {}> {
-  state: Feedback = {
-    date: "",
-    feedback: "",
-    name: "",
-    type: "",
-  };
+interface Feedback {
+  date: string,
+  feedback: string,
+  name: string,
+  type: string,
+};
 
-  private setFeedBackAndName(
+
+function AdminFeedback (){
+  const { t } = useTranslation();
+
+  const [stateFeedback, setFeedback] = useState("");
+  const [stateName, setName] = useState("");
+  const [stateType, setType] = useState("text");
+
+  function setFeedBackAndName(
     event: string,
     eventName: string,
     eventType: string
   ) {
-    this.setState({ feedback: event });
-    this.setState({ name: eventName });
-    this.setState({ type: eventType });
+    setFeedback(event);
+    setName(eventName);
+    setType(eventType);
   }
 
-  private getFeedback(feedback: string, type: string): ReactNode {
+  function getFeedback(feedback: string, type: string): ReactNode {
     if (type === "image") {
       return <Image src={feedback} alt="" />;
     } else if (type === "audio") {
@@ -88,7 +96,7 @@ export class AdminFeedback extends React.Component<{}, {}> {
     }
   }
 
-  private getIcon(type: string): ReactNode {
+  function getIcon(type: string): ReactNode {
     if (type === "image") {
       return (
         <img
@@ -119,10 +127,10 @@ export class AdminFeedback extends React.Component<{}, {}> {
     }
   }
 
-  render() {
     return (
       <>
         <MobileView>
+        <Text fontSize='3xl' margin='7' fontFamily={"Montserrat-Medium"}>{t("feedback_admin_page")}</Text>
           {array1.map(({ date, feedback, name, type }) => (
             <Accordion allowToggle>
               <AccordionItem>
@@ -134,14 +142,14 @@ export class AdminFeedback extends React.Component<{}, {}> {
                     fontFamily={"Montserrat-Medium"}
                   >
                     <Center>
-                      <Box margin={"2"}>{this.getIcon(type)}</Box>
+                      <Box margin={"2"}>{getIcon(type)}</Box>
                       <Text>{date}</Text>
                       <AccordionIcon />
                     </Center>
                   </AccordionButton>
                 </h2>
                 <AccordionPanel pb={4} fontFamily={"Montserrat-Medium"}>
-                  {this.getFeedback(feedback, type)}
+                  {getFeedback(feedback, type)}
                   <Text fontSize="xs" as="i" fontFamily={"Montserrat-Medium"}>
                     {name}
                   </Text>
@@ -152,6 +160,7 @@ export class AdminFeedback extends React.Component<{}, {}> {
         </MobileView>
 
         <BrowserView>
+        <Text fontSize='3xl' margin='7' fontFamily={"Montserrat-Medium"}>{t("feedback_admin_page")}</Text>
           <SimpleGrid columns={[1, 2]}>
             <Box>
               {array1.map(({ date, feedback, name, type }) => (
@@ -167,10 +176,10 @@ export class AdminFeedback extends React.Component<{}, {}> {
                       }}
                       fontFamily={"Montserrat-Medium"}
                       onClick={() =>
-                        this.setFeedBackAndName(feedback, name, type)
+                        setFeedBackAndName(feedback, name, type)
                       }
                     >
-                      <Box margin={"2"}>{this.getIcon(type)}</Box>
+                      <Box margin={"2"}>{getIcon(type)}</Box>
                       <Text fontFamily={"Montserrat-Medium"}>{date}</Text>
                       
                     </Button>
@@ -192,7 +201,7 @@ export class AdminFeedback extends React.Component<{}, {}> {
                 <GridItem colStart={2} colEnd={7} h="320">
                   <Box height={"110px"}></Box>
                   <Box>
-                    {this.getFeedback(this.state.feedback, this.state.type)}
+                    {getFeedback(stateFeedback, stateType)}
                     <Box height={"100px"}></Box>
                     <Text
                       fontSize="xs"
@@ -200,7 +209,7 @@ export class AdminFeedback extends React.Component<{}, {}> {
                       align={"left"}
                       fontFamily={"Montserrat-Medium"}
                     >
-                      {this.state.name}
+                      {stateName}
                     </Text>
                   </Box>
                 </GridItem>
@@ -211,4 +220,5 @@ export class AdminFeedback extends React.Component<{}, {}> {
       </>
     );
   }
-}
+
+export default AdminFeedback;

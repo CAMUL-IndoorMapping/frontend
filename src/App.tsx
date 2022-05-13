@@ -5,7 +5,7 @@ import useTranslation from "./i18n/use-translation";
 
 import { useStoreSelector, useStoreDispatch } from "./store";
 import { selectedPage, goToLoginPage } from "./store/navigation-reducer";
-import { AdminFeedback } from "./app/pages/admin/feedback";
+import AdminFeedback from "./app/pages/admin/feedback";
 import { AppBar, Toolbar } from "@material-ui/core";
 
 import CustomButton from "./components/buttons";
@@ -61,7 +61,6 @@ function App() {
       <div className="App">
         <header className="App-header">
           <Box height={'110px'}></Box>
-          <Text fontSize='3xl' margin='7' fontFamily={"Montserrat-Medium"}>{t("feedback_admin_page")}</Text>
           <AdminFeedback></AdminFeedback>
         </header>
        </div>
