@@ -11,6 +11,8 @@ import {
   goToFeedBackPage,
   goSettingsPage,
   goToLoginPage,
+  goToAdminFeedbackPage,
+  goToBeaconsPage,
 } from "../../store/navigation-reducer";
 import Page from "../../types/pages";
 import { BrowserView, MobileView } from 'react-device-detect';
@@ -23,6 +25,7 @@ import { AiFillHome } from 'react-icons/ai'
 function Navigation() {
   const { t } = useTranslation();
   const [langCod, setLangCode] = useState<"PT" | "EN">("PT");
+  const [user, setUser] = useState<"Admin" | "User">("Admin");
 
   const page = useStoreSelector(selectedPage);
   const dispatch = useStoreDispatch();
@@ -37,10 +40,13 @@ function Navigation() {
 
   const handleNavigationClick = (e: MouseEvent<HTMLElement>) => {
     const { id } = e.currentTarget;
-
     if (id === "homepage") dispatch(goToHomePage());
     if (id === "feedback") dispatch(goToFeedBackPage());
     if (id === "settings") dispatch(goSettingsPage());
+    if (id === "adminBeacons") dispatch(goToBeaconsPage());
+    if (id === "adminFeedback"){
+      dispatch(goToAdminFeedbackPage());
+    }
   };
 
   const handleNavigationClickMobile = (id: string) => {
@@ -105,41 +111,65 @@ function Navigation() {
 
       <BrowserView>
         <div className="container">
-          {page !== Page.Login && (
-            <div className="page_nav">
-              <Logo className="app_logo" />
-              <span
-                id="homepage"
-                onClick={handleNavigationClick}
-                className="first_child"
-                style={{
-                  fontWeight: page === 1 ? "700" : "400",
-                }}
-              >
-                {t("homepage")}
-              </span>
-              <span
-                id="feedback"
-                onClick={handleNavigationClick}
-                style={{
-                  fontWeight: page === 2 ? "700" : "400",
-                }}
-              >
-                {t("feedback")}
-              </span>
-              <span
-                id="settings"
-                onClick={handleNavigationClick}
-                style={{
-                  fontWeight: page === 3 ? "700" : "400",
-                }}
-              >
-                {t("settings")}
-              </span>
-            </div>
+        {page !== Page.Login && (
+        <div className="page_nav">
+          <Logo className="app_logo" />
+          <span
+            id="homepage"
+            onClick={handleNavigationClick}
+            className="first_child"
+            style={{
+              fontWeight: page === 1 ? "700" : "400",
+            }}
+          >
+            {t("homepage")}
+          </span>
+          <span
+            id="feedback"
+            onClick={handleNavigationClick}
+            style={{
+              fontWeight: page === 2 ? "700" : "400",
+            }}
+          >
+            {t("feedback")}
+          </span>
+          <span
+            id="settings"
+            onClick={handleNavigationClick}
+            style={{
+              fontWeight: page === 3 ? "700" : "400",
+            }}
+          >
+            {t("settings")}
+          </span>
+
+          {user === "Admin" && (
+            <span
+              id="adminFeedback"
+              onClick={handleNavigationClick}
+              style={{
+                fontWeight: page === 3 ? "700" : "400",
+              }}
+            >
+              {t("admin_feedback")}
+            </span>
           )}
 
-          <div className="lang_options">
+          {user === "Admin" && (
+            <span
+              id="adminBeacons"
+              onClick={handleNavigationClick}
+              style={{
+                fontWeight: page === 3 ? "700" : "400",
+              }}
+            >
+              {t("admin_beacons")}
+            </span>
+          )}
+        </div>
+      )}
+
+      <div className="lang_options">
             {page === Page.Login && (
               <span className="about_us_copy">{t("about_us")}</span>
             )}

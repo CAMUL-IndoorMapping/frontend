@@ -5,11 +5,14 @@ import useTranslation from "./i18n/use-translation";
 
 import { useStoreSelector, useStoreDispatch } from "./store";
 import { selectedPage, goToLoginPage } from "./store/navigation-reducer";
+import { AdminFeedback } from "./app/pages/admin/feedback";
 import { AppBar, Toolbar } from "@material-ui/core";
 
 import CustomButton from "./components/buttons";
+import AdminBeacons from "./app/pages/admin/beacons";
+import { BrowserView, MobileView } from 'react-device-detect';
+import Feedback from "./app/pages/feedback";
 import UserSettings from "./app/pages/settings";
-
 function App() {
   const { t } = useTranslation();
   const page = useStoreSelector(selectedPage);
@@ -27,7 +30,19 @@ function App() {
 
   if (page === Page.FeedBack) {
     //FeedBack
-    return <>Feedback</>;
+    return (<div className="App">
+    <header className="App-header">
+      <BrowserView>
+        <Box height={'110px'}></Box>
+      </BrowserView>
+      <MobileView>
+        <Box height={'5px'}></Box>
+      </MobileView>
+      <Text fontSize='3xl' margin='7' fontFamily={"Montserrat-Medium"}>{t("feedback")}</Text>
+      <Text fontSize='md' margin='7' marginTop='-20px'>{t("daily_entries")}</Text>
+      <Feedback></Feedback>
+    </header>
+   </div>);
   }
 
   if (page === Page.Settings) {
@@ -41,7 +56,27 @@ function App() {
        </div>
        );
   }
-
+  if (page === Page.AdminFeedback) {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <Box height={'110px'}></Box>
+          <Text fontSize='3xl' margin='7' fontFamily={"Montserrat-Medium"}>{t("feedback_admin_page")}</Text>
+          <AdminFeedback></AdminFeedback>
+        </header>
+       </div>
+       );
+  }
+  if (page === Page.Beacons) {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <Box height={'110px'}></Box>
+          <AdminBeacons></AdminBeacons>
+        </header>
+       </div>
+       );
+  }
   return (
     <CustomButton
       backgroundColor="isepBrick.300"
