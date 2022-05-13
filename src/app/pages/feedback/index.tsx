@@ -20,6 +20,11 @@ function Feedback() {
         [setDevices]
     );
 
+
+    const [selectedRecordVideo, setSelectedRecordVideo] = useState(false);
+    const [selectedRecordAudio, setSelectedRecordAudio] = useState(false);
+    const [selectedconfirm, setSelectedConfirm] = useState(true);
+
     const [selectedUploadFile, setSelectedUploadFile] = useState(false);
     const [selectedUploadFileCamera, setSelectedUploadFileCamera] = useState(false);
     const [selectedUploadFileGallery, setSelectedUploadFileGallery] = useState(false);
@@ -105,6 +110,10 @@ function Feedback() {
         setSelectedUploadAudio(false);
         setSelectedUploadFile(false);
         setSelectedUploadFeedbackText(false);
+
+        setSelectedConfirm(true);
+        setSelectedRecordAudio(false);
+        setSelectedRecordVideo(false);
     }
 
     const startRecordAudio = () => {
@@ -114,15 +123,12 @@ function Feedback() {
     }
 
     const stopRecordAudio = () => {
+        setSelectedRecordVideo(false);
+        setSelectedConfirm(false);
+        setSelectedRecordAudio(true);
         setSelectedStartRecordAudio(true);
         setSelectedStopRecordAudio(false);
         setSelectedSubmitRecordAudio(true);
-    }
-
-    const submitRecordAudio = () => {
-        setSelectedStartRecordAudio(true);
-        setSelectedStopRecordAudio(false);
-        setSelectedSubmitRecordAudio(false);
     }
 
     const startRecordVideo = () => {
@@ -132,15 +138,12 @@ function Feedback() {
     }
 
     const stopRecordVideo = () => {
+        setSelectedConfirm(false);
+        setSelectedRecordAudio(false);
+        setSelectedRecordVideo(true);
         setSelectedStartRecordVideo(true);
         setSelectedStopRecordVideo(false);
         setSelectedSubmitRecordVideo(true);
-    }
-
-    const submitRecordVideo = () => {
-        setSelectedStartRecordVideo(true);
-        setSelectedStopRecordVideo(false);
-        setSelectedSubmitRecordVideo(false);
     }
 
     const videoRef = useRef(null);
@@ -208,18 +211,21 @@ function Feedback() {
     const video = useReactMediaRecorder({ video: true });
 
 
+    const urlAPi: string = "https://camul2022.pythonanywhere.com/";
+
     let audioFile: any;
     const recordAudio = async () => {
-
+        console.log("record audio")
         //console.log(mediaBlobUrl);
         const mediaBlob = await fetch(mediaBlobUrl || "")
             .then(response => response.blob());
 
         audioFile = new File(
             [mediaBlob],
-            "audio.mp3",
-            { type: 'audio/mp3' }
+            "audio.wav",
+            { type: 'audio/wav' }
         );
+        console.log("file: " + audioFile);
         var reader = new FileReader();
         reader.readAsDataURL(mediaBlob);
         reader.onloadend = function () {
@@ -228,12 +234,12 @@ function Feedback() {
 
             const params = JSON.stringify({
                 "idBeacon": 1,
-                "idUser": 1,
+                "idUser": 2,
                 "type": "audio",
                 "content": audioFileBase64
             });
 
-            axios.post('http://127.0.0.1:5000/account/feedback', params, {
+            axios.post(urlAPi + 'account/feedback', params, {
 
                 "headers": {
                     "content-type": "application/json",
@@ -246,7 +252,10 @@ function Feedback() {
                 console.log("erro:" + error);
             });
 
+            mediaBlobUrl = null;
             setSelectedSubmitRecordAudio(false);
+            setSelectedRecordAudio(false);
+            setSelectedConfirm(true);
         }
 
 
@@ -255,8 +264,8 @@ function Feedback() {
     let videoFile: any;
 
     const recordVideo = async () => {
+        console.log("record video")
         console.log(video.mediaBlobUrl);
-
         const mediaBlob = await fetch(video.mediaBlobUrl || "")
             .then(response => response.blob());
 
@@ -273,14 +282,15 @@ function Feedback() {
         reader.onloadend = function () {
             var base64data = reader.result;
             console.log(base64data);
+
             const params = JSON.stringify({
                 "idBeacon": 1,
-                "idUser": 1,
+                "idUser": 2,
                 "type": "video",
                 "content": base64data
             });
 
-            axios.post('http://127.0.0.1:5000/account/feedback', params, {
+            axios.post(urlAPi + 'account/feedback', params, {
 
                 "headers": {
                     "content-type": "application/json",
@@ -292,7 +302,10 @@ function Feedback() {
             }, (error) => {
                 console.log("erro:" + error);
             });
+
+            video.mediaBlobUrl = null;
             setSelectedSubmitRecordVideo(false);
+            setSelectedRecordVideo(false);
         }
     }
 
@@ -304,15 +317,13 @@ function Feedback() {
         if (inputValueTextarea != (null || undefined)) {
             console.log("upload text");
             const params = JSON.stringify({
-                "idUser": 1,
-                "body": inputValueTextarea,
+                "idBeacon": 1,
+                "idUser": 2,
+                "type": "text",
+                "content": inputValueTextarea
             });
 
-            var textAreaValue: any = document.getElementById("textUpload");
-            textAreaValue.value = '';
-            inputValueTextarea = null;
-
-            axios.post('http://127.0.0.1:5000/account/reviews', params, {
+            axios.post(urlAPi + 'account/feedback', params, {
                 "headers": {
                     "content-type": "application/json",
                     "authToken": "a",
@@ -323,30 +334,23 @@ function Feedback() {
             }, (error) => {
                 console.log("erro:" + error);
             });
-
-
+            var textAreaValue: any = document.getElementById("textUpload");
+            textAreaValue.value = '';
+            inputValueTextarea = null;
         }
-        else if (video.mediaBlobUrl != null) {
-            console.log("record video");
-            recordVideo();
-        }
-        else if (mediaBlobUrl != null) {
-            console.log("record audio");
-            recordAudio();
 
-        }
         else if (img != null) {
             console.log("take a photo");
             console.log(img);
 
             const params = JSON.stringify({
                 "idBeacon": 1,
-                "idUser": 1,
+                "idUser": 2,
                 "type": "image",
                 "content": img
             });
 
-            axios.post('http://127.0.0.1:5000/account/feedback', params, {
+            axios.post(urlAPi + 'account/feedback', params, {
 
                 "headers": {
                     "content-type": "application/json",
@@ -367,12 +371,12 @@ function Feedback() {
 
             const params = JSON.stringify({
                 "idBeacon": 1,
-                "idUser": 1,
-                "type": file.type,
+                "idUser": 2,
+                "type": file.type.split("/")[0],
                 "content": fileBase64
             });
 
-            axios.post('http://127.0.0.1:5000/account/feedback', params, {
+            axios.post(urlAPi + 'account/feedback', params, {
 
                 "headers": {
                     "content-type": "application/json",
@@ -384,13 +388,14 @@ function Feedback() {
             }, (error) => {
                 console.log("erro:" + error);
             });
-
+            file = null;
             filenameContainer.innerText = "";
             filenameContainerAudio.innerText = "";
         }
         else {
             alert("nothing to confirm!");
         }
+        //window.location.reload()
     }
 
 
@@ -487,7 +492,7 @@ function Feedback() {
                                                 variant='outline' height='47px' width='206px' onClick={() => { video.stopRecording(); stopRecordVideo(); }}>{t("stop_recording")}</Button>
 
                                             <Center>
-                                                <video width='30%' style={{ display: selectedSubmitRecordVideo ? 'block' : 'none' }} src={video.mediaBlobUrl || undefined} controls autoPlay loop></video>
+                                                <video width='30%' style={{ display: selectedSubmitRecordVideo ? 'block' : 'none' }} src={video.mediaBlobUrl || undefined} controls></video>
                                             </Center>
 
                                         </div>
@@ -588,8 +593,15 @@ function Feedback() {
 
                     <Box>
                         <Center>
-                            <Button _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
+                            <Button style={{ display: selectedconfirm ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
                                 borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%' onClick={handleSubmission}>{t("confirm")}</Button>
+
+                            <Button style={{ display: selectedRecordAudio ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
+                                borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%' onClick={recordAudio}>{t("confirm")}</Button>
+
+                            <Button style={{ display: selectedRecordVideo ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
+                                borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%' onClick={recordVideo}>{t("confirm")}</Button>
+
                         </Center>
                         <Center>
                             <Button _focus={{ boxShadow: "none" }} _hover={{ bg: '#DA8E71' }} borderColor='#A2543D' borderRadius='200px' color='#A2543D'
@@ -627,8 +639,15 @@ function Feedback() {
                         </Center>
 
                         <Center>
-                            <Button _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
+                            <Button style={{ display: selectedconfirm ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
                                 borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%' onClick={handleSubmission}>{t("confirm")}</Button>
+
+                            <Button style={{ display: selectedRecordAudio ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
+                                borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%' onClick={recordAudio}>{t("confirm")}</Button>
+
+                            <Button style={{ display: selectedRecordVideo ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
+                                borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%' onClick={recordVideo}>{t("confirm")}</Button>
+
                         </Center>
                         <Center>
                             <Button _focus={{ boxShadow: "none" }} _hover={{ bg: '#DA8E71' }} borderColor='#A2543D' borderRadius='200px' color='#A2543D'
