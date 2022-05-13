@@ -11,6 +11,7 @@ type ButtonProps = {
   height?: string;
   textColor?: string;
   text: ReactChild;
+  disabledCondition?:boolean
   handleButtonClick: () => void;
 };
 
@@ -24,6 +25,7 @@ function CustomButton({
   height = "47px",
   textColor,
   text,
+  disabledCondition,
   handleButtonClick,
 }: ButtonProps) {
   return (
@@ -40,6 +42,7 @@ function CustomButton({
         height={height}
         textColor={textColor}
         onClick={handleButtonClick}
+        disabled={disabledCondition}
       >
         {text}
       </Button>

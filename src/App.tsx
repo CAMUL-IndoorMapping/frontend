@@ -12,6 +12,7 @@ import CustomButton from "./components/buttons";
 import AdminBeacons from "./app/pages/admin/beacons";
 import { BrowserView, MobileView } from 'react-device-detect';
 import Feedback from "./app/pages/feedback";
+import UserSettings from "./app/pages/settings";
 function App() {
   const { t } = useTranslation();
   const page = useStoreSelector(selectedPage);
@@ -45,8 +46,15 @@ function App() {
   }
 
   if (page === Page.Settings) {
-    //Setting
-    return <>Setting</>;
+    return (
+      <div className="App">
+        <header className="App-header">
+          <Box height={'110px'}></Box>
+          <Text fontSize='3xl' margin='7'>{t("settings")}</Text>
+          <UserSettings></UserSettings>
+        </header>
+       </div>
+       );
   }
   if (page === Page.AdminFeedback) {
     return (
