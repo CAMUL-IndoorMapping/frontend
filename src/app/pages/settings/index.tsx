@@ -155,7 +155,7 @@ function UserSettings() {
                         </Text>
                         <br></br>
                         <Text fontSize="large">
-                            In this section you will be able to change between theme styles of the application - white and dark mode.
+                            {t('themes_content_1')}
                         </Text>
                         <ThemeToggle></ThemeToggle>
                     </>
@@ -170,8 +170,7 @@ function UserSettings() {
                         </Text>
                         <br></br>
                         <Text fontSize="md">
-                            My new sound update section
-                            Edit content here
+                            {t('sounds_content_1')}
                         </Text>
                     </>
                 );
@@ -184,10 +183,10 @@ function UserSettings() {
                         </Text>
                         <br></br>
                         <Text fontSize="md">
-                            In this section you will be able to delete your account from the current application system.
+                            {t("delete_account_content_1")}
                         </Text>
                         <Text fontSize="xx-small">
-                            <strong>Warning</strong>: You won't be able to use it at its fullest after the action confirmation.
+                            <strong>{t("warning")}</strong>: {t("delete_account_content_2")}
                         </Text>
                         <br></br>
                         <CustomButton
@@ -195,7 +194,7 @@ function UserSettings() {
                             borderColor="isepGreen.500"
                             buttonColor="isepGrey.600"
                             hoverColor="isepBrick.400"
-                            text="Delete Account"
+                            text={t("delete_account")}
                             textColor="#FFFFFF"
                             width="280px"
                             handleButtonClick={() => handleClickConfirm()}
@@ -204,11 +203,11 @@ function UserSettings() {
                         <Modal isOpen={isOpen} onClose={onClose}>
                             <ModalOverlay />
                             <ModalContent>
-                                <ModalHeader>Account Delete confirmation</ModalHeader>
+                                <ModalHeader>{t("delete_account_content_3")}</ModalHeader>
                                 <ModalCloseButton />
                                 <ModalBody>
                                     <Text fontSize="md">
-                                        Are you sure you want to delete your account?
+                                        {t("delete_account_content_4")}
                                     </Text>
                                     <br></br>
                                     <CustomButton
@@ -216,7 +215,7 @@ function UserSettings() {
                                         borderColor="isepGreen.500"
                                         buttonColor="isepGrey.600"
                                         hoverColor="isepBrick.400"
-                                        text="CONFIRM"
+                                        text={t("confirm")}
                                         textColor="#FFFFFF"
                                         width="280px"
                                         handleButtonClick={() => handleDeleteAccountConfirm()}
@@ -227,7 +226,7 @@ function UserSettings() {
                                         borderColor="isepBrick.500"
                                         buttonColor="white"
                                         hoverColor="isepBrick.400"
-                                        text="CANCEL"
+                                        text={t("cancel")}
                                         textColor="isepBrick.500"
                                         width="280px"
                                         handleButtonClick={() => onClose}
@@ -239,7 +238,7 @@ function UserSettings() {
                     </>
                 );
                 break;
-            case t("change_password"): //t("change_password")
+            case t("change_password"):
                 return (
                     <>
                         <Text fontSize="xx-large" textColor={"isepBrick.500"}>
@@ -247,10 +246,10 @@ function UserSettings() {
                         </Text>
                         <br></br>
                         <Text fontSize="md">
-                            In this section you will be able to change your current password to a new one from.
+                            {t("change_password_content_1")}
                         </Text>
                         <Text fontSize="xx-small">
-                            <strong>Warning</strong>: You won't be able to use your old password after the action confirmation.
+                            <strong>{t("warning")}</strong>: {t("change_password_content_2")}
                         </Text>
                         <br></br>
                         <CustomButton
@@ -258,7 +257,7 @@ function UserSettings() {
                             borderColor="isepGreen.500"
                             buttonColor="isepGrey.600"
                             hoverColor="isepBrick.400"
-                            text="Change Password"
+                            text={t("change_password")}
                             textColor="#FFFFFF"
                             width="280px"
                             handleButtonClick={() => handleClickConfirm()}
@@ -267,14 +266,14 @@ function UserSettings() {
                         <Modal isOpen={isOpen} onClose={onClose}>
                             <ModalOverlay />
                             <ModalContent>
-                                <ModalHeader>Password change action</ModalHeader>
+                                <ModalHeader>{t("change_password_content_3")}</ModalHeader>
                                 <ModalCloseButton />
                                 <ModalBody>
 
                                     <InputGroup size='md'>
                                         {/* <Text mb='8px'>Value: {valuePasswordOld}</Text> */}
                                         <Input
-                                            variant='flushed' placeholder='Old password' marginBottom={"20px"}
+                                            variant='flushed' placeholder={t('old_password')} marginBottom={"20px"}
                                             pr='4.5rem'
                                             type={show ? 'text' : 'password'}
                                             onChange={handleChangeOld}
@@ -282,14 +281,14 @@ function UserSettings() {
                                         />
                                         <InputRightElement width='4.5rem'>
                                             <Button h='1.75rem' size='sm' onClick={handleClickShowButton}>
-                                                {show ? 'Hide' : 'Show'}
+                                                {show ? t('hide_password') : t('show_password')}
                                             </Button>
                                         </InputRightElement>
                                     </InputGroup>
                                     <InputGroup size='md'>
                                         {/* <Text mb='8px'>Value: {valuePasswordNew}</Text> */}
                                         <Input
-                                            variant='flushed' placeholder='New password' marginBottom={"20px"}
+                                            variant='flushed' placeholder={t('new_password')} marginBottom={"20px"}
                                             pr='4.5rem'
                                             type={show ? 'text' : 'password'}
                                             onChange={handleChangeNew}
@@ -297,14 +296,14 @@ function UserSettings() {
                                         />
                                         <InputRightElement width='4.5rem'>
                                             <Button h='1.75rem' size='sm' onClick={handleClickShowButton}>
-                                                {show ? 'Hide' : 'Show'}
+                                                {show ? t('hide_password') : t('show_password')}
                                             </Button>
                                         </InputRightElement>
                                     </InputGroup>
                                     <InputGroup size='md'>
                                         {/* <Text mb='8px'>Value: {valuePasswordNewConfirm}</Text> */}
                                         <Input
-                                            variant='flushed' placeholder='Confirm password' marginBottom={"20px"}
+                                            variant='flushed' placeholder={t('confirm_password')} marginBottom={"20px"}
                                             pr='4.5rem'
                                             type={show ? 'text' : 'password'}
                                             onChange={handleChangeNewConfirm}
@@ -312,7 +311,7 @@ function UserSettings() {
                                         />
                                         <InputRightElement width='4.5rem'>
                                             <Button h='1.75rem' size='sm' onClick={handleClickShowButton}>
-                                                {show ? 'Hide' : 'Show'}
+                                                {show ? t('hide_password') : t('show_password')}
                                             </Button>
                                         </InputRightElement>
                                     </InputGroup>
@@ -322,7 +321,7 @@ function UserSettings() {
                                         borderColor="isepGreen.500"
                                         buttonColor="isepGrey.600"
                                         hoverColor="isepBrick.400"
-                                        text="SAVE CHANGES"
+                                        text={t('save_changes')}
                                         textColor="#FFFFFF"
                                         width="280px"
                                         handleButtonClick={() => handleChangePasswordConfirm(valuePasswordOld, valuePasswordNew)}
@@ -343,14 +342,14 @@ function UserSettings() {
                         </Text>
                         <br></br>
                         <Text fontSize="large">
-                            How it all started.
+                            {t("about_app_content_1")}
                         </Text>
                         <br></br>
                         <Text fontSize="md">
-                            This is our about the App section. It's not much but you don't need information to know our app is dope!
-                            Just use it please... thank you for your attention.
+                            {t("about_app_content_2")}
+                            {t("about_app_content_3")}
                         </Text>
-                        <Image src={"https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1653264000&Signature=DO-5QTTdSrt52S62TeXnUDv5kGF7x-H~XS2i9F7U4guJhpn1vX8oK4P5pZatIZw9UbnpJxN~D5MbvX~cCsnaNlIP5lVq3oTujy~hOUNMhwcbFpLrhhUXd0ZxLO1a1Ru-hQrrdOuskQoi55G4NjJFPm6rO9TynhaQzLlGiM~wdNb8xYA34f6a5N1TvtEp6GR~Z5vELnqHpZvfcMVCEALJwy8PsxbzyzA5-myfIIBa53xL9fixwJg~u2u5pEEeElhiRS7FyvZMeWQyb7jb3A7nyH8bbWbdXROqHDV1FozpluMmrmWMGG-8mT1DRBRRrBmPxF46tOa9n6ouvj13SUNxLw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"} alt="uploadImage" width={"50%"}/>
+                        <Image src={"https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1653264000&Signature=DO-5QTTdSrt52S62TeXnUDv5kGF7x-H~XS2i9F7U4guJhpn1vX8oK4P5pZatIZw9UbnpJxN~D5MbvX~cCsnaNlIP5lVq3oTujy~hOUNMhwcbFpLrhhUXd0ZxLO1a1Ru-hQrrdOuskQoi55G4NjJFPm6rO9TynhaQzLlGiM~wdNb8xYA34f6a5N1TvtEp6GR~Z5vELnqHpZvfcMVCEALJwy8PsxbzyzA5-myfIIBa53xL9fixwJg~u2u5pEEeElhiRS7FyvZMeWQyb7jb3A7nyH8bbWbdXROqHDV1FozpluMmrmWMGG-8mT1DRBRRrBmPxF46tOa9n6ouvj13SUNxLw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"} alt="uploadImage" width={"50%"} />
                     </>
                 );
                 break;
@@ -362,8 +361,7 @@ function UserSettings() {
                         </Text>
                         <br></br>
                         <Text fontSize="md">
-                            My new Contact us section
-                            Edit content of HTML here
+                            {t("contact_us_content_1")}
                         </Text>
                     </>
                 );
@@ -376,8 +374,7 @@ function UserSettings() {
                         </Text>
                         <br></br>
                         <Text fontSize="md">
-                            My new terms and conditions section
-                            Edit content of HTML here
+                            {t("terms_conditions_content_1")}
                         </Text>
                     </>
                 );
@@ -390,8 +387,7 @@ function UserSettings() {
                         </Text>
                         <br></br>
                         <Text fontSize="md">
-                            My new patch notes section
-                            Edit content of HTML here
+                            {t("patch_notes_content_1")}
                         </Text>
                     </>
                 );
@@ -406,9 +402,8 @@ function UserSettings() {
             case t("themes"):
                 return (
                     <>
-                        <br></br>
                         <Text fontSize="large">
-                            In this section you will be able to change between theme styles of the application - white and dark mode.
+                            {t('themes_content_1')}
                         </Text>
                         <ThemeToggle></ThemeToggle>
                     </>
@@ -419,8 +414,7 @@ function UserSettings() {
                 return (
                     <>
                         <Text fontSize="md">
-                            My new sound update section
-                            Edit content here
+                            {t('sounds_content_1')}
                         </Text>
                     </>
                 );
@@ -429,7 +423,7 @@ function UserSettings() {
                 return (
                     <>
                         <Text fontSize="md">
-                            Are you sure you want to delete your account?
+                            {t("delete_account_content_4")}
                         </Text>
                         <br></br>
                         <CustomButton
@@ -462,7 +456,7 @@ function UserSettings() {
                         <InputGroup size='md'>
                             {/* <Text mb='8px'>Value: {valuePasswordOld}</Text> */}
                             <Input
-                                variant='flushed' placeholder='Old password' marginBottom={"20px"}
+                                variant='flushed' placeholder={t('old_password')} marginBottom={"20px"}
                                 pr='4.5rem'
                                 type={show ? 'text' : 'password'}
                                 onChange={handleChangeOld}
@@ -470,14 +464,14 @@ function UserSettings() {
                             />
                             <InputRightElement width='4.5rem'>
                                 <Button h='1.75rem' size='sm' onClick={handleClickShowButton}>
-                                    {show ? 'Hide' : 'Show'}
+                                    {show ? t('hide_password') : t('show_password')}
                                 </Button>
                             </InputRightElement>
                         </InputGroup>
                         <InputGroup size='md'>
                             {/* <Text mb='8px'>Value: {valuePasswordNew}</Text> */}
                             <Input
-                                variant='flushed' placeholder='New password' marginBottom={"20px"}
+                                variant='flushed' placeholder={t('new_password')} marginBottom={"20px"}
                                 pr='4.5rem'
                                 type={show ? 'text' : 'password'}
                                 onChange={handleChangeNew}
@@ -485,14 +479,14 @@ function UserSettings() {
                             />
                             <InputRightElement width='4.5rem'>
                                 <Button h='1.75rem' size='sm' onClick={handleClickShowButton}>
-                                    {show ? 'Hide' : 'Show'}
+                                    {show ? t('hide_password') : t('show_password')}
                                 </Button>
                             </InputRightElement>
                         </InputGroup>
                         <InputGroup size='md'>
                             {/* <Text mb='8px'>Value: {valuePasswordNewConfirm}</Text> */}
                             <Input
-                                variant='flushed' placeholder='Confirm password' marginBottom={"20px"}
+                                variant='flushed' placeholder={t('confirm_password')} marginBottom={"20px"}
                                 pr='4.5rem'
                                 type={show ? 'text' : 'password'}
                                 onChange={handleChangeNewConfirm}
@@ -500,7 +494,7 @@ function UserSettings() {
                             />
                             <InputRightElement width='4.5rem'>
                                 <Button h='1.75rem' size='sm' onClick={handleClickShowButton}>
-                                    {show ? 'Hide' : 'Show'}
+                                    {show ? t('hide_password') : t('show_password')}
                                 </Button>
                             </InputRightElement>
                         </InputGroup>
@@ -510,7 +504,7 @@ function UserSettings() {
                             borderColor="isepGreen.500"
                             buttonColor="isepGrey.600"
                             hoverColor="isepBrick.400"
-                            text="SAVE CHANGES"
+                            text={t('save_changes')}
                             textColor="#FFFFFF"
                             width="280px"
                             handleButtonClick={() => handleChangePasswordConfirm(valuePasswordOld, valuePasswordNew)}
@@ -523,26 +517,23 @@ function UserSettings() {
             case t("about_app"): //t("about_app")
                 return (
                     <>
-                        <br></br>
                         <Text fontSize="large">
-                            How it all started.
+                            {t("about_app_content_1")}
                         </Text>
                         <br></br>
                         <Text fontSize="md">
-                            This is our about the App section. It's not much but you don't need information to know our app is dope!
-                            Just use it please... thank you for your attention.
+                            {t("about_app_content_2")}
+                            {t("about_app_content_3")}
                         </Text>
-                        <Image src={"https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1653264000&Signature=DO-5QTTdSrt52S62TeXnUDv5kGF7x-H~XS2i9F7U4guJhpn1vX8oK4P5pZatIZw9UbnpJxN~D5MbvX~cCsnaNlIP5lVq3oTujy~hOUNMhwcbFpLrhhUXd0ZxLO1a1Ru-hQrrdOuskQoi55G4NjJFPm6rO9TynhaQzLlGiM~wdNb8xYA34f6a5N1TvtEp6GR~Z5vELnqHpZvfcMVCEALJwy8PsxbzyzA5-myfIIBa53xL9fixwJg~u2u5pEEeElhiRS7FyvZMeWQyb7jb3A7nyH8bbWbdXROqHDV1FozpluMmrmWMGG-8mT1DRBRRrBmPxF46tOa9n6ouvj13SUNxLw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"} alt="uploadImage" />
+                        <Image src={"https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1653264000&Signature=DO-5QTTdSrt52S62TeXnUDv5kGF7x-H~XS2i9F7U4guJhpn1vX8oK4P5pZatIZw9UbnpJxN~D5MbvX~cCsnaNlIP5lVq3oTujy~hOUNMhwcbFpLrhhUXd0ZxLO1a1Ru-hQrrdOuskQoi55G4NjJFPm6rO9TynhaQzLlGiM~wdNb8xYA34f6a5N1TvtEp6GR~Z5vELnqHpZvfcMVCEALJwy8PsxbzyzA5-myfIIBa53xL9fixwJg~u2u5pEEeElhiRS7FyvZMeWQyb7jb3A7nyH8bbWbdXROqHDV1FozpluMmrmWMGG-8mT1DRBRRrBmPxF46tOa9n6ouvj13SUNxLw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"} alt="uploadImage" width={"50%"} />
                     </>
                 );
                 break;
             case t("contact_us"): //t("contact_us")
                 return (
                     <>
-
                         <Text fontSize="md">
-                            My new Contact us section
-                            Edit content of HTML here
+                            {t("contact_us_content_1")}
                         </Text>
                     </>
                 );
@@ -551,8 +542,7 @@ function UserSettings() {
                 return (
                     <>
                         <Text fontSize="md">
-                            My new terms and conditions section
-                            Edit content of HTML here
+                            {t("terms_conditions_content_1")}
                         </Text>
                     </>
                 );
@@ -561,8 +551,7 @@ function UserSettings() {
                 return (
                     <>
                         <Text fontSize="md">
-                            My new patch notes section
-                            Edit content of HTML here
+                            {t("patch_notes_content_1")}
                         </Text>
                     </>
                 );
@@ -633,7 +622,7 @@ function UserSettings() {
             </MobileView>
 
             <BrowserView>
-                <SimpleGrid columns={[1,2]} minChildWidth={"200px"}>
+                <SimpleGrid columns={[1, 2]} minChildWidth={"200px"}>
                     <Box width={"200px"}>
                         {array1.map(({ settingName }) => (
 
