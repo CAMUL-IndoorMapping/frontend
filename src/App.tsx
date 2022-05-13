@@ -5,11 +5,9 @@ import useTranslation from "./i18n/use-translation";
 
 import { useStoreSelector, useStoreDispatch } from "./store";
 import { selectedPage, goToLoginPage } from "./store/navigation-reducer";
-import { AdminFeedback } from "./app/pages/admin/feedback";
 import { AppBar, Toolbar } from "@material-ui/core";
 
 import CustomButton from "./components/buttons";
-import AdminBeacons from "./app/pages/admin/beacons";
 import UserSettings from "./app/pages/settings";
 
 function App() {
@@ -29,15 +27,7 @@ function App() {
 
   if (page === Page.FeedBack) {
     //FeedBack
-    return(
-      <div className="App">
-        <header className="App-header">
-          <Box height={'110px'}></Box>
-          <Text fontSize='3xl' margin='7'>{t("settings")}</Text>
-          <AdminFeedback></AdminFeedback>
-        </header>
-       </div>
-       );
+    return <>Feedback</>;
   }
 
   if (page === Page.Settings) {
