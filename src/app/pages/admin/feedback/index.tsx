@@ -1,4 +1,4 @@
-import React, { ReactNode, useState } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 import {
   Box,
   Accordion,
@@ -16,61 +16,84 @@ import {
   GridItem,
   Divider,
   Icon,
+  Spinner,
 } from "@chakra-ui/react";
 import ReactAudioPlayer from "react-audio-player";
 import { BrowserView, MobileView } from "react-device-detect";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import useTranslation from "../../../../i18n/use-translation";
-
-interface Feedback {
-  date: string;
-  feedback: string;
-  name: string;
-  type: string;
-}
+import ReactPlayer from "react-player";
 
 const array1: Feedback[] = [
   //endpoint Feedback/GET ALL
   {
-    date: "qui. 31/03 19:32",
-    feedback: "Não tenho nada a dizer a aplicação é incrivel",
-    name: "João das Neves",
+    // date: "qui. 31/03 19:32",
+    content: "Não tenho nada a dizer a aplicação é incrivel",
+    // name: "João das Neves",
     type: "text",
+    id: 12,
+    idBeacon: 1,
+    idUser: 2,
   },
   {
-    date: "qui. 31/03 20:02",
-    feedback: "Os devs são muito fofinhos",
-    name: "John",
+    // date: "qui. 31/03 20:02",
+    content: "Os devs são muito fofinhos",
+    // name: "John",
     type: "text",
+    id: 12,
+    idBeacon: 1,
+    idUser: 2,
   },
   {
-    date: "qui. 31/03 23:20",
-    feedback: "https://www.w3schools.com/images/w3schools_green.jpg",
-    name: "Wanda Maximoff",
+    // date: "qui. 31/03 23:20",
+    content: "https://www.w3schools.com/images/w3schools_green.jpg",
+    // name: "Wanda Maximoff",
     type: "image",
+    id: 12,
+    idBeacon: 1,
+    idUser: 2,
   },
   {
-    date: "qui. 31/03 23:45",
-    feedback: "my_audio_file.ogg",
-    name: "You don't wanna know",
+    // date: "qui. 31/03 23:45",
+    content: "my_audio_file.ogg",
+    // name: "You don't wanna know",
     type: "audio",
+    id: 12,
+    idBeacon: 1,
+    idUser: 2,
+  },
+  {
+    // date: "qui. 31/03 23:46",
+    content: "https://www.youtube.com/watch?v=QMoX6oPSnws",
+    // name: "Czech Republic",
+    type: "video",
+    id: 12,
+    idBeacon: 1,
+    idUser: 2,
   },
 ];
 
 interface Feedback {
-  date: string,
-  feedback: string,
-  name: string,
-  type: string,
-};
+  date?: string;
+  content: string;
+  name?: string;
+  type: string;
+  id: number;
+  idBeacon: number;
+  idUser: number;
+}
 
+interface Feedbacks {
+  feedback: Feedback[];
+}
 
-function AdminFeedback (){
+function AdminFeedback() {
   const { t } = useTranslation();
 
   const [stateFeedback, setFeedback] = useState("");
   const [stateName, setName] = useState("");
   const [stateType, setType] = useState("text");
+  const [stateFeedbacks, setFeedbacks] = useState<Feedbacks>();
 
   function setFeedBackAndName(
     event: string,
@@ -84,20 +107,57 @@ function AdminFeedback (){
 
   function getFeedback(feedback: string, type: string): ReactNode {
     if (type === "image") {
-      return <Image src={feedback} alt="" />;
+      return (
+        <div>
+          {" "}
+          <Box height={"50px"}></Box>
+          <Image src={feedback} alt="" />;
+        </div>
+      );
     } else if (type === "audio") {
-      return <ReactAudioPlayer src={feedback} autoPlay controls />;
+      return (
+        <div>
+          <Box height={"110px"}></Box>
+          <ReactAudioPlayer src={feedback} autoPlay controls />
+        </div>
+      );
+    } else if (type === "video") {
+      return (
+        <div>
+          <ReactPlayer url={feedback}></ReactPlayer>
+        </div>
+      );
     } else {
       return (
-        <Text fontSize="md" fontFamily={"Montserrat-Medium"}>
-          {feedback}
-        </Text>
+        <div>
+          <Box height={"10px"}></Box>
+          <Text fontSize="md" fontFamily={"Montserrat-Medium"}>
+            {feedback}
+          </Text>
+        </div>
       );
     }
   }
 
+  const api = "https://camul2022.pythonanywhere.com";
+
+  const loadFeedbacksAsync = async () => {
+    await fetch(api + "/account/feedback")
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        const items = data;
+        setFeedbacks(items);
+      });
+  };
+
+  useEffect(() => {
+    loadFeedbacksAsync();
+  }, []);
+
   function getIcon(type: string): ReactNode {
-    if (type === "image") {
+    if (type === "image" || type==="video") {
       return (
         <img
           src="https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1653264000&Signature=DO-5QTTdSrt52S62TeXnUDv5kGF7x-H~XS2i9F7U4guJhpn1vX8oK4P5pZatIZw9UbnpJxN~D5MbvX~cCsnaNlIP5lVq3oTujy~hOUNMhwcbFpLrhhUXd0ZxLO1a1Ru-hQrrdOuskQoi55G4NjJFPm6rO9TynhaQzLlGiM~wdNb8xYA34f6a5N1TvtEp6GR~Z5vELnqHpZvfcMVCEALJwy8PsxbzyzA5-myfIIBa53xL9fixwJg~u2u5pEEeElhiRS7FyvZMeWQyb7jb3A7nyH8bbWbdXROqHDV1FozpluMmrmWMGG-8mT1DRBRRrBmPxF46tOa9n6ouvj13SUNxLw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
@@ -127,98 +187,160 @@ function AdminFeedback (){
     }
   }
 
-    return (
-      <>
-        <MobileView>
-        <Text fontSize='3xl' margin='7' fontFamily={"Montserrat-Medium"}>{t("feedback_admin_page")}</Text>
-          {array1.map(({ date, feedback, name, type }) => (
-            <Accordion allowToggle>
-              <AccordionItem>
-                <h2>
-                  <AccordionButton
-                    bg="isepBrick.300"
-                    w="100%"
-                    p={4}
-                    fontFamily={"Montserrat-Medium"}
-                  >
+  return (
+    <>
+      <MobileView>
+        {stateFeedbacks !== undefined && (
+          <div>
+            <Text fontSize="3xl" margin="7" fontFamily={"Montserrat-Medium"}>
+              {t("feedback_admin_page")}
+            </Text>
+            {stateFeedbacks.feedback.map(
+              ({ date, content: feedback, name, type }) => (
+                <Accordion allowToggle>
+                  <AccordionItem>
+                    <h2>
+                      <AccordionButton
+                        bg="isepBrick.300"
+                        w="100%"
+                        p={4}
+                        fontFamily={"Montserrat-Medium"}
+                      >
+                        <Center>
+                          <Box margin={"2"}>{getIcon(type)}</Box>
+                          <Text>{date}</Text>
+                          <AccordionIcon />
+                        </Center>
+                      </AccordionButton>
+                    </h2>
+                    <AccordionPanel pb={4} fontFamily={"Montserrat-Medium"}>
+                      {getFeedback(feedback, type)}
+                      <Text
+                        fontSize="xs"
+                        as="i"
+                        fontFamily={"Montserrat-Medium"}
+                      >
+                        {name}
+                      </Text>
+                    </AccordionPanel>
+                  </AccordionItem>
+                </Accordion>
+              )
+            )}
+          </div>
+        )}
+        {stateFeedbacks === undefined && (
+          <div>
+            <Center>
+              <Box height={"300px"}></Box>
+              <Text fontFamily={"Montserrat-SemiBold"}>Loading data...</Text>
+              <Box width={"75px"}></Box>
+
+              <Spinner
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.500"
+                size="xl"
+              />
+            </Center>
+          </div>
+        )}
+      </MobileView>
+
+      <BrowserView>
+        {stateFeedbacks !== undefined && (
+          <div>
+            <Text fontSize="3xl" margin="7" fontFamily={"Montserrat-Medium"}>
+              {t("feedback_admin_page")}
+            </Text>
+            <SimpleGrid columns={[1, 2]}>
+              <Box>
+                {stateFeedbacks?.feedback.map(
+                  ({
+                    date,
+                    content: feedback,
+                    name,
+                    type,
+                    id,
+                    idBeacon,
+                    idUser,
+                  }) => (
                     <Center>
-                      <Box margin={"2"}>{getIcon(type)}</Box>
-                      <Text>{date}</Text>
-                      <AccordionIcon />
+                      <ButtonGroup marginTop="1%" marginBottom="0.5%">
+                        <Button
+                          width="700px"
+                          height="67px"
+                          _hover={{ bg: "isepBrick.300" }}
+                          variant="outline"
+                          _focus={{
+                            boxShadow: "none",
+                          }}
+                          fontFamily={"Montserrat-Medium"}
+                          //  Change This to name variable when backend updates API
+                          onClick={() =>
+                            setFeedBackAndName(feedback, "name", type)
+                          }
+                        >
+                          <Box margin={"2"}>{getIcon(type)}</Box>
+                          {/* Change This to Date when backend updates API */}
+                          <Text fontFamily={"Montserrat-Medium"}>{type}</Text>
+                        </Button>
+                      </ButtonGroup>
                     </Center>
-                  </AccordionButton>
-                </h2>
-                <AccordionPanel pb={4} fontFamily={"Montserrat-Medium"}>
-                  {getFeedback(feedback, type)}
-                  <Text fontSize="xs" as="i" fontFamily={"Montserrat-Medium"}>
-                    {name}
-                  </Text>
-                </AccordionPanel>
-              </AccordionItem>
-            </Accordion>
-          ))}
-        </MobileView>
+                  )
+                )}
+              </Box>
 
-        <BrowserView>
-        <Text fontSize='3xl' margin='7' fontFamily={"Montserrat-Medium"}>{t("feedback_admin_page")}</Text>
-          <SimpleGrid columns={[1, 2]}>
-            <Box>
-              {array1.map(({ date, feedback, name, type }) => (
-                <Center>
-                  <ButtonGroup marginTop="1%" marginBottom="0.5%">
-                    <Button
-                      width="700px"
-                      height="67px"
-                      _hover={{ bg: "isepBrick.300" }}
-                      variant="outline"
-                      _focus={{
-                        boxShadow: "none",
-                      }}
-                      fontFamily={"Montserrat-Medium"}
-                      onClick={() =>
-                        setFeedBackAndName(feedback, name, type)
-                      }
-                    >
-                      <Box margin={"2"}>{getIcon(type)}</Box>
-                      <Text fontFamily={"Montserrat-Medium"}>{date}</Text>
-                      
-                    </Button>
-                  </ButtonGroup>
-                </Center>
-              ))}
-            </Box>
+              <Box
+                marginBottom="1%"
+                textAlign={"center"}
+                borderRadius="3xl"
+                width="500px"
+              >
+                <Grid templateColumns="repeat(5, 1fr)" gap={4}>
+                  <GridItem colSpan={1} h="320" w="10">
+                    <Divider orientation="vertical" />
+                  </GridItem>
+                  <GridItem colStart={2} colEnd={7} h="320">
+                    <Box>
+                      {getFeedback(stateFeedback, stateType)}
+                      <Box height={"100px"}></Box>
+                      <Text
+                        fontSize="xs"
+                        as="i"
+                        align={"left"}
+                        fontFamily={"Montserrat-Medium"}
+                      >
+                        {stateName}
+                      </Text>
+                    </Box>
+                  </GridItem>
+                </Grid>
+              </Box>
+            </SimpleGrid>
+          </div>
+        )}
+        {stateFeedbacks === undefined && (
+          <div>
+            <Center>
+              <Box height={"300px"}></Box>
+              <Text fontFamily={"Montserrat-SemiBold"}>Loading data...</Text>
+              <Box width={"75px"}></Box>
 
-            <Box
-              marginBottom="1%"
-              textAlign={"center"}
-              borderRadius="3xl"
-              width="500px"
-            >
-              <Grid templateColumns="repeat(5, 1fr)" gap={4}>
-                <GridItem colSpan={1} h="320" w="10">
-                  <Divider orientation="vertical" />
-                </GridItem>
-                <GridItem colStart={2} colEnd={7} h="320">
-                  <Box height={"110px"}></Box>
-                  <Box>
-                    {getFeedback(stateFeedback, stateType)}
-                    <Box height={"100px"}></Box>
-                    <Text
-                      fontSize="xs"
-                      as="i"
-                      align={"left"}
-                      fontFamily={"Montserrat-Medium"}
-                    >
-                      {stateName}
-                    </Text>
-                  </Box>
-                </GridItem>
-              </Grid>
-            </Box>
-          </SimpleGrid>
-        </BrowserView>
-      </>
-    );
-  }
+              <Spinner
+                thickness="4px"
+                speed="0.65s"
+                emptyColor="gray.200"
+                color="blue.500"
+                size="xl"
+              />
+            </Center>
+          </div>
+        )}
+      </BrowserView>
+    </>
+  );
+}
 
 export default AdminFeedback;

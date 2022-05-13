@@ -89,7 +89,7 @@ function AdminBeacons() {
 
   const api = "https://camul2022.pythonanywhere.com";
 
-  const myAsyncFunction = async () => {
+  const loadBeaconsAsync = async () => {
     await fetch(api + "/map/beacons")
       .then(function (response) {
         return response.json();
@@ -192,7 +192,7 @@ function AdminBeacons() {
   }
 
   useEffect(() => {
-        myAsyncFunction();
+        loadBeaconsAsync();
   }, []);
 
   console.log("Occurs EVERY time the component is invoked.");
