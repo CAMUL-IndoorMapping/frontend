@@ -74,7 +74,7 @@ function AdminFeedback() {
       } else if (type === "audio") {
         return (
           <div>
-            <Box height={"110px"}></Box>
+            <Box height={"80px"}></Box>
             <ReactAudioPlayer src={result} controls />
           </div>
         );

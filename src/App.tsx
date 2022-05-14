@@ -4,7 +4,7 @@ import { Text, Box } from '@chakra-ui/react'
 import useTranslation from "./i18n/use-translation";
 
 import { useStoreSelector, useStoreDispatch } from "./store";
-import { selectedPage, goToLoginPage } from "./store/navigation-reducer";
+import { selectedPage, goToLoginPage, goToBeaconsPage } from "./store/navigation-reducer";
 import AdminFeedback from "./app/pages/admin/feedback";
 import { AppBar, Toolbar } from "@material-ui/core";
 
@@ -83,7 +83,7 @@ function App() {
       buttonColor="isepGrey.600"
       hoverColor="isepBrick.400"
       text="Hello There"
-      handleButtonClick={() => [alert("You Clicked with Button😂😂😂😂😂😂")]}
+      handleButtonClick={() => goToBeaconsPage()}
     />
   );
 }

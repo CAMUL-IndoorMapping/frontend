@@ -16,6 +16,7 @@ import {
   Divider,
   HStack,
   Spinner,
+  Select,
 } from "@chakra-ui/react";
 import {
   Table,
@@ -51,6 +52,14 @@ interface BeaconData {
   beacons: Beacon[];
 }
 
+interface Classroom {
+  id: number;
+  idDepartment: number;
+  image: string;
+  name: string;
+  occupancy: number;
+}
+
 function AdminBeacons() {
   const { t } = useTranslation();
 
@@ -68,6 +77,7 @@ function AdminBeacons() {
   const [operationState, setOperation] = useState("UPDATE");
   const [titleState, setTitle] = useState("Beacons");
   const [beaconList, setBeacons] = useState<BeaconData>();
+  const [classroomList, setClassrooms] = useState<Classroom[]>([]);
 
   function setStates(
     device: string,
@@ -97,6 +107,17 @@ function AdminBeacons() {
       .then(function (data) {
         const items = data;
         setBeacons(items);
+      });
+  };
+
+  const loadClassroomsAsync = async () => {
+    await fetch(api + "/map/classrooms")
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (data) {
+        const items = data;
+        setClassrooms(items);
       });
   };
 
@@ -156,7 +177,7 @@ function AdminBeacons() {
 
   var jsonDataBeacon = {
     idDevice: stateDeviceId,
-    IdClassroom: 2,
+    IdClassroom: stateClassroomId,
     x: stateX,
     y: stateY,
     z: stateZ,
@@ -165,23 +186,21 @@ function AdminBeacons() {
   var jsonDataUpdateBeacon = {
     beaconId: stateBeaconId,
     beaconName: stateDeviceId,
-    IdClassroom: 2,
+    classroomId: stateClassroomId,
     x: stateX,
     y: stateY,
     z: stateZ,
   };
 
   function handleAddOrUpdate(): void {
-    console.log(operationState)
-    // if state === ADD -> chamar endpoint de POST
-    // token A
+    console.log(operationState);
     if (operationState === "ADD") {
       console.log(jsonDataBeacon);
       fetch(api + "/map/beacons", {
         method: "POST",
         mode: "cors",
-        body: JSON.stringify(jsonDataBeacon), 
-        headers: {"authToken" : `a`, "Content-Type": "application/json" } //change to actual token
+        body: JSON.stringify(jsonDataBeacon),
+        headers: { authToken: `a`, "Content-Type": "application/json" }, //change to actual token
       }).then((response) => {
         if (!response.ok) {
           console.log("ups");
@@ -200,15 +219,15 @@ function AdminBeacons() {
         }
       });
     }
-    // if state === UPDATE -> chamar enpoint de PUT
+
     if (operationState === "UPDATE") {
       console.log("updating beacon " + stateBeaconId);
       console.log(jsonDataUpdateBeacon);
       fetch(api + "/map/beacons", {
         method: "PUT",
         mode: "cors",
-        body: JSON.stringify(jsonDataUpdateBeacon), 
-        headers: {"authToken" : `a`, "Content-Type": "application/json" } //change to actual token
+        body: JSON.stringify(jsonDataUpdateBeacon),
+        headers: { authToken: `a`, "Content-Type": "application/json" }, //change to actual token
       }).then((response) => {
         if (!response.ok) {
           console.log("ups");
@@ -219,7 +238,7 @@ function AdminBeacons() {
           });
           throw new Error("Error" + response.status);
         } else {
-          console.log(response)
+          console.log(response);
           toast({
             title: t("beacon_update_success_message"),
             status: "success",
@@ -232,6 +251,7 @@ function AdminBeacons() {
 
   useEffect(() => {
     loadBeaconsAsync();
+    loadClassroomsAsync();
   }, []);
 
   console.log("Occurs EVERY time the component is invoked.");
@@ -580,7 +600,7 @@ function AdminBeacons() {
                     >
                       {t("beacon_classroom")}
                     </Text>
-                    <Editable
+                    {/* <Editable
                       fontFamily={"Montserrat-Medium"}
                       value={stateClassRoom}
                       onChange={(e) => handleInputClassroom(e)}
@@ -588,7 +608,13 @@ function AdminBeacons() {
                     >
                       <EditablePreview textAlign={"left"} />
                       <EditableInput />
-                    </Editable>
+                    </Editable> */}
+
+                    <Select placeholder={stateClassRoom} onChange={(e)=>setClassRoomId(parseInt(e.target.value))}>
+                      {classroomList.map(({ name, id }) => (
+                        <option value={id} >{name}</option>
+                      ))}
+                    </Select>
                     <Divider style={{ background: "isepBrick.500" }}></Divider>
                     <Box height={"11px"}></Box>
                     <Text
@@ -758,7 +784,9 @@ function AdminBeacons() {
                       border={"thin"}
                       value={stateX.toString()}
                       onChange={(e) => handleInputX(e)}
-                      isDisabled={(stateX === 0 && state ==="start" )? true : false}
+                      isDisabled={
+                        stateX === 0 && state === "start" ? true : false
+                      }
                     >
                       <EditablePreview textAlign={"left"} border={"thin"} />
                       <EditableInput />
@@ -768,7 +796,9 @@ function AdminBeacons() {
                       fontFamily={"Montserrat-Medium"}
                       value={stateY.toString()}
                       onChange={(e) => handleInputY(e)}
-                      isDisabled={(stateY === 0 && state ==="start") ? true : false}
+                      isDisabled={
+                        stateY === 0 && state === "start" ? true : false
+                      }
                     >
                       <EditablePreview textAlign={"left"} />
                       <EditableInput />
@@ -778,7 +808,9 @@ function AdminBeacons() {
                       fontFamily={"Montserrat-Medium"}
                       value={stateZ.toString()}
                       onChange={(e) => handleInputZ(e)}
-                      isDisabled={(stateZ === 0 && state ==="start") ? true : false}
+                      isDisabled={
+                        stateZ === 0 && state === "start" ? true : false
+                      }
                     >
                       <EditablePreview textAlign={"left"} />
                       <EditableInput />
