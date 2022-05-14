@@ -35,8 +35,6 @@ import useTranslation from "../../../../i18n/use-translation";
 import { FaBacon } from "react-icons/fa";
 import { MdAddBox } from "react-icons/md";
 import { IoIosArrowDropleft } from "react-icons/io";
-import { useStoreSelector } from "../../../../store";
-import { selectedPage } from "../../../../store/navigation-reducer";
 
 interface Beacon {
   beaconId: number;
@@ -406,15 +404,11 @@ function AdminBeacons() {
                   >
                     {t("beacon_classroom")}
                   </Text>
-                  <Editable
-                    fontFamily={"Montserrat-Medium"}
-                    value={stateClassRoom}
-                    isDisabled={false}
-                    onChange={(e) => handleInputClassroom(e)}
-                  >
-                    <EditablePreview textAlign={"left"} />
-                    <EditableInput />
-                  </Editable>
+                  <Select placeholder={stateClassRoom} onChange={(e)=>setClassRoomId(parseInt(e.target.value))}>
+                      {classroomList.map(({ name, id }) => (
+                        <option value={id} >{name}</option>
+                      ))}
+                    </Select>
                   <Divider style={{ background: "isepBrick.500" }}></Divider>
                   <Box height={"11px"}></Box>
                   <Text
@@ -600,16 +594,6 @@ function AdminBeacons() {
                     >
                       {t("beacon_classroom")}
                     </Text>
-                    {/* <Editable
-                      fontFamily={"Montserrat-Medium"}
-                      value={stateClassRoom}
-                      onChange={(e) => handleInputClassroom(e)}
-                      isDisabled={stateClassRoom === "Classroom" ? true : false}
-                    >
-                      <EditablePreview textAlign={"left"} />
-                      <EditableInput />
-                    </Editable> */}
-
                     <Select placeholder={stateClassRoom} onChange={(e)=>setClassRoomId(parseInt(e.target.value))}>
                       {classroomList.map(({ name, id }) => (
                         <option value={id} >{name}</option>
@@ -761,15 +745,11 @@ function AdminBeacons() {
                     >
                       {t("beacon_classroom")}
                     </Text>
-                    <Editable
-                      fontFamily={"Montserrat-Medium"}
-                      value={stateClassRoom}
-                      onChange={(e) => handleInputClassroom(e)}
-                      isDisabled={stateClassRoom === "Classroom" ? true : false}
-                    >
-                      <EditablePreview textAlign={"left"} />
-                      <EditableInput />
-                    </Editable>
+                    <Select placeholder={stateClassRoom} onChange={(e)=>setClassRoomId(parseInt(e.target.value))}>
+                      {classroomList.map(({ name, id }) => (
+                        <option value={id} >{name}</option>
+                      ))}
+                    </Select>
                     <Divider style={{ background: "isepBrick.500" }}></Divider>
                     <Box height={"11px"}></Box>
                     <Text
