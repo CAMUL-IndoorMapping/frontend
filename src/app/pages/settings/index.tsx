@@ -52,7 +52,7 @@ import { ChevronRightIcon } from '@chakra-ui/icons'
 import CustomButton from "../../../components/buttons";
 import ThemeToggle from "../../../components/buttons/toggle";
 import { FaBold } from "react-icons/fa";
-import { AdminFeedback } from "../admin/feedback";
+import AdminFeedback from "../admin/feedback";
 import AdminBeacons from "../admin/beacons";
 import { goToAdminFeedbackPage, goToBeaconsPage } from "../../../store/navigation-reducer";
 import { useStoreDispatch } from "../../../store";
