@@ -52,6 +52,10 @@ import { ChevronRightIcon } from '@chakra-ui/icons'
 import CustomButton from "../../../components/buttons";
 import ThemeToggle from "../../../components/buttons/toggle";
 import { FaBold } from "react-icons/fa";
+import { AdminFeedback } from "../admin/feedback";
+import AdminBeacons from "../admin/beacons";
+import { goToAdminFeedbackPage, goToBeaconsPage } from "../../../store/navigation-reducer";
+import { useStoreDispatch } from "../../../store";
 
 interface Options {
     settingName: string
@@ -91,6 +95,12 @@ function UserSettings() {
         },
         {
             settingName: t("patch_notes")
+        },
+        {
+            settingName: t("admin_feedback")
+        },
+        {
+            settingName: t("admin_beacons")
         }
     ];
 
@@ -140,6 +150,9 @@ function UserSettings() {
     const [valuePasswordOld, setValueOld] = React.useState('')
     const [valuePasswordNew, setValueNew] = React.useState('');
     const [valuePasswordNewConfirm, setValueNewConfirm] = React.useState('');
+
+    //Dispatch function
+    const dispatch = useStoreDispatch();
 
     const handleChangeOld = (event: { target: { value: React.SetStateAction<string>; }; }) => setValueOld(event.target.value)
     const handleChangeNew = (event: { target: { value: React.SetStateAction<string>; }; }) => setValueNew(event.target.value)
@@ -553,6 +566,20 @@ function UserSettings() {
                         <Text fontSize="md">
                             {t("patch_notes_content_1")}
                         </Text>
+                    </>
+                );
+                break;
+            case t("admin_feedback"): 
+                return (
+                    <>
+                        {dispatch(goToAdminFeedbackPage())}
+                    </>
+                );
+                break;
+            case t("admin_beacons"): 
+                return (
+                    <>
+                        {dispatch(goToBeaconsPage())}
                     </>
                 );
                 break;
