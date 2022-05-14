@@ -56,15 +56,12 @@ function AdminFeedback() {
     setName(eventName);
     setType(eventType);
   }
-  const decode = (str: string): string =>
-    Buffer.from(str, "base64").toString('ascii');
-
+  
   function getFeedback(feedback: string, type: string): ReactNode {
     if (type !== "text") {
       var encode = feedback.split("/")[1].split(".");
       var stringEncoded = encode[0];
-      var cenas = decode(stringEncoded);
-      var result = api + "/uploads/" + cenas + "." + encode[1];
+      var result = api + "/uploads/" + stringEncoded + "." + encode[1];
       console.log(result);
       
       if (type === "image") {

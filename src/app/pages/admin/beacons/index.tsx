@@ -171,7 +171,7 @@ function AdminBeacons() {
         method: "POST",
         mode: "cors",
         body: JSON.stringify(jsonDataBeacon), 
-        headers: {"Authorization" : `Bearer A`} //change to actual token
+        headers: {"authToken" : `a`, "Content-Type": "application/json" } //change to actual token
       }).then((response) => {
         if (!response.ok) {
           console.log("ups");
@@ -747,7 +747,7 @@ function AdminBeacons() {
                       border={"thin"}
                       value={stateX.toString()}
                       onChange={(e) => handleInputX(e)}
-                      isDisabled={stateX === 0 ? true : false}
+                      isDisabled={(stateX === 0 && state ==="start" )? true : false}
                     >
                       <EditablePreview textAlign={"left"} border={"thin"} />
                       <EditableInput />
@@ -757,7 +757,7 @@ function AdminBeacons() {
                       fontFamily={"Montserrat-Medium"}
                       value={stateY.toString()}
                       onChange={(e) => handleInputY(e)}
-                      isDisabled={stateY === 0 ? true : false}
+                      isDisabled={(stateY === 0 && state ==="start") ? true : false}
                     >
                       <EditablePreview textAlign={"left"} />
                       <EditableInput />
@@ -767,7 +767,7 @@ function AdminBeacons() {
                       fontFamily={"Montserrat-Medium"}
                       value={stateZ.toString()}
                       onChange={(e) => handleInputZ(e)}
-                      isDisabled={stateZ === 0 ? true : false}
+                      isDisabled={(stateZ === 0 && state ==="start") ? true : false}
                     >
                       <EditablePreview textAlign={"left"} />
                       <EditableInput />
