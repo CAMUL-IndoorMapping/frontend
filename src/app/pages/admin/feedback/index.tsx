@@ -23,60 +23,12 @@ import { BrowserView, MobileView } from "react-device-detect";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import useTranslation from "../../../../i18n/use-translation";
 import ReactPlayer from "react-player";
-
-const array1: Feedback[] = [
-  //endpoint Feedback/GET ALL
-  {
-    // date: "qui. 31/03 19:32",
-    content: "Não tenho nada a dizer a aplicação é incrivel",
-    // name: "João das Neves",
-    type: "text",
-    id: 12,
-    idBeacon: 1,
-    idUser: 2,
-  },
-  {
-    // date: "qui. 31/03 20:02",
-    content: "Os devs são muito fofinhos",
-    // name: "John",
-    type: "text",
-    id: 12,
-    idBeacon: 1,
-    idUser: 2,
-  },
-  {
-    // date: "qui. 31/03 23:20",
-    content: "https://www.w3schools.com/images/w3schools_green.jpg",
-    // name: "Wanda Maximoff",
-    type: "image",
-    id: 12,
-    idBeacon: 1,
-    idUser: 2,
-  },
-  {
-    // date: "qui. 31/03 23:45",
-    content: "my_audio_file.ogg",
-    // name: "You don't wanna know",
-    type: "audio",
-    id: 12,
-    idBeacon: 1,
-    idUser: 2,
-  },
-  {
-    // date: "qui. 31/03 23:46",
-    content: "https://www.youtube.com/watch?v=QMoX6oPSnws",
-    // name: "Czech Republic",
-    type: "video",
-    id: 12,
-    idBeacon: 1,
-    idUser: 2,
-  },
-];
+import {Buffer} from 'buffer';
 
 interface Feedback {
-  date?: string;
+  dateTime: string;
   content: string;
-  name?: string;
+  username: string;
   type: string;
   id: number;
   idBeacon: number;
@@ -104,29 +56,39 @@ function AdminFeedback() {
     setName(eventName);
     setType(eventType);
   }
+  const decode = (str: string): string =>
+    Buffer.from(str, "base64").toString('ascii');
 
   function getFeedback(feedback: string, type: string): ReactNode {
-    if (type === "image") {
-      return (
-        <div>
-          {" "}
-          <Box height={"50px"}></Box>
-          <Image src={feedback} alt="" />;
-        </div>
-      );
-    } else if (type === "audio") {
-      return (
-        <div>
-          <Box height={"110px"}></Box>
-          <ReactAudioPlayer src={feedback} autoPlay controls />
-        </div>
-      );
-    } else if (type === "video") {
-      return (
-        <div>
-          <ReactPlayer url={feedback}></ReactPlayer>
-        </div>
-      );
+    if (type !== "text") {
+      var encode = feedback.split("/")[1].split(".");
+      var stringEncoded = encode[0];
+      var cenas = decode(stringEncoded);
+      var result = api + "/uploads/" + cenas + "." + encode[1];
+      console.log(result);
+      
+      if (type === "image") {
+        return (
+          <div>
+            {" "}
+            <Box height={"50px"}></Box>
+            <Image src={result} alt="" />;
+          </div>
+        );
+      } else if (type === "audio") {
+        return (
+          <div>
+            <Box height={"110px"}></Box>
+            <ReactAudioPlayer src={result} autoPlay controls />
+          </div>
+        );
+      } else if (type === "video") {
+        return (
+          <div>
+            <ReactPlayer url={result}></ReactPlayer>
+          </div>
+        );
+      }
     } else {
       return (
         <div>
@@ -157,7 +119,7 @@ function AdminFeedback() {
   }, []);
 
   function getIcon(type: string): ReactNode {
-    if (type === "image" || type==="video") {
+    if (type === "image" || type === "video") {
       return (
         <img
           src="https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1653264000&Signature=DO-5QTTdSrt52S62TeXnUDv5kGF7x-H~XS2i9F7U4guJhpn1vX8oK4P5pZatIZw9UbnpJxN~D5MbvX~cCsnaNlIP5lVq3oTujy~hOUNMhwcbFpLrhhUXd0ZxLO1a1Ru-hQrrdOuskQoi55G4NjJFPm6rO9TynhaQzLlGiM~wdNb8xYA34f6a5N1TvtEp6GR~Z5vELnqHpZvfcMVCEALJwy8PsxbzyzA5-myfIIBa53xL9fixwJg~u2u5pEEeElhiRS7FyvZMeWQyb7jb3A7nyH8bbWbdXROqHDV1FozpluMmrmWMGG-8mT1DRBRRrBmPxF46tOa9n6ouvj13SUNxLw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"
@@ -196,7 +158,7 @@ function AdminFeedback() {
               {t("feedback_admin_page")}
             </Text>
             {stateFeedbacks.feedback.map(
-              ({ date, content: feedback, name, type }) => (
+              ({ dateTime: date, content: feedback, username, type }) => (
                 <Accordion allowToggle>
                   <AccordionItem>
                     <h2>
@@ -220,7 +182,7 @@ function AdminFeedback() {
                         as="i"
                         fontFamily={"Montserrat-Medium"}
                       >
-                        {name}
+                        {username}
                       </Text>
                     </AccordionPanel>
                   </AccordionItem>
@@ -257,15 +219,7 @@ function AdminFeedback() {
             <SimpleGrid columns={[1, 2]}>
               <Box>
                 {stateFeedbacks?.feedback.map(
-                  ({
-                    date,
-                    content: feedback,
-                    name,
-                    type,
-                    id,
-                    idBeacon,
-                    idUser,
-                  }) => (
+                  ({ dateTime: date, content: feedback, username, type }) => (
                     <Center>
                       <ButtonGroup marginTop="1%" marginBottom="0.5%">
                         <Button
@@ -279,12 +233,12 @@ function AdminFeedback() {
                           fontFamily={"Montserrat-Medium"}
                           //  Change This to name variable when backend updates API
                           onClick={() =>
-                            setFeedBackAndName(feedback, "name", type)
+                            setFeedBackAndName(feedback, username, type)
                           }
                         >
                           <Box margin={"2"}>{getIcon(type)}</Box>
                           {/* Change This to Date when backend updates API */}
-                          <Text fontFamily={"Montserrat-Medium"}>{type}</Text>
+                          <Text fontFamily={"Montserrat-Medium"}>{date}</Text>
                         </Button>
                       </ButtonGroup>
                     </Center>
