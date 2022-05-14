@@ -53,9 +53,6 @@ function Navigation() {
     if (id === "homepage") dispatch(goToHomePage());
     if (id === "feedback") dispatch(goToFeedBackPage());
     if (id === "settings") dispatch(goSettingsPage());
-    if (id === "adminBeacons") dispatch(goToBeaconsPage());
-    if (id === "adminFeedback"){
-      dispatch(goToAdminFeedbackPage());}
   }
 
   const handleLogoutClick = () => {
@@ -107,7 +104,6 @@ function Navigation() {
               {renderMobileNavItem(2, BsFillChatFill, 'feedback')}
               {renderMobileNavItem(1, AiFillHome, 'homepage')}
               {renderMobileNavItem(3, BsGearFill, 'settings')}
-              {renderMobileNavItem(3, BsGearFill, 'adminFeedback')}
             </Flex>
           </Box>
         </Center>
