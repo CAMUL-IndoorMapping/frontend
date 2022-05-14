@@ -23,7 +23,6 @@ import { BrowserView, MobileView } from "react-device-detect";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import useTranslation from "../../../../i18n/use-translation";
 import ReactPlayer from "react-player";
-import {Buffer} from 'buffer';
 
 interface Feedback {
   dateTime: string;
@@ -56,7 +55,7 @@ function AdminFeedback() {
     setName(eventName);
     setType(eventType);
   }
-  
+
   function getFeedback(feedback: string, type: string): ReactNode {
     if (type !== "text") {
       var encode = feedback.split("/")[1].split(".");
@@ -76,7 +75,7 @@ function AdminFeedback() {
         return (
           <div>
             <Box height={"110px"}></Box>
-            <ReactAudioPlayer src={result} autoPlay controls />
+            <ReactAudioPlayer src={result} controls />
           </div>
         );
       } else if (type === "video") {

@@ -162,7 +162,17 @@ function AdminBeacons() {
     z: stateZ,
   };
 
+  var jsonDataUpdateBeacon = {
+    beaconId: stateBeaconId,
+    beaconName: stateDeviceId,
+    IdClassroom: 2,
+    x: stateX,
+    y: stateY,
+    z: stateZ,
+  };
+
   function handleAddOrUpdate(): void {
+    console.log(operationState)
     // if state === ADD -> chamar endpoint de POST
     // token A
     if (operationState === "ADD") {
@@ -190,27 +200,28 @@ function AdminBeacons() {
         }
       });
     }
-
     // if state === UPDATE -> chamar enpoint de PUT
     if (operationState === "UPDATE") {
       console.log("updating beacon " + stateBeaconId);
-      console.log(jsonDataBeacon);
+      console.log(jsonDataUpdateBeacon);
       fetch(api + "/map/beacons", {
-        method: "POST",
+        method: "PUT",
         mode: "cors",
-        body: JSON.stringify(jsonDataBeacon), 
+        body: JSON.stringify(jsonDataUpdateBeacon), 
+        headers: {"authToken" : `a`, "Content-Type": "application/json" } //change to actual token
       }).then((response) => {
         if (!response.ok) {
           console.log("ups");
           toast({
-            title: t("beacon_add_error_message"),
+            title: t("beacon_update_error_message"),
             status: "error",
             isClosable: true,
           });
           throw new Error("Error" + response.status);
         } else {
+          console.log(response)
           toast({
-            title: t("beacon_add_success_message"),
+            title: t("beacon_update_success_message"),
             status: "success",
             isClosable: true,
           });
