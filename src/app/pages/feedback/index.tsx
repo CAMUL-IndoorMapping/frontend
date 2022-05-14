@@ -90,14 +90,14 @@ function Feedback() {
     }
 
     const cancelUpload = (event: any) => {
-
+        
         var textAreaValue: any = document.getElementById("textUpload");
         textAreaValue.value = '';
         inputValueTextarea = null;
 
-        video.mediaBlobUrl = null;
+        video.mediaBlobUrl = "";
 
-        mediaBlobUrl = null;
+        mediaBlobUrl = "";
 
         setImage(null);
         setSelectedPhoto(false);
@@ -114,6 +114,11 @@ function Feedback() {
         setSelectedConfirm(true);
         setSelectedRecordAudio(false);
         setSelectedRecordVideo(false);
+        setSelectedStartRecordAudio(true);
+        setSelectedStartRecordVideo(true);
+        setSelectedSubmitRecordAudio(false);
+        setSelectedSubmitRecordVideo(false);
+        
     }
 
     const startRecordAudio = () => {
@@ -252,7 +257,7 @@ function Feedback() {
                 console.log("erro:" + error);
             });
 
-            mediaBlobUrl = null;
+            mediaBlobUrl = "";
             setSelectedSubmitRecordAudio(false);
             setSelectedRecordAudio(false);
             setSelectedConfirm(true);
@@ -303,7 +308,7 @@ function Feedback() {
                 console.log("erro:" + error);
             });
 
-            video.mediaBlobUrl = null;
+            video.mediaBlobUrl = "";
             setSelectedSubmitRecordVideo(false);
             setSelectedRecordVideo(false);
         }
