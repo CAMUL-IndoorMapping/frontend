@@ -62,5 +62,6 @@
   "upload_audio": "Clique aqui para fazer upload a audio",
   "confirm": "CONFIRMAR",
   "cancel": "CANCELAR",
-  "sent_feedback": "FEEDBACK ENVIADO"
+  "sent_feedback": "FEEDBACK ENVIADO",
+  "loading_data": "A carregar dados..."
 }

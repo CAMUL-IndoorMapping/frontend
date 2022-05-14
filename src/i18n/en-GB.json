@@ -62,5 +62,6 @@
   "upload_audio": "Click to upload audio",
   "confirm": "CONFIRM",
   "cancel": "CANCEL",
-  "sent_feedback": "SENT FEEDBACK"
+  "sent_feedback": "SENT FEEDBACK",
+  "loading_data": "Loading data..."
 }

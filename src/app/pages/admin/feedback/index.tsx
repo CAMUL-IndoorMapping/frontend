@@ -191,7 +191,7 @@ function AdminFeedback() {
           <div>
             <Center>
               <Box height={"300px"}></Box>
-              <Text fontFamily={"Montserrat-SemiBold"}>Loading data...</Text>
+              <Text fontFamily={"Montserrat-SemiBold"}>{t("loading_data")}</Text>
               <Box width={"75px"}></Box>
 
               <Spinner
@@ -275,7 +275,7 @@ function AdminFeedback() {
           <div>
             <Center>
               <Box height={"300px"}></Box>
-              <Text fontFamily={"Montserrat-SemiBold"}>Loading data...</Text>
+              <Text fontFamily={"Montserrat-SemiBold"}>{t("loading_data")}</Text>
               <Box width={"75px"}></Box>
 
               <Spinner
