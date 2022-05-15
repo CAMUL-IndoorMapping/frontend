@@ -31,30 +31,35 @@ function App() {
   if (page === Page.FeedBack) {
     //FeedBack
     return (<div className="App">
-    <header className="App-header">
-      <BrowserView>
-        <Box height={'110px'}></Box>
-      </BrowserView>
-      <MobileView>
-        <Box height={'5px'}></Box>
-      </MobileView>
-      <Text fontSize='3xl' margin='7' fontFamily={"Montserrat-Medium"}>{t("feedback")}</Text>
-      <Text fontSize='md' margin='7' marginTop='-20px'>{t("daily_entries")}</Text>
-      <Feedback></Feedback>
-    </header>
-   </div>);
+      <header className="App-header">
+        <BrowserView>
+          <Box height={'110px'}></Box>
+        </BrowserView>
+        <MobileView>
+          <Box height={'5px'}></Box>
+        </MobileView>
+        <Text fontSize='3xl' margin='7' fontFamily={"Montserrat-Medium"}>{t("feedback")}</Text>
+        <Text fontSize='md' margin='7' marginTop='-20px'>{t("daily_entries")}</Text>
+        <Feedback></Feedback>
+      </header>
+    </div>);
   }
 
   if (page === Page.Settings) {
     return (
       <div className="App">
         <header className="App-header">
-          <Box height={'110px'}></Box>
+          <BrowserView>
+            <Box height={'110px'}></Box>
+          </BrowserView>
+          <MobileView>
+            <Box height={'5px'}></Box>
+          </MobileView>
           <Text fontSize='3xl' margin='7'>{t("settings")}</Text>
           <UserSettings></UserSettings>
         </header>
-       </div>
-       );
+      </div>
+    );
   }
   if (page === Page.AdminFeedback) {
     return (
@@ -64,8 +69,8 @@ function App() {
           <Text fontSize='3xl' margin='7' fontFamily={"Montserrat-Medium"}>{t("feedback_admin_page")}</Text>
           <AdminFeedback></AdminFeedback>
         </header>
-       </div>
-       );
+      </div>
+    );
   }
   if (page === Page.Beacons) {
     return (
@@ -74,8 +79,8 @@ function App() {
           <Box height={'110px'}></Box>
           <AdminBeacons></AdminBeacons>
         </header>
-       </div>
-       );
+      </div>
+    );
   }
   return (
     <CustomButton

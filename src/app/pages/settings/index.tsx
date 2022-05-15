@@ -41,6 +41,7 @@ import {
     Input,
     InputGroup,
     InputRightElement,
+    useToast,
 } from "@chakra-ui/react";
 import ReactAudioPlayer from "react-audio-player";
 import { BrowserView, MobileView } from "react-device-detect";
@@ -104,6 +105,8 @@ function UserSettings() {
         }
     ];
 
+    const toast = useToast();
+
     const [stateSettingName, setSettingName] = useState("Setting Name");
 
     // Set das OPTIONS
@@ -134,7 +137,20 @@ function UserSettings() {
     const handleDeleteAccountConfirm = () => {
         //MANDAR APAGAR A CONTA PELO PEDIDO
         onClose()
-        alert("You just deleted your account... how dare u :(")
+
+        //Successs
+        toast({
+            title: t('delete_account_message_OK'),
+            status: "success",
+            isClosable: true,
+        });
+
+        //Else error
+        /*toast({
+            title: t('delete_account_message_OK'),
+            status: "error",
+            isClosable: true,
+        });*/
     }
 
     function handleChangePasswordConfirm(old: string, newPass: string): void {
@@ -143,7 +159,20 @@ function UserSettings() {
         //Verificar se os dados são válidos
         //MANDAR MUDAR PASS A CONTA PELO PEDIDO
         onClose()
-        alert("You just updated your password... noice xD")
+
+        //Successs
+        toast({
+            title: t('change_password_message_OK'),
+            status: "success",
+            isClosable: true,
+        });
+
+        //Else error
+        /*toast({
+            title: t('change_password_message_BAD'),
+            status: "error",
+            isClosable: true,
+        });*/
     }
 
     //Guardar valores das passwords no Change password
@@ -569,14 +598,14 @@ function UserSettings() {
                     </>
                 );
                 break;
-            case t("admin_feedback"): 
+            case t("admin_feedback"):
                 return (
                     <>
                         {dispatch(goToAdminFeedbackPage())}
                     </>
                 );
                 break;
-            case t("admin_beacons"): 
+            case t("admin_beacons"):
                 return (
                     <>
                         {dispatch(goToBeaconsPage())}
