@@ -74,5 +74,13 @@
   "forgot_password": "Esquecie-me da palavra pass",
   "mobility_disability": "Tem alguma dificuldade motora?",
   "confirm_read_terms": "I confirmo que li e aceitei os",
-  "terms": "termos e condições"
+  "terms": "termos e condições",
+  "back": "Back",
+  "recover_account": "Recover Account",
+  "associated_email": "Email associated with the account",
+  "send_email": "Send Email",
+  "check_email": "Check your spam and bin sections. If the e-mail hasnt been sent, make sure you have entered the correct e-mail associated with your account and click on the button to send the e-mail again.",
+  "reset_password": "Reset Password",
+  "reset": "Reset",
+  "new_password": "New Password"
 }

@@ -74,5 +74,13 @@
   "forgot_password": "I forgot my password",
   "mobility_disability": "Do you have a mobility disability?",
   "confirm_read_terms": "I confirm I have read and accept the",
-  "terms": "terms and conditions"
+  "terms": "terms and conditions",
+  "back": "Voltar",
+  "recover_account": "Recuperar Conta",
+  "associated_email": "Email associado à conta",
+  "send_email": "Enviar E-Mail",
+  "check_email": "Verifica o spam e o lixo. Se o email não foi recebido verifica que o email introduzido é o associado à sua conta e clica no butão para enviar outra vez.",
+  "reset_password": "Redefinir Palavra-Passe",
+  "reset": "Redefinir",
+  "new_password": "Nova Palavra-Passe"
 }
