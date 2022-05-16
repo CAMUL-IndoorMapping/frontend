@@ -98,7 +98,7 @@ function LoginPage() {
       axios.get('https://camul2022.pythonanywhere.com/account/login?email=' + loginUser.mail + '&password=' + loginUser.password)
         .then((response) => {
           console.log("response:" + response.data["status"]);
-          if(response.data["status"] && response.data["status"].includes("unauthorized") ) {
+          if (response.data["status"] && response.data["status"].includes("unauthorized")) {
             alert("Invalid credentials");
           }
           else {
@@ -138,7 +138,7 @@ function LoginPage() {
       "password": newPassword.new
     });
 
-    axios.post(urlAPi + 'account/forgot/'+ newToken, params, {
+    axios.post(urlAPi + 'account/forgot/' + newToken, params, {
 
       "headers": {
         "content-type": "application/json",
@@ -192,389 +192,402 @@ function LoginPage() {
   };
 
   return (
-    <div className="container">
-      <div className="logo-container">
-        <div className="wrapper">
+    <>
+      <BrowserView>
+        <div className="container">
+          <div className="logo-container">
+            <div className="wrapper">
 
-          {(isAboutUs || formType === 'recoverAccount' || formType === 'resetPassword') && (
-            <Flex position='fixed' top='200px' left='300px'>
-              <IconButton
-                aria-label='back'
-                variant='ghost'
-                rounded='100'
-                size='sm'
-                icon={<ChevronLeftIcon w='30px' h='30px' color='isepBrick.500' />}
-                onClick={() => {
-                  dispatch(leaveAboutUs())
-                  setFormType('longIn')
-                }}
-              />
-              <Center>
-                <Text color='isepBrick.500'>
-                  {t("back")}
-                </Text>
-              </Center>
-            </Flex>
-          )}
-          <Logo />
-          <span>Where to go next?</span>
-        </div>
-      </div>
-
-      {!isAboutUs ? (
-
-        <div className="form-container">
-
-          {formType === "longIn" && (
-            <div className="form-wrapper">
-              <Input
-                isInvalid={showError && loginUser.mail === ""}
-                errorBorderColor="crimson"
-                name="mail"
-                onChange={handleLogInInputChange}
-                variant="flushed"
-                focusBorderColor="isepBrick.500"
-                placeholder={t("e-mail")}
-                _placeholder={{
-                  color: "isepBrick.500",
-                  fontFamily: "Montserrat-SemiBold",
-                }}
-                borderColor="isepBrick.500"
-              />
-              <Input
-                name="password"
-                type='password'
-                isInvalid={showError && loginUser.password === ""}
-                errorBorderColor="crimson"
-                onChange={handleLogInInputChange}
-                variant="flushed"
-                focusBorderColor="isepBrick.500"
-                placeholder={t("password")}
-                _placeholder={{
-                  color: "isepBrick.500",
-                  fontFamily: "Montserrat-SemiBold",
-                }}
-                borderColor="isepBrick.500"
-              />
-
-              <CustomButton
-                backgroundColor="isepBrick.500"
-                borderColor="isepGreen.500"
-                buttonColor="isepGrey.500"
-                hoverColor="isepBrick.500"
-                text="LOGIN"
-                width="476px"
-                height="54px"
-                handleButtonClick={LogIn}
-              />
-              <span>
-                {t("do_you_have_an_account")}
-                <a
-                  style={{
-                    marginLeft: '.5rem'
-                  }}
-                  onClick={() => {
-                    setShowError(false);
-                    setFormType("singIn");
-                  }}
-                >
-                  {t("register")}
-                </a>
-              </span>
-              <span
-                className="forgot-password"
-                onClick={() => { setFormType('recoverAccount') }}
-              >
-                {t("forgot_password")}
-              </span>
+              {(isAboutUs || formType === 'recoverAccount' || formType === 'resetPassword') && (
+                <Flex position='fixed' top='200px' left='300px'>
+                  <IconButton
+                    aria-label='back'
+                    variant='ghost'
+                    rounded='100'
+                    size='sm'
+                    icon={<ChevronLeftIcon w='30px' h='30px' color='isepBrick.500' />}
+                    onClick={() => {
+                      dispatch(leaveAboutUs())
+                      setFormType('longIn')
+                    }}
+                  />
+                  <Center>
+                    <Text color='isepBrick.500'>
+                      {t("back")}
+                    </Text>
+                  </Center>
+                </Flex>
+              )}
+              <Logo />
+              <span>Where to go next?</span>
             </div>
-          )}
+          </div>
 
-          {formType === "singIn" && (
-            <div className="form-wrapper_extended">
-              <Input
-                isInvalid={showError && sigInUser.user === ""}
-                errorBorderColor="crimson"
-                name="user"
-                onChange={handleSigInInputChange}
-                variant="flushed"
-                placeholder={`${t("name")}*`}
-                focusBorderColor="isepBrick.500"
-                _placeholder={{
-                  color: "isepBrick.500",
-                  fontFamily: "Montserrat-SemiBold",
-                }}
-                borderColor="isepBrick.500"
-              />
-              <Input
-                isInvalid={showError && sigInUser.mail === ""}
-                errorBorderColor="crimson"
-                name="mail"
-                onChange={handleSigInInputChange}
-                variant="flushed"
-                placeholder={`${t("e-mail")}*`}
-                focusBorderColor="isepBrick.500"
-                _placeholder={{
-                  color: "isepBrick.500",
-                  fontFamily: "Montserrat-SemiBold",
-                }}
-                borderColor="isepBrick.500"
-              />
-              <Input
-                isInvalid={showError && sigInUser.password === ""}
-                errorBorderColor="crimson"
-                name="password"
-                type='password'
-                onChange={handleSigInInputChange}
-                variant="flushed"
-                placeholder={`${t("password")}*`}
-                focusBorderColor="isepBrick.500"
-                _placeholder={{
-                  color: "isepBrick.500",
-                  fontFamily: "Montserrat-SemiBold",
-                }}
-                borderColor="isepBrick.500"
-              />
-              <Input
-                isInvalid={showError && sigInUser.confirmPassword === ""}
-                errorBorderColor="crimson"
-                name="confirmPassword"
-                onChange={handleSigInInputChange}
-                variant="flushed"
-                placeholder={`${t("confirm_password")}*`}
-                focusBorderColor="isepBrick.500"
-                _placeholder={{
-                  color: "isepBrick.500",
-                  fontFamily: "Montserrat-SemiBold",
-                }}
-                borderColor="isepBrick.500"
-              />
+          {!isAboutUs ? (
 
-              <RadioGroup
-                onChange={setMobilityDisability}
-                value={mobilityDisability}
-                display="flex"
-                flexDirection="column"
-                width="100%"
-              >
-                <span className="mobility_disability_span">
-                  {t("mobility_disability")}
-                </span>
-                <Stack spacing={5} direction="row" marginTop="24px">
-                  <Radio
-                    borderColor="#a2543d"
-                    _checked={{
-                      bg: "#a2543d",
-                      borderColor: "#a2543d",
+            <div className="form-container">
+
+              {formType === "longIn" && (
+                <div className="form-wrapper">
+                  <Input
+                    isInvalid={showError && loginUser.mail === ""}
+                    errorBorderColor="crimson"
+                    name="mail"
+                    onChange={handleLogInInputChange}
+                    variant="flushed"
+                    focusBorderColor="isepBrick.500"
+                    placeholder={t("e-mail")}
+                    _placeholder={{
+                      color: "isepBrick.500",
+                      fontFamily: "Montserrat-SemiBold",
                     }}
-                    size="lg"
-                    value={t("yes")}
-                  >
-                    {t("yes")}
-                  </Radio>
-                  <Radio
-                    borderColor="#a2543d"
-                    _checked={{
-                      bg: "#a2543d",
-                      borderColor: "#a2543d",
+                    borderColor="isepBrick.500"
+                  />
+                  <Input
+                    name="password"
+                    type='password'
+                    isInvalid={showError && loginUser.password === ""}
+                    errorBorderColor="crimson"
+                    onChange={handleLogInInputChange}
+                    variant="flushed"
+                    focusBorderColor="isepBrick.500"
+                    placeholder={t("password")}
+                    _placeholder={{
+                      color: "isepBrick.500",
+                      fontFamily: "Montserrat-SemiBold",
                     }}
-                    size="lg"
-                    value={t("no")}
-                  >
-                    {t("no")}
-                  </Radio>
-                </Stack>
-              </RadioGroup>
+                    borderColor="isepBrick.500"
+                  />
 
-              <RadioGroup display="flex" flexDirection="column" width="100%">
-                <Radio
-                  borderColor="#a2543d"
-                  _checked={{
-                    bg: "#a2543d",
-                    borderColor: "#a2543d",
-                  }}
-                  size="lg"
-                  checked={termsCheck}
-                  onClick={() => setTermsChecked(!termsCheck)}
-                >
-                  <span className="mobility_disability_span">
-                    {t("confirm_read_terms")}
-                    <br></br>
-                    <a> {`${t("terms")}*`}</a>
+                  <CustomButton
+                    backgroundColor="isepBrick.500"
+                    borderColor="isepGreen.500"
+                    buttonColor="isepGrey.500"
+                    hoverColor="isepBrick.500"
+                    text="LOGIN"
+                    width="476px"
+                    height="54px"
+                    handleButtonClick={LogIn}
+                  />
+                  <span>
+                    {t("do_you_have_an_account")}
+                    <a
+                      style={{
+                        marginLeft: '.5rem'
+                      }}
+                      onClick={() => {
+                        setShowError(false);
+                        setFormType("singIn");
+                      }}
+                    >
+                      {t("register")}
+                    </a>
                   </span>
-                </Radio>
-              </RadioGroup>
+                  <span
+                    className="forgot-password"
+                    onClick={() => { setFormType('recoverAccount') }}
+                  >
+                    {t("forgot_password")}
+                  </span>
+                </div>
+              )}
 
-              <CustomButton
-                backgroundColor="isepBrick.500"
-                borderColor="isepGreen.500"
-                buttonColor="isepGrey.500"
-                hoverColor="isepBrick.500"
-                text="REGISTER"
-                width="476px"
-                height="54px"
-                handleButtonClick={Register}
-              />
-              <span>
-                Already have an account?{" "}
-                <a
-                  onClick={() => {
-                    setShowError(false);
-                    setFormType("longIn");
-                  }}
-                >
-                  Login
-                </a>
-              </span>
+              {formType === "singIn" && (
+                <div className="form-wrapper_extended">
+                  <Input
+                    isInvalid={showError && sigInUser.user === ""}
+                    errorBorderColor="crimson"
+                    name="user"
+                    onChange={handleSigInInputChange}
+                    variant="flushed"
+                    placeholder={`${t("name")}*`}
+                    focusBorderColor="isepBrick.500"
+                    _placeholder={{
+                      color: "isepBrick.500",
+                      fontFamily: "Montserrat-SemiBold",
+                    }}
+                    borderColor="isepBrick.500"
+                  />
+                  <Input
+                    isInvalid={showError && sigInUser.mail === ""}
+                    errorBorderColor="crimson"
+                    name="mail"
+                    onChange={handleSigInInputChange}
+                    variant="flushed"
+                    placeholder={`${t("e-mail")}*`}
+                    focusBorderColor="isepBrick.500"
+                    _placeholder={{
+                      color: "isepBrick.500",
+                      fontFamily: "Montserrat-SemiBold",
+                    }}
+                    borderColor="isepBrick.500"
+                  />
+                  <Input
+                    isInvalid={showError && sigInUser.password === ""}
+                    errorBorderColor="crimson"
+                    name="password"
+                    type='password'
+                    onChange={handleSigInInputChange}
+                    variant="flushed"
+                    placeholder={`${t("password")}*`}
+                    focusBorderColor="isepBrick.500"
+                    _placeholder={{
+                      color: "isepBrick.500",
+                      fontFamily: "Montserrat-SemiBold",
+                    }}
+                    borderColor="isepBrick.500"
+                  />
+                  <Input
+                    isInvalid={showError && sigInUser.confirmPassword === ""}
+                    errorBorderColor="crimson"
+                    name="confirmPassword"
+                    onChange={handleSigInInputChange}
+                    variant="flushed"
+                    placeholder={`${t("confirm_password")}*`}
+                    focusBorderColor="isepBrick.500"
+                    _placeholder={{
+                      color: "isepBrick.500",
+                      fontFamily: "Montserrat-SemiBold",
+                    }}
+                    borderColor="isepBrick.500"
+                  />
+
+                  <RadioGroup
+                    onChange={setMobilityDisability}
+                    value={mobilityDisability}
+                    display="flex"
+                    flexDirection="column"
+                    width="100%"
+                  >
+                    <span className="mobility_disability_span">
+                      {t("mobility_disability")}
+                    </span>
+                    <Stack spacing={5} direction="row" marginTop="24px">
+                      <Radio
+                        borderColor="#a2543d"
+                        _checked={{
+                          bg: "#a2543d",
+                          borderColor: "#a2543d",
+                        }}
+                        size="lg"
+                        value={t("yes")}
+                      >
+                        {t("yes")}
+                      </Radio>
+                      <Radio
+                        borderColor="#a2543d"
+                        _checked={{
+                          bg: "#a2543d",
+                          borderColor: "#a2543d",
+                        }}
+                        size="lg"
+                        value={t("no")}
+                      >
+                        {t("no")}
+                      </Radio>
+                    </Stack>
+                  </RadioGroup>
+
+                  <RadioGroup display="flex" flexDirection="column" width="100%">
+                    <Radio
+                      borderColor="#a2543d"
+                      _checked={{
+                        bg: "#a2543d",
+                        borderColor: "#a2543d",
+                      }}
+                      size="lg"
+                      checked={termsCheck}
+                      onClick={() => setTermsChecked(!termsCheck)}
+                    >
+                      <span className="mobility_disability_span">
+                        {t("confirm_read_terms")}
+                        <br></br>
+                        <a> {`${t("terms")}*`}</a>
+                      </span>
+                    </Radio>
+                  </RadioGroup>
+
+                  <CustomButton
+                    backgroundColor="isepBrick.500"
+                    borderColor="isepGreen.500"
+                    buttonColor="isepGrey.500"
+                    hoverColor="isepBrick.500"
+                    text="REGISTER"
+                    width="476px"
+                    height="54px"
+                    handleButtonClick={Register}
+                  />
+                  <span>
+                    Already have an account?{" "}
+                    <a
+                      onClick={() => {
+                        setShowError(false);
+                        setFormType("longIn");
+                      }}
+                    >
+                      Login
+                    </a>
+                  </span>
+                </div>
+              )}
+
+              {formType === 'recoverAccount' && (
+                <Box w='600px' h='580px' bg='white'>
+                  <Center w='600px' h='140px' bg='isepBrick.400'>
+                    <Heading fontSize='40px' color='white'>
+                      {t("recover_account")}
+                    </Heading>
+                  </Center>
+
+                  <div className="form-wrapper">
+
+                    <Input
+                      isInvalid={showError && loginUser.mail === ""}
+                      errorBorderColor="crimson"
+                      name="mail"
+                      onChange={handleRecoverAccountInputChange}
+                      variant="flushed"
+                      focusBorderColor="isepBrick.500"
+                      placeholder={t("associated_email")}
+                      _placeholder={{
+                        color: "isepBrick.500",
+                        fontFamily: "Montserrat-SemiBold",
+                      }}
+                      borderColor="isepBrick.500"
+                    />
+
+                    <CustomButton
+                      backgroundColor="isepBrick.500"
+                      borderColor="isepGreen.500"
+                      buttonColor="isepGrey.500"
+                      hoverColor="isepBrick.500"
+                      text={t("send_email")}
+                      width="476px"
+                      height="54px"
+                      handleButtonClick={handleRecoverAccount}
+                    />
+
+                    <Container w='476px' color='#636363' opacity='.6'>
+                      {t("check_email")}
+                    </Container>
+
+                  </div>
+
+                </Box>
+              )}
+
+              {formType === 'resetPassword' && (
+                <Box w='600px' h='580px' bg='white'>
+
+                  <Center w='600px' h='140px' bg='isepBrick.400'>
+                    <Heading fontSize='40px' color='white'>
+                      {t("reset_password")}
+                    </Heading>
+                  </Center>
+
+                  <div className="form-wrapper">
+
+                    <Input
+                      isInvalid={showError && loginUser.mail === ""}
+                      errorBorderColor="crimson"
+                      name="mail"
+                      onChange={(e) => {
+                        setNewPassword({ new: e.target.value, confirm: newPassword.confirm })
+                      }}
+                      variant="flushed"
+                      focusBorderColor="isepBrick.500"
+                      placeholder={t("new_password")}
+                      _placeholder={{
+                        color: "isepBrick.500",
+                        fontFamily: "Montserrat-SemiBold",
+                      }}
+                      borderColor="isepBrick.500"
+                    />
+
+                    <Input
+                      isInvalid={showError && loginUser.mail === ""}
+                      errorBorderColor="crimson"
+                      name="mail"
+                      onChange={(e) => {
+                        setNewPassword({ new: newPassword.new, confirm: e.target.value })
+                      }}
+                      variant="flushed"
+                      focusBorderColor="isepBrick.500"
+                      placeholder={t("confirm_password")}
+                      _placeholder={{
+                        color: "isepBrick.500",
+                        fontFamily: "Montserrat-SemiBold",
+                      }}
+                      borderColor="isepBrick.500"
+                    />
+
+                    <Input
+                      errorBorderColor="crimson"
+                      name="token"
+                      onChange={(e) => {
+                        setNewToken(e.target.value)
+                      }}
+                      variant="flushed"
+                      focusBorderColor="isepBrick.500"
+                      placeholder="Confirm token"
+                      _placeholder={{
+                        color: "isepBrick.500",
+                        fontFamily: "Montserrat-SemiBold",
+                      }}
+                      borderColor="isepBrick.500"
+                    />
+
+                    <CustomButton
+                      backgroundColor="isepBrick.500"
+                      borderColor="isepGreen.500"
+                      buttonColor="isepGrey.500"
+                      hoverColor="isepBrick.500"
+                      text={t("reset")}
+                      width="476px"
+                      height="54px"
+                      handleButtonClick={handleResetPassword}
+                    />
+
+                  </div>
+                </Box>
+              )}
+
             </div>
-          )}
 
-          {formType === 'recoverAccount' && (
-            <Box w='600px' h='580px' bg='white'>
-              <Center w='600px' h='140px' bg='isepBrick.400'>
-                <Heading fontSize='40px' color='white'>
-                  {t("recover_account")}
+          ) : (
+            <Flex h='100%' direction='column' justifyContent='center'>
+              <Box>
+                <Heading color='#575757' pl='16px' mb='2rem'>
+                  {t("about_us")}
                 </Heading>
-              </Center>
 
-              <div className="form-wrapper">
-
-                <Input
-                  isInvalid={showError && loginUser.mail === ""}
-                  errorBorderColor="crimson"
-                  name="mail"
-                  onChange={handleRecoverAccountInputChange}
-                  variant="flushed"
-                  focusBorderColor="isepBrick.500"
-                  placeholder={t("associated_email")}
-                  _placeholder={{
-                    color: "isepBrick.500",
-                    fontFamily: "Montserrat-SemiBold",
-                  }}
-                  borderColor="isepBrick.500"
-                />
-
-                <CustomButton
-                  backgroundColor="isepBrick.500"
-                  borderColor="isepGreen.500"
-                  buttonColor="isepGrey.500"
-                  hoverColor="isepBrick.500"
-                  text={t("send_email")}
-                  width="476px"
-                  height="54px"
-                  handleButtonClick={handleRecoverAccount}
-                />
-
-                <Container w='476px' color='#636363' opacity='.6'>
-                  {t("check_email")}
+                <Container maxW='750px' color='#575757'>
+                  {text.aboutUsText_1}
                 </Container>
 
-              </div>
+                <Container maxW='750px' color='#575757' mt='1rem'>
+                  {text.aboutUsText_2}
+                </Container>
 
-            </Box>
+                <Container maxW='750px' color='#575757' mt='1rem'>
+                  {text.aboutUsText_3}
+                </Container>
+              </Box>
+            </Flex>
           )}
-
-          {formType === 'resetPassword' && (
-            <Box w='600px' h='580px' bg='white'>
-
-              <Center w='600px' h='140px' bg='isepBrick.400'>
-                <Heading fontSize='40px' color='white'>
-                  {t("reset_password")}
-                </Heading>
-              </Center>
-
-              <div className="form-wrapper">
-
-                <Input
-                  isInvalid={showError && loginUser.mail === ""}
-                  errorBorderColor="crimson"
-                  name="mail"
-                  onChange={(e) => {
-                    setNewPassword({ new: e.target.value, confirm: newPassword.confirm })
-                  }}
-                  variant="flushed"
-                  focusBorderColor="isepBrick.500"
-                  placeholder={t("new_password")}
-                  _placeholder={{
-                    color: "isepBrick.500",
-                    fontFamily: "Montserrat-SemiBold",
-                  }}
-                  borderColor="isepBrick.500"
-                />
-
-                <Input
-                  isInvalid={showError && loginUser.mail === ""}
-                  errorBorderColor="crimson"
-                  name="mail"
-                  onChange={(e) => {
-                    setNewPassword({ new: newPassword.new, confirm: e.target.value })
-                  }}
-                  variant="flushed"
-                  focusBorderColor="isepBrick.500"
-                  placeholder={t("confirm_password")}
-                  _placeholder={{
-                    color: "isepBrick.500",
-                    fontFamily: "Montserrat-SemiBold",
-                  }}
-                  borderColor="isepBrick.500"
-                />
-
-                <Input
-                  errorBorderColor="crimson"
-                  name="token"
-                  onChange={(e) => {
-                    setNewToken(e.target.value)
-                  }}
-                  variant="flushed"
-                  focusBorderColor="isepBrick.500"
-                  placeholder="Confirm token"
-                  _placeholder={{
-                    color: "isepBrick.500",
-                    fontFamily: "Montserrat-SemiBold",
-                  }}
-                  borderColor="isepBrick.500"
-                />
-
-                <CustomButton
-                  backgroundColor="isepBrick.500"
-                  borderColor="isepGreen.500"
-                  buttonColor="isepGrey.500"
-                  hoverColor="isepBrick.500"
-                  text={t("reset")}
-                  width="476px"
-                  height="54px"
-                  handleButtonClick={handleResetPassword}
-                />
-
-              </div>
-            </Box>
-          )}
-
+          <Circles className="circles_svg" />
         </div>
+      </BrowserView>
+      <MobileView>
+        {/* 
+        ESCREVER CÓDIGO PARA MOBILE
+        */}
+        <Text>
+          FALTA FAZER MOBILE LOGIN
+        </Text>
+      </MobileView>
+    </>
 
-      ) : (
-        <Flex h='100%' direction='column' justifyContent='center'>
-          <Box>
-            <Heading color='#575757' pl='16px' mb='2rem'>
-              {t("about_us")}
-            </Heading>
-
-            <Container maxW='750px' color='#575757'>
-              {text.aboutUsText_1}
-            </Container>
-
-            <Container maxW='750px' color='#575757' mt='1rem'>
-              {text.aboutUsText_2}
-            </Container>
-
-            <Container maxW='750px' color='#575757' mt='1rem'>
-              {text.aboutUsText_3}
-            </Container>
-          </Box>
-        </Flex>
-      )}
-      <Circles className="circles_svg" />
-    </div>
   );
 }
 
