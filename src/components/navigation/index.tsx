@@ -15,6 +15,7 @@ import {
   goToLoginPage,
   goToAdminFeedbackPage,
   goToBeaconsPage,
+  goToAboutUs,
 } from "../../store/navigation-reducer";
 import Page from "../../types/pages";
 import { BrowserView, MobileView } from 'react-device-detect';
@@ -49,6 +50,7 @@ function Navigation() {
     if (id === "adminFeedback"){
       dispatch(goToAdminFeedbackPage());
     }
+    if (id === "about_us") dispatch(goToAboutUs());
   };
 
   const handleNavigationClickMobile = (id: string) => {
@@ -172,9 +174,15 @@ function Navigation() {
       )}
 
       <div className="lang_options">
-            {page === Page.Login && (
-              <span className="about_us_copy">{t("about_us")}</span>
-            )}
+        {page === Page.Login && (
+          <span
+            id='about_us'
+            className="about_us_copy"
+            onClick={handleNavigationClick}
+          >
+            {t("about_us")}
+          </span>
+        )}
 
             <div className="lang_options_wrapper">
               <span
