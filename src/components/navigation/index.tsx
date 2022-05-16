@@ -114,7 +114,7 @@ function Navigation() {
       </MobileView>
 
       <BrowserView>
-        <div className="container">
+        <div className="nav_container">
         {page !== Page.Login && (
         <div className="page_nav">
           <LogoNavBar className="app_logo" />

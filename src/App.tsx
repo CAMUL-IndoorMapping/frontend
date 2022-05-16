@@ -98,14 +98,15 @@ function App() {
     );
   }
   return (
-    <CustomButton
-      backgroundColor="isepBrick.300"
-      borderColor="isepGreen.500"
-      buttonColor="isepGrey.600"
-      hoverColor="isepBrick.400"
-      text="Hello There"
-      handleButtonClick={() => [alert("You Clicked with Button😂😂😂😂😂😂")]}
-    />
+    // <CustomButton
+    //   backgroundColor="isepBrick.300"
+    //   borderColor="isepGreen.500"
+    //   buttonColor="isepGrey.600"
+    //   hoverColor="isepBrick.400"
+    //   text="Hello There"
+    //   handleButtonClick={() => [alert("You Clicked with Button😂😂😂😂😂😂")]}
+    // />
+    <div></div>
   );
 }
 
