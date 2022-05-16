@@ -12,11 +12,15 @@ import { text } from "./settings";
 import { ChevronLeftIcon } from '@chakra-ui/icons'
 import { userLogin } from "../../services/user";
 import CustomToast from "../../../components/customToast";
+import axios from 'axios';
+import { BrowserView, MobileView } from 'react-device-detect';
 
 function LoginPage() {
   const [formType, setFormType] = useState<"longIn" | "singIn" | "recoverAccount" | "resetPassword">("longIn");
   const [mobilityDisability, setMobilityDisability] = useState("No");
   const [termsCheck, setTermsChecked] = useState(false);
+
+  const urlAPi: string = "https://camul2022.pythonanywhere.com/";
 
   const dispatch = useStoreDispatch();
 
@@ -46,6 +50,7 @@ function LoginPage() {
     new: '',
     confirm: ''
   })
+  const [newToken, setNewToken] = useState('');
 
   const isAboutUs = useStoreSelector(aboutUsState);
 
@@ -79,10 +84,34 @@ function LoginPage() {
     } else {
       setShowError(false);
 
-      //await userLogin(loginUser.mail, loginUser.password)
+      //userLogin(loginUser.mail, loginUser.password)
+      console.log("user: " + JSON.stringify(loginUser.mail) + ", " + JSON.stringify(loginUser.password))
 
-      dispatch(goToHomePage());
+      const params: any = JSON.stringify({
+        email: loginUser.mail,
+        password: loginUser.password
+      });
+
+      console.log("params: " + params)
+
+
+      axios.get('https://camul2022.pythonanywhere.com/account/login?email=' + loginUser.mail + '&password=' + loginUser.password)
+        .then((response) => {
+          console.log("response:" + response.data["status"]);
+          if(response.data["status"] && response.data["status"].includes("unauthorized") ) {
+            alert("Invalid credentials");
+          }
+          else {
+            console.log("login")
+            dispatch(goToHomePage());
+          }
+        }, (error) => {
+          console.log("erro:" + error);
+        });
+
+
     }
+
   };
 
   const handleRecoverAccountInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -91,14 +120,39 @@ function LoginPage() {
   }
 
   const handleRecoverAccount = () => {
-    console.log('Recover Email: ', recoverEmail)
-    setFormType('resetPassword')
+
+    axios.get('https://camul2022.pythonanywhere.com/account/forgot?email=' + recoverEmail)
+      .then((response) => {
+        console.log("response:" + response);
+        console.log('Recover Email: ', recoverEmail)
+        setFormType('resetPassword')
+      }, (error) => {
+        console.log("erro:" + error);
+      });
   }
 
   const handleResetPassword = () => {
-    console.log('New Password: ', newPassword.new)
-    console.log('Confirm Password: ', newPassword.confirm)
-    setFormType('longIn')
+
+    const params = JSON.stringify({
+      "email": urlAPi + 'account/forgot',
+      "password": newPassword.new
+    });
+
+    axios.post(urlAPi + 'account/forgot/'+ newToken, params, {
+
+      "headers": {
+        "content-type": "application/json",
+      },
+
+    }).then((response) => {
+      console.log("response:" + response);
+      console.log('New Password: ', newPassword.new)
+      console.log('Confirm Password: ', newPassword.confirm)
+      setFormType('longIn')
+    }, (error) => {
+      console.log("erro:" + error);
+    });
+
   }
 
   const Register = () => {
@@ -113,7 +167,25 @@ function LoginPage() {
       setShowError(true);
     } else {
       setShowError(false);
-      dispatch(goToHomePage());
+
+      const params = JSON.stringify({
+        "name": sigInUser.user,
+        "email": sigInUser.mail,
+        "password": sigInUser.password
+      });
+
+      axios.post(urlAPi + 'account/signup', params, {
+
+        "headers": {
+          "content-type": "application/json",
+        },
+
+      }).then((response) => {
+        console.log("response:" + response);
+        dispatch(goToHomePage());
+      }, (error) => {
+        console.log("erro:" + error);
+      });
 
       // TODO --> Set User to BackEnd
     }
@@ -171,6 +243,7 @@ function LoginPage() {
               />
               <Input
                 name="password"
+                type='password'
                 isInvalid={showError && loginUser.password === ""}
                 errorBorderColor="crimson"
                 onChange={handleLogInInputChange}
@@ -183,6 +256,7 @@ function LoginPage() {
                 }}
                 borderColor="isepBrick.500"
               />
+
               <CustomButton
                 backgroundColor="isepBrick.500"
                 borderColor="isepGreen.500"
@@ -250,6 +324,7 @@ function LoginPage() {
                 isInvalid={showError && sigInUser.password === ""}
                 errorBorderColor="crimson"
                 name="password"
+                type='password'
                 onChange={handleSigInInputChange}
                 variant="flushed"
                 placeholder={`${t("password")}*`}
@@ -437,6 +512,22 @@ function LoginPage() {
                   variant="flushed"
                   focusBorderColor="isepBrick.500"
                   placeholder={t("confirm_password")}
+                  _placeholder={{
+                    color: "isepBrick.500",
+                    fontFamily: "Montserrat-SemiBold",
+                  }}
+                  borderColor="isepBrick.500"
+                />
+
+                <Input
+                  errorBorderColor="crimson"
+                  name="token"
+                  onChange={(e) => {
+                    setNewToken(e.target.value)
+                  }}
+                  variant="flushed"
+                  focusBorderColor="isepBrick.500"
+                  placeholder="Confirm token"
                   _placeholder={{
                     color: "isepBrick.500",
                     fontFamily: "Montserrat-SemiBold",
