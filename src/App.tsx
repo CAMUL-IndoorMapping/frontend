@@ -13,7 +13,7 @@ import { BrowserView, MobileView } from "react-device-detect";
 import Feedback from "./app/pages/feedback";
 import UserSettings from "./app/pages/settings";
 
-import LoginPage from "./pages/login-page";
+import LoginPage from "../src/app/pages/login";
 
 function App() {
   const { t } = useTranslation();
