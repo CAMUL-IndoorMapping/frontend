@@ -6,12 +6,14 @@ import Page from "../types/pages";
 import { StoreState } from ".";
 
 type navigationState = {
-  page: Page;
+  page: Page
+  aboutUs: boolean
 };
 
 // ************ INITIAL STATE ************
 const initialState: navigationState = {
-  page: 1,
+  page: 0,
+  aboutUs: false
 };
 
 // ************ SLICE ************
@@ -37,14 +39,20 @@ const navigationSlice = createSlice({
     goToBeaconsPage: (state) => {
       state.page = Page.Beacons;
     },
+    goToAboutUs: (state) => {
+      state.aboutUs = true
+    },
+    leaveAboutUs: (state) => {
+      state.aboutUs = false
+    }
   },
 });
 
 // ************ ACTIONS ************
-export const { goToLoginPage, goToHomePage, goToFeedBackPage, goSettingsPage, goToAdminFeedbackPage, goToBeaconsPage } =
-  navigationSlice.actions;
+export const { goToLoginPage, goToHomePage, goToFeedBackPage, goSettingsPage, goToAdminFeedbackPage, goToBeaconsPage, goToAboutUs, leaveAboutUs } = navigationSlice.actions
 
 // ************ SELECTORS ************
 export const selectedPage = (state: StoreState): Page => state.navigation.page;
+export const aboutUsState = (state: StoreState): boolean => state.navigation.aboutUs;
 
 export default navigationSlice.reducer;

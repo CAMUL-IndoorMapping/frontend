@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import "./index.scss";
 import { ReactComponent as Logo } from "../../assets/svg/logo.svg";
+
+import { ReactComponent as LogoNavBar } from "../../assets/svg/logo_small.svg";
 import { ReactComponent as SingOut } from "../../assets/svg/signOut.svg";
 import useTranslation from "../../i18n/use-translation";
 import i18n from "../../i18n";
@@ -13,6 +15,7 @@ import {
   goToLoginPage,
   goToAdminFeedbackPage,
   goToBeaconsPage,
+  goToAboutUs,
 } from "../../store/navigation-reducer";
 import Page from "../../types/pages";
 import { BrowserView, MobileView } from 'react-device-detect';
@@ -47,6 +50,7 @@ function Navigation() {
     if (id === "adminFeedback"){
       dispatch(goToAdminFeedbackPage());
     }
+    if (id === "about_us") dispatch(goToAboutUs());
   };
 
   const handleNavigationClickMobile = (id: string) => {
@@ -113,7 +117,7 @@ function Navigation() {
         <div className="container">
         {page !== Page.Login && (
         <div className="page_nav">
-          <Logo className="app_logo" />
+          <LogoNavBar className="app_logo" />
           <span
             id="homepage"
             onClick={handleNavigationClick}
@@ -170,9 +174,15 @@ function Navigation() {
       )}
 
       <div className="lang_options">
-            {page === Page.Login && (
-              <span className="about_us_copy">{t("about_us")}</span>
-            )}
+        {page === Page.Login && (
+          <span
+            id='about_us'
+            className="about_us_copy"
+            onClick={handleNavigationClick}
+          >
+            {t("about_us")}
+          </span>
+        )}
 
             <div className="lang_options_wrapper">
               <span

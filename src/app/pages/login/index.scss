@@ -1,0 +1,122 @@
+.container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow: auto;
+    background: #f7d1ba;
+  
+    display: flex;
+    flex-direction: row;
+  }
+  
+  .logo-container {
+    height: 100%;
+    width: 50%;
+  
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  
+    .wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+  
+      width: 38.2rem;
+      height: 28.8rem;
+  
+      text-align: center;
+  
+      span {
+        margin-top: 45px;
+        font-family: "Montserrat", sans-serif;
+        font-weight: 500;
+        font-size: 25px;
+        line-height: 3.048rem;
+        color: #575757;
+      }
+    }
+  }
+  
+  .form-container {
+    height: 100%;
+    width: 50%;
+  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  
+    .form-wrapper {
+      width: 604px;
+      height: 521px;
+      background: #ffffff;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      padding: 0px 64px;
+  
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+  
+      span {
+        font-family: "Montserrat-Regular";
+        font-weight: 300;
+        size: 16px;
+        color: #a2543d;
+  
+        a {
+          text-decoration-line: underline;
+        }
+      }
+  
+      .forgot-password {
+        text-decoration-line: underline;
+      }
+    }
+  
+    .form-wrapper_extended {
+      width: 604px;
+      height: 700px;
+      background: #ffffff;
+      box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+      padding: 0px 64px;
+  
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+  
+      .mobility_disability_span {
+        font-family: "Montserrat-Regular";
+        font-style: normal;
+        font-weight: 600;
+        font-size: 14px;
+        line-height: 14px;
+      }
+  
+      span {
+        font-family: "Montserrat-Regular";
+        font-weight: 300;
+        size: 16px;
+        color: #a2543d;
+  
+        a {
+          text-decoration-line: underline;
+        }
+      }
+  
+      .forgot-password {
+        text-decoration-line: underline;
+      }
+    }
+  }
+  
+  .circles_svg {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+  }
+  
