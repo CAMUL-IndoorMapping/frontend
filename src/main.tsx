@@ -9,13 +9,16 @@ import i18n from "./i18n";
 import Navigation from "./components/navigation";
 
 import "./assets/fonts/fonts.css";
+import { BrowserView } from "react-device-detect";
 
 function Main() {
   return (
     <Provider store={store}>
       <I18nextProvider i18n={i18n}>
         <App />
-        <Navigation></Navigation>
+        <BrowserView>
+          <Navigation></Navigation>
+        </BrowserView>
       </I18nextProvider>
     </Provider>
   );
