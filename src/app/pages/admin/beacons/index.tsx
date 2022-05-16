@@ -247,6 +247,34 @@ function AdminBeacons() {
     }
   }
 
+  function handleDelete(): void { //TODO fix with actual endpoint
+    console.log("updating beacon " + stateBeaconId);
+    console.log(jsonDataUpdateBeacon);
+    fetch(api + "/map/beacons", {
+      method: "DELETE",
+      mode: "cors",
+      body: JSON.stringify(jsonDataUpdateBeacon),
+      headers: { authToken: `a`, "Content-Type": "application/json" }, //change to actual token
+    }).then((response) => {
+      if (!response.ok) {
+        console.log("ups");
+        toast({
+          title: t("beacon_update_error_message"),
+          status: "error",
+          isClosable: true,
+        });
+        throw new Error("Error" + response.status);
+      } else {
+        console.log(response);
+        toast({
+          title: t("beacon_update_success_message"),
+          status: "success",
+          isClosable: true,
+        });
+      }
+    });
+    }
+
   useEffect(() => {
     loadBeaconsAsync();
     loadClassroomsAsync();
@@ -461,6 +489,16 @@ function AdminBeacons() {
                     width="280px"
                     handleButtonClick={() => handleAddOrUpdate()}
                   />
+                  <CustomButton
+                      backgroundColor="isepBrick.300"
+                      borderColor="red"
+                      buttonColor="white"
+                      hoverColor="red"
+                      text={t("beacon_delete")}
+                      textColor="#FFFFFF"
+                      width="280px"
+                      handleButtonClick={() => handleDelete()}
+                    />
                 </Box>
               </Center>
             </div>
@@ -651,6 +689,18 @@ function AdminBeacons() {
                       width="280px"
                       handleButtonClick={() => handleAddOrUpdate()}
                     />
+                                        <Box height="15px"></Box>
+
+                    <CustomButton
+                      backgroundColor="isepBrick.300"
+                      borderColor="red"
+                      buttonColor="white"
+                      hoverColor="red"
+                      text={t("beacon_delete")}
+                      textColor="#FFFFFF"
+                      width="280px"
+                      handleButtonClick={() => handleDelete()}
+                    />
                   </GridItem>
                 </Grid>
               </Box>
@@ -808,6 +858,7 @@ function AdminBeacons() {
                       width="280px"
                       handleButtonClick={() => handleAddOrUpdate()}
                     />
+                    
                   </GridItem>
                 </Grid>
               </Box>

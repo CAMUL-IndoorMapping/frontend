@@ -12,7 +12,7 @@ type ButtonProps = {
   textColor?: string;
   text: ReactChild;
   disabledCondition?:boolean
-  handleButtonClick: () => void;
+  handleButtonClick?: () => void;
 };
 
 function CustomButton({

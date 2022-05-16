@@ -435,15 +435,15 @@ function Feedback() {
                             <ButtonGroup marginTop='10%' marginBottom='10%' spacing='12'>
                                 <Button _focus={{ boxShadow: "none" }} width='67px' height='67px' _hover={{ bg: '#CE7E5C' }} borderColor='#CE7E5C'
                                     borderRadius='62px' variant='outline' onClick={uploadFeedbackText}>
-                                    <img src="https://s3-alpha-sig.figma.com/img/5c37/7770/eced2bac8d7213431dc4807a6e524329?Expires=1652659200&Signature=UfMtDJqYCdsp1JugqHNKOyyH35cL7EbQ05e8uwmf-k4K3ShQwqXn676qqLZs7ma0xQUg7RZiz2-vu04xKFca8btN8AhHxl5U83dd3zYjyOtOl2rIzQKnBmfPFtCodlUlyBUwHb2ul7Qniji08dJts7Sh81p7JSWWtP3CeZMiFl9kg~Wb8nXhWhYg9dJyaUZUd0YuAhSwt8~DYH02fQd9JUbaB84neQplwy0LT9zIwTBHaBR5dyawTeM03J5MG3y-uAz1-p1bhpaByil2I35RlfgjpoC72HttNyajOMb3amfvr2AIUqrnu9zjkaraUHkHtGrzoZMMc40PMBskJoMjIw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" /></Button>
+                                    <img src="https://s3-alpha-sig.figma.com/img/cda8/3877/709be7a41235698ee4017e8255d3e63d?Expires=1653264000&Signature=Q0rrwhrxp~41XJkU4VvKE0Pwd~k5yKs4RW72p7m0UJlrwUPZoG7JEmUO8ZqeUbT0I~DV67Wp5Lyo0ckSNBG2MjTboTLhzAT0g6WZavD8EnfktxHl7C6UfplQUt39fhzZEYVS4eKBC~cGOaFsuCAQsdsmvi-zB2YgvdITpeBDQzf~iBE5DKc1LjE~ocuSEXSkMx-X9b~v3ErpJN90jIJ1FAKfTni6eq3MqX1pmFIsXP0dhBF534S-4IlfamH-QOGP4Bh5b7ZpkQ-Rwgly4ZywFgOIzD4Js2DCA2xb664QXCVOUBjPE1wWEh0UcjAgeeCQmdpOBR4kWKPMyHUIr4SiMA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" /></Button>
 
                                 <Button _focus={{ boxShadow: "none" }} width='67px' height='67px' _hover={{ bg: '#CE7E5C' }} borderColor='#CE7E5C'
                                     borderRadius='62px' variant='outline' onClick={uploadFile}>
-                                    <img src='https://s3-alpha-sig.figma.com/img/2f03/7f76/ea4b824d46259756ee696c6311a3e9c2?Expires=1652659200&Signature=M78iAFpzCO4GFcvhqolOfU9obPGhP2mtJZxVIwPgAleeHuQz1Ka7pCT92McBPr-yxkhFupd~RjHYjtStFlsQotJyLD9WWVDJUFBxekzDDV9YTl70vsbtB8YdOxI3xGs-Ui0cKqCbtNECDtvgHd6AoPGSmULb-WsWE669lnH8ZCba7CSRqh3qYCHCMxaf6qcAPhg07jDXGKVWzkTkKCW6qYRxG69060oFzu-R4a3u9K4SQvqa2AEU1NlWT2Mr4d7ImbagetBQBQSTQdoYhX4gatI7EZMqix3qt5UZkX3048OgYsU0OO0oMceGqdiHjWAYkvnF~ztPUTzdbX7xQp52lQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'></img></Button>
+                                    <img src="https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1653264000&Signature=DO-5QTTdSrt52S62TeXnUDv5kGF7x-H~XS2i9F7U4guJhpn1vX8oK4P5pZatIZw9UbnpJxN~D5MbvX~cCsnaNlIP5lVq3oTujy~hOUNMhwcbFpLrhhUXd0ZxLO1a1Ru-hQrrdOuskQoi55G4NjJFPm6rO9TynhaQzLlGiM~wdNb8xYA34f6a5N1TvtEp6GR~Z5vELnqHpZvfcMVCEALJwy8PsxbzyzA5-myfIIBa53xL9fixwJg~u2u5pEEeElhiRS7FyvZMeWQyb7jb3A7nyH8bbWbdXROqHDV1FozpluMmrmWMGG-8mT1DRBRRrBmPxF46tOa9n6ouvj13SUNxLw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"></img></Button>
 
                                 <Button _focus={{ boxShadow: "none" }} width='67px' height='67px' _hover={{ bg: '#CE7E5C' }} borderColor='#CE7E5C'
                                     borderRadius='62px' variant='outline' onClick={uploadAudio}>
-                                    <img src='https://s3-alpha-sig.figma.com/img/9570/6275/02fe629724c6451bfc58e8b408959b7f?Expires=1652659200&Signature=ersh~djo0M0azAQXkkTt4atepCPDgD7pfkNhGnpDDINizApqLzAFk8SMm-PpkHFaMqzOW-xSqAfeDd8V8mXslKQY7g97M6zXewSuftfpQkewSOmHfT8s3OINRHV3iqDEW4z8f0j~8q5D9Q7iEhCOVXWWiklU9PYEpJOrXNpTib75MigEcus2~vkeBGPNvtWLUxXlbKELRs1lJ4Bi~qr2hxGiRdeGELKk~WBl0qchXBivzZEevHwInxe7Huusa1Ug1QE3CFctUOk2xxDU569K4PKG7siFbZQ4gNZUlUXsZa9w6bFmzwBZHuu7c8gph3ooZQXf3c65Ew99zAjkdd5CxA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'></img></Button>
+                                    <img src="https://s3-alpha-sig.figma.com/img/abbf/e27e/6f1500175f3a3d76ec9c1a7059e54f25?Expires=1653264000&Signature=FmMKd065R0gy0I8PEdz1QnFwru-2n1nMgBNpuORPuMcAD~QWvpFeqU1Y1393eeqEf9LVLsCbRmiW5BGBEw3RInKlfdIhCUl0tSc8We7gPz1X~coLje3JfIiAl3GCCQplfXD6aZsBJemgyP0TB7L~Y1zbOX2PVhw0xtfTgg1YEUTKuVK2s1HY81BKVl1qTgpSus4hkHJeTXPgRjNFE~vVS~PQCGkLaqunTxqGd3ElIVyO6Q0gEQZIKvE7qTrz77tAYTydVQy9ktpGymUVlwd16d1O704jJSDnIBncOICFAMP6I7FxA9UI55t9RVjeh~o49-PlmZnhWogwZYdPxPGgww__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"></img></Button>
                             </ButtonGroup>
                         </Center>
 
@@ -518,7 +518,7 @@ function Feedback() {
                                 <label onChange={handleUploadFileChange} htmlFor="file">
                                     <input name="" type="file" accept="image/*,video/*" id="file" hidden />
                                     <Center marginTop='5%'>
-                                        <img width='10%' src="https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1652659200&Signature=URLDx3p2s8~-sw~0ToQSzVYZQntaSlYpFwCKnw-Wb94HVTr448gEWOEPMkrMPNb0tnTsMiiCKTusgmmPnk5EJr3lK66zGOMbgUxqPvJdx6i0Tv6umys4UTeMwq~MAdwiPNTce9HQ5rBRWOWgVE3EmDgiAhh-dfM6U73VfeUShGkeU5yNv-yifAPBU5r~mgx2dh3YoMIQ4iKfS--pzUFW4BE6YMdNiPoDfMwMpJrYdaFPQpmGK0lsJPdEn5nxnzVLQkn-JrH9uyGi0FXsL9cxCH6Ofcy5BDEKtL90dk3jnEzc3YXvlXKJaQ2M8Z40yW7HaF5fmp987hV7SpJZjSsipw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
+                                        <img width='10%' src="https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1653264000&Signature=DO-5QTTdSrt52S62TeXnUDv5kGF7x-H~XS2i9F7U4guJhpn1vX8oK4P5pZatIZw9UbnpJxN~D5MbvX~cCsnaNlIP5lVq3oTujy~hOUNMhwcbFpLrhhUXd0ZxLO1a1Ru-hQrrdOuskQoi55G4NjJFPm6rO9TynhaQzLlGiM~wdNb8xYA34f6a5N1TvtEp6GR~Z5vELnqHpZvfcMVCEALJwy8PsxbzyzA5-myfIIBa53xL9fixwJg~u2u5pEEeElhiRS7FyvZMeWQyb7jb3A7nyH8bbWbdXROqHDV1FozpluMmrmWMGG-8mT1DRBRRrBmPxF46tOa9n6ouvj13SUNxLw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
                                     </Center>
                                     <Center>
                                         <h1>{t("upload_photo_video")}</h1>
@@ -560,7 +560,7 @@ function Feedback() {
                                 <label onChange={handleUploadFileChange} htmlFor="audio">
                                     <input id="audio" hidden type="file" accept="audio/*"></input>
                                     <Center>
-                                        <img width='10%' src="https://s3-alpha-sig.figma.com/img/9570/6275/02fe629724c6451bfc58e8b408959b7f?Expires=1652659200&Signature=ersh~djo0M0azAQXkkTt4atepCPDgD7pfkNhGnpDDINizApqLzAFk8SMm-PpkHFaMqzOW-xSqAfeDd8V8mXslKQY7g97M6zXewSuftfpQkewSOmHfT8s3OINRHV3iqDEW4z8f0j~8q5D9Q7iEhCOVXWWiklU9PYEpJOrXNpTib75MigEcus2~vkeBGPNvtWLUxXlbKELRs1lJ4Bi~qr2hxGiRdeGELKk~WBl0qchXBivzZEevHwInxe7Huusa1Ug1QE3CFctUOk2xxDU569K4PKG7siFbZQ4gNZUlUXsZa9w6bFmzwBZHuu7c8gph3ooZQXf3c65Ew99zAjkdd5CxA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
+                                        <img width='10%' src="https://s3-alpha-sig.figma.com/img/abbf/e27e/6f1500175f3a3d76ec9c1a7059e54f25?Expires=1653264000&Signature=FmMKd065R0gy0I8PEdz1QnFwru-2n1nMgBNpuORPuMcAD~QWvpFeqU1Y1393eeqEf9LVLsCbRmiW5BGBEw3RInKlfdIhCUl0tSc8We7gPz1X~coLje3JfIiAl3GCCQplfXD6aZsBJemgyP0TB7L~Y1zbOX2PVhw0xtfTgg1YEUTKuVK2s1HY81BKVl1qTgpSus4hkHJeTXPgRjNFE~vVS~PQCGkLaqunTxqGd3ElIVyO6Q0gEQZIKvE7qTrz77tAYTydVQy9ktpGymUVlwd16d1O704jJSDnIBncOICFAMP6I7FxA9UI55t9RVjeh~o49-PlmZnhWogwZYdPxPGgww__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA" />
                                     </Center>
                                     <Center>
                                         <h1>{t("upload_audio")}</h1>
@@ -758,7 +758,6 @@ function Feedback() {
                                                 <Button style={{ display: selectedStopRecordAudio ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#CE7E5C' borderRadius='200px' _hover={{ bg: '#CE7E5C' }}
                                                     color='#FFFFFF' borderColor='#CE7E5C' onClick={() => { stopRecording(); stopRecordAudio(); }}>{t("stop_recording")}</Button>
                                             </Center>
-
                                         </div>
                                     </Center>
                                 </div>

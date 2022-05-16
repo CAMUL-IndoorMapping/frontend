@@ -82,5 +82,6 @@
   "check_email": "Verifica o spam e o lixo. Se o email não foi recebido verifica que o email introduzido é o associado à sua conta e clica no butão para enviar outra vez.",
   "reset_password": "Redefinir Palavra-Passe",
   "reset": "Redefinir",
-  "new_password": "Nova Palavra-Passe"
+  "beacon_delete": "APAGAR",
+  "contacts_text":"Os nossos contactos:"
 }
