@@ -6,6 +6,7 @@ import { Icon, ChevronRightIcon, ChevronDownIcon, ChevronUpIcon } from '@chakra-
 import { BsPinAngleFill } from 'react-icons/bs';
 import useTranslation from "../../../i18n/use-translation";
 import { isMobile } from 'react-device-detect';
+import Map from './map';
 
 const locations = [
     {
@@ -64,7 +65,6 @@ function Home() {
 
     return (
         <>
-
             <BrowserView>
                 <Box bg='isepBrick.500' w='100%' p={4} color='white'>
                     <div className="floorButtonContainer">
