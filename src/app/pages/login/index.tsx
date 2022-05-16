@@ -2,14 +2,36 @@
 import "./index.scss";
 import { ReactComponent as Logo } from "../../../assets/svg/logo_large.svg";
 import { ReactComponent as Circles } from "../../../assets/svg/circles.svg";
-import { Box, Container, Flex, Heading, IconButton, Input, Radio, RadioGroup, Stack, Text, Center } from "@chakra-ui/react";
-import CustomButton from '../../../components/buttons';
+import {
+  Box,
+  Container,
+  Flex,
+  Heading,
+  IconButton,
+  Input,
+  Radio,
+  RadioGroup,
+  Stack,
+  Text,
+  Center,
+  Button,
+} from "@chakra-ui/react";
+import CustomButton from "../../../components/buttons";
 import React, { useState } from "react";
 import useTranslation from "../../../i18n/use-translation";
 import { useStoreDispatch, useStoreSelector } from "../../../store";
-import { goToHomePage, aboutUsState, leaveAboutUs } from "../../../store/navigation-reducer";
+import {
+  goToHomePage,
+  aboutUsState,
+  contactUsState,
+  leaveAboutUs,
+  goToContactUs,
+  goToAboutUs,
+  goToFAQs,
+  faqsState,
+} from "../../../store/navigation-reducer";
 import { text } from "./settings";
-import { ChevronLeftIcon } from '@chakra-ui/icons'
+import { ChevronLeftIcon } from "@chakra-ui/icons";
 import { userLogin } from "../../services/user";
 import CustomToast from "../../../components/customToast";
 import axios from 'axios';
@@ -18,7 +40,9 @@ import { login } from "../../../store/user-reducer";
 import { stringify } from "querystring";
 
 function LoginPage() {
-  const [formType, setFormType] = useState<"longIn" | "singIn" | "recoverAccount" | "resetPassword">("longIn");
+  const [formType, setFormType] = useState<
+    "longIn" | "singIn" | "recoverAccount" | "resetPassword"
+  >("longIn");
   const [mobilityDisability, setMobilityDisability] = useState("No");
   const [termsCheck, setTermsChecked] = useState(false);
 
@@ -50,12 +74,14 @@ function LoginPage() {
     new: string;
     confirm: string;
   }>({
-    new: '',
-    confirm: ''
-  })
-  const [newToken, setNewToken] = useState('');
+    new: "",
+    confirm: "",
+  });
+  const [newToken, setNewToken] = useState("");
 
   const isAboutUs = useStoreSelector(aboutUsState);
+  const isContactUs = useStoreSelector(contactUsState);
+  const isFAQs = useStoreSelector(faqsState);
 
   const { t } = useTranslation();
 
@@ -88,11 +114,16 @@ function LoginPage() {
       setShowError(false);
 
       //userLogin(loginUser.mail, loginUser.password)
-      console.log("user: " + JSON.stringify(loginUser.mail) + ", " + JSON.stringify(loginUser.password))
+      console.log(
+        "user: " +
+          JSON.stringify(loginUser.mail) +
+          ", " +
+          JSON.stringify(loginUser.password)
+      );
 
       const params: any = JSON.stringify({
         email: loginUser.mail,
-        password: loginUser.password
+        password: loginUser.password,
       });
 
 
@@ -126,25 +157,32 @@ function LoginPage() {
 
 
     }
-
   };
 
-  const handleRecoverAccountInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = event.target
-    setRecoverEmail(value)
-  }
+  const handleRecoverAccountInputChange = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const { value } = event.target;
+    setRecoverEmail(value);
+  };
 
   const handleRecoverAccount = () => {
-
-    axios.get('https://camul2022.pythonanywhere.com/account/forgot?email=' + recoverEmail)
-      .then((response) => {
-        console.log("response:" + response);
-        console.log('Recover Email: ', recoverEmail)
-        setFormType('resetPassword')
-      }, (error) => {
-        console.log("erro:" + error);
-      });
-  }
+    axios
+      .get(
+        "https://camul2022.pythonanywhere.com/account/forgot?email=" +
+          recoverEmail
+      )
+      .then(
+        (response) => {
+          console.log("response:" + response);
+          console.log("Recover Email: ", recoverEmail);
+          setFormType("resetPassword");
+        },
+        (error) => {
+          console.log("erro:" + error);
+        }
+      );
+  };
 
   const handleResetPassword = () => {
     if (newPassword.new === "" && newPassword.confirm === "" && newToken === "") {
@@ -183,9 +221,7 @@ function LoginPage() {
     else {
       alert("wrong passwords");
     }
-
-
-  }
+  };
 
   const Register = () => {
     setIsLoading(false);
@@ -249,36 +285,41 @@ function LoginPage() {
         <div className="container">
           <div className="logo-container">
             <div className="wrapper">
-
-              {(isAboutUs || formType === 'recoverAccount' || formType === 'resetPassword') && (
-                <Flex position='fixed' top='200px' left='300px'>
+              {(isAboutUs ||
+                formType === "recoverAccount" ||
+                formType === "resetPassword") && (
+                <Flex position="fixed" top="200px" left="300px">
                   <IconButton
-                    aria-label='back'
-                    variant='ghost'
-                    rounded='100'
-                    size='sm'
-                    icon={<ChevronLeftIcon w='30px' h='30px' color='isepBrick.500' />}
+                    aria-label="back"
+                    variant="ghost"
+                    rounded="100"
+                    size="sm"
+                    icon={
+                      <ChevronLeftIcon
+                        w="30px"
+                        h="30px"
+                        color="isepBrick.500"
+                      />
+                    }
                     onClick={() => {
-                      dispatch(leaveAboutUs())
-                      setFormType('longIn')
+                      dispatch(leaveAboutUs());
+                      setFormType("longIn");
                     }}
                   />
                   <Center>
-                    <Text color='isepBrick.500'>
-                      {t("back")}
-                    </Text>
+                    <Text color="isepBrick.500">{t("back")}</Text>
                   </Center>
                 </Flex>
               )}
               <Logo />
-              <span>Where to go next?</span>
+              <span>
+                <Text fontFamily={"Montserrat-Medium"}>Where to go next?</Text>
+              </span>
             </div>
           </div>
 
-          {!isAboutUs ? (
-
+          {!isAboutUs && !isContactUs && !isFAQs && (
             <div className="form-container">
-
               {formType === "longIn" && (
                 <div className="form-wrapper">
                   <Input
@@ -297,7 +338,7 @@ function LoginPage() {
                   />
                   <Input
                     name="password"
-                    type='password'
+                    type="password"
                     isInvalid={showError && loginUser.password === ""}
                     errorBorderColor="crimson"
                     onChange={handleLogInInputChange}
@@ -326,7 +367,7 @@ function LoginPage() {
                     {t("do_you_have_an_account")}
                     <a
                       style={{
-                        marginLeft: '.5rem'
+                        marginLeft: ".5rem",
                       }}
                       onClick={() => {
                         setShowError(false);
@@ -338,7 +379,9 @@ function LoginPage() {
                   </span>
                   <span
                     className="forgot-password"
-                    onClick={() => { setFormType('recoverAccount') }}
+                    onClick={() => {
+                      setFormType("recoverAccount");
+                    }}
                   >
                     {t("forgot_password")}
                   </span>
@@ -379,7 +422,7 @@ function LoginPage() {
                     isInvalid={showError && sigInUser.password === ""}
                     errorBorderColor="crimson"
                     name="password"
-                    type='password'
+                    type="password"
                     onChange={handleSigInInputChange}
                     variant="flushed"
                     placeholder={`${t("password")}*`}
@@ -488,16 +531,15 @@ function LoginPage() {
                 </div>
               )}
 
-              {formType === 'recoverAccount' && (
-                <Box w='600px' h='580px' bg='white'>
-                  <Center w='600px' h='140px' bg='isepBrick.400'>
-                    <Heading fontSize='40px' color='white'>
+              {formType === "recoverAccount" && (
+                <Box w="600px" h="580px" bg="white">
+                  <Center w="600px" h="140px" bg="isepBrick.400">
+                    <Heading fontSize="40px" color="white">
                       {t("recover_account")}
                     </Heading>
                   </Center>
 
                   <div className="form-wrapper">
-
                     <Input
                       isInvalid={showError && loginUser.mail === ""}
                       errorBorderColor="crimson"
@@ -524,32 +566,31 @@ function LoginPage() {
                       handleButtonClick={handleRecoverAccount}
                     />
 
-                    <Container w='476px' color='#636363' opacity='.6'>
+                    <Container w="476px" color="#636363" opacity=".6">
                       {t("check_email")}
                     </Container>
-
                   </div>
-
                 </Box>
               )}
 
-              {formType === 'resetPassword' && (
-                <Box w='600px' h='580px' bg='white'>
-
-                  <Center w='600px' h='140px' bg='isepBrick.400'>
-                    <Heading fontSize='40px' color='white'>
+              {formType === "resetPassword" && (
+                <Box w="600px" h="580px" bg="white">
+                  <Center w="600px" h="140px" bg="isepBrick.400">
+                    <Heading fontSize="40px" color="white">
                       {t("reset_password")}
                     </Heading>
                   </Center>
 
                   <div className="form-wrapper">
-
                     <Input
                       isInvalid={showError && loginUser.mail === ""}
                       errorBorderColor="crimson"
                       name="mail"
                       onChange={(e) => {
-                        setNewPassword({ new: e.target.value, confirm: newPassword.confirm })
+                        setNewPassword({
+                          new: e.target.value,
+                          confirm: newPassword.confirm,
+                        });
                       }}
                       variant="flushed"
                       focusBorderColor="isepBrick.500"
@@ -566,7 +607,10 @@ function LoginPage() {
                       errorBorderColor="crimson"
                       name="mail"
                       onChange={(e) => {
-                        setNewPassword({ new: newPassword.new, confirm: e.target.value })
+                        setNewPassword({
+                          new: newPassword.new,
+                          confirm: e.target.value,
+                        });
                       }}
                       variant="flushed"
                       focusBorderColor="isepBrick.500"
@@ -582,7 +626,7 @@ function LoginPage() {
                       errorBorderColor="crimson"
                       name="token"
                       onChange={(e) => {
-                        setNewToken(e.target.value)
+                        setNewToken(e.target.value);
                       }}
                       variant="flushed"
                       focusBorderColor="isepBrick.500"
@@ -604,31 +648,135 @@ function LoginPage() {
                       height="54px"
                       handleButtonClick={handleResetPassword}
                     />
-
                   </div>
                 </Box>
               )}
-
             </div>
-
-          ) : (
-            <Flex h='100%' direction='column' justifyContent='center'>
+          )}
+          {isAboutUs && !isContactUs && (
+            <Flex h="100%" direction="column" justifyContent="center">
               <Box>
-                <Heading color='#575757' pl='16px' mb='2rem'>
+                <Heading color="#575757" pl="16px" mb="2rem">
                   {t("about_us")}
                 </Heading>
 
-                <Container maxW='750px' color='#575757'>
+                <Container maxW="750px" color="#575757">
                   {text.aboutUsText_1}
                 </Container>
 
-                <Container maxW='750px' color='#575757' mt='1rem'>
+                <Container maxW="750px" color="#575757" mt="1rem">
                   {text.aboutUsText_2}
                 </Container>
 
-                <Container maxW='750px' color='#575757' mt='1rem'>
+                <Container maxW="750px" color="#575757" mt="1rem">
                   {text.aboutUsText_3}
                 </Container>
+                <Button
+                  backgroundColor={"transparent"}
+                  textColor={"#a2543d"}
+                  onClick={() => dispatch(goToContactUs())}
+                >
+                  {t("contact_us")}
+                </Button>
+                <Button
+                  backgroundColor={"transparent"}
+                  textColor={"#a2543d"}
+                  onClick={() => dispatch(goToFAQs())}
+                >
+                  FAQs
+                </Button>
+                <Button backgroundColor={"transparent"} textColor={"#a2543d"}>
+                  RGPD
+                </Button>
+              </Box>
+            </Flex>
+          )}
+          {isContactUs && !isAboutUs && (
+            <Flex h="100%" direction="column" justifyContent="center">
+              <Box>
+                <Flex position="fixed" top="200px" left="300px">
+                  <IconButton
+                    aria-label="back"
+                    variant="ghost"
+                    rounded="100"
+                    size="sm"
+                    icon={
+                      <ChevronLeftIcon
+                        w="30px"
+                        h="30px"
+                        color="isepBrick.500"
+                      />
+                    }
+                    onClick={() => {
+                      dispatch(goToAboutUs());
+                    }}
+                  />
+                  <Center>
+                    <Text color="isepBrick.500">{t("back")}</Text>
+                  </Center>
+                </Flex>
+                <Heading color="#575757" pl="16px" mb="2rem">
+                  {t("contact_us")}
+                </Heading>
+                
+                  {" "}
+                  <Text fontFamily={"Montserrat-Medium"}>
+                    {t("contacts_text")}
+                  </Text>
+                <Container maxW="750px" color="#575757" mt="1rem">
+                  <Text fontFamily={"Montserrat-Medium"}>André Gonçalves: 1191660@isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>André Morais:    1210626@isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Cárina Alas:     1181695@isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Daniel Dias:     1181488@isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Duarte:          1170467@isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Francisco:       1180615@isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Miguel:          1210632@isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Narciso:         @isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Rui:             1181056@isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Sofia:           1200185@isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Vítor Neto:      1210130@isep.ipp.pt</Text>
+                </Container>
+              </Box>
+            </Flex>
+          )}
+          {isFAQs && !isAboutUs && (
+            <Flex h="100%" direction="column" justifyContent="center">
+              <Box>
+                <Flex position="fixed" top="200px" left="300px">
+                  <IconButton
+                    aria-label="back"
+                    variant="ghost"
+                    rounded="100"
+                    size="sm"
+                    icon={
+                      <ChevronLeftIcon
+                        w="30px"
+                        h="30px"
+                        color="isepBrick.500"
+                      />
+                    }
+                    onClick={() => {
+                      dispatch(goToAboutUs());
+                    }}
+                  />
+                  <Center>
+                    <Text color="isepBrick.500">{t("back")}</Text>
+                  </Center>
+                </Flex>
+                <Heading
+                  color="#575757"
+                  pl="16px"
+                  mb="2rem"
+                  fontFamily={"Montserrat-Medium"}
+                >
+                  Frequently Asked Questions
+                </Heading>
+
+                <Text fontFamily={"Montserrat-Medium"}>
+                  Is this app functional?
+                </Text>
+                <Container maxW="750px" color="#575757" mt="1rem">
+                <Text fontFamily={"Montserrat-Medium"}> This app is merely a prototype and will not work in a real life scenario. </Text></Container>
               </Box>
             </Flex>
           )}
@@ -639,12 +787,9 @@ function LoginPage() {
         {/* 
         ESCREVER CÓDIGO PARA MOBILE
         */}
-        <Text>
-          FALTA FAZER MOBILE LOGIN
-        </Text>
+        <Text>FALTA FAZER MOBILE LOGIN</Text>
       </MobileView>
     </>
-
   );
 }
 

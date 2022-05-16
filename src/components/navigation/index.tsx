@@ -16,6 +16,7 @@ import {
   goToAdminFeedbackPage,
   goToBeaconsPage,
   goToAboutUs,
+  goToContactUs,
 } from "../../store/navigation-reducer";
 import Page from "../../types/pages";
 import { BrowserView, MobileView } from 'react-device-detect';

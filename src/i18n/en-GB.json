@@ -1,5 +1,5 @@
 {
-  "about_us": "About US",
+  "about_us": "About Us",
   "homepage": "Homepage",
   "feedback": "Feedback",
   "settings": "Settings",
@@ -79,8 +79,10 @@
   "recover_account": "Recover Account",
   "associated_email": "Email associated with the account",
   "send_email": "Send Email",
-  "check_email": "Check your spam and bin sections. If the e-mail hasnt been sent, make sure you have entered the correct e-mail associated with your account and click on the button to send the e-mail again.",
+  "check_email": "Check your spam and bin sections. If the e-mail hasn't been sent, make sure you have entered the correct e-mail associated with your account and click on the button to send the e-mail again.",
   "reset_password": "Reset Password",
   "reset": "Reset",
-  "haveAccount": "Already have an account?"
+  "haveAccount": "Already have an account?",
+  "beacon_delete": "DELETE",
+  "contacts_text":"Find our contacts below:"
 }
