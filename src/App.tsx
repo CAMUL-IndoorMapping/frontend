@@ -12,6 +12,7 @@ import AdminBeacons from "./app/pages/admin/beacons";
 import { BrowserView, MobileView } from "react-device-detect";
 import Feedback from "./app/pages/feedback";
 import UserSettings from "./app/pages/settings";
+import Home from "./app/pages/home";
 function App() {
   const { t } = useTranslation();
   const page = useStoreSelector(selectedPage);
@@ -94,14 +95,7 @@ function App() {
     );
   }
   return (
-    <CustomButton
-      backgroundColor="isepBrick.300"
-      borderColor="isepGreen.500"
-      buttonColor="isepGrey.600"
-      hoverColor="isepBrick.400"
-      text="Hello There"
-      handleButtonClick={() => [alert("You Clicked with Button😂😂😂😂😂😂")]}
-    />
+    <Home />
   );
 }
 
