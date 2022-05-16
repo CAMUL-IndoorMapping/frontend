@@ -1,11 +1,13 @@
 /* eslint-disable import/no-cycle */
 import { configureStore } from "@reduxjs/toolkit";
 import navigationReducer from "./navigation-reducer";
+import userReducer from './user-reducer'
 import { useDispatch, useSelector } from "react-redux";
 
 const store = configureStore({
   reducer: {
     navigation: navigationReducer,
+    user: userReducer,
   },
 });
 

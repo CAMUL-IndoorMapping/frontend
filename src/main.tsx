@@ -14,8 +14,8 @@ function Main() {
   return (
     <Provider store={store}>
       <I18nextProvider i18n={i18n}>
-        <Navigation />
         <App />
+        <Navigation></Navigation>
       </I18nextProvider>
     </Provider>
   );
