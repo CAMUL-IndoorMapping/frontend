@@ -2,7 +2,7 @@
 import "./index.scss";
 import { ReactComponent as Logo } from "../../../assets/svg/logo_large.svg";
 import { ReactComponent as Circles } from "../../../assets/svg/circles.svg";
-import { Box, Container, Flex, Heading, IconButton, Input, Radio, RadioGroup, Stack, Text, Center, FormControl } from "@chakra-ui/react";
+import { Box, Container, Flex, Heading, IconButton, Input, Radio, RadioGroup, Stack, Text, Center, FormControl, textDecoration } from "@chakra-ui/react";
 import CustomButton from '../../../components/buttons';
 import React, { useState } from "react";
 import useTranslation from "../../../i18n/use-translation";
@@ -234,8 +234,8 @@ function LoginPage() {
       <MobileView>
         <div className="container">
           <Box>
-            <Center marginTop='20%'>
-              <img width='25%' src="https://s3-alpha-sig.figma.com/img/b938/b663/821798adfdcd9a1accf9c42db95871f5?Expires=1653868800&Signature=BTxgYgGKYLaBFW0MF~Vcx8lC2~jpj9gekjTFJSwvnbPtE2LRcSopHUoujRTAOS~pmshzMQHqd14M161YGaBrlfmr8Fl6nR8OJ-NSCjU3N-imjsNaS1MalSmxcBhqVe2puGNwiSXhCP8I56WGjuiVp4UhA~gULoB3zUURp6dsVKCHqTQhUXkhThOXa~Xf9pc2BC7kDIIQXb6RvSWwm-0WRluwKgpkB-E4tXwgA15S2~7gti6ACSsniCX1FqLbRCCp~HBze0N2VCn7EwmhOxFQ1dGmwHVaA2UekWDTRPQJtSVbEayx1~F6f87IUM8y-eil5b2R1YVofRKxKfR4GgFGxw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"></img>
+            <Center marginTop='40%' marginBottom='10%'>
+              <img width='35%' src="https://s3-alpha-sig.figma.com/img/b938/b663/821798adfdcd9a1accf9c42db95871f5?Expires=1653868800&Signature=BTxgYgGKYLaBFW0MF~Vcx8lC2~jpj9gekjTFJSwvnbPtE2LRcSopHUoujRTAOS~pmshzMQHqd14M161YGaBrlfmr8Fl6nR8OJ-NSCjU3N-imjsNaS1MalSmxcBhqVe2puGNwiSXhCP8I56WGjuiVp4UhA~gULoB3zUURp6dsVKCHqTQhUXkhThOXa~Xf9pc2BC7kDIIQXb6RvSWwm-0WRluwKgpkB-E4tXwgA15S2~7gti6ACSsniCX1FqLbRCCp~HBze0N2VCn7EwmhOxFQ1dGmwHVaA2UekWDTRPQJtSVbEayx1~F6f87IUM8y-eil5b2R1YVofRKxKfR4GgFGxw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"></img>
             </Center>
             <FormControl isRequired>
               <Center>
@@ -257,10 +257,9 @@ function LoginPage() {
                   borderColor="isepBrick.500"
                 />
               </Center>
-              <Center>
+              <Center  marginBottom='20%'>
                 <Input
                   width='70%'
-                  marginBottom='10%'
                   name="password"
                   type='password'
                   isInvalid={showError && loginUser.password === ""}
@@ -276,7 +275,7 @@ function LoginPage() {
                   borderColor="isepBrick.500"
                 />
               </Center>
-              <Center>
+              <Center marginBottom='10%'>
                 <CustomButton
                   backgroundColor="isepBrick.500"
                   borderColor="isepGreen.500"
@@ -288,9 +287,52 @@ function LoginPage() {
                   handleButtonClick={LogIn}
                 />
               </Center>
+              <Center>
+                <div>
+                  <div className="form-wrapper">
+                    <Center marginBottom='5%'>
+                      <span>
+                        {t("do_you_have_an_account")}
+                        <a
+                          style={{
+                            marginLeft: '.5rem',
+                            textDecoration: 'underline'
+                          }}
+                          onClick={() => {
+                            console.log("registar")
+                            setShowError(false);
+                            setFormType("singIn");
+                          }}
+                        >
+                          {t("register")}
+                        </a>
+                      </span>
+                    </Center>
+                    <Center>
+                      <span className="forgot-password">
+                        <a
+                          style={{
+                            marginLeft: '.5rem',
+                            textDecoration: 'underline'
+                          }}
+                          onClick={() => {
+                            console.log("forgot")
+                            setFormType('recoverAccount')
+                          }}
+                        >
+                          {t("forgot_password")}
+                        </a>
+                      </span>
+
+                    </Center>
+                  </div>
+                </div>
+              </Center>
+
             </FormControl>
           </Box>
         </div>
+
       </MobileView>
       <BrowserView>
         <div className="container">
