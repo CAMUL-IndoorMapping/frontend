@@ -109,7 +109,9 @@ function LoginPage() {
           else {
             var updateUserData = {
               username: response.data.username,
-              isAdmin: response.data.userRole === 'admin' ? true : false
+              isAdmin: response.data.userRole === 'admin' ? true : false,
+              password: loginUser.password,
+              authToken: response.data.authToken
             }
 
             console.log("login")
@@ -221,7 +223,8 @@ function LoginPage() {
           else {
             var updateUserData = {
               username: response.data.username,
-              isAdmin: response.data.userRole === 'admin' ? true : false
+              isAdmin: response.data.userRole === 'admin' ? true : false,
+              authToken: response.data.authToken
             }
 
             console.log("login")

@@ -54,10 +54,11 @@ import ThemeToggle from "../../../components/buttons/toggle";
 import { FaBold } from "react-icons/fa";
 import AdminFeedback from "../admin/feedback";
 import AdminBeacons from "../admin/beacons";
-import { goToAdminFeedbackPage, goToBeaconsPage } from "../../../store/navigation-reducer";
+import { goToAdminFeedbackPage, goToBeaconsPage, goToLoginPage } from "../../../store/navigation-reducer";
 import store, { useStoreDispatch, useStoreSelector } from "../../../store";
 import { useSelector } from "react-redux";
-import { userData } from "../../../store/user-reducer";
+import { logout, userData } from "../../../store/user-reducer";
+import axios from "axios";
 
 interface Options {
     settingName: string
@@ -68,6 +69,7 @@ const config = {
     useSystemColorMode: false,
 }
 
+const urlAPi: string = "https://camul2022.pythonanywhere.com/";
 
 function UserSettings() {
 
@@ -108,6 +110,10 @@ function UserSettings() {
 
     const [stateSettingName, setSettingName] = useState("Setting Name");
 
+    const [isLoadingButton, setIsLoading] = useState(false);
+
+    const currentUser = useStoreSelector(userData);
+
     // Set das OPTIONS
     function setStates(
         settingName: string
@@ -134,9 +140,20 @@ function UserSettings() {
     }
 
     const handleDeleteAccountConfirm = () => {
+        setIsLoading(true);
         //MANDAR APAGAR A CONTA PELO PEDIDO
-        onClose()
-        alert("You just deleted your account... how dare u :(")
+        fetch(urlAPi + "account/delete?username=" + currentUser.userId + '&password=' + currentUser.password, {
+            method: "DELETE",
+            mode: "cors",
+            headers: { authToken: currentUser.authToken, "Content-Type": "application/json" }, //change to actual token
+        }).then((response) => {
+            console.log(response)
+            dispatch(goToLoginPage());
+            setIsLoading(false);
+        }, (error) => {
+            console.log("erro:" + error);
+            setIsLoading(false);
+        });
     }
 
     function handleChangePasswordConfirm(old: string, newPass: string): void {
@@ -155,8 +172,6 @@ function UserSettings() {
 
     //Dispatch function
     const dispatch = useStoreDispatch();
-    const currentUser = useStoreSelector(userData);
-    console.log(currentUser);
 
     const handleChangeOld = (event: { target: { value: React.SetStateAction<string>; }; }) => setValueOld(event.target.value)
     const handleChangeNew = (event: { target: { value: React.SetStateAction<string>; }; }) => setValueNew(event.target.value)
@@ -235,6 +250,7 @@ function UserSettings() {
                                         text={t("confirm")}
                                         textColor="#FFFFFF"
                                         width="280px"
+                                        isLoading={isLoadingButton}
                                         handleButtonClick={() => handleDeleteAccountConfirm()}
                                     />
                                     <br></br>
@@ -341,6 +357,7 @@ function UserSettings() {
                                         text={t('save_changes')}
                                         textColor="#FFFFFF"
                                         width="280px"
+                                        isLoading={isLoadingButton}
                                         handleButtonClick={() => handleChangePasswordConfirm(valuePasswordOld, valuePasswordNew)}
                                         disabledCondition={valuePasswordNewConfirm != valuePasswordNew || (valuePasswordNewConfirm === "" || valuePasswordNew === "" || valuePasswordOld === "")}
                                     />
@@ -451,6 +468,7 @@ function UserSettings() {
                             text="CONFIRM"
                             textColor="#FFFFFF"
                             width="280px"
+                            isLoading={isLoadingButton}
                             handleButtonClick={() => handleDeleteAccountConfirm()}
                         />
                         <br></br>
@@ -524,6 +542,7 @@ function UserSettings() {
                             text={t('save_changes')}
                             textColor="#FFFFFF"
                             width="280px"
+                            isLoading={isLoadingButton}
                             handleButtonClick={() => handleChangePasswordConfirm(valuePasswordOld, valuePasswordNew)}
                             disabledCondition={valuePasswordNewConfirm != valuePasswordNew || (valuePasswordNewConfirm === "" || valuePasswordNew === "" || valuePasswordOld === "")}
                         />
@@ -573,14 +592,14 @@ function UserSettings() {
                     </>
                 );
                 break;
-            case t("admin_feedback"): 
+            case t("admin_feedback"):
                 return (
                     <>
                         {dispatch(goToAdminFeedbackPage())}
                     </>
                 );
                 break;
-            case t("admin_beacons"): 
+            case t("admin_beacons"):
                 return (
                     <>
                         {dispatch(goToBeaconsPage())}
