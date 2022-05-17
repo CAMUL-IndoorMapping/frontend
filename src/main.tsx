@@ -9,7 +9,7 @@ import i18n from "./i18n";
 import Navigation from "./components/navigation";
 
 import "./assets/fonts/fonts.css";
-import { BrowserView } from "react-device-detect";
+import { BrowserView, MobileView } from "react-device-detect";
 
 function Main() {
   return (
@@ -19,6 +19,9 @@ function Main() {
         <BrowserView>
           <Navigation></Navigation>
         </BrowserView>
+        <MobileView>
+           <Navigation></Navigation>
+        </MobileView>
       </I18nextProvider>
     </Provider>
   );
