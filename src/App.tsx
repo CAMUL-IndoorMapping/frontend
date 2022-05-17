@@ -14,6 +14,7 @@ import Feedback from "./app/pages/feedback";
 import UserSettings from "./app/pages/settings";
 
 import LoginPage from "../src/app/pages/login";
+import HomePage from "../src/app/pages/home";
 
 function App() {
   const { t } = useTranslation();
@@ -25,6 +26,11 @@ function App() {
   //     dispatch(goToLoginPage());
   //   }, 1000);
   // });
+
+  if (page === Page.HomePage) {
+    // Login Screen
+    return <HomePage />;
+  }
 
   if (page === Page.Login) {
     // Login Screen
