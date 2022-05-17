@@ -2,7 +2,7 @@
 import "./index.scss";
 import { ReactComponent as Logo } from "../../../assets/svg/logo_large.svg";
 import { ReactComponent as Circles } from "../../../assets/svg/circles.svg";
-import { Box, Container, Flex, Heading, IconButton, Input, Radio, RadioGroup, Stack, Text, Center } from "@chakra-ui/react";
+import { Box, Container, Flex, Heading, IconButton, Input, Radio, RadioGroup, Stack, Text, Center, FormControl, textDecoration } from "@chakra-ui/react";
 import CustomButton from '../../../components/buttons';
 import React, { useState } from "react";
 import useTranslation from "../../../i18n/use-translation";
@@ -94,7 +94,7 @@ function LoginPage() {
         email: loginUser.mail,
         password: loginUser.password
       });
-      
+
 
       console.log("params: " + params)
 
@@ -108,8 +108,8 @@ function LoginPage() {
           }
           else {
             var updateUserData = {
-               username: response.data.username,
-               isAdmin: response.data.userRole === 'admin' ? true : false 
+              username: response.data.username,
+              isAdmin: response.data.userRole === 'admin' ? true : false
             }
 
             console.log("login")
@@ -121,10 +121,7 @@ function LoginPage() {
           console.log("erro:" + error);
           setIsLoading(false);
         });
-
-
     }
-
   };
 
   const handleRecoverAccountInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -181,8 +178,6 @@ function LoginPage() {
     else {
       alert("wrong passwords");
     }
-
-
   }
 
   const Register = () => {
@@ -236,6 +231,109 @@ function LoginPage() {
 
   return (
     <>
+      <MobileView>
+        <div className="container">
+          <Box>
+            <Center marginTop='40%' marginBottom='10%'>
+              <img width='35%' src="https://s3-alpha-sig.figma.com/img/b938/b663/821798adfdcd9a1accf9c42db95871f5?Expires=1653868800&Signature=BTxgYgGKYLaBFW0MF~Vcx8lC2~jpj9gekjTFJSwvnbPtE2LRcSopHUoujRTAOS~pmshzMQHqd14M161YGaBrlfmr8Fl6nR8OJ-NSCjU3N-imjsNaS1MalSmxcBhqVe2puGNwiSXhCP8I56WGjuiVp4UhA~gULoB3zUURp6dsVKCHqTQhUXkhThOXa~Xf9pc2BC7kDIIQXb6RvSWwm-0WRluwKgpkB-E4tXwgA15S2~7gti6ACSsniCX1FqLbRCCp~HBze0N2VCn7EwmhOxFQ1dGmwHVaA2UekWDTRPQJtSVbEayx1~F6f87IUM8y-eil5b2R1YVofRKxKfR4GgFGxw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"></img>
+            </Center>
+            <FormControl isRequired>
+              <Center>
+                <Input
+                  width='70%'
+                  marginTop='5%'
+                  marginBottom='5%'
+                  isInvalid={showError && loginUser.mail === ""}
+                  errorBorderColor="crimson"
+                  name="mail"
+                  onChange={handleLogInInputChange}
+                  variant="flushed"
+                  focusBorderColor="isepBrick.500"
+                  placeholder={t("e-mail")}
+                  _placeholder={{
+                    color: "isepBrick.500",
+                    fontFamily: "Montserrat-SemiBold",
+                  }}
+                  borderColor="isepBrick.500"
+                />
+              </Center>
+              <Center  marginBottom='20%'>
+                <Input
+                  width='70%'
+                  name="password"
+                  type='password'
+                  isInvalid={showError && loginUser.password === ""}
+                  errorBorderColor="crimson"
+                  onChange={handleLogInInputChange}
+                  variant="flushed"
+                  focusBorderColor="isepBrick.500"
+                  placeholder={t("password")}
+                  _placeholder={{
+                    color: "isepBrick.500",
+                    fontFamily: "Montserrat-SemiBold",
+                  }}
+                  borderColor="isepBrick.500"
+                />
+              </Center>
+              <Center marginBottom='10%'>
+                <CustomButton
+                  backgroundColor="isepBrick.500"
+                  borderColor="isepGreen.500"
+                  buttonColor="isepGrey.500"
+                  hoverColor="isepBrick.500"
+                  text="LOGIN"
+                  width="206px"
+                  height="47px"
+                  handleButtonClick={LogIn}
+                />
+              </Center>
+              <Center>
+                <div>
+                  <div className="form-wrapper">
+                    <Center marginBottom='5%'>
+                      <span>
+                        {t("do_you_have_an_account")}
+                        <a
+                          style={{
+                            marginLeft: '.5rem',
+                            textDecoration: 'underline'
+                          }}
+                          onClick={() => {
+                            console.log("registar")
+                            setShowError(false);
+                            setFormType("singIn");
+                          }}
+                        >
+                          {t("register")}
+                        </a>
+                      </span>
+                    </Center>
+                    <Center>
+                      <span className="forgot-password">
+                        <a
+                          style={{
+                            marginLeft: '.5rem',
+                            textDecoration: 'underline'
+                          }}
+                          onClick={() => {
+                            console.log("forgot")
+                            setFormType('recoverAccount')
+                          }}
+                        >
+                          {t("forgot_password")}
+                        </a>
+                      </span>
+
+                    </Center>
+                  </div>
+                </div>
+              </Center>
+
+            </FormControl>
+          </Box>
+        </div>
+
+      </MobileView>
       <BrowserView>
         <div className="container">
           <div className="logo-container">
@@ -626,14 +724,7 @@ function LoginPage() {
           <Circles className="circles_svg" />
         </div>
       </BrowserView>
-      <MobileView>
-        {/* 
-        ESCREVER CÓDIGO PARA MOBILE
-        */}
-        <Text>
-          FALTA FAZER MOBILE LOGIN
-        </Text>
-      </MobileView>
+
     </>
 
   );
