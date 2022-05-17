@@ -94,7 +94,7 @@ function LoginPage() {
         email: loginUser.mail,
         password: loginUser.password
       });
-      
+
 
       console.log("params: " + params)
 
@@ -108,8 +108,8 @@ function LoginPage() {
           }
           else {
             var updateUserData = {
-               username: response.data.username,
-               isAdmin: response.data.userRole === 'admin' ? true : false 
+              username: response.data.username,
+              isAdmin: response.data.userRole === 'admin' ? true : false
             }
 
             console.log("login")
@@ -219,7 +219,13 @@ function LoginPage() {
             alert(response.data["status"]);
           }
           else {
-            console.log("signIn")
+            var updateUserData = {
+              username: response.data.username,
+              isAdmin: response.data.userRole === 'admin' ? true : false
+            }
+
+            console.log("login")
+            dispatch(login(updateUserData));
             dispatch(goToHomePage());
             setIsLoading(false);
           }
