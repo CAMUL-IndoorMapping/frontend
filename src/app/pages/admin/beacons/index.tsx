@@ -35,6 +35,8 @@ import useTranslation from "../../../../i18n/use-translation";
 import { FaBacon } from "react-icons/fa";
 import { MdAddBox } from "react-icons/md";
 import { IoIosArrowDropleft } from "react-icons/io";
+import { useStoreSelector } from "../../../../store";
+import { userData } from "../../../../store/user-reducer";
 
 interface Beacon {
   beaconId: number;
@@ -76,6 +78,7 @@ function AdminBeacons() {
   const [titleState, setTitle] = useState("Beacons");
   const [beaconList, setBeacons] = useState<BeaconData>();
   const [classroomList, setClassrooms] = useState<Classroom[]>([]);
+  const currentUser = useStoreSelector(userData);
 
   function setStates(
     device: string,
@@ -198,7 +201,10 @@ function AdminBeacons() {
         method: "POST",
         mode: "cors",
         body: JSON.stringify(jsonDataBeacon),
-        headers: { authToken: `a`, "Content-Type": "application/json" }, //change to actual token
+        headers: {
+          authToken: currentUser.authToken,
+          "Content-Type": "application/json",
+        }, //change to actual token
       }).then((response) => {
         if (!response.ok) {
           console.log("ups");
@@ -225,7 +231,10 @@ function AdminBeacons() {
         method: "PUT",
         mode: "cors",
         body: JSON.stringify(jsonDataUpdateBeacon),
-        headers: { authToken: `a`, "Content-Type": "application/json" }, //change to actual token
+        headers: {
+          authToken: currentUser.authToken,
+          "Content-Type": "application/json",
+        }, //change to actual token
       }).then((response) => {
         if (!response.ok) {
           console.log("ups");
@@ -247,14 +256,18 @@ function AdminBeacons() {
     }
   }
 
-  function handleDelete(): void { //TODO fix with actual endpoint
+  function handleDelete(): void {
+    //TODO fix with actual endpoint
     console.log("updating beacon " + stateBeaconId);
     console.log(jsonDataUpdateBeacon);
     fetch(api + "/map/beacons", {
       method: "DELETE",
       mode: "cors",
       body: JSON.stringify(jsonDataUpdateBeacon),
-      headers: { authToken: `a`, "Content-Type": "application/json" }, //change to actual token
+      headers: {
+        authToken: currentUser.authToken,
+        "Content-Type": "application/json",
+      }, //change to actual token
     }).then((response) => {
       if (!response.ok) {
         console.log("ups");
@@ -273,7 +286,7 @@ function AdminBeacons() {
         });
       }
     });
-    }
+  }
 
   useEffect(() => {
     loadBeaconsAsync();
@@ -432,11 +445,14 @@ function AdminBeacons() {
                   >
                     {t("beacon_classroom")}
                   </Text>
-                  <Select placeholder={stateClassRoom} onChange={(e)=>setClassRoomId(parseInt(e.target.value))}>
-                      {classroomList.map(({ name, id }) => (
-                        <option value={id} >{name}</option>
-                      ))}
-                    </Select>
+                  <Select
+                    placeholder={stateClassRoom}
+                    onChange={(e) => setClassRoomId(parseInt(e.target.value))}
+                  >
+                    {classroomList.map(({ name, id }) => (
+                      <option value={id}>{name}</option>
+                    ))}
+                  </Select>
                   <Divider style={{ background: "isepBrick.500" }}></Divider>
                   <Box height={"11px"}></Box>
                   <Text
@@ -490,15 +506,15 @@ function AdminBeacons() {
                     handleButtonClick={() => handleAddOrUpdate()}
                   />
                   <CustomButton
-                      backgroundColor="isepBrick.300"
-                      borderColor="red"
-                      buttonColor="white"
-                      hoverColor="red"
-                      text={t("beacon_delete")}
-                      textColor="#FFFFFF"
-                      width="280px"
-                      handleButtonClick={() => handleDelete()}
-                    />
+                    backgroundColor="isepBrick.300"
+                    borderColor="red"
+                    buttonColor="white"
+                    hoverColor="red"
+                    text={t("beacon_delete")}
+                    textColor="#FFFFFF"
+                    width="280px"
+                    handleButtonClick={() => handleDelete()}
+                  />
                 </Box>
               </Center>
             </div>
@@ -507,7 +523,9 @@ function AdminBeacons() {
             <div>
               <Center>
                 <Box height={"300px"}></Box>
-                <Text fontFamily={"Montserrat-SemiBold"}>{t("loading_data")}</Text>
+                <Text fontFamily={"Montserrat-SemiBold"}>
+                  {t("loading_data")}
+                </Text>
                 <Box width={"75px"}></Box>
 
                 <Spinner
@@ -632,9 +650,12 @@ function AdminBeacons() {
                     >
                       {t("beacon_classroom")}
                     </Text>
-                    <Select placeholder={stateClassRoom} onChange={(e)=>setClassRoomId(parseInt(e.target.value))}>
+                    <Select
+                      placeholder={stateClassRoom}
+                      onChange={(e) => setClassRoomId(parseInt(e.target.value))}
+                    >
                       {classroomList.map(({ name, id }) => (
-                        <option value={id} >{name}</option>
+                        <option value={id}>{name}</option>
                       ))}
                     </Select>
                     <Divider style={{ background: "isepBrick.500" }}></Divider>
@@ -689,7 +710,7 @@ function AdminBeacons() {
                       width="280px"
                       handleButtonClick={() => handleAddOrUpdate()}
                     />
-                                        <Box height="15px"></Box>
+                    <Box height="15px"></Box>
 
                     <CustomButton
                       backgroundColor="isepBrick.300"
@@ -795,9 +816,12 @@ function AdminBeacons() {
                     >
                       {t("beacon_classroom")}
                     </Text>
-                    <Select placeholder={stateClassRoom} onChange={(e)=>setClassRoomId(parseInt(e.target.value))}>
+                    <Select
+                      placeholder={stateClassRoom}
+                      onChange={(e) => setClassRoomId(parseInt(e.target.value))}
+                    >
                       {classroomList.map(({ name, id }) => (
-                        <option value={id} >{name}</option>
+                        <option value={id}>{name}</option>
                       ))}
                     </Select>
                     <Divider style={{ background: "isepBrick.500" }}></Divider>
@@ -858,7 +882,6 @@ function AdminBeacons() {
                       width="280px"
                       handleButtonClick={() => handleAddOrUpdate()}
                     />
-                    
                   </GridItem>
                 </Grid>
               </Box>
@@ -869,7 +892,9 @@ function AdminBeacons() {
           <div>
             <Center>
               <Box height={"300px"}></Box>
-              <Text fontFamily={"Montserrat-SemiBold"}>{t("loading_data")}</Text>
+              <Text fontFamily={"Montserrat-SemiBold"}>
+                {t("loading_data")}
+              </Text>
               <Box width={"75px"}></Box>
 
               <Spinner
