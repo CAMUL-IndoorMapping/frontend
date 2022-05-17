@@ -16,6 +16,8 @@
   "delete_account_content_2": "You won't be able to use it at its fullest after the action confirmation.",
   "delete_account_content_3": "Account Delete confirmation",
   "delete_account_content_4": "Are you sure you want to delete your account?",
+  "delete_account_success": "Your account was delited with success, await for login page redirection",
+  "delete_account_general_error": "Something went wrong with the delete process, please try again later",
   "change_password": "Change Password",
   "old_password": "Old password",
   "new_password": "New password",

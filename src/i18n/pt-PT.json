@@ -16,6 +16,8 @@
   "delete_account_content_2": "Não poderá usá-la ao máximo após a confirmação da ação.",
   "delete_account_content_3": "Confirmação da eliminação de conta",
   "delete_account_content_4": "Tem certeza de que deseja eliminar a sua conta?",
+  "delete_account_success": "A sua conta foi eliminada com sucesso, por favor aguarde pelo redirecionamento para a página de login.",
+  "delete_account_general_error": "Algo de errado ocorreu no processo, por favor tente novamente.",
   "change_password": "Mudar Palavra-passe",
   "old_password": "Antiga palavra-passe",
   "new_password": "Nova palavra-passe",
