@@ -132,26 +132,43 @@ function LoginPage() {
   }
 
   const handleResetPassword = () => {
+    if (newPassword.new === "" && newPassword.confirm === "" && newToken === "") {
+      alert("blanck inputs")
+    }
+    else if (newPassword.new === newPassword.confirm) {
+      console.log("pass iguais")
 
-    const params = JSON.stringify({
-      "email": urlAPi + 'account/forgot',
-      "password": newPassword.new
-    });
+      const params = JSON.stringify({
+        "email": urlAPi + 'account/forgot',
+        "password": newPassword.new
+      });
 
-    axios.post(urlAPi + 'account/forgot/' + newToken, params, {
+      axios.post(urlAPi + 'account/forgot/' + newToken, params, {
 
-      "headers": {
-        "content-type": "application/json",
-      },
+        "headers": {
+          "content-type": "application/json",
+        },
 
-    }).then((response) => {
-      console.log("response:" + response);
-      console.log('New Password: ', newPassword.new)
-      console.log('Confirm Password: ', newPassword.confirm)
-      setFormType('longIn')
-    }, (error) => {
-      console.log("erro:" + error);
-    });
+      }).then((response) => {
+        console.log("response:" + response);
+        console.log('New Password: ', newPassword.new)
+        console.log('Confirm Password: ', newPassword.confirm)
+
+        if (response.data["status"] && response.data["status"].includes("bad request")) {
+          alert(response.data["status"]);
+        }
+        else {
+          setFormType('longIn')
+          alert(response.data["status"]);
+        }
+      }, (error) => {
+        console.log("erro:" + error);
+      });
+    }
+    else {
+      alert("wrong passwords");
+    }
+
 
   }
 
@@ -161,33 +178,42 @@ function LoginPage() {
       sigInUser.password === "" &&
       sigInUser.confirmPassword === "" &&
       sigInUser.password === sigInUser.confirmPassword &&
-      sigInUser.mail === "" &&
-      !termsCheck
+      sigInUser.mail === ""
+
     ) {
       setShowError(true);
+      alert("Invalid credentials")
     } else {
-      setShowError(false);
+      if (termsCheck) {
+        setShowError(false);
+        const params = JSON.stringify({
+          "name": sigInUser.user,
+          "email": sigInUser.mail,
+          "password": sigInUser.password
+        });
 
-      const params = JSON.stringify({
-        "name": sigInUser.user,
-        "email": sigInUser.mail,
-        "password": sigInUser.password
-      });
+        axios.post(urlAPi + 'account/signup', params, {
 
-      axios.post(urlAPi + 'account/signup', params, {
+          "headers": {
+            "content-type": "application/json",
+          },
 
-        "headers": {
-          "content-type": "application/json",
-        },
-
-      }).then((response) => {
-        console.log("response:" + response);
-        dispatch(goToHomePage());
-      }, (error) => {
-        console.log("erro:" + error);
-      });
-
-      // TODO --> Set User to BackEnd
+        }).then((response) => {
+          console.log("response:" + response.data["status"]);
+          if (response.data["status"] && response.data["status"].includes("bad request")) {
+            alert(response.data["status"]);
+          }
+          else {
+            console.log("signIn")
+            dispatch(goToHomePage());
+          }
+        }, (error) => {
+          console.log("erro:" + error);
+        });
+      }
+      else {
+        alert("You need to acept the terms and conditions")
+      }
     }
   };
 
@@ -294,7 +320,7 @@ function LoginPage() {
 
               {formType === "singIn" && (
                 <div className="form-wrapper_extended">
-                  <Input
+                  <Input marginTop='100px'
                     isInvalid={showError && sigInUser.user === ""}
                     errorBorderColor="crimson"
                     name="user"
@@ -339,6 +365,7 @@ function LoginPage() {
                   />
                   <Input
                     isInvalid={showError && sigInUser.confirmPassword === ""}
+                    type='password'
                     errorBorderColor="crimson"
                     name="confirmPassword"
                     onChange={handleSigInInputChange}
@@ -389,12 +416,14 @@ function LoginPage() {
                   </RadioGroup>
 
                   <RadioGroup display="flex" flexDirection="column" width="100%">
-                    <Radio
+                    <Radio style={{ backgroundColor: termsCheck ? '#a2543d' : 'white' }}
+
                       borderColor="#a2543d"
                       _checked={{
                         bg: "#a2543d",
                         borderColor: "#a2543d",
                       }}
+
                       size="lg"
                       checked={termsCheck}
                       onClick={() => setTermsChecked(!termsCheck)}
@@ -412,13 +441,13 @@ function LoginPage() {
                     borderColor="isepGreen.500"
                     buttonColor="isepGrey.500"
                     hoverColor="isepBrick.500"
-                    text="REGISTER"
+                    text={t("register")}
                     width="476px"
                     height="54px"
                     handleButtonClick={Register}
                   />
                   <span>
-                    Already have an account?{" "}
+                    {t("haveAccount")}{" "}
                     <a
                       onClick={() => {
                         setShowError(false);
