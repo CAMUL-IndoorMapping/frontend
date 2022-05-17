@@ -29,8 +29,9 @@ import {
   goToAboutUs,
   goToFAQs,
   faqsState,
+  goToRGPD,
+  rgpdState,
 } from "../../../store/navigation-reducer";
-import { text } from "./settings";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 import { userLogin } from "../../services/user";
 import CustomToast from "../../../components/customToast";
@@ -82,6 +83,7 @@ function LoginPage() {
   const isAboutUs = useStoreSelector(aboutUsState);
   const isContactUs = useStoreSelector(contactUsState);
   const isFAQs = useStoreSelector(faqsState);
+  const isRGPD = useStoreSelector(rgpdState);
 
   const { t } = useTranslation();
 
@@ -318,7 +320,7 @@ function LoginPage() {
             </div>
           </div>
 
-          {!isAboutUs && !isContactUs && !isFAQs && (
+          {!isAboutUs && !isContactUs && !isFAQs && !isRGPD && (
             <div className="form-container">
               {formType === "longIn" && (
                 <div className="form-wrapper">
@@ -661,15 +663,15 @@ function LoginPage() {
                 </Heading>
 
                 <Container maxW="750px" color="#575757">
-                  {text.aboutUsText_1}
+                  {t("aboutUsText_1")}
                 </Container>
 
                 <Container maxW="750px" color="#575757" mt="1rem">
-                  {text.aboutUsText_2}
+                  {t("aboutUsText_2")}
                 </Container>
 
                 <Container maxW="750px" color="#575757" mt="1rem">
-                  {text.aboutUsText_3}
+                {t("aboutUsText_3")}
                 </Container>
                 <Button
                   backgroundColor={"transparent"}
@@ -685,8 +687,8 @@ function LoginPage() {
                 >
                   FAQs
                 </Button>
-                <Button backgroundColor={"transparent"} textColor={"#a2543d"}>
-                  RGPD
+                <Button backgroundColor={"transparent"} textColor={"#a2543d"} onClick={()=> dispatch(goToRGPD())}>
+                  {t("rgpd")}
                 </Button>
               </Box>
             </Flex>
@@ -731,7 +733,7 @@ function LoginPage() {
                   <Text fontFamily={"Montserrat-Medium"}>Duarte:          1170467@isep.ipp.pt</Text>
                   <Text fontFamily={"Montserrat-Medium"}>Francisco:       1180615@isep.ipp.pt</Text>
                   <Text fontFamily={"Montserrat-Medium"}>Miguel:          1210632@isep.ipp.pt</Text>
-                  <Text fontFamily={"Montserrat-Medium"}>Narciso:         @isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Narciso Correia:  @isep.ipp.pt</Text>
                   <Text fontFamily={"Montserrat-Medium"}>Rui:             1181056@isep.ipp.pt</Text>
                   <Text fontFamily={"Montserrat-Medium"}>Sofia:           1200185@isep.ipp.pt</Text>
                   <Text fontFamily={"Montserrat-Medium"}>Vítor Neto:      1210130@isep.ipp.pt</Text>
@@ -769,14 +771,55 @@ function LoginPage() {
                   mb="2rem"
                   fontFamily={"Montserrat-Medium"}
                 >
-                  Frequently Asked Questions
+                  {t("faqs")}
                 </Heading>
 
                 <Text fontFamily={"Montserrat-Medium"}>
-                  Is this app functional?
+                  {t("question")}
                 </Text>
                 <Container maxW="750px" color="#575757" mt="1rem">
-                <Text fontFamily={"Montserrat-Medium"}> This app is merely a prototype and will not work in a real life scenario. </Text></Container>
+                <Text fontFamily={"Montserrat-Medium"}> {t("answer")} </Text></Container>
+              </Box>
+            </Flex>
+          )}
+          {isRGPD && !isAboutUs && !isFAQs && !isContactUs && (
+            <Flex h="100%" direction="column" justifyContent="center">
+              <Box>
+                <Flex position="fixed" top="200px" left="300px">
+                  <IconButton
+                    aria-label="back"
+                    variant="ghost"
+                    rounded="100"
+                    size="sm"
+                    icon={
+                      <ChevronLeftIcon
+                        w="30px"
+                        h="30px"
+                        color="isepBrick.500"
+                      />
+                    }
+                    onClick={() => {
+                      dispatch(goToAboutUs());
+                    }}
+                  />
+                  <Center>
+                    <Text color="isepBrick.500">{t("back")}</Text>
+                  </Center>
+                </Flex>
+                <Heading
+                  color="#575757"
+                  pl="16px"
+                  mb="2rem"
+                  fontFamily={"Montserrat-Medium"}
+                >
+                  {t("rgpd")}
+                </Heading>
+
+                <Text fontFamily={"Montserrat-Medium"}>
+                {t("information_RGPD")}
+                </Text>
+                <Container maxW="750px" color="#575757" mt="1rem">
+                <Text fontFamily={"Montserrat-Medium"}> {t("answer_RGPD")}</Text></Container>
               </Box>
             </Flex>
           )}

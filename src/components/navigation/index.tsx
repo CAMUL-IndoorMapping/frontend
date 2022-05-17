@@ -15,8 +15,7 @@ import {
   goToLoginPage,
   goToAdminFeedbackPage,
   goToBeaconsPage,
-  goToAboutUs,
-  goToContactUs,
+  goToAboutUs
 } from "../../store/navigation-reducer";
 import Page from "../../types/pages";
 import { BrowserView, MobileView } from 'react-device-detect';
@@ -24,13 +23,13 @@ import { MouseEvent } from "react";
 import { Box, Center, Flex, Icon, IconButton } from "@chakra-ui/react";
 import { BsFillChatFill, BsGearFill } from 'react-icons/bs'
 import { AiFillHome } from 'react-icons/ai'
+import { userData } from "../../store/user-reducer";
 
 
 function Navigation() {
   const { t } = useTranslation();
   const [langCod, setLangCode] = useState<"PT" | "EN">("PT");
-  const [user, setUser] = useState<"Admin" | "User">("Admin");
-
+  const currentUser = useStoreSelector(userData);
   const page = useStoreSelector(selectedPage);
   const dispatch = useStoreDispatch();
 
@@ -148,7 +147,7 @@ function Navigation() {
             {t("settings")}
           </span>
 
-          {user === "Admin" && (
+          {currentUser.isAdmin && (
             <span
               id="adminFeedback"
               onClick={handleNavigationClick}
@@ -160,7 +159,7 @@ function Navigation() {
             </span>
           )}
 
-          {user === "Admin" && (
+          {currentUser.isAdmin && (
             <span
               id="adminBeacons"
               onClick={handleNavigationClick}
