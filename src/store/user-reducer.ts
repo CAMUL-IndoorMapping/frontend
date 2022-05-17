@@ -20,10 +20,10 @@ const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-        login: (state) => {
+        login: (state, {payload}) => {
             state.user = {
-                userId: 'joao',
-                isAdmin: true
+                userId: payload.username,
+                isAdmin: payload.isAdmin
             }
         },
         logout: (state) => {

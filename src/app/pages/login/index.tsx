@@ -14,6 +14,8 @@ import { userLogin } from "../../services/user";
 import CustomToast from "../../../components/customToast";
 import axios from 'axios';
 import { BrowserView, MobileView } from 'react-device-detect';
+import { login } from "../../../store/user-reducer";
+import { stringify } from "querystring";
 
 function LoginPage() {
   const [formType, setFormType] = useState<"longIn" | "singIn" | "recoverAccount" | "resetPassword">("longIn");
@@ -91,6 +93,7 @@ function LoginPage() {
         email: loginUser.mail,
         password: loginUser.password
       });
+      
 
       console.log("params: " + params)
 
@@ -102,7 +105,13 @@ function LoginPage() {
             alert("Invalid credentials");
           }
           else {
+            var updateUserData = {
+               username: response.data.username,
+               isAdmin: response.data.userRole === 'admin' ? true : false 
+            }
+
             console.log("login")
+            dispatch(login(updateUserData));
             dispatch(goToHomePage());
           }
         }, (error) => {
