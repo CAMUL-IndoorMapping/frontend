@@ -44,6 +44,7 @@ function LoginPage() {
   });
 
   const [showError, setShowError] = useState(false);
+  const [isLoadingButton, setIsLoading] = useState(false);
   const [recoverEmail, setRecoverEmail] = useState('')
   const [newPassword, setNewPassword] = useState<{
     new: string;
@@ -98,6 +99,7 @@ function LoginPage() {
       console.log("params: " + params)
 
 
+      setIsLoading(true);
       axios.get('https://camul2022.pythonanywhere.com/account/login?email=' + loginUser.mail + '&password=' + loginUser.password)
         .then((response) => {
           console.log("response:" + response.data["status"]);
@@ -113,9 +115,11 @@ function LoginPage() {
             console.log("login")
             dispatch(login(updateUserData));
             dispatch(goToHomePage());
+            setIsLoading(false)
           }
         }, (error) => {
           console.log("erro:" + error);
+          setIsLoading(false);
         });
 
 
@@ -182,6 +186,7 @@ function LoginPage() {
   }
 
   const Register = () => {
+    setIsLoading(false);
     if (
       sigInUser.user === "" &&
       sigInUser.password === "" &&
@@ -201,6 +206,7 @@ function LoginPage() {
           "password": sigInUser.password
         });
 
+        setIsLoading(true);
         axios.post(urlAPi + 'account/signup', params, {
 
           "headers": {
@@ -215,9 +221,11 @@ function LoginPage() {
           else {
             console.log("signIn")
             dispatch(goToHomePage());
+            setIsLoading(false);
           }
         }, (error) => {
           console.log("erro:" + error);
+          setIsLoading(false);
         });
       }
       else {
@@ -302,6 +310,7 @@ function LoginPage() {
                     text="LOGIN"
                     width="476px"
                     height="54px"
+                    isLoading={isLoadingButton}
                     handleButtonClick={LogIn}
                   />
                   <span>
@@ -453,6 +462,7 @@ function LoginPage() {
                     text={t("register")}
                     width="476px"
                     height="54px"
+                    isLoading={isLoadingButton}
                     handleButtonClick={Register}
                   />
                   <span>

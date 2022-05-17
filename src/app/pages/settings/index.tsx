@@ -55,7 +55,9 @@ import { FaBold } from "react-icons/fa";
 import AdminFeedback from "../admin/feedback";
 import AdminBeacons from "../admin/beacons";
 import { goToAdminFeedbackPage, goToBeaconsPage } from "../../../store/navigation-reducer";
-import { useStoreDispatch } from "../../../store";
+import store, { useStoreDispatch, useStoreSelector } from "../../../store";
+import { useSelector } from "react-redux";
+import { userData } from "../../../store/user-reducer";
 
 interface Options {
     settingName: string
@@ -153,6 +155,8 @@ function UserSettings() {
 
     //Dispatch function
     const dispatch = useStoreDispatch();
+    const currentUser = useStoreSelector(userData);
+    console.log(currentUser);
 
     const handleChangeOld = (event: { target: { value: React.SetStateAction<string>; }; }) => setValueOld(event.target.value)
     const handleChangeNew = (event: { target: { value: React.SetStateAction<string>; }; }) => setValueNew(event.target.value)
