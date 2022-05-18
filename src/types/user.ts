@@ -3,4 +3,5 @@ export type User = {
     isAdmin: boolean
     password: string
     authToken: string
+    userID: string
 }

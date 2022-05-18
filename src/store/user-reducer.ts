@@ -13,7 +13,8 @@ const initialState: UserState = {
         userId: '',
         isAdmin: false,
         password:'',
-        authToken: ''
+        authToken: '',
+        userID: '',
     }
 };
 
@@ -27,7 +28,8 @@ const userSlice = createSlice({
                 userId: payload.username,
                 isAdmin: payload.isAdmin,
                 password: payload.password,
-                authToken: payload.authToken
+                authToken: payload.authToken,
+                userID: payload.userID
             }
         },
         logout: (state) => {
@@ -35,7 +37,8 @@ const userSlice = createSlice({
                 userId: '',
                 isAdmin: false,
                 password: '',
-                authToken: ''
+                authToken: '',
+                userID: ''
             }
         }
     }
