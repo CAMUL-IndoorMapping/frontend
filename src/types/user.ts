@@ -1,6 +1,7 @@
 export type User = {
-    userId: string
+    username: string
     isAdmin: boolean
     password: string
     authToken: string
+    userID: string
 }

@@ -10,10 +10,11 @@ type UserState = {
 // ************ INITIAL STATE ************
 const initialState: UserState = {
     user: {
-        userId: '',
+        username: '',
         isAdmin: false,
         password:'',
-        authToken: ''
+        authToken: '',
+        userID: '',
     }
 };
 
@@ -24,18 +25,20 @@ const userSlice = createSlice({
     reducers: {
         login: (state, {payload}) => {
             state.user = {
-                userId: payload.username,
+                username: payload.username,
                 isAdmin: payload.isAdmin,
                 password: payload.password,
-                authToken: payload.authToken
+                authToken: payload.authToken,
+                userID: payload.userID
             }
         },
         logout: (state) => {
             state.user = {
-                userId: '',
+                username: '',
                 isAdmin: false,
                 password: '',
-                authToken: ''
+                authToken: '',
+                userID: ''
             }
         }
     }

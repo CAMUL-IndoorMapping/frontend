@@ -97,7 +97,7 @@ function Navigation() {
 
   return (
     <>
-      <div style={{ display: currentUser.userId ? 'block' : 'none' }}>
+      <div style={{ display: currentUser.username ? 'block' : 'none' }}>
         <MobileView>
           <Center>
             <Box

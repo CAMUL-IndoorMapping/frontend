@@ -23,6 +23,8 @@ import { BrowserView, MobileView } from "react-device-detect";
 import { MdOutlineKeyboardArrowRight } from "react-icons/md";
 import useTranslation from "../../../../i18n/use-translation";
 import ReactPlayer from "react-player";
+import { useStoreSelector } from "../../../../store";
+import { userData } from "../../../../store/user-reducer";
 
 interface Feedback {
   dateTime: string;
@@ -40,7 +42,7 @@ interface Feedbacks {
 
 function AdminFeedback() {
   const { t } = useTranslation();
-
+  const currentUser = useStoreSelector(userData);
   const [stateFeedback, setFeedback] = useState("");
   const [stateName, setName] = useState("");
   const [stateType, setType] = useState("text");
@@ -62,7 +64,7 @@ function AdminFeedback() {
       var stringEncoded = encode[0];
       var result = api + "/uploads/" + stringEncoded + "." + encode[1];
       console.log(result);
-      
+
       if (type === "image") {
         return (
           <div>
@@ -100,14 +102,28 @@ function AdminFeedback() {
   const api = "https://camul2022.pythonanywhere.com";
 
   const loadFeedbacksAsync = async () => {
-    await fetch(api + "/account/feedback")
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        const items = data;
-        setFeedbacks(items);
-      });
+    if (currentUser.isAdmin) {
+      console.log("fetch feedback list admin")
+      await fetch(api + "/account/feedback")
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          const items = data;
+          setFeedbacks(items);
+        });
+    }
+    else {
+      console.log("fetch feedback list user")
+      await fetch(api + "/account/feedback?idUser="+ currentUser.userID)
+        .then(function (response) {
+          return response.json();
+        })
+        .then(function (data) {
+          const items = data;
+          setFeedbacks(items);
+        });
+    }
   };
 
   useEffect(() => {

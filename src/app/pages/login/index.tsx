@@ -2,7 +2,7 @@
 import "./index.scss";
 import { ReactComponent as Logo } from "../../../assets/svg/logo_large.svg";
 import { ReactComponent as Circles } from "../../../assets/svg/circles.svg";
-import { Box, Container, Flex, Heading, IconButton, Input, Radio, RadioGroup, Stack, Text, Center, FormControl, textDecoration, Button } from "@chakra-ui/react";
+import { Box, Container, Flex, Heading, IconButton, Input, Radio, RadioGroup, Stack, Text, Center, FormControl, textDecoration, Button, useDisclosure, useToast } from "@chakra-ui/react";
 import CustomButton from '../../../components/buttons';
 import React, { useState } from "react";
 import useTranslation from "../../../i18n/use-translation";
@@ -38,6 +38,7 @@ function LoginPage() {
   const urlAPi: string = "https://camul2022.pythonanywhere.com/";
 
   const dispatch = useStoreDispatch();
+  const toast = useToast();
 
   const [loginUser, setLoginUser] = useState<{
     mail: string;
@@ -74,6 +75,7 @@ function LoginPage() {
   const isRGPD = useStoreSelector(rgpdState);
 
   const { t } = useTranslation();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleLogInInputChange = (
     event: React.ChangeEvent<HTMLInputElement>
@@ -123,22 +125,37 @@ function LoginPage() {
       setIsLoading(true);
       axios.get('https://camul2022.pythonanywhere.com/account/login?email=' + loginUser.mail + '&password=' + loginUser.password)
         .then((response) => {
+          
           console.log("response:" + response.data["status"]);
           if (response.data["status"] && response.data["status"].includes("unauthorized")) {
-            alert("Invalid credentials");
+            //alert("Invalid credentials");
+            toast({
+              title: t("change_password_general_error"),
+              status: "error",
+              isClosable: true,
+          });
+          onClose()
+          throw new Error("Error" + response.status);
           }
           else {
+            toast({
+              title: "Login",
+              status: "success",
+              isClosable: true,
+          });
             var updateUserData = {
               username: response.data.username,
               isAdmin: response.data.userRole === 'admin' ? true : false,
               password: loginUser.password,
-              authToken: response.data.authToken
+              authToken: response.data.authToken,
+              userID: response.data.userID
             }
 
             console.log("login")
             dispatch(login(updateUserData));
             dispatch(goToHomePage());
             setIsLoading(false)
+            onClose()
           }
         }, (error) => {
           console.log("erro:" + error);
@@ -248,9 +265,9 @@ function LoginPage() {
             var updateUserData = {
               username: response.data.username,
               isAdmin: response.data.userRole === 'admin' ? true : false,
-              authToken: response.data.authToken
+              authToken: response.data.authToken,
+              userID: response.data.userID
             }
-
             console.log("login")
             dispatch(login(updateUserData));
             dispatch(goToHomePage());
@@ -339,7 +356,6 @@ function LoginPage() {
                     text={t("about_us").toUpperCase()}
                     width="206px"
                     height="47px"
-                    isLoading={isLoadingButton}
                     handleButtonClick={()=>dispatch(goToAboutUs())}
                   />
                 </Center>
