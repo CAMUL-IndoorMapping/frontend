@@ -27,6 +27,8 @@
   "change_password_content_old_password_message": "A password inserida não corresponde à atual.",
   "change_password_content_new_password_message": "Tem de conter no mínimo uma maiúscula, uma minúscula, um número, um character especial e 8 ou mais characteres.",
   "change_password_content_confirm_new_password_message": "A password inserida não corresponde à nova password.",
+  "change_password_success": "A sua password foi alterada com sucesso.",
+  "change_password_general_error": "Algum erro inesperado ocorreu na alteração da password, por favor tente mais tarde.",
   "about_app":"Sobre a Aplicação",
   "about_app_content_1": "Como tudo começou.",
   "about_app_content_2": "Esta é a nossa seção sobre a App. Não é muito, mas não precisa de informações para saber que esta aplicação é a melhor!",

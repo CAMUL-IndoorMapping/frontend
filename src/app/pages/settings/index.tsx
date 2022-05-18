@@ -59,7 +59,7 @@ import AdminBeacons from "../admin/beacons";
 import { goToAdminFeedbackPage, goToBeaconsPage, goToLoginPage } from "../../../store/navigation-reducer";
 import store, { useStoreDispatch, useStoreSelector } from "../../../store";
 import { useSelector } from "react-redux";
-import { logout, userData } from "../../../store/user-reducer";
+import { login, logout, userData } from "../../../store/user-reducer";
 import axios from "axios";
 import { MdPassword } from "react-icons/md";
 
@@ -135,16 +135,22 @@ function UserSettings() {
 
     //Ação do botão de show password
     const [show, setShow] = React.useState(false)
-    const handleClickShowButton = () => setShow(!show)
+    const handleClickShowButton = () => {setShow(!show)}
 
     //Click numa opção
     const handleClick = (newSettingName: React.SetStateAction<string>) => {
         setSettingName(newSettingName)
+        setValueOld("");
+        setValueNew("");
+        setValueNewConfirm("");
         onOpen()
     }
 
     //Click num botão de confirmar uma ação
     const handleClickConfirm = () => {
+        setValueOld("");
+        setValueNew("");
+        setValueNewConfirm("");
         onOpen()
     }
 
@@ -187,35 +193,45 @@ function UserSettings() {
     }
 
     function handleChangePasswordConfirm(old: string, newPass: string): void {
-        var jsonDataUDeleteAccount = {
+        var jsonDataUpdateAccount = {
             username: currentUser.userId,
             oldPassword: old,
             newPassword: newPass
         };
+        setIsLoading(true);
         //Verificar se os dados são válidos
-        fetch(api + "/account/delete", {
-            method: "DELETE",
+        fetch(api + "/account/change", {
+            method: "PUT",
             mode: "cors",
-            body: JSON.stringify(jsonDataUDeleteAccount),
+            body: JSON.stringify(jsonDataUpdateAccount),
             headers: { authToken: currentUser.authToken, "Content-Type": "application/json" },
         }).then((response) => {
             if (!response.ok) {
                 toast({
-                    title: t("delete_account_general_error"),
+                    title: t("change_password_general_error"),
                     status: "error",
                     isClosable: true,
                 });
+                onClose()
                 throw new Error("Error" + response.status);
             } else {
                 toast({
-                    title: t("delete_account_success"),
+                    title: t("change_password_success"),
                     status: "success",
                     isClosable: true,
                 });
                 console.log(response)
-                setTimeout(() => {
-                    dispatch(goToLoginPage());
-                }, 2000);
+
+                var updateUserData = {
+                    username: currentUser.userId,
+                    isAdmin: currentUser.isAdmin,
+                    password: newPass,
+                    authToken: currentUser.authToken
+                }
+
+                console.log("login")
+                dispatch(login(updateUserData));
+                onClose()
             }
             setIsLoading(false);
         }, (error) => {
