@@ -1,0 +1,356 @@
+@font-face {
+    font-family: "MyriadPro-Regular";
+    src: url("Myriad-Pro-Regular.woff");
+}
+
+.st0 {
+    opacity: 0.4;
+}
+
+.st1 {
+    fill: #F2F2F2;
+}
+
+.st2 {
+    fill: #CCCCCC;
+}
+
+.st3 {
+    font-family: 'MyriadPro-Regular';
+}
+
+.st4 {
+    font-size: 63px;
+}
+
+.st5 {
+    letter-spacing: 4;
+}
+
+.st6 {
+    fill: none;
+    stroke: #000000;
+    stroke-width: 20;
+    stroke-miterlimit: 10;
+}
+
+.st7 {
+    fill: #B201FF;
+}
+
+.st8 {
+    fill: #FFFFFF;
+}
+
+.st9 {
+    font-family: 'Arial-Black';
+}
+
+.st10 {
+    fill: none;
+    stroke: #FFFFFF;
+    stroke-width: 12;
+    stroke-miterlimit: 10;
+}
+
+.st11 {
+    fill: #FF7302;
+}
+
+.st12 {
+    fill: #FFE502;
+}
+
+.st13 {
+    fill: #87FF2B;
+}
+
+.st14 {
+    fill: #0041FD;
+}
+
+.st15 {
+    fill: none;
+    stroke: #FFFFFF;
+    stroke-width: 15;
+    stroke-miterlimit: 10;
+}
+
+.st16 {
+    fill: #9A8036;
+}
+
+.st17 {
+    fill: #730032;
+}
+
+.st18 {
+    fill: #02A5FF;
+}
+
+.st19 {
+    fill: #030600;
+}
+
+.st20 {
+    fill: #595959;
+}
+
+.st21 {
+    fill: #86FF8C;
+}
+
+.st22 {
+    fill: #9A0002;
+}
+
+.st23 {
+    fill: #5CC0E2;
+}
+
+.st24 {
+    fill: #CFA616;
+}
+
+.st25 {
+    fill: #D7D1EB;
+}
+
+.st26 {
+    fill: #33F791;
+}
+
+.blocoGeneric {
+    user-select: none;
+    cursor: pointer;
+}
+
+body {
+    margin: 0;
+}
+
+#mapContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+
+#map {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+
+.floorButtonContainer {
+    position: fixed;
+    z-index: 2;
+    bottom: 10px;
+    left: 10px;
+}
+
+.floorButton{
+    padding: 10px;
+    color: black;
+}
+
+#mapWrapper {
+    height: 1280vh;
+    width: 100%;
+}
+
+text {
+    user-select: none;
+}
+
+.cls-1 {
+    opacity: 0.4;
+}
+
+.cls-2 {
+    fill: #fff;
+}
+
+.cls-3 {
+    fill: #ccc;
+}
+
+.cls-21,
+.cls-4 {
+    font-size: 63px;
+    letter-spacing: 0.08em;
+}
+
+.cls-4 {
+    font-family: MyriadPro-Regular, Myriad Pro;
+}
+
+.cls-5 {
+    letter-spacing: 0.04em;
+}
+
+.cls-6 {
+    letter-spacing: 0.01em;
+}
+
+.cls-7 {
+    letter-spacing: 0.07em;
+}
+
+.cls-8 {
+    letter-spacing: 0.06em;
+}
+
+.cls-9 {
+    letter-spacing: 0.07em;
+}
+
+.cls-10 {
+    letter-spacing: 0.02em;
+}
+
+.cls-11 {
+    letter-spacing: 0.07em;
+}
+
+.cls-12 {
+    letter-spacing: 0.07em;
+}
+
+.cls-13 {
+    letter-spacing: 0.07em;
+}
+
+.cls-14 {
+    letter-spacing: 0.08em;
+}
+
+.cls-15 {
+    letter-spacing: 0.08em;
+}
+
+.cls-16 {
+    letter-spacing: 0.07em;
+}
+
+.cls-17 {
+    letter-spacing: 0.08em;
+}
+
+.cls-18 {
+    letter-spacing: 0.07em;
+}
+
+.cls-19,
+.cls-22,
+.cls-31 {
+    fill: none;
+    stroke-miterlimit: 10;
+}
+
+.cls-19 {
+    stroke: #000;
+    stroke-width: 20px;
+}
+
+.cls-20 {
+    fill: #b201ff;
+}
+
+.cls-21,
+.cls-27 {
+    fill: #fff;
+    font-family: Arial-Black, Arial Black;
+    font-weight: 800;
+}
+
+.cls-22,
+.cls-31 {
+    stroke: #fff;
+}
+
+.cls-22 {
+    stroke-width: 12px;
+}
+
+.cls-23 {
+    fill: #fce5d7;
+}
+
+.cls-24 {
+    isolation: isolate;
+}
+
+.cls-25 {
+    fill: #ce803a;
+}
+
+.cls-26 {
+    fill: #ff7302;
+}
+
+.cls-27 {
+    font-size: 62.92px;
+    letter-spacing: 0.08em;
+}
+
+.cls-28 {
+    fill: #ffe502;
+}
+
+.cls-29 {
+    fill: #87ff2b;
+}
+
+.cls-30 {
+    fill: #0041fd;
+}
+
+.cls-31 {
+    stroke-width: 15px;
+}
+
+.cls-32 {
+    fill: #9a8036;
+}
+
+.cls-33 {
+    fill: #730032;
+}
+
+.cls-34 {
+    fill: #02a5ff;
+}
+
+.cls-35 {
+    fill: #030600;
+}
+
+.cls-36 {
+    fill: #595959;
+}
+
+.cls-37 {
+    fill: #86ff8c;
+}
+
+.cls-38 {
+    fill: #9a0002;
+}
+
+.cls-39 {
+    fill: #5cc0e2;
+}
+
+.cls-40 {
+    fill: #cfa616;
+}
+
+.cls-41 {
+    fill: #d7d1eb;
+}
+
+.cls-42 {
+    fill: #33f791;
+}

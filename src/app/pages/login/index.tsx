@@ -2,21 +2,8 @@
 import "./index.scss";
 import { ReactComponent as Logo } from "../../../assets/svg/logo_large.svg";
 import { ReactComponent as Circles } from "../../../assets/svg/circles.svg";
-import {
-  Box,
-  Container,
-  Flex,
-  Heading,
-  IconButton,
-  Input,
-  Radio,
-  RadioGroup,
-  Stack,
-  Text,
-  Center,
-  Button,
-} from "@chakra-ui/react";
-import CustomButton from "../../../components/buttons";
+import { Box, Container, Flex, Heading, IconButton, Input, Radio, RadioGroup, Stack, Text, Center, FormControl, textDecoration, Button } from "@chakra-ui/react";
+import CustomButton from '../../../components/buttons';
 import React, { useState } from "react";
 import useTranslation from "../../../i18n/use-translation";
 import { useStoreDispatch, useStoreSelector } from "../../../store";
@@ -156,8 +143,6 @@ function LoginPage() {
           console.log("erro:" + error);
           setIsLoading(false);
         });
-
-
     }
   };
 
@@ -283,6 +268,421 @@ function LoginPage() {
 
   return (
     <>
+      <MobileView>
+        <div className="container">
+          <Box>
+
+            {formType === "longIn" && (
+
+              <FormControl isRequired>
+                <Center marginTop='40%' marginBottom='10%'>
+                  <img width='35%' src="https://s3-alpha-sig.figma.com/img/b938/b663/821798adfdcd9a1accf9c42db95871f5?Expires=1653868800&Signature=BTxgYgGKYLaBFW0MF~Vcx8lC2~jpj9gekjTFJSwvnbPtE2LRcSopHUoujRTAOS~pmshzMQHqd14M161YGaBrlfmr8Fl6nR8OJ-NSCjU3N-imjsNaS1MalSmxcBhqVe2puGNwiSXhCP8I56WGjuiVp4UhA~gULoB3zUURp6dsVKCHqTQhUXkhThOXa~Xf9pc2BC7kDIIQXb6RvSWwm-0WRluwKgpkB-E4tXwgA15S2~7gti6ACSsniCX1FqLbRCCp~HBze0N2VCn7EwmhOxFQ1dGmwHVaA2UekWDTRPQJtSVbEayx1~F6f87IUM8y-eil5b2R1YVofRKxKfR4GgFGxw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"></img>
+                </Center>
+                <Center>
+                  <Input
+                    width='70%'
+                    marginTop='5%'
+                    marginBottom='5%'
+                    isInvalid={showError && loginUser.mail === ""}
+                    errorBorderColor="crimson"
+                    name="mail"
+                    onChange={handleLogInInputChange}
+                    variant="flushed"
+                    focusBorderColor="isepBrick.500"
+                    placeholder={t("e-mail")}
+                    _placeholder={{
+                      color: "isepBrick.500",
+                      fontFamily: "Montserrat-SemiBold",
+                    }}
+                    borderColor="isepBrick.500"
+                  />
+                </Center>
+                <Center marginBottom='20%'>
+                  <Input
+                    width='70%'
+                    name="password"
+                    type='password'
+                    isInvalid={showError && loginUser.password === ""}
+                    errorBorderColor="crimson"
+                    onChange={handleLogInInputChange}
+                    variant="flushed"
+                    focusBorderColor="isepBrick.500"
+                    placeholder={t("password")}
+                    _placeholder={{
+                      color: "isepBrick.500",
+                      fontFamily: "Montserrat-SemiBold",
+                    }}
+                    borderColor="isepBrick.500"
+                  />
+                </Center>
+                <Center marginBottom='10%'>
+                  <CustomButton
+                    backgroundColor="isepBrick.500"
+                    borderColor="isepGreen.500"
+                    buttonColor="isepGrey.500"
+                    hoverColor="isepBrick.500"
+                    text="LOGIN"
+                    width="206px"
+                    height="47px"
+                    isLoading={isLoadingButton}
+                    handleButtonClick={LogIn}
+                  />
+                </Center>
+                <Center>
+                  <div>
+                    <div className="form-wrapper">
+                      <Center marginBottom='5%'>
+                        <span>
+                          {t("do_you_have_an_account")}
+                          <a
+                            style={{
+                              marginLeft: '.5rem',
+                              textDecoration: 'underline'
+                            }}
+                            onClick={() => {
+                              console.log("registar")
+                              setShowError(false);
+                              setFormType("singIn");
+                            }}
+                          >
+                            {t("register")}
+                          </a>
+                        </span>
+                      </Center>
+                      <Center>
+                        <span className="forgot-password">
+                          <a
+                            style={{
+                              marginLeft: '.5rem',
+                              textDecoration: 'underline'
+                            }}
+                            onClick={() => {
+                              console.log("forgot")
+                              setFormType('recoverAccount')
+                            }}
+                          >
+                            {t("forgot_password")}
+                          </a>
+                        </span>
+
+                      </Center>
+                    </div>
+                  </div>
+                </Center>
+
+              </FormControl>
+            )}
+
+            {formType === "singIn" && (
+              <FormControl isRequired>
+                <Center marginTop='20%' marginBottom='10%'>
+                  <img width='35%' src="https://s3-alpha-sig.figma.com/img/b938/b663/821798adfdcd9a1accf9c42db95871f5?Expires=1653868800&Signature=BTxgYgGKYLaBFW0MF~Vcx8lC2~jpj9gekjTFJSwvnbPtE2LRcSopHUoujRTAOS~pmshzMQHqd14M161YGaBrlfmr8Fl6nR8OJ-NSCjU3N-imjsNaS1MalSmxcBhqVe2puGNwiSXhCP8I56WGjuiVp4UhA~gULoB3zUURp6dsVKCHqTQhUXkhThOXa~Xf9pc2BC7kDIIQXb6RvSWwm-0WRluwKgpkB-E4tXwgA15S2~7gti6ACSsniCX1FqLbRCCp~HBze0N2VCn7EwmhOxFQ1dGmwHVaA2UekWDTRPQJtSVbEayx1~F6f87IUM8y-eil5b2R1YVofRKxKfR4GgFGxw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"></img>
+                </Center>
+                <Center>
+                  <Input marginTop='5%'
+                    width='70%'
+                    marginBottom='5%'
+                    isInvalid={showError && sigInUser.user === ""}
+                    errorBorderColor="crimson"
+                    name="user"
+                    onChange={handleSigInInputChange}
+                    variant="flushed"
+                    placeholder={`${t("name")}*`}
+                    focusBorderColor="isepBrick.500"
+                    _placeholder={{
+                      color: "isepBrick.500",
+                      fontFamily: "Montserrat-SemiBold",
+                    }}
+                    borderColor="isepBrick.500"
+                  />
+                </Center>
+                <Center>
+                  <Input
+                    width='70%'
+                    marginBottom='5%'
+                    isInvalid={showError && sigInUser.mail === ""}
+                    errorBorderColor="crimson"
+                    name="mail"
+                    onChange={handleSigInInputChange}
+                    variant="flushed"
+                    placeholder={`${t("e-mail")}*`}
+                    focusBorderColor="isepBrick.500"
+                    _placeholder={{
+                      color: "isepBrick.500",
+                      fontFamily: "Montserrat-SemiBold",
+                    }}
+                    borderColor="isepBrick.500"
+                  />
+                </Center>
+
+                <Center>
+                  <Input
+                    width='70%'
+                    marginBottom='5%'
+                    isInvalid={showError && sigInUser.password === ""}
+                    errorBorderColor="crimson"
+                    name="password"
+                    type='password'
+                    onChange={handleSigInInputChange}
+                    variant="flushed"
+                    placeholder={`${t("password")}*`}
+                    focusBorderColor="isepBrick.500"
+                    _placeholder={{
+                      color: "isepBrick.500",
+                      fontFamily: "Montserrat-SemiBold",
+                    }}
+                    borderColor="isepBrick.500"
+                  />
+                </Center>
+
+                <Center>
+                  <Input
+                    width='70%'
+                    marginBottom='5%'
+                    isInvalid={showError && sigInUser.confirmPassword === ""}
+                    type='password'
+                    errorBorderColor="crimson"
+                    name="confirmPassword"
+                    onChange={handleSigInInputChange}
+                    variant="flushed"
+                    placeholder={`${t("confirm_password")}*`}
+                    focusBorderColor="isepBrick.500"
+                    _placeholder={{
+                      color: "isepBrick.500",
+                      fontFamily: "Montserrat-SemiBold",
+                    }}
+                    borderColor="isepBrick.500"
+                  />
+                </Center>
+
+                <RadioGroup marginBottom='10%'
+                  onChange={setMobilityDisability}
+                  value={mobilityDisability}
+                  display="flex"
+                  flexDirection="column"
+                  width="100%"
+                >
+                  <Center>
+                    <span className="mobility_disability_span">
+                      {t("mobility_disability")}
+                    </span>
+                  </Center>
+
+                  <Center>
+                    <Stack spacing={5} direction="row" marginTop="24px">
+                      <Radio
+                        borderColor="#a2543d"
+                        _checked={{
+                          bg: "#a2543d",
+                          borderColor: "#a2543d",
+                        }}
+                        size="lg"
+                        value={t("yes")}
+                      >
+                        {t("yes")}
+                      </Radio>
+                      <Radio
+                        borderColor="#a2543d"
+                        _checked={{
+                          bg: "#a2543d",
+                          borderColor: "#a2543d",
+                        }}
+                        size="lg"
+                        value={t("no")}
+                      >
+                        {t("no")}
+                      </Radio>
+                    </Stack>
+                  </Center>
+                </RadioGroup>
+
+                <RadioGroup marginBottom='10%' display="flex" flexDirection="column" width="100%">
+                  <Center>
+                    <Radio style={{ backgroundColor: termsCheck ? '#a2543d' : 'white' }}
+
+                      borderColor="#a2543d"
+                      _checked={{
+                        bg: "#a2543d",
+                        borderColor: "#a2543d",
+                      }}
+
+                      size="lg"
+                      checked={termsCheck}
+                      onClick={() => setTermsChecked(!termsCheck)}
+                    >
+
+                      <span className="mobility_disability_span">
+                        {t("confirm_read_terms")}
+                        <br></br>
+                        <a> {`${t("terms")}*`}</a>
+                      </span>
+                    </Radio>
+                  </Center>
+                </RadioGroup>
+
+                <Center marginBottom='5%'>
+                  <CustomButton
+                    backgroundColor="isepBrick.500"
+                    borderColor="isepGreen.500"
+                    buttonColor="isepGrey.500"
+                    hoverColor="isepBrick.500"
+                    text={t("register")}
+                    width="206px"
+                    height="47px"
+                    isLoading={isLoadingButton}
+                    handleButtonClick={Register}
+                  />
+                </Center>
+                <Center>
+                  <span>
+                    {t("haveAccount")}{" "}
+                    <a
+                      style={{
+                        textDecoration: 'underline'
+                      }}
+                      onClick={() => {
+                        setShowError(false);
+                        setFormType("longIn");
+                      }}
+                    >
+                      Login
+                    </a>
+                  </span>
+                </Center>
+              </FormControl>
+            )}
+
+            {formType === 'recoverAccount' && (
+              <Box marginTop='20%' bg='white'>
+                <Center marginBottom='20%'>
+                  <Heading fontSize='40px' color='black'>
+                    {t("recover_account")}
+                  </Heading>
+                </Center>
+
+                <div>
+                  <Center>
+                    <Input marginBottom='20%'
+                      isInvalid={showError && loginUser.mail === ""}
+                      errorBorderColor="crimson"
+                      name="mail"
+                      onChange={handleRecoverAccountInputChange}
+                      variant="flushed"
+                      focusBorderColor="isepBrick.500"
+                      placeholder={t("associated_email")}
+                      _placeholder={{
+                        color: "isepBrick.500",
+                        fontFamily: "Montserrat-SemiBold",
+                      }}
+                      borderColor="isepBrick.500"
+                    />
+                  </Center>
+                  <Center marginBottom='20%'>
+                    <CustomButton
+                      backgroundColor="isepBrick.500"
+                      borderColor="isepGreen.500"
+                      buttonColor="isepGrey.500"
+                      hoverColor="isepBrick.500"
+                      text={t("send_email")}
+                      width="206px"
+                      height="47px"
+                      isLoading={isLoadingButton}
+                      handleButtonClick={handleRecoverAccount}
+                    />
+                  </Center>
+
+                  <Container height='200px' color='#636363' opacity='.6'>
+                    {t("check_email")}
+                  </Container>
+
+                </div>
+
+              </Box>
+            )}
+
+            {formType === 'resetPassword' && (
+              <Box h='580px' bg='white'>
+
+                <Center h='140px' bg='isepBrick.400'>
+                  <Heading fontSize='30px' color='black'>
+                    {t("reset_password")}
+                  </Heading>
+                </Center>
+
+                <div>
+
+                  <Input marginTop='10%' marginBottom='10%'
+                    isInvalid={showError && loginUser.mail === ""}
+                    errorBorderColor="crimson"
+                    name="mail"
+                    type='password'
+                    onChange={(e) => {
+                      setNewPassword({ new: e.target.value, confirm: newPassword.confirm })
+                    }}
+                    variant="flushed"
+                    focusBorderColor="isepBrick.500"
+                    placeholder={t("new_password")}
+                    _placeholder={{
+                      color: "isepBrick.500",
+                      fontFamily: "Montserrat-SemiBold",
+                    }}
+                    borderColor="isepBrick.500"
+                  />
+
+                  <Input marginBottom='10%'
+                    type='password'
+                    isInvalid={showError && loginUser.mail === ""}
+                    errorBorderColor="crimson"
+                    name="mail"
+                    onChange={(e) => {
+                      setNewPassword({ new: newPassword.new, confirm: e.target.value })
+                    }}
+                    variant="flushed"
+                    focusBorderColor="isepBrick.500"
+                    placeholder={t("confirm_password")}
+                    _placeholder={{
+                      color: "isepBrick.500",
+                      fontFamily: "Montserrat-SemiBold",
+                    }}
+                    borderColor="isepBrick.500"
+                  />
+
+                  <Input marginBottom='10%'
+                    errorBorderColor="crimson"
+                    name="token"
+                    onChange={(e) => {
+                      setNewToken(e.target.value)
+                    }}
+                    variant="flushed"
+                    focusBorderColor="isepBrick.500"
+                    placeholder="Confirm token"
+                    _placeholder={{
+                      color: "isepBrick.500",
+                      fontFamily: "Montserrat-SemiBold",
+                    }}
+                    borderColor="isepBrick.500"
+                  />
+
+                  <CustomButton
+                    backgroundColor="isepBrick.500"
+                    borderColor="isepGreen.500"
+                    buttonColor="isepGrey.500"
+                    hoverColor="isepBrick.500"
+                    text={t("reset")}
+                    width="206px"
+                    height="47px"
+                    isLoading={isLoadingButton}
+                    handleButtonClick={handleResetPassword}
+                  />
+
+                </div>
+              </Box>
+            )}
+
+          </Box>
+        </div>
+
+      </MobileView>
       <BrowserView>
         <div className="container">
           <div className="logo-container">
@@ -585,6 +985,7 @@ function LoginPage() {
 
                   <div className="form-wrapper">
                     <Input
+                      type='password'
                       isInvalid={showError && loginUser.mail === ""}
                       errorBorderColor="crimson"
                       name="mail"
@@ -605,6 +1006,7 @@ function LoginPage() {
                     />
 
                     <Input
+                      type='password'
                       isInvalid={showError && loginUser.mail === ""}
                       errorBorderColor="crimson"
                       name="mail"
@@ -826,12 +1228,6 @@ function LoginPage() {
           <Circles className="circles_svg" />
         </div>
       </BrowserView>
-      <MobileView>
-        {/* 
-        ESCREVER CÓDIGO PARA MOBILE
-        */}
-        <Text>FALTA FAZER MOBILE LOGIN</Text>
-      </MobileView>
     </>
   );
 }
