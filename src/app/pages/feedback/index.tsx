@@ -53,6 +53,7 @@ function Feedback() {
     const [selectedAudioOption, setSelectedAudioOption] = useState(false);
 
     const [selectedPhoto, setSelectedPhoto] = useState(false);
+    
 
     const uploadFile = (event: any) => {
         setSelectedUploadFile(true);
@@ -259,8 +260,10 @@ function Feedback() {
 
             }).then((response) => {
                 console.log("response:" + response);
+                setIsLoading(false)
             }, (error) => {
                 console.log("erro:" + error);
+                setIsLoading(false)
             });
 
             mediaBlobUrl = "";
@@ -311,8 +314,10 @@ function Feedback() {
 
             }).then((response) => {
                 console.log("response:" + response);
+                setIsLoading(false)
             }, (error) => {
                 console.log("erro:" + error);
+                setIsLoading(false)
             });
 
             video.mediaBlobUrl = "";
@@ -345,8 +350,10 @@ function Feedback() {
 
             }).then((response) => {
                 console.log("response:" + response);
+                setIsLoading(false)
             }, (error) => {
                 console.log("erro:" + error);
+                setIsLoading(false)
             });
             var textAreaValue: any = document.getElementById("textUpload");
             textAreaValue.value = '';
@@ -373,8 +380,10 @@ function Feedback() {
 
             }).then((response) => {
                 console.log("response:" + response);
+                setIsLoading(false)
             }, (error) => {
                 console.log("erro:" + error);
+                setIsLoading(false)
             });
             setImage(null);
             setSelectedPhoto(false);
@@ -399,8 +408,10 @@ function Feedback() {
 
             }).then((response) => {
                 console.log("response:" + response);
+                setIsLoading(false)
             }, (error) => {
                 console.log("erro:" + error);
+                setIsLoading(false)
             });
             file = null;
             filenameContainer.innerText = "";
@@ -614,13 +625,13 @@ function Feedback() {
                     <Box>
                         <Center>
                             <Button style={{ display: selectedconfirm ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
-                                borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%' onClick={handleSubmission}>{t("confirm")}</Button>
+                                borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%' onClick={handleSubmission} isLoading={isLoadingButton}>{t("confirm")}</Button>
 
                             <Button style={{ display: selectedRecordAudio ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
-                                borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%' onClick={recordAudio}>{t("confirm")}</Button>
+                                borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%' onClick={recordAudio} isLoading={isLoadingButton}>{t("confirm")}</Button>
 
                             <Button style={{ display: selectedRecordVideo ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
-                                borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%' onClick={recordVideo}>{t("confirm")}</Button>
+                                borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%' onClick={recordVideo} isLoading={isLoadingButton}>{t("confirm")}</Button>
 
                         </Center>
                         <Center>
@@ -660,13 +671,13 @@ function Feedback() {
 
                         <Center>
                             <Button style={{ display: selectedconfirm ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
-                                borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%' onClick={handleSubmission}>{t("confirm")}</Button>
+                                borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%' onClick={handleSubmission} isLoading={isLoadingButton}>{t("confirm")}</Button>
 
                             <Button style={{ display: selectedRecordAudio ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
-                                borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%' onClick={recordAudio}>{t("confirm")}</Button>
+                                borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%' onClick={recordAudio} isLoading={isLoadingButton}>{t("confirm")}</Button>
 
                             <Button style={{ display: selectedRecordVideo ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
-                                borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%' onClick={recordVideo}>{t("confirm")}</Button>
+                                borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%' onClick={recordVideo} isLoading={isLoadingButton}>{t("confirm")}</Button>
 
                         </Center>
                         <Center>
