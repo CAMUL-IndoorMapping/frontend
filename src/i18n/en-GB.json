@@ -27,6 +27,8 @@
   "change_password_content_old_password_message": "The inputed password doesn't match the current.",
   "change_password_content_new_password_message": "Has to contain at least one uppercase, one lowercase, one number, one special character and 8 or more characters.",
   "change_password_content_confirm_new_password_message": "The inputed password doesn't match the new password.",
+  "change_password_success": "Your password was updated with success.",
+  "change_password_general_error": "Something went wrong with the update password, please try again later.",
   "about_app":"About the App",
   "about_app_content_1": "How it all started.",
   "about_app_content_2": "This is our about the App section. It's not much but you don't need information to know our app is dope!",
