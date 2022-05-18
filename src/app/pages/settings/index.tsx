@@ -117,6 +117,8 @@ function UserSettings() {
 
     const [isLoadingButton, setIsLoading] = useState(false);
 
+    const [isInvalidOldPassword, setInvalidOldPassword] = useState(false);
+
     const currentUser = useStoreSelector(userData);
 
     console.log(currentUser);
@@ -230,9 +232,11 @@ function UserSettings() {
     //Dispatch function
     const dispatch = useStoreDispatch();
 
-    const handleChangeOld = (event: { target: { value: React.SetStateAction<string>; }; }) => setValueOld(event.target.value)
+    const handleChangeOld = (event: { target: { value: React.SetStateAction<string>; }; }) => { setValueOld(event.target.value); setInvalidOldPassword(false) }
     const handleChangeNew = (event: { target: { value: React.SetStateAction<string>; }; }) => setValueNew(event.target.value)
     const handleChangeNewConfirm = (event: { target: { value: React.SetStateAction<string>; }; }) => setValueNewConfirm(event.target.value)
+
+    const handleVerifyOld = () => setInvalidOldPassword(true);
 
     function getSettingContentBrowser(settingName: string): ReactNode {
         switch (settingName) {
@@ -368,7 +372,9 @@ function UserSettings() {
                                             type={show ? 'text' : 'password'}
                                             onChange={handleChangeOld}
                                             value={valuePasswordOld}
-                                            isInvalid={valuePasswordOld === currentUser.password}
+                                            isInvalid={valuePasswordOld !== currentUser.password}
+                                            errorBorderColor='red.300'
+                                            onInvalid={handleVerifyOld}
                                         />
                                         <InputRightElement width='4.5rem'>
                                             <Button h='1.75rem' size='sm' onClick={handleClickShowButton}>
@@ -376,6 +382,8 @@ function UserSettings() {
                                             </Button>
                                         </InputRightElement>
                                     </InputGroup>
+                                    <Text size="xs" color='red.300' display={valuePasswordOld === currentUser.password ? 'none' : 'block'}>{t("change_password_content_old_password_message")}</Text>
+                                    <br hidden={valuePasswordOld === currentUser.password} />
                                     <InputGroup size='md'>
                                         {/* <Text mb='8px'>Value: {valuePasswordNew}</Text> */}
                                         <Input
@@ -383,6 +391,8 @@ function UserSettings() {
                                             pr='4.5rem'
                                             type={show ? 'text' : 'password'}
                                             onChange={handleChangeNew}
+                                            isInvalid={!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,}$/.test(valuePasswordNew))}
+                                            errorBorderColor='red.300'
                                             value={valuePasswordNew}
                                         />
                                         <InputRightElement width='4.5rem'>
@@ -391,6 +401,8 @@ function UserSettings() {
                                             </Button>
                                         </InputRightElement>
                                     </InputGroup>
+                                    <Text size="xs" color='red.300' display={(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,}$/.test(valuePasswordNew)) ? 'none' : 'block'}>{t("change_password_content_new_password_message")}</Text>
+                                    <br hidden={(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,}$/.test(valuePasswordNew))} />
                                     <InputGroup size='md'>
                                         {/* <Text mb='8px'>Value: {valuePasswordNewConfirm}</Text> */}
                                         <Input
@@ -399,6 +411,8 @@ function UserSettings() {
                                             type={show ? 'text' : 'password'}
                                             onChange={handleChangeNewConfirm}
                                             value={valuePasswordNewConfirm}
+                                            isInvalid={valuePasswordNewConfirm != valuePasswordNew}
+                                            errorBorderColor='red.300'
                                         />
                                         <InputRightElement width='4.5rem'>
                                             <Button h='1.75rem' size='sm' onClick={handleClickShowButton}>
@@ -406,6 +420,8 @@ function UserSettings() {
                                             </Button>
                                         </InputRightElement>
                                     </InputGroup>
+                                    <Text size="xs" color='red.300' display={valuePasswordNewConfirm === valuePasswordNew ? 'none' : 'block'}>{t("change_password_content_confirm_new_password_message")}</Text>
+                                    <br hidden={valuePasswordNewConfirm === valuePasswordNew} />
 
                                     <CustomButton
                                         backgroundColor="isepBrick.500"
@@ -417,7 +433,7 @@ function UserSettings() {
                                         width="280px"
                                         isLoading={isLoadingButton}
                                         handleButtonClick={() => handleChangePasswordConfirm(valuePasswordOld, valuePasswordNew)}
-                                        disabledCondition={(valuePasswordNewConfirm != valuePasswordNew || (valuePasswordNewConfirm === "" || valuePasswordNew === "" || valuePasswordOld === "") || !(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,}$/.test(valuePasswordNew)) || (valuePasswordOld === currentUser.password))}
+                                        disabledCondition={(valuePasswordNewConfirm != valuePasswordNew || (valuePasswordNewConfirm === "" || valuePasswordNew === "" || valuePasswordOld === "") || !(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,}$/.test(valuePasswordNew)) || (valuePasswordOld !== currentUser.password))}
                                     />
                                     <br></br>
                                 </ModalBody>
@@ -554,6 +570,9 @@ function UserSettings() {
                                 type={show ? 'text' : 'password'}
                                 onChange={handleChangeOld}
                                 value={valuePasswordOld}
+                                isInvalid={valuePasswordOld !== currentUser.password}
+                                errorBorderColor='red.300'
+                                onInvalid={handleVerifyOld}
                             />
                             <InputRightElement width='4.5rem'>
                                 <Button h='1.75rem' size='sm' onClick={handleClickShowButton}>
@@ -561,6 +580,8 @@ function UserSettings() {
                                 </Button>
                             </InputRightElement>
                         </InputGroup>
+                        <Text size="xs" color='red.300' display={valuePasswordOld === currentUser.password ? 'none' : 'block'}>{t("change_password_content_old_password_message")}</Text>
+                        <br hidden={valuePasswordOld === currentUser.password} />
                         <InputGroup size='md'>
                             {/* <Text mb='8px'>Value: {valuePasswordNew}</Text> */}
                             <Input
@@ -568,6 +589,8 @@ function UserSettings() {
                                 pr='4.5rem'
                                 type={show ? 'text' : 'password'}
                                 onChange={handleChangeNew}
+                                isInvalid={!(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,}$/.test(valuePasswordNew))}
+                                errorBorderColor='red.300'
                                 value={valuePasswordNew}
                             />
                             <InputRightElement width='4.5rem'>
@@ -576,6 +599,8 @@ function UserSettings() {
                                 </Button>
                             </InputRightElement>
                         </InputGroup>
+                        <Text size="xs" color='red.300' display={(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,}$/.test(valuePasswordNew)) ? 'none' : 'block'}>{t("change_password_content_new_password_message")}</Text>
+                        <br hidden={(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,}$/.test(valuePasswordNew))} />
                         <InputGroup size='md'>
                             {/* <Text mb='8px'>Value: {valuePasswordNewConfirm}</Text> */}
                             <Input
@@ -584,6 +609,8 @@ function UserSettings() {
                                 type={show ? 'text' : 'password'}
                                 onChange={handleChangeNewConfirm}
                                 value={valuePasswordNewConfirm}
+                                isInvalid={valuePasswordNewConfirm != valuePasswordNew}
+                                errorBorderColor='red.300'
                             />
                             <InputRightElement width='4.5rem'>
                                 <Button h='1.75rem' size='sm' onClick={handleClickShowButton}>
@@ -591,6 +618,8 @@ function UserSettings() {
                                 </Button>
                             </InputRightElement>
                         </InputGroup>
+                        <Text size="xs" color='red.300' display={valuePasswordNewConfirm === valuePasswordNew ? 'none' : 'block'}>{t("change_password_content_confirm_new_password_message")}</Text>
+                        <br hidden={valuePasswordNewConfirm === valuePasswordNew} />
 
                         <CustomButton
                             backgroundColor="isepBrick.500"
@@ -602,7 +631,7 @@ function UserSettings() {
                             width="280px"
                             isLoading={isLoadingButton}
                             handleButtonClick={() => handleChangePasswordConfirm(valuePasswordOld, valuePasswordNew)}
-                            disabledCondition={(valuePasswordNewConfirm != valuePasswordNew || (valuePasswordNewConfirm === "" || valuePasswordNew === "" || valuePasswordOld === "") || !(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,}$/.test(valuePasswordNew)) || (valuePasswordOld === currentUser.password))}
+                            disabledCondition={(valuePasswordNewConfirm != valuePasswordNew || (valuePasswordNewConfirm === "" || valuePasswordNew === "" || valuePasswordOld === "") || !(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,}$/.test(valuePasswordNew)) || (valuePasswordOld !== currentUser.password))}
                         />
                         <br></br>
                     </>
