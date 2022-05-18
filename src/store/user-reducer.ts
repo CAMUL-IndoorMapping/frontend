@@ -11,7 +11,9 @@ type UserState = {
 const initialState: UserState = {
     user: {
         userId: '',
-        isAdmin: false
+        isAdmin: false,
+        password:'',
+        authToken: ''
     }
 };
 
@@ -23,13 +25,17 @@ const userSlice = createSlice({
         login: (state, {payload}) => {
             state.user = {
                 userId: payload.username,
-                isAdmin: payload.isAdmin
+                isAdmin: payload.isAdmin,
+                password: payload.password,
+                authToken: payload.authToken
             }
         },
         logout: (state) => {
             state.user = {
                 userId: '',
-                isAdmin: false
+                isAdmin: false,
+                password: '',
+                authToken: ''
             }
         }
     }

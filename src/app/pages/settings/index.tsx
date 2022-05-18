@@ -41,6 +41,8 @@ import {
     Input,
     InputGroup,
     InputRightElement,
+    toast,
+    useToast,
 } from "@chakra-ui/react";
 import ReactAudioPlayer from "react-audio-player";
 import { BrowserView, MobileView } from "react-device-detect";
@@ -54,10 +56,12 @@ import ThemeToggle from "../../../components/buttons/toggle";
 import { FaBold } from "react-icons/fa";
 import AdminFeedback from "../admin/feedback";
 import AdminBeacons from "../admin/beacons";
-import { goToAdminFeedbackPage, goToBeaconsPage } from "../../../store/navigation-reducer";
+import { goToAdminFeedbackPage, goToBeaconsPage, goToLoginPage } from "../../../store/navigation-reducer";
 import store, { useStoreDispatch, useStoreSelector } from "../../../store";
 import { useSelector } from "react-redux";
-import { userData } from "../../../store/user-reducer";
+import { logout, userData } from "../../../store/user-reducer";
+import axios from "axios";
+import { MdPassword } from "react-icons/md";
 
 interface Options {
     settingName: string
@@ -68,10 +72,13 @@ const config = {
     useSystemColorMode: false,
 }
 
+const api = "https://camul2022.pythonanywhere.com";
 
 function UserSettings() {
 
     const { t } = useTranslation();
+
+    const toast = useToast();
 
     const array1: Options[] = [ //endpoint Feedback/GET ALL
         {
@@ -108,6 +115,12 @@ function UserSettings() {
 
     const [stateSettingName, setSettingName] = useState("Setting Name");
 
+    const [isLoadingButton, setIsLoading] = useState(false);
+
+    const currentUser = useStoreSelector(userData);
+
+    console.log(currentUser);
+
     // Set das OPTIONS
     function setStates(
         settingName: string
@@ -134,18 +147,79 @@ function UserSettings() {
     }
 
     const handleDeleteAccountConfirm = () => {
+        var jsonDataUDeleteAccount = {
+            username: currentUser.userId,
+            password: currentUser.password
+        };
+        setIsLoading(true);
         //MANDAR APAGAR A CONTA PELO PEDIDO
-        onClose()
-        alert("You just deleted your account... how dare u :(")
+        fetch(api + "/account/delete", {
+            method: "DELETE",
+            mode: "cors",
+            body: JSON.stringify(jsonDataUDeleteAccount),
+            headers: { authToken: currentUser.authToken, "Content-Type": "application/json" },
+        }).then((response) => {
+            if (!response.ok) {
+                toast({
+                    title: t("delete_account_general_error"),
+                    status: "error",
+                    isClosable: true,
+                });
+                throw new Error("Error" + response.status);
+            } else {
+                toast({
+                    title: t("delete_account_success"),
+                    status: "success",
+                    isClosable: true,
+                });
+                console.log(response)
+                setTimeout(() => {
+                    dispatch(goToLoginPage());
+                }, 2000);
+            }
+            setIsLoading(false);
+        }, (error) => {
+            console.log("erro:" + error);
+            setIsLoading(false);
+        });
     }
 
     function handleChangePasswordConfirm(old: string, newPass: string): void {
-        console.log(old)
-        console.log(newPass)
+        var jsonDataUDeleteAccount = {
+            username: currentUser.userId,
+            oldPassword: old,
+            newPassword: newPass
+        };
         //Verificar se os dados são válidos
-        //MANDAR MUDAR PASS A CONTA PELO PEDIDO
-        onClose()
-        alert("You just updated your password... noice xD")
+        fetch(api + "/account/delete", {
+            method: "DELETE",
+            mode: "cors",
+            body: JSON.stringify(jsonDataUDeleteAccount),
+            headers: { authToken: currentUser.authToken, "Content-Type": "application/json" },
+        }).then((response) => {
+            if (!response.ok) {
+                toast({
+                    title: t("delete_account_general_error"),
+                    status: "error",
+                    isClosable: true,
+                });
+                throw new Error("Error" + response.status);
+            } else {
+                toast({
+                    title: t("delete_account_success"),
+                    status: "success",
+                    isClosable: true,
+                });
+                console.log(response)
+                setTimeout(() => {
+                    dispatch(goToLoginPage());
+                }, 2000);
+            }
+            setIsLoading(false);
+        }, (error) => {
+            console.log("erro:" + error);
+            setIsLoading(false);
+        });
     }
 
     //Guardar valores das passwords no Change password
@@ -155,8 +229,6 @@ function UserSettings() {
 
     //Dispatch function
     const dispatch = useStoreDispatch();
-    const currentUser = useStoreSelector(userData);
-    console.log(currentUser);
 
     const handleChangeOld = (event: { target: { value: React.SetStateAction<string>; }; }) => setValueOld(event.target.value)
     const handleChangeNew = (event: { target: { value: React.SetStateAction<string>; }; }) => setValueNew(event.target.value)
@@ -235,6 +307,7 @@ function UserSettings() {
                                         text={t("confirm")}
                                         textColor="#FFFFFF"
                                         width="280px"
+                                        isLoading={isLoadingButton}
                                         handleButtonClick={() => handleDeleteAccountConfirm()}
                                     />
                                     <br></br>
@@ -295,6 +368,7 @@ function UserSettings() {
                                             type={show ? 'text' : 'password'}
                                             onChange={handleChangeOld}
                                             value={valuePasswordOld}
+                                            isInvalid={valuePasswordOld === currentUser.password}
                                         />
                                         <InputRightElement width='4.5rem'>
                                             <Button h='1.75rem' size='sm' onClick={handleClickShowButton}>
@@ -341,8 +415,9 @@ function UserSettings() {
                                         text={t('save_changes')}
                                         textColor="#FFFFFF"
                                         width="280px"
+                                        isLoading={isLoadingButton}
                                         handleButtonClick={() => handleChangePasswordConfirm(valuePasswordOld, valuePasswordNew)}
-                                        disabledCondition={valuePasswordNewConfirm != valuePasswordNew || (valuePasswordNewConfirm === "" || valuePasswordNew === "" || valuePasswordOld === "")}
+                                        disabledCondition={(valuePasswordNewConfirm != valuePasswordNew || (valuePasswordNewConfirm === "" || valuePasswordNew === "" || valuePasswordOld === "") || !(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,}$/.test(valuePasswordNew)) || (valuePasswordOld === currentUser.password))}
                                     />
                                     <br></br>
                                 </ModalBody>
@@ -451,6 +526,7 @@ function UserSettings() {
                             text="CONFIRM"
                             textColor="#FFFFFF"
                             width="280px"
+                            isLoading={isLoadingButton}
                             handleButtonClick={() => handleDeleteAccountConfirm()}
                         />
                         <br></br>
@@ -524,8 +600,9 @@ function UserSettings() {
                             text={t('save_changes')}
                             textColor="#FFFFFF"
                             width="280px"
+                            isLoading={isLoadingButton}
                             handleButtonClick={() => handleChangePasswordConfirm(valuePasswordOld, valuePasswordNew)}
-                            disabledCondition={valuePasswordNewConfirm != valuePasswordNew || (valuePasswordNewConfirm === "" || valuePasswordNew === "" || valuePasswordOld === "")}
+                            disabledCondition={(valuePasswordNewConfirm != valuePasswordNew || (valuePasswordNewConfirm === "" || valuePasswordNew === "" || valuePasswordOld === "") || !(/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!#%*?&]{8,}$/.test(valuePasswordNew)) || (valuePasswordOld === currentUser.password))}
                         />
                         <br></br>
                     </>
@@ -573,14 +650,14 @@ function UserSettings() {
                     </>
                 );
                 break;
-            case t("admin_feedback"): 
+            case t("admin_feedback"):
                 return (
                     <>
                         {dispatch(goToAdminFeedbackPage())}
                     </>
                 );
                 break;
-            case t("admin_beacons"): 
+            case t("admin_beacons"):
                 return (
                     <>
                         {dispatch(goToBeaconsPage())}

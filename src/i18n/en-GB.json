@@ -1,5 +1,5 @@
 {
-  "about_us": "About US",
+  "about_us": "About Us",
   "homepage": "Homepage",
   "feedback": "Feedback",
   "settings": "Settings",
@@ -16,6 +16,8 @@
   "delete_account_content_2": "You won't be able to use it at its fullest after the action confirmation.",
   "delete_account_content_3": "Account Delete confirmation",
   "delete_account_content_4": "Are you sure you want to delete your account?",
+  "delete_account_success": "Your account was delited with success, await for login page redirection",
+  "delete_account_general_error": "Something went wrong with the delete process, please try again later",
   "change_password": "Change Password",
   "old_password": "Old password",
   "new_password": "New password",
@@ -79,8 +81,19 @@
   "recover_account": "Recover Account",
   "associated_email": "Email associated with the account",
   "send_email": "Send Email",
-  "check_email": "Check your spam and bin sections. If the e-mail hasnt been sent, make sure you have entered the correct e-mail associated with your account and click on the button to send the e-mail again.",
+  "check_email": "Check your spam and bin sections. If the e-mail hasn't been sent, make sure you have entered the correct e-mail associated with your account and click on the button to send the e-mail again.",
   "reset_password": "Reset Password",
   "reset": "Reset",
-  "haveAccount": "Already have an account?"
+  "haveAccount": "Already have an account?",
+  "beacon_delete": "DELETE",
+  "contacts_text":"Find our contacts below:",
+  "faqs":"Frequently asked questions",
+  "question":"Is this app functional?",
+  "answer":"This app is merely a prototype and will not work in a real life scenario.",
+  "rgpd": "GDPR",
+  "information_RGPD": "Where can I find information about GDPR?",
+  "answer_RGPD": "In gdpr-info.eu you can find the official PDF of the Regulation (EU) 2016/679 (General Data Protection Regulation) in the current version of the OJ L 119, 04.05.2016; cor. OJ L 127, 23.5.2018 as a neatly arranged website. All Articles of the GDPR are linked with suitable recitals. The European Data Protection Regulation is applicable as of May 25th, 2018 in all member states to harmonize data privacy laws across Europe.",
+  "aboutUsText_1": "Deranged Grupo 1 -   A Short Story  by Random Writer",
+  "aboutUsText_2": "Grupo 1 had always loved crowded ISEP with its colorful, confused computers. It was a place where he felt sleepy. He was a deranged, forgetful, port drinker with feathery feet and fragile hands. His friends saw him as a hissing, hot hard-worker. Once, he had even revived a dying, baby bird. That's the sort of man he was. Grupo 1 walked over to the window and reflected on his picturesque surroundings. The rain hammered like working humming birds. Then he saw something in the distance, or rather someone. It was the figure of CAMUL . CAMUL was a clumsy doctor with beautiful feet and pretty hands.",
+  "aboutUsText_3":"Grupo 1 gulped. He was not prepared for CAMUL. As Grupo 1 stepped outside and CAMUL came closer, he could see the grotesque glint in his eye. CAMUL gazed with the affection of 7545 loving gigantic goldfish. He said, in hushed tones, 'I love you and I want Good grade.' Grupo 1 looked back, even more irritable and still fingering the giant sandwich. 'CAMUL, I like this,' he replied. They looked at each other with tired feelings, like two gigantic, glorious guppies partying at a very stupid class, which had piano music playing in the background and two witty uncles running to the beat. Grupo 1 regarded CAMUL's beautiful feet and pretty hands. 'I feel the same way!' revealed Grupo with a delighted grin. CAMUL looked active, his emotions blushing like a great, gifted gun. Then CAMUL came inside for a nice glass of port. THE END"
 }

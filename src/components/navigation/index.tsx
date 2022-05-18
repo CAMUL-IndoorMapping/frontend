@@ -15,7 +15,7 @@ import {
   goToLoginPage,
   goToAdminFeedbackPage,
   goToBeaconsPage,
-  goToAboutUs,
+  goToAboutUs
 } from "../../store/navigation-reducer";
 import Page from "../../types/pages";
 import { BrowserView, MobileView } from 'react-device-detect';
@@ -29,7 +29,6 @@ import { userData } from "../../store/user-reducer";
 function Navigation() {
   const { t } = useTranslation();
   const [langCod, setLangCode] = useState<"PT" | "EN">("PT");
-  const [user, setUser] = useState<"Admin" | "User">("Admin");
 
   const page = useStoreSelector(selectedPage);
   const dispatch = useStoreDispatch();
@@ -153,7 +152,7 @@ function Navigation() {
                 {t("settings")}
               </span>
 
-              {user === "Admin" && (
+              {currentUser.isAdmin && (
                 <span
                   id="adminFeedback"
                   onClick={handleNavigationClick}
@@ -165,7 +164,7 @@ function Navigation() {
                 </span>
               )}
 
-              {user === "Admin" && (
+              {currentUser.isAdmin && (
                 <span
                   id="adminBeacons"
                   onClick={handleNavigationClick}
