@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Box, Center, Button, ButtonGroup, Textarea, SimpleGrid } from '@chakra-ui/react'
+import { Box, Center, Button, ButtonGroup, Textarea, SimpleGrid, useToast, useDisclosure } from '@chakra-ui/react'
 import { ReactMediaRecorder, useReactMediaRecorder } from "react-media-recorder";
 import Webcam from 'react-webcam';
 import { BrowserView, MobileView } from 'react-device-detect';
@@ -53,6 +53,8 @@ function Feedback() {
     const [selectedAudioOption, setSelectedAudioOption] = useState(false);
 
     const [selectedPhoto, setSelectedPhoto] = useState(false);
+
+    const toast = useToast();
     
 
     const uploadFile = (event: any) => {
@@ -161,6 +163,7 @@ function Feedback() {
     const videoRef = useRef(null);
     const photoRef = useRef(null);
     const [hasPhoto, setHasPhoto] = useState(false);
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
 
     //web react cam
@@ -418,9 +421,13 @@ function Feedback() {
             filenameContainerAudio.innerText = "";
         }
         else {
-            alert("nothing to confirm!");
+            toast({
+                title: t("nothingToConfirm"),
+                status: "error",
+                isClosable: true,
+              });
+              onClose()
         }
-        //window.location.reload()
     }
 
 

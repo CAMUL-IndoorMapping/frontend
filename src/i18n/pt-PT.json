@@ -105,6 +105,7 @@
   "samePasswords": "As palavras-passe não são iguais!",
   "fillFields": "Preencha todos os campos",
   "fillTerms": "Precisa de aceitar os termos e condições",
-  "passAndToken": "Possíveis problemas: Token ou palavra-passe errada. Verifique o seu token e se a palavra-passe contem 8 caracteres (no mínimo 1 maiúscula, 1 minúscula, 1 número e 1 símbolo especial)"
+  "passAndToken": "Possíveis problemas: Token ou palavra-passe errada. Verifique o seu token e se a palavra-passe contem 8 caracteres (no mínimo 1 maiúscula, 1 minúscula, 1 número e 1 símbolo especial)",
+  "nothingToConfirm": "Nada para confirmar!"
 
 }

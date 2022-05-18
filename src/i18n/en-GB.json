@@ -105,5 +105,6 @@
   "samePasswords": "The passwords are not the same!",
   "fillFields": "Fill all the fields",
   "fillTerms": "You need to acept the terms and conditions",
-  "passAndToken": "Possible problems: wrong token or wrong password. Verify your token and if you password contain 8 characters (at least 1 capital, 1 lower case, 1 number and 1 special symbol)"
+  "passAndToken": "Possible problems: wrong token or wrong password. Verify your token and if you password contain 8 characters (at least 1 capital, 1 lower case, 1 number and 1 special symbol)",
+  "nothingToConfirm": "Nothing to confirm!"
 }
