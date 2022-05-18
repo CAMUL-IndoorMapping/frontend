@@ -156,7 +156,7 @@ function UserSettings() {
 
     const handleDeleteAccountConfirm = () => {
         var jsonDataUDeleteAccount = {
-            username: currentUser.userId,
+            username: currentUser.username,
             password: currentUser.password
         };
         setIsLoading(true);
@@ -194,7 +194,7 @@ function UserSettings() {
 
     function handleChangePasswordConfirm(old: string, newPass: string): void {
         var jsonDataUpdateAccount = {
-            username: currentUser.userId,
+            username: currentUser.username,
             oldPassword: old,
             newPassword: newPass
         };
@@ -223,7 +223,7 @@ function UserSettings() {
                 console.log(response)
 
                 var updateUserData = {
-                    username: currentUser.userId,
+                    username: currentUser.username,
                     isAdmin: currentUser.isAdmin,
                     password: newPass,
                     authToken: currentUser.authToken
