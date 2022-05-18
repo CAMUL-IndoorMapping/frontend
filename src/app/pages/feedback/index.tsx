@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Box, Center, Button, ButtonGroup, Textarea, SimpleGrid } from '@chakra-ui/react'
+import { Box, Center, Button, ButtonGroup, Textarea, SimpleGrid, useToast, useDisclosure } from '@chakra-ui/react'
 import { ReactMediaRecorder, useReactMediaRecorder } from "react-media-recorder";
 import Webcam from 'react-webcam';
 import { BrowserView, MobileView } from 'react-device-detect';
@@ -53,6 +53,9 @@ function Feedback() {
     const [selectedAudioOption, setSelectedAudioOption] = useState(false);
 
     const [selectedPhoto, setSelectedPhoto] = useState(false);
+
+    const toast = useToast();
+    
 
     const uploadFile = (event: any) => {
         setSelectedUploadFile(true);
@@ -160,6 +163,7 @@ function Feedback() {
     const videoRef = useRef(null);
     const photoRef = useRef(null);
     const [hasPhoto, setHasPhoto] = useState(false);
+    const { isOpen, onOpen, onClose } = useDisclosure();
 
 
     //web react cam
@@ -259,8 +263,10 @@ function Feedback() {
 
             }).then((response) => {
                 console.log("response:" + response);
+                setIsLoading(false)
             }, (error) => {
                 console.log("erro:" + error);
+                setIsLoading(false)
             });
 
             mediaBlobUrl = "";
@@ -311,8 +317,10 @@ function Feedback() {
 
             }).then((response) => {
                 console.log("response:" + response);
+                setIsLoading(false)
             }, (error) => {
                 console.log("erro:" + error);
+                setIsLoading(false)
             });
 
             video.mediaBlobUrl = "";
@@ -345,8 +353,10 @@ function Feedback() {
 
             }).then((response) => {
                 console.log("response:" + response);
+                setIsLoading(false)
             }, (error) => {
                 console.log("erro:" + error);
+                setIsLoading(false)
             });
             var textAreaValue: any = document.getElementById("textUpload");
             textAreaValue.value = '';
@@ -373,8 +383,10 @@ function Feedback() {
 
             }).then((response) => {
                 console.log("response:" + response);
+                setIsLoading(false)
             }, (error) => {
                 console.log("erro:" + error);
+                setIsLoading(false)
             });
             setImage(null);
             setSelectedPhoto(false);
@@ -399,17 +411,23 @@ function Feedback() {
 
             }).then((response) => {
                 console.log("response:" + response);
+                setIsLoading(false)
             }, (error) => {
                 console.log("erro:" + error);
+                setIsLoading(false)
             });
             file = null;
             filenameContainer.innerText = "";
             filenameContainerAudio.innerText = "";
         }
         else {
-            alert("nothing to confirm!");
+            toast({
+                title: t("nothingToConfirm"),
+                status: "error",
+                isClosable: true,
+              });
+              onClose()
         }
-        //window.location.reload()
     }
 
 
@@ -614,13 +632,13 @@ function Feedback() {
                     <Box>
                         <Center>
                             <Button style={{ display: selectedconfirm ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
-                                borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%' onClick={handleSubmission}>{t("confirm")}</Button>
+                                borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%' onClick={handleSubmission} isLoading={isLoadingButton}>{t("confirm")}</Button>
 
                             <Button style={{ display: selectedRecordAudio ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
-                                borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%' onClick={recordAudio}>{t("confirm")}</Button>
+                                borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%' onClick={recordAudio} isLoading={isLoadingButton}>{t("confirm")}</Button>
 
                             <Button style={{ display: selectedRecordVideo ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
-                                borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%' onClick={recordVideo}>{t("confirm")}</Button>
+                                borderColor='#CE7E5C' height='47px' width='220px' marginBottom='5%' onClick={recordVideo} isLoading={isLoadingButton}>{t("confirm")}</Button>
 
                         </Center>
                         <Center>
@@ -660,13 +678,13 @@ function Feedback() {
 
                         <Center>
                             <Button style={{ display: selectedconfirm ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
-                                borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%' onClick={handleSubmission}>{t("confirm")}</Button>
+                                borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%' onClick={handleSubmission} isLoading={isLoadingButton}>{t("confirm")}</Button>
 
                             <Button style={{ display: selectedRecordAudio ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
-                                borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%' onClick={recordAudio}>{t("confirm")}</Button>
+                                borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%' onClick={recordAudio} isLoading={isLoadingButton}>{t("confirm")}</Button>
 
                             <Button style={{ display: selectedRecordVideo ? 'block' : 'none' }} _focus={{ boxShadow: "none" }} backgroundColor='#A2543D' borderRadius='200px' _hover={{ bg: '#CE7E5C' }} color='#FFFFFF'
-                                borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%' onClick={recordVideo}>{t("confirm")}</Button>
+                                borderColor='#CE7E5C' height='47px' width='529px' marginBottom='5%' onClick={recordVideo} isLoading={isLoadingButton}>{t("confirm")}</Button>
 
                         </Center>
                         <Center>
