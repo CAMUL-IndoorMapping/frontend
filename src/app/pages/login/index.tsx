@@ -18,6 +18,7 @@ import {
   faqsState,
   goToRGPD,
   rgpdState,
+  goToLoginPage,
 } from "../../../store/navigation-reducer";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 import { userLogin } from "../../services/user";
@@ -269,6 +270,7 @@ function LoginPage() {
   return (
     <>
       <MobileView>
+      {!isAboutUs && !isContactUs && !isFAQs && !isRGPD &&(
         <div className="container">
           <Box>
 
@@ -315,7 +317,7 @@ function LoginPage() {
                     borderColor="isepBrick.500"
                   />
                 </Center>
-                <Center marginBottom='10%'>
+                <Center marginBottom='5%'>
                   <CustomButton
                     backgroundColor="isepBrick.500"
                     borderColor="isepGreen.500"
@@ -326,6 +328,19 @@ function LoginPage() {
                     height="47px"
                     isLoading={isLoadingButton}
                     handleButtonClick={LogIn}
+                  />
+                </Center>
+                <Center marginBottom='5%'>
+                  <CustomButton
+                    backgroundColor="isepBrick.500"
+                    borderColor="isepGreen.500"
+                    buttonColor="isepGrey.500"
+                    hoverColor="isepBrick.500"
+                    text={t("about_us").toUpperCase()}
+                    width="206px"
+                    height="47px"
+                    isLoading={isLoadingButton}
+                    handleButtonClick={()=>dispatch(goToAboutUs())}
                   />
                 </Center>
                 <Center>
@@ -680,8 +695,200 @@ function LoginPage() {
             )}
 
           </Box>
-        </div>
+        </div>)}
+        {isAboutUs && !isContactUs && (
+            <Flex h="100%" direction="column" justifyContent="left">
+              <Box alignContent={"left"} marginBottom={"15px"}><IconButton
+                    aria-label="back"
+                    variant="ghost"
+                    rounded="100"
+                    size="sm"
+                    icon={
+                      <ChevronLeftIcon
+                        w="30px"
+                        h="30px"
+                        color="isepBrick.500"
+                      />
+                    }
+                    onClick={() => {
+                      dispatch(leaveAboutUs());
+                      setFormType("longIn");
+                    }}
+                  /></Box>
+              
+              <Box>
+                <Heading color="#575757" pl="16px" mb="2rem">
+                  {t("about_us")}
+                </Heading>
 
+                <Container maxW="750px" color="#575757">
+                  {t("aboutUsText_1")}
+                </Container>
+
+                <Container maxW="750px" color="#575757" mt="1rem">
+                  {t("aboutUsText_2")}
+                </Container>
+
+                <Container maxW="750px" color="#575757" mt="1rem">
+                {t("aboutUsText_3")}
+                </Container>
+                <Box margin={"20px"}></Box>
+                <CustomButton
+                    backgroundColor="isepBrick.500"
+                    borderColor="isepGreen.500"
+                    buttonColor="isepGrey.500"
+                    hoverColor="isepBrick.500"
+                    text={t("contact_us")}
+                    width="206px"
+                    height="47px"
+                    isLoading={isLoadingButton}
+                    handleButtonClick={() => dispatch(goToContactUs())}
+                  />
+                   <Box margin={"20px"}></Box>
+                   <CustomButton
+                    backgroundColor="isepBrick.500"
+                    borderColor="isepGreen.500"
+                    buttonColor="isepGrey.500"
+                    hoverColor="isepBrick.500"
+                    text={"FAQs"}
+                    width="206px"
+                    height="47px"
+                    isLoading={isLoadingButton}
+                    handleButtonClick={() => dispatch(goToFAQs())}
+                  />
+                  <Box margin={"20px"}></Box>
+                  <CustomButton
+                    backgroundColor="isepBrick.500"
+                    borderColor="isepGreen.500"
+                    buttonColor="isepGrey.500"
+                    hoverColor="isepBrick.500"
+                    text={t("rgpd")}
+                    width="206px"
+                    height="47px"
+                    isLoading={isLoadingButton}
+                    handleButtonClick={() => dispatch(goToRGPD())}
+                  />
+                  <Box margin={"20px"}></Box>
+              </Box>
+            </Flex>
+          )}
+          {isContactUs && !isAboutUs && (
+            <Flex h="100%" direction="column" justifyContent="center">
+              <Box alignContent={"left"} marginBottom={"15px"}><IconButton
+                    aria-label="back"
+                    variant="ghost"
+                    rounded="100"
+                    size="sm"
+                    icon={
+                      <ChevronLeftIcon
+                        w="30px"
+                        h="30px"
+                        color="isepBrick.500"
+                      />
+                    }
+                    onClick={() => {
+                      dispatch(goToAboutUs());
+                    }}
+                  /></Box>
+              <Box>
+                <Heading color="#575757" pl="16px" mb="2rem">
+                  {t("contact_us")}
+                </Heading>
+                
+                  {" "}
+                  <Text fontFamily={"Montserrat-Medium"} margin={"10px"}>
+                    {t("contacts_text")}
+                  </Text>
+                <Container maxW="750px" color="#575757" mt="1rem">
+                  <Text fontFamily={"Montserrat-Medium"}>André Gonçalves: 1191660@isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>André Morais:    1210626@isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Cárina Alas:     1181695@isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Daniel Dias:     1181488@isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Duarte:          1170467@isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Francisco:       1180615@isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Miguel:          1210632@isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Narciso Correia:  @isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Rui:             1181056@isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Sofia:           1200185@isep.ipp.pt</Text>
+                  <Text fontFamily={"Montserrat-Medium"}>Vítor Neto:      1210130@isep.ipp.pt</Text>
+                </Container>
+              </Box>
+            </Flex>
+          )}
+          {isFAQs && !isAboutUs && (
+            <Flex h="100%" direction="column" justifyContent="center">
+                <Box alignContent={"left"} marginBottom={"15px"}><IconButton
+                    aria-label="back"
+                    variant="ghost"
+                    rounded="100"
+                    size="sm"
+                    icon={
+                      <ChevronLeftIcon
+                        w="30px"
+                        h="30px"
+                        color="isepBrick.500"
+                      />
+                    }
+                    onClick={() => {
+                      dispatch(goToAboutUs());
+                    }}
+                  /></Box>
+              <Box>
+                
+                <Heading
+                  color="#575757"
+                  pl="16px"
+                  mb="2rem"
+                  fontFamily={"Montserrat-Medium"}
+                >
+                  {t("faqs")}
+                </Heading>
+
+                <Text fontFamily={"Montserrat-Medium"} margin={"10px"}>
+                  {t("question")}
+                </Text>
+                <Container maxW="750px" color="#575757" mt="1rem">
+                <Text fontFamily={"Montserrat-Medium"}> {t("answer")} </Text></Container>
+              </Box>
+            </Flex>
+          )}
+          {isRGPD && !isAboutUs && !isFAQs && !isContactUs && (
+            <Flex h="100%" direction="column" justifyContent="center">
+                <Box alignContent={"left"} marginBottom={"15px"}><IconButton
+                    aria-label="back"
+                    variant="ghost"
+                    rounded="100"
+                    size="sm"
+                    icon={
+                      <ChevronLeftIcon
+                        w="30px"
+                        h="30px"
+                        color="isepBrick.500"
+                      />
+                    }
+                    onClick={() => {
+                      dispatch(goToAboutUs());
+                    }}
+                  /></Box>
+              <Box>
+                
+                <Heading
+                  color="#575757"
+                  pl="16px"
+                  mb="2rem"
+                  fontFamily={"Montserrat-Medium"}
+                >
+                  {t("rgpd")}
+                </Heading>
+
+                <Text fontFamily={"Montserrat-Medium"} margin={"10px"}>
+                {t("information_RGPD")}
+                </Text>
+                <Container maxW="750px" color="#575757" mt="1rem">
+                <Text fontFamily={"Montserrat-Medium"}> {t("answer_RGPD")}</Text></Container>
+              </Box>
+            </Flex>
+          )}
       </MobileView>
       <BrowserView>
         <div className="container">
