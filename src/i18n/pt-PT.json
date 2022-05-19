@@ -106,6 +106,8 @@
   "fillFields": "Preencha todos os campos",
   "fillTerms": "Precisa de aceitar os termos e condições",
   "passAndToken": "Possíveis problemas: Token ou palavra-passe errada. Verifique o seu token e se a palavra-passe contem 8 caracteres (no mínimo 1 maiúscula, 1 minúscula, 1 número e 1 símbolo especial)",
-  "nothingToConfirm": "Nada para confirmar!"
+  "nothingToConfirm": "Nada para confirmar!",
+  "notes": "Notas para o utilizador:",
+  "write_notes": "Escreva uma nota para o utilizador aqui."
 
 }

@@ -17,6 +17,7 @@ import {
   Divider,
   Icon,
   Spinner,
+  Textarea,
 } from "@chakra-ui/react";
 import ReactAudioPlayer from "react-audio-player";
 import { BrowserView, MobileView } from "react-device-detect";
@@ -68,7 +69,6 @@ function AdminFeedback() {
       if (type === "image") {
         return (
           <div>
-            {" "}
             <Box height={"50px"}></Box>
             <Image src={result} alt="" />;
           </div>
@@ -225,6 +225,7 @@ function AdminFeedback() {
       <BrowserView>
         {stateFeedbacks !== undefined && (
           <div>
+          {/* <iframe width="90%" height="500px" allowFullScreen={true} allow="accelerometer; magnetometer; gyroscope" src="https://panoraven.com/en/embed/jqmyMkOdN3"></iframe> */}
             <Text fontSize="3xl" margin="7" fontFamily={"Montserrat-Medium"}>
               {t("feedback_admin_page")}
             </Text>
@@ -268,7 +269,7 @@ function AdminFeedback() {
                   <GridItem colSpan={1} h="320" w="10">
                     <Divider orientation="vertical" />
                   </GridItem>
-                  <GridItem colStart={2} colEnd={7} h="320">
+                  <GridItem colStart={3} colEnd={7} h="320">
                     <Box>
                       {getFeedback(stateFeedback, stateType)}
                       <Box height={"100px"}></Box>
@@ -280,6 +281,10 @@ function AdminFeedback() {
                       >
                         {stateName}
                       </Text>
+                    </Box>
+                    <Box marginTop={"30px"}>
+                      <Text textAlign={"left"}>{t("notes")}</Text>
+                    <Textarea placeholder={t("write_notes")} />
                     </Box>
                   </GridItem>
                 </Grid>
