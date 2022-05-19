@@ -1,20 +1,127 @@
-import React from "react";
-import './style.css'
-import $ from 'jquery';
-import * as rd3 from 'react-d3-library';
+import React, { useEffect, useState } from "react";
+import { Helmet } from 'react-helmet';
+import {
+    Modal,
+    ModalOverlay,
+    ModalContent,
+    ModalHeader,
+    ModalBody,
+    ModalCloseButton,
+    useDisclosure,
+    Input,
+    useToast,
+    Select,
+    NumberInputField,
+    NumberInput
+} from '@chakra-ui/react'
+import useTranslation from "../../../i18n/use-translation";
+import CustomButton from "../../../components/buttons";
+import { useStoreSelector } from "../../../store";
+import { userData } from "../../../store/user-reducer";
 
-function Map() {
+interface Classroom {
+    id: number;
+    idDepartment: number;
+    image: string;
+    name: string;
+    occupancy: number;
+}
 
-    const RD3Component = rd3.Component;
+function Map({ path, activeLevel, handleAddBeaconClick, toolTipActive, handleToogleBeacons }) {
+
+    const api = "https://camul2022.pythonanywhere.com";
+    const currentUser = useStoreSelector(userData);
+    const { t } = useTranslation();
+    const { isOpen, onOpen, onClose } = useDisclosure()
+    const toast = useToast();
+    const [classroomList, setClassroomsList] = useState<Classroom[]>([]);
+
+    const [deviceId, setDeviceId] = useState('')
+    const [classRoom, setClassRoom] = useState(0)
+    const [posX, setPosX] = useState(0)
+    const [posY, setPosY] = useState(0)
+    const [posZ, setPosZ] = useState(0)
+
+    useEffect(() => {
+        loadClassroomsAsync();
+    }, [])
+
+    const getLevelWaypoints = (level: string) => {
+        return path.filter(e => { return e.z === level }).map(e => (
+            <circle
+                key={`p-${e.x}${e.y}${e.z}`}
+                className='circle_point'
+                cx={e.x} cy={e.y} r='25'
+            />
+        ))
+    }
+
+    const handleSetWaypoint = (e) => {
+        if (toolTipActive) {
+            onOpen()
+            handleAddBeaconClick()
+            let dim = e.currentTarget.getBoundingClientRect()
+            setPosX(Math.round(e.clientX - dim.left))
+            setPosY(Math.round(e.clientY - dim.top))
+        }
+    }
+
+    const handleAddBeacon = () => {
+        const jsonDataBeacon = {
+            idDevice: deviceId,
+            IdClassroom: classRoom,
+            x: posX,
+            y: posY,
+            z: posZ
+        };
+
+        console.log(jsonDataBeacon)
+
+        fetch(api + "/map/beacons", {
+            method: "POST",
+            mode: "cors",
+            body: JSON.stringify(jsonDataBeacon),
+            headers: {
+                authToken: currentUser.authToken,
+                "Content-Type": "application/json",
+            }, //change to actual token
+        }).then((response) => {
+            if (!response.ok) {
+                console.log("ups");
+                toast({
+                    title: t("beacon_add_error_message"),
+                    status: "error",
+                    isClosable: true,
+                });
+                throw new Error("Error" + response.status);
+            } else {
+                toast({
+                    title: t("beacon_add_success_message"),
+                    status: "success",
+                    isClosable: true,
+                });
+            }
+        });
+        handleToogleBeacons()
+    }
+
+    const loadClassroomsAsync = async () => {
+        await fetch(api + "/map/classrooms")
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (data) {
+                const items = data;
+                setClassRoom(items[0].id)
+                setClassroomsList(items);
+            });
+    };
 
     return (
-        <RD3Component data={
+        <>
             <div id="mapContainer">
                 <svg id="map" xmlns="http://www.w3.org/2000/svg" xmlnsXlink="http://www.w3.org/1999/xlink" viewBox="0 0 3840 2160">
-                    <g id="svgMapContainer">
-                        <g id="bg_branco" data-name="bg branco">
-                            <rect className="cls-2" x="-13.27" y="-6.37" width="3858.27" height="2179.21" />
-                        </g>
+                    <g id="svgMapContainer" onClick={handleSetWaypoint}>
                         <g id="contornos">
                             <g id="estradas_e_limites" data-name="estradas e limites">
                                 <path id="ruas" className="cls-3" d="M3945.67,1945.67c-3.22-22.44-23.26-41.71-47.07-38.53L3461,1965.55,3023.35,2024l-246.58,32.91a48.27,48.27,0,0,0-8.47,1.91l-898.51-9.67-899.41-9.68-475.67-5.11q-36.33-177-72.65-354.06-39.18-190.85-78.34-381.71-19.22-93.7-38.45-187.4L540.41,910.49,804.22,685.35,1067,461.09l264.83-226L1594.63,10.81l32.84-28c8.81-7.52,15.34-16.32,17.2-28.06,1.65-10.42-1-23.62-7.68-32-13.6-17.06-41.74-25.15-60.07-9.52L1313.11,138.34l-263.8,225.14L786.52,587.74l-264.83,226L258.9,1038l-7,6L69.54,887.62,14.92,840.8c-17.09-14.65-47.1-11.53-60.44,6.79C-59.64,867-57,892.34-38.73,908l194.2,166.48,54.62,46.83a36,36,0,0,0,6,4.13c.16.21.31.43.47.63a44.86,44.86,0,0,0,5.66,5.88l70.08,341.49,78.33,381.72,41.19,200.74L252.34,2094,43.75,2143.86l-118.37,28.28c-10.07,2.4-20.31,14-24.26,23-4.15,9.47-5,22.74-.88,32.41,4.44,10.38,12.14,20,23,24.26l10.56,3.08a42.93,42.93,0,0,0,21.85-2.2l208.59-49.83L372.82,2153l118.37-28.28a26.9,26.9,0,0,0,9.63-4.84l874.76,9.41L2275,2139l254.08,2.73q-6.55,43.35-13.12,86.69a44.48,44.48,0,0,0,7.68,32c6.2,8.53,17.4,16,28.06,17.2,23,2.64,45.6-12,49.2-35.75q7.5-49.6,15-99.21l166.45,1.8a31.6,31.6,0,0,0,14.53-3.52l426.06-56.86,437.62-58.42,246.59-32.91c11.29-1.51,22.15-7,29.35-16C3943,1968.68,3947.16,1956.09,3945.67,1945.67Z" />
@@ -1344,10 +1451,87 @@ function Map() {
                                 <circle className="cls-22" cx="2948.74" cy="1370.97" r="43.76" />
                             </g>
                         </g>
+                        <g id="waypoints">
+                            <g id='waypoints_andar_1' style={(activeLevel === '1') ? { "opacity": "1" } : { "opacity": "0" }}>
+                                {getLevelWaypoints('1')}
+                            </g>
+                            <g id='waypoints_andar_2' style={(activeLevel === '2') ? { "opacity": "1" } : { "opacity": "0" }}>
+                                {getLevelWaypoints('2')}
+                            </g>
+                            <g id='waypoints_andar_3' style={(activeLevel === '3') ? { "opacity": "1" } : { "opacity": "0" }}>
+                                {getLevelWaypoints('3')}
+                            </g>
+                            <g id='waypoints_andar_4' style={(activeLevel === '4') ? { "opacity": "1" } : { "opacity": "0" }}>
+                                {getLevelWaypoints('4')}
+                            </g>
+                            <g id='waypoints_andar_5' style={(activeLevel === '5') ? { "opacity": "1" } : { "opacity": "0" }}>
+                                {getLevelWaypoints('5')}
+                            </g>
+                        </g>
                     </g>
                 </svg>
             </div>
-        } />
+            <Helmet>
+                <script src="/map.js"></script>
+            </Helmet>
+
+            <Modal isOpen={isOpen} onClose={onClose}>
+                <ModalOverlay />
+                <ModalContent>
+                    <ModalHeader>
+                        {t("beacon_add")}
+                    </ModalHeader>
+                    <ModalCloseButton />
+                    <ModalBody>
+
+                        <Input mb='1rem' variant='flushed' placeholder={t("beacon_device_id")} onChange={(e) => {
+                            setDeviceId(e.target.value)
+                        }} />
+
+                        <Select
+                            placeholder=''
+                            mb='1rem'
+                            onChange={(e) => setClassRoom(parseInt(e.target.value))}
+                        >
+                            {classroomList.map(({ name, id }) => (
+                                <option key={id} value={id}>{name}</option>
+                            ))}
+                        </Select>
+
+                        <NumberInput min={0} value={posX} onChange={(valueNumber) => {
+                            setPosX(Number(valueNumber))
+                        }}>
+                            <NumberInputField mb='1rem' placeholder={t("beacon_coordinate") + 'X'} />
+                        </NumberInput>
+
+                        <NumberInput min={0} value={posY} onChange={(valueNumber) => {
+                            setPosY(Number(valueNumber))
+                        }}>
+                            <NumberInputField mb='1rem' placeholder={t("beacon_coordinate") + 'Y'} />
+                        </NumberInput>
+
+                        <NumberInput min={0} onChange={(valueNumber) => {
+                            setPosZ(Number(valueNumber))
+                        }}>
+                            <NumberInputField mb='3rem' placeholder={t("beacon_coordinate") + 'Z'} />
+                        </NumberInput>
+
+                        <CustomButton
+                            backgroundColor="isepBrick.500"
+                            borderColor="isepGreen.500"
+                            buttonColor="isepGrey.600"
+                            hoverColor="isepBrick.400"
+                            text={t("beacon_add")}
+                            textColor="#FFFFFF"
+                            width="280px"
+                            marginBottom="1rem"
+                            handleButtonClick={() => handleAddBeacon()}
+                        />
+
+                    </ModalBody>
+                </ModalContent>
+            </Modal>
+        </>
     )
 }
 

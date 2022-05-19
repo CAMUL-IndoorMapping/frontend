@@ -45,6 +45,7 @@
   "beacon_device_id": "Device Id",
   "beacon_classroom": "Classroom",
   "beacon_coordinates": "Coordinates",
+  "beacon_coordinate": "Coordinate",
   "beacon_list":"List of Beacons",
   "beacon_add":"Add Beacon",
   "beacon_update":"Update Beacon",

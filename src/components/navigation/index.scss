@@ -4,13 +4,17 @@
   left: 0;
   right: 0;
 
-  height: 133px;
+  height: 80px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 
   padding: 37.5px 124px;
+
+  &.homepage {
+    background-color: white;
+  }
 }
 
 .page_nav {
@@ -74,6 +78,7 @@
       line-height: 3.048rem;
       color: #a2543d;
     }
+
     :last-child {
       margin-left: 9px;
     }

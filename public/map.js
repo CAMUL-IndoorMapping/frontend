@@ -42,6 +42,7 @@ function openFloor(andar) {
     $("#" + blocoOpened + "-2").css("opacity", "0");
     
     $("#" + blocoOpened + "_andar_" + andar).css("opacity", "1");
+    $("#waypoints_andar_" + andar).css("opacity", "1");
     console.log("#" + blocoOpened + "_andar_" + andar);
 }
 
