@@ -157,6 +157,9 @@
   "rgpd_30":"Age Limitations  ",
   "rgpd_31":"Our Service is intended for adults ages 18 years and above. We do not knowingly collect personally identifiable information from children. If you are a parent or legal guardian and think your child under 13 has given us information, please email us at the address listed at the end of this Privacy Policy.  ",
   "rgpd_32":"Changes to this Privacy Policy  ",
-  "rgpd_33":"ISEP Indoor Mapping may change this Privacy Policy from time to time. We encourage you to visit this page to stay informed. If the changes are material, we may provide you additional notice to your email address or through our Services. Your continued use of the Services indicates your acceptance of the modified Privacy Policy."  
+  "rgpd_33":"ISEP Indoor Mapping may change this Privacy Policy from time to time. We encourage you to visit this page to stay informed. If the changes are material, we may provide you additional notice to your email address or through our Services. Your continued use of the Services indicates your acceptance of the modified Privacy Policy."  ,
+  "notes_for_user": "Notes for the user ",
+  "note_add_error":"Note couldn't be added 😓",
+  "note_add_success": "Note successfully added!"
 
 }

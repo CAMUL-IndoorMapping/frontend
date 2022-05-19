@@ -157,6 +157,9 @@
   "rgpd_30":"Limitações de idade",
   "rgpd_31":"O nosso Serviço destina-se a adultos com idade igual ou superior a 18 anos. Não colecionamos intencionalmente informações de identificação pessoal de crianças. Se você é um parente ou responsável legal e acha que o seu filho menor de 13 anos nos forneceu informações, envie-nos um e-mail para o endereço indicado no final desta Política de Privacidade",
   "rgpd_32":"Alterações a esta Política de Privacidade",
-  "rgpd_33":"A ISEP Indoor Mapping pode atualizar esta Política de Privacidade recorrentemente. Recomendamos que você visite esta página para se manter informado. Se as alterações forem materiais, podemos fornecer um aviso adicional para o seu endereço de e-mail ou por meio dos nossos Serviços. O seu uso continuado dos Serviços indica a sua aceitação da Política de Privacidade modificada."  
+  "rgpd_33":"A ISEP Indoor Mapping pode atualizar esta Política de Privacidade recorrentemente. Recomendamos que você visite esta página para se manter informado. Se as alterações forem materiais, podemos fornecer um aviso adicional para o seu endereço de e-mail ou por meio dos nossos Serviços. O seu uso continuado dos Serviços indica a sua aceitação da Política de Privacidade modificada.",
+  "notes_for_user": "Notas para o utilizador ",
+  "note_add_error":"Nota não pode ser adicionada 😓",
+  "note_add_success": "Nota adicionada com sucesso!"
 
 }
