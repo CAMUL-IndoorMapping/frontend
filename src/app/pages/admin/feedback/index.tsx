@@ -18,6 +18,7 @@ import {
   Icon,
   Spinner,
   Textarea,
+  Container,
 } from "@chakra-ui/react";
 import ReactAudioPlayer from "react-audio-player";
 import { BrowserView, MobileView } from "react-device-detect";
@@ -26,6 +27,7 @@ import useTranslation from "../../../../i18n/use-translation";
 import ReactPlayer from "react-player";
 import { useStoreSelector } from "../../../../store";
 import { userData } from "../../../../store/user-reducer";
+import CustomButton from "../../../../components/buttons";
 
 interface Feedback {
   dateTime: string;
@@ -35,28 +37,40 @@ interface Feedback {
   id: number;
   idBeacon: number;
   idUser: number;
+  adminResponse?: string[];
 }
 
 interface Feedbacks {
   feedback: Feedback[];
 }
 
+interface Review{
+  feedbackId: number;
+  contente: string
+}
+
 function AdminFeedback() {
   const { t } = useTranslation();
   const currentUser = useStoreSelector(userData);
   const [stateFeedback, setFeedback] = useState("");
+  const [stateFeedbackId, setFeedbackId] = useState(0);
+  const [stateIsSelected, setSelected] = useState(false);
   const [stateName, setName] = useState("");
   const [stateType, setType] = useState("text");
+  const [stateReview, setReview] = useState("");
   const [stateFeedbacks, setFeedbacks] = useState<Feedbacks>();
 
   function setFeedBackAndName(
     event: string,
     eventName: string,
-    eventType: string
+    eventType: string,
+    eventId: number
   ) {
+    setSelected(true);
     setFeedback(event);
     setName(eventName);
     setType(eventType);
+    setFeedbackId(eventId);
   }
 
   function getFeedback(feedback: string, type: string): ReactNode {
@@ -99,6 +113,10 @@ function AdminFeedback() {
     }
   }
 
+  function getFeedbackById(id: number): Feedback|undefined{
+    return stateFeedbacks?.feedback.find(f=>f.id ===id);
+  }
+
   const api = "https://camul2022.pythonanywhere.com";
 
   const loadFeedbacksAsync = async () => {
@@ -125,6 +143,11 @@ function AdminFeedback() {
         });
     }
   };
+
+  function handleInputChange(inputValue:string): void {
+    setReview(inputValue)
+    console.log(inputValue)
+  }
 
   useEffect(() => {
     loadFeedbacksAsync();
@@ -232,7 +255,7 @@ function AdminFeedback() {
             <SimpleGrid columns={[1, 2]}>
               <Box>
                 {stateFeedbacks?.feedback.map(
-                  ({ dateTime: date, content: feedback, username, type }) => (
+                  ({ dateTime: date, content: feedback, username, type, id }) => (
                     <Center>
                       <ButtonGroup marginTop="1%" marginBottom="0.5%">
                         <Button
@@ -244,13 +267,11 @@ function AdminFeedback() {
                             boxShadow: "none",
                           }}
                           fontFamily={"Montserrat-Medium"}
-                          //  Change This to name variable when backend updates API
                           onClick={() =>
-                            setFeedBackAndName(feedback, username, type)
+                            setFeedBackAndName(feedback, username, type, id)
                           }
                         >
                           <Box margin={"2"}>{getIcon(type)}</Box>
-                          {/* Change This to Date when backend updates API */}
                           <Text fontFamily={"Montserrat-Medium"}>{date}</Text>
                         </Button>
                       </ButtonGroup>
@@ -269,7 +290,7 @@ function AdminFeedback() {
                   <GridItem colSpan={1} h="320" w="10">
                     <Divider orientation="vertical" />
                   </GridItem>
-                  <GridItem colStart={3} colEnd={7} h="320">
+                  <GridItem colStart={2} colEnd={7} h="320">
                     <Box>
                       {getFeedback(stateFeedback, stateType)}
                       <Box height={"100px"}></Box>
@@ -282,10 +303,29 @@ function AdminFeedback() {
                         {stateName}
                       </Text>
                     </Box>
-                    <Box marginTop={"30px"}>
+                    {stateIsSelected && (
+                      <Box marginTop={"50px"} width="350px">
+                        {getFeedbackById(stateFeedbackId)?.adminResponse === undefined || getFeedbackById(stateFeedbackId)?.adminResponse?.length === 0 ? 
+                        <Container color="#575757" mt="1rem" mb="1rem"><Text fontSize={"10px"} align="left">{t("no_notes")}</Text></Container>
+                         :
+                        getFeedbackById(stateFeedbackId)?.adminResponse?.map(r=>
+                          <Text>{r}</Text>
+                          )}
                       <Text textAlign={"left"}>{t("notes")}</Text>
-                    <Textarea placeholder={t("write_notes")} />
+                    <Textarea value={stateReview} onChange={(e) => handleInputChange(e.target.value)} placeholder={t("write_notes")}/>
+                    <Box height={"10px"}></Box>
+                    <CustomButton
+                      backgroundColor="isepBrick.500"
+                      borderColor="isepGreen.500"
+                      buttonColor="isepGrey.600"
+                      hoverColor="isepBrick.400"
+                      text={t("send_feedback_review")}
+                      textColor="#FFFFFF"
+                      width="280px"
+                      handleButtonClick={() => console.log(stateReview)}
+                    />
                     </Box>
+                    )}
                   </GridItem>
                 </Grid>
               </Box>
