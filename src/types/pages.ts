@@ -1,8 +1,10 @@
 export enum Page {
   Login,
-  Map,
-  Settings,
+  HomePage,
   FeedBack,
+  Settings,
+  AdminFeedback,
+  Beacons
 }
 
 export default Page;

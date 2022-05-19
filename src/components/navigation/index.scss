@@ -1,0 +1,85 @@
+.nav_container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+
+  height: 133px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 37.5px 124px;
+}
+
+.page_nav {
+  height: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .app_logo {
+    margin-right: auto;
+  }
+
+  .first_child {
+    margin-left: 128px;
+  }
+
+  span {
+    font-family: "Montserrat", sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 21px;
+    text-align: center;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+
+    color: #a2543d;
+
+    margin-right: 80px;
+  }
+}
+
+.lang_options {
+  height: 100%;
+  margin-left: auto;
+
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  .about_us_copy {
+    font-family: "Montserrat", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 22px;
+    text-align: center;
+    letter-spacing: 0.04em;
+
+    color: #a2543d;
+    text-transform: uppercase;
+    margin-right: 54.79px;
+    cursor: pointer;
+  }
+
+  .lang_options_wrapper {
+    span {
+      font-family: "Montserrat", sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      line-height: 3.048rem;
+      color: #a2543d;
+    }
+    :last-child {
+      margin-left: 9px;
+    }
+  }
+
+  .logout_icon {
+    margin-left: 13px;
+  }
+}
