@@ -17,6 +17,11 @@ import {
   Divider,
   Icon,
   Spinner,
+  Textarea,
+  Container,
+  useToast,
+  UnorderedList,
+  ListItem,
 } from "@chakra-ui/react";
 import ReactAudioPlayer from "react-audio-player";
 import { BrowserView, MobileView } from "react-device-detect";
@@ -25,6 +30,7 @@ import useTranslation from "../../../../i18n/use-translation";
 import ReactPlayer from "react-player";
 import { useStoreSelector } from "../../../../store";
 import { userData } from "../../../../store/user-reducer";
+import CustomButton from "../../../../components/buttons";
 
 interface Feedback {
   dateTime: string;
@@ -34,28 +40,41 @@ interface Feedback {
   id: number;
   idBeacon: number;
   idUser: number;
+  adminResponse: string[];
 }
 
 interface Feedbacks {
   feedback: Feedback[];
 }
 
+interface Review {
+  feedbackId: number;
+  contente: string;
+}
+
 function AdminFeedback() {
   const { t } = useTranslation();
   const currentUser = useStoreSelector(userData);
   const [stateFeedback, setFeedback] = useState("");
+  const [stateFeedbackId, setFeedbackId] = useState(0);
+  const [stateIsSelected, setSelected] = useState(false);
   const [stateName, setName] = useState("");
   const [stateType, setType] = useState("text");
+  const [stateReview, setReview] = useState("");
   const [stateFeedbacks, setFeedbacks] = useState<Feedbacks>();
+  const toast = useToast();
 
   function setFeedBackAndName(
     event: string,
     eventName: string,
-    eventType: string
+    eventType: string,
+    eventId: number
   ) {
+    setSelected(true);
     setFeedback(event);
     setName(eventName);
     setType(eventType);
+    setFeedbackId(eventId);
   }
 
   function getFeedback(feedback: string, type: string): ReactNode {
@@ -63,14 +82,12 @@ function AdminFeedback() {
       var encode = feedback.split("/")[1].split(".");
       var stringEncoded = encode[0];
       var result = api + "/uploads/" + stringEncoded + "." + encode[1];
-      console.log(result);
 
       if (type === "image") {
         return (
           <div>
-            {" "}
             <Box height={"50px"}></Box>
-            <Image src={result} alt="" />;
+            <Image src={result} alt="" />
           </div>
         );
       } else if (type === "audio") {
@@ -99,11 +116,15 @@ function AdminFeedback() {
     }
   }
 
+  function getFeedbackById(id: number): Feedback | undefined {
+    return stateFeedbacks?.feedback.find((f) => f.id === id);
+  }
+
   const api = "https://camul2022.pythonanywhere.com";
 
   const loadFeedbacksAsync = async () => {
     if (currentUser.isAdmin) {
-      console.log("fetch feedback list admin")
+      console.log("fetch feedback list admin");
       await fetch(api + "/account/feedback")
         .then(function (response) {
           return response.json();
@@ -112,10 +133,9 @@ function AdminFeedback() {
           const items = data;
           setFeedbacks(items);
         });
-    }
-    else {
-      console.log("fetch feedback list user")
-      await fetch(api + "/account/feedback?idUser="+ currentUser.userID)
+    } else {
+      console.log("fetch feedback list user");
+      await fetch(api + "/account/feedback?idUser=" + currentUser.userID)
         .then(function (response) {
           return response.json();
         })
@@ -125,6 +145,42 @@ function AdminFeedback() {
         });
     }
   };
+
+  var jsonDataReview = {
+    feedbackId: stateFeedbackId,
+    content: stateReview,
+  };
+
+  function handleAddReview(): void {
+    fetch(api + "/uploads/answer", {
+      method: "POST",
+      mode: "cors",
+      body: JSON.stringify(jsonDataReview),
+      headers: {
+        authToken: currentUser.authToken,
+        "Content-Type": "application/json",
+      }, //change to actual token
+    }).then((response) => {
+      if (!response.ok) {
+        toast({
+          title: t("note_add_error"),
+          status: "error",
+          isClosable: true,
+        });
+        throw new Error("Error" + response.status);
+      } else {
+        toast({
+          title: t("note_add_success"),
+          status: "success",
+          isClosable: true,
+        });
+      }
+    });
+  }
+
+  function handleInputChange(inputValue: string): void {
+    setReview(inputValue);
+  }
 
   useEffect(() => {
     loadFeedbacksAsync();
@@ -170,9 +226,9 @@ function AdminFeedback() {
               {t("feedback_admin_page")}
             </Text>
             {stateFeedbacks.feedback.map(
-              ({ dateTime: date, content: feedback, username, type }) => (
+              ({ dateTime: date, content: feedback, username, type, id }) => (
                 <Accordion allowToggle>
-                  <AccordionItem>
+                  <AccordionItem onClick={()=>setFeedBackAndName(feedback,username,type,id)}>
                     <h2>
                       <AccordionButton
                         bg="isepBrick.300"
@@ -187,7 +243,7 @@ function AdminFeedback() {
                         </Center>
                       </AccordionButton>
                     </h2>
-                    <AccordionPanel pb={4} fontFamily={"Montserrat-Medium"}>
+                    <AccordionPanel pb={4} fontFamily={"Montserrat-Medium"} >
                       {getFeedback(feedback, type)}
                       <Text
                         fontSize="xs"
@@ -196,6 +252,70 @@ function AdminFeedback() {
                       >
                         {username}
                       </Text>
+                      <div>
+                        
+                        <Box margin={"50px"}></Box>
+                        <Box
+                          marginTop={"50px"}
+                          width="700px"
+                          maxW="sm"
+                          borderWidth="2px"
+                          borderRadius="lg"
+                          overflow="hidden"
+                          mt="2"
+                          alignItems="left"
+                        >
+                          <Text textAlign={"left"}>
+                            {t("notes_for_user")}{stateName}:
+                          </Text>
+                          <Box margin={"20px"}></Box>
+                          <Box marginBottom={"20px"}>
+                            {getFeedbackById(stateFeedbackId)?.adminResponse ===
+                              undefined ||
+                            getFeedbackById(stateFeedbackId)?.adminResponse
+                              ?.length === 0 ? (
+                              <Container color="#575757" mt="1rem" mb="1rem">
+                                <Text fontSize={"10px"} align="left">
+                                  {t("no_notes")}
+                                </Text>
+                              </Container>
+                            ) : (
+                              getFeedbackById(
+                                stateFeedbackId
+                              )?.adminResponse?.map((r) => (
+                                <div>
+                                  <UnorderedList>
+                                    <ListItem
+                                      alignItems={"left"}
+                                      fontSize="13px"
+                                    >
+                                      {r}
+                                    </ListItem>
+                                  </UnorderedList>
+                                </div>
+                              ))
+                            )}
+                          </Box>
+                          <Box margin={"20px"}></Box>
+                          <Text textAlign={"left"}>{t("notes")}</Text>
+                          <Textarea
+                            value={stateReview}
+                            onChange={(e) => handleInputChange(e.target.value)}
+                            placeholder={t("write_notes")}
+                          />
+                        </Box>
+                        <Box height={"10px"}></Box>
+                        <CustomButton
+                          backgroundColor="isepBrick.500"
+                          borderColor="isepGreen.500"
+                          buttonColor="isepGrey.600"
+                          hoverColor="isepBrick.400"
+                          text={t("send_feedback_review")}
+                          textColor="#FFFFFF"
+                          width="280px"
+                          handleButtonClick={() => handleAddReview()}
+                        />
+                      </div>
                     </AccordionPanel>
                   </AccordionItem>
                 </Accordion>
@@ -207,7 +327,9 @@ function AdminFeedback() {
           <div>
             <Center>
               <Box height={"300px"}></Box>
-              <Text fontFamily={"Montserrat-SemiBold"}>{t("loading_data")}</Text>
+              <Text fontFamily={"Montserrat-SemiBold"}>
+                {t("loading_data")}
+              </Text>
               <Box width={"75px"}></Box>
 
               <Spinner
@@ -225,13 +347,20 @@ function AdminFeedback() {
       <BrowserView>
         {stateFeedbacks !== undefined && (
           <div>
+            {/* <iframe width="90%" height="500px" allowFullScreen={true} allow="accelerometer; magnetometer; gyroscope" src="https://panoraven.com/en/embed/jqmyMkOdN3"></iframe> */}
             <Text fontSize="3xl" margin="7" fontFamily={"Montserrat-Medium"}>
               {t("feedback_admin_page")}
             </Text>
             <SimpleGrid columns={[1, 2]}>
               <Box>
                 {stateFeedbacks?.feedback.map(
-                  ({ dateTime: date, content: feedback, username, type }) => (
+                  ({
+                    dateTime: date,
+                    content: feedback,
+                    username,
+                    type,
+                    id,
+                  }) => (
                     <Center>
                       <ButtonGroup marginTop="1%" marginBottom="0.5%">
                         <Button
@@ -243,13 +372,11 @@ function AdminFeedback() {
                             boxShadow: "none",
                           }}
                           fontFamily={"Montserrat-Medium"}
-                          //  Change This to name variable when backend updates API
                           onClick={() =>
-                            setFeedBackAndName(feedback, username, type)
+                            setFeedBackAndName(feedback, username, type, id)
                           }
                         >
                           <Box margin={"2"}>{getIcon(type)}</Box>
-                          {/* Change This to Date when backend updates API */}
                           <Text fontFamily={"Montserrat-Medium"}>{date}</Text>
                         </Button>
                       </ButtonGroup>
@@ -269,7 +396,7 @@ function AdminFeedback() {
                     <Divider orientation="vertical" />
                   </GridItem>
                   <GridItem colStart={2} colEnd={7} h="320">
-                    <Box>
+                    <Box alignContent={"left"}>
                       {getFeedback(stateFeedback, stateType)}
                       <Box height={"100px"}></Box>
                       <Text
@@ -281,6 +408,72 @@ function AdminFeedback() {
                         {stateName}
                       </Text>
                     </Box>
+                    {stateIsSelected && (
+                      <div>
+                        
+                        <Box margin={"50px"}></Box>
+                        <Box
+                          marginTop={"50px"}
+                          width="700px"
+                          maxW="sm"
+                          borderWidth="2px"
+                          borderRadius="lg"
+                          overflow="hidden"
+                          mt="2"
+                          alignItems="left"
+                        >
+                          <Text textAlign={"left"}>
+                            {t("notes_for_user")}{stateName}:
+                          </Text>
+                          <Box margin={"20px"}></Box>
+                          <Box marginBottom={"20px"}>
+                            {getFeedbackById(stateFeedbackId)?.adminResponse ===
+                              undefined ||
+                            getFeedbackById(stateFeedbackId)?.adminResponse
+                              ?.length === 0 ? (
+                              <Container color="#575757" mt="1rem" mb="1rem">
+                                <Text fontSize={"10px"} align="left">
+                                  {t("no_notes")}
+                                </Text>
+                              </Container>
+                            ) : (
+                              getFeedbackById(
+                                stateFeedbackId
+                              )?.adminResponse?.map((r) => (
+                                <div>
+                                  <UnorderedList>
+                                    <ListItem
+                                      alignItems={"left"}
+                                      fontSize="13px"
+                                    >
+                                      {r}
+                                    </ListItem>
+                                  </UnorderedList>
+                                </div>
+                              ))
+                            )}
+                          </Box>
+                          <Box margin={"20px"}></Box>
+                          <Text textAlign={"left"}>{t("notes")}</Text>
+                          <Textarea
+                            value={stateReview}
+                            onChange={(e) => handleInputChange(e.target.value)}
+                            placeholder={t("write_notes")}
+                          />
+                        </Box>
+                        <Box height={"10px"}></Box>
+                        <CustomButton
+                          backgroundColor="isepBrick.500"
+                          borderColor="isepGreen.500"
+                          buttonColor="isepGrey.600"
+                          hoverColor="isepBrick.400"
+                          text={t("send_feedback_review")}
+                          textColor="#FFFFFF"
+                          width="280px"
+                          handleButtonClick={() => handleAddReview()}
+                        />
+                      </div>
+                    )}
                   </GridItem>
                 </Grid>
               </Box>
@@ -291,7 +484,9 @@ function AdminFeedback() {
           <div>
             <Center>
               <Box height={"300px"}></Box>
-              <Text fontFamily={"Montserrat-SemiBold"}>{t("loading_data")}</Text>
+              <Text fontFamily={"Montserrat-SemiBold"}>
+                {t("loading_data")}
+              </Text>
               <Box width={"75px"}></Box>
 
               <Spinner
