@@ -2,7 +2,7 @@
 import "./index.scss";
 import { ReactComponent as Logo } from "../../../assets/svg/logo_large.svg";
 import { ReactComponent as Circles } from "../../../assets/svg/circles.svg";
-import { Box, Container, Flex, Heading, IconButton, Input, Radio, RadioGroup, Stack, Text, Center, FormControl, textDecoration, Button, useDisclosure, useToast } from "@chakra-ui/react";
+import { Box, Container, Flex, Heading, IconButton, Input, Radio, RadioGroup, Stack, Text, Center, FormControl, textDecoration, Button, useDisclosure, useToast, ListItem, UnorderedList } from "@chakra-ui/react";
 import CustomButton from '../../../components/buttons';
 import React, { useState } from "react";
 import useTranslation from "../../../i18n/use-translation";
@@ -912,20 +912,54 @@ function LoginPage() {
             /></Box>
             <Box>
 
-              <Heading
-                color="#575757"
-                pl="16px"
-                mb="2rem"
-                fontFamily={"Montserrat-Medium"}
-              >
-                {t("faqs")}
-              </Heading>
+            <Heading
+                  color="#575757"
+                  pl="16px"
+                  mb="2rem"
+                  fontFamily={"Montserrat-Medium"}
+                >
+                  {t("faqs")}
+                </Heading>                
+                <Text fontFamily={"Montserrat-Medium"}>
+                  {t("faqs_1")}
+                </Text>
+                <Container maxW="750px" color="#575757" marginBottom={"10px"}>
+                  <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_1_answer")} </Text>
+                </Container>
+                <Text fontFamily={"Montserrat-Medium"}>
+                  {t("faqs_2")}
+                </Text>
+                <Container maxW="750px" color="#575757"  marginBottom={"10px"}>
+                  <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_2_answer")} </Text>
+                </Container><Text fontFamily={"Montserrat-Medium"}>
+                  {t("faqs_3")}
+                </Text>
+                <Container maxW="750px" color="#575757" marginBottom={"10px"}>
+                  <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_3_answer")} </Text>
+                </Container><Text fontFamily={"Montserrat-Medium"}>
+                  {t("faqs_4")}
+                </Text>
+                <Container maxW="750px" color="#575757" marginBottom={"10px"}>
+                  <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_4_answer")} </Text>
+                </Container><Text fontFamily={"Montserrat-Medium"}>
+                  {t("faqs_5")}
+                </Text>
+                <Container maxW="750px" color="#575757" marginBottom={"10px"}>
+                  <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_5_answer")} </Text>
+                </Container><Text fontFamily={"Montserrat-Medium"}>
+                  {t("faqs_6")}
+                </Text>
+                <Container maxW="750px" color="#575757" marginBottom={"10px"}>
+                  <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_6_answer")} </Text>
+                </Container><Text fontFamily={"Montserrat-Medium"}>
+                  {t("faqs_7")}
+                </Text>
+                <Container maxW="750px" color="#575757" marginBottom={"10px"}>
+                  <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_7_answer")} </Text>
+                </Container>
+                
 
-              <Text fontFamily={"Montserrat-Medium"} margin={"10px"}>
-                {t("question")}
-              </Text>
-              <Container maxW="750px" color="#575757" mt="1rem">
-                <Text fontFamily={"Montserrat-Medium"}> {t("answer")} </Text></Container>
+              
             </Box>
           </Flex>
         )}
@@ -1532,11 +1566,104 @@ function LoginPage() {
                   {t("rgpd")}
                 </Heading>
 
-                <Text fontFamily={"Montserrat-Medium"}>
-                  {t("information_RGPD")}
+                
+                  <div className="center-col">
+      <span>
+                  <Heading
+                  color="#575757"
+                  pl="16px"
+                  mb="2rem"
+                  fontFamily={"Montserrat-Medium"}
+                  size='md'
+                >
+                  {t("rgpd_1")}
+                </Heading>
+                  
+                
+                <Container maxW="750px" color="#575757" mb="1rem">
+                  <Text fontFamily={"Montserrat-Medium"}>{t("rgpd_2")} </Text></Container>
+<Text fontFamily={"Montserrat-Medium"}>
+{t("rgpd_3")}
                 </Text>
-                <Container maxW="750px" color="#575757" mt="1rem">
-                  <Text fontFamily={"Montserrat-Medium"}> {t("answer_RGPD")}</Text></Container>
+                <Container maxW="750px" color="#575757" mb="1rem">
+                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_4")}</Text></Container>
+
+<Text fontFamily={"Montserrat-Medium"}>
+{t("rgpd_5")}
+                </Text>
+                <Container maxW="750px" color="#575757" mb="1rem">
+                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_6")}</Text></Container>
+
+<Text fontFamily={"Montserrat-Medium"}>
+{t("rgpd_7")}
+                </Text>
+                <Container maxW="750px" color="#575757" mb="1rem">
+                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_8")}</Text>
+<UnorderedList>
+  <ListItem>{t("rgpd_9")}</ListItem>
+  <ListItem>{t("rgpd_10")}
+</ListItem>
+  <ListItem>{t("rgpd_11")}
+</ListItem>
+<ListItem>{t("rgpd_12")}</ListItem>  
+<ListItem>{t("rgpd_13")}</ListItem>  <ListItem>{t("rgpd_14")}
+</ListItem>  <ListItem>{t("rgpd_15")}
+</ListItem><ListItem>{t("rgpd_16")}
+</ListItem><ListItem>{t("rgpd_17")}
+</ListItem>
+</UnorderedList>
+
+</Container>
+
+<Text fontFamily={"Montserrat-Medium"}>
+{t("rgpd_18")}
+
+                </Text>
+                <Container maxW="750px" color="#575757" mb="1rem">
+                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_19")}</Text></Container>
+<Text fontFamily={"Montserrat-Medium"}>
+{t("rgpd_20")}
+                </Text>
+                <Container maxW="750px" color="#575757" mb="1rem">
+                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_21")}</Text></Container>
+<Text fontFamily={"Montserrat-Medium"}>
+{t("rgpd_22")}
+                </Text>
+                <Container maxW="750px" color="#575757" mb="1rem">
+                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_23")}</Text></Container>
+
+<Text fontFamily={"Montserrat-Medium"}>
+{t("rgpd_24")}
+                </Text>
+                <Container maxW="750px" color="#575757" mb="1rem">
+                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_25")}</Text></Container>
+
+<Text fontFamily={"Montserrat-Medium"}>
+{t("rgpd_26")}
+                </Text>
+                <Container maxW="750px" color="#575757" mb="1rem">
+                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_27")}</Text></Container>
+<Text fontFamily={"Montserrat-Medium"}>
+{t("rgpd_28")}
+
+                </Text>
+                <Container maxW="750px" color="#575757" mb="1rem">
+                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_29")}</Text></Container>
+<Text fontFamily={"Montserrat-Medium"}>
+{t("rgpd_30")}
+
+                </Text>
+                <Container maxW="750px" color="#575757" mb="1rem">
+                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_31")}</Text></Container>
+<Text fontFamily={"Montserrat-Medium"}>
+{t("rgpd_32")}
+
+                </Text>
+                <Container maxW="750px" color="#575757" mb="1rem">
+                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_33")}</Text></Container>
+
+</span>
+    </div>
               </Box>
             </Flex>
           )}

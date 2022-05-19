@@ -37,7 +37,7 @@ interface Feedback {
   id: number;
   idBeacon: number;
   idUser: number;
-  adminResponse?: string[];
+  adminResponse: string[];
 }
 
 interface Feedbacks {
@@ -128,6 +128,7 @@ function AdminFeedback() {
         })
         .then(function (data) {
           const items = data;
+          console.log(items);
           setFeedbacks(items);
         });
     }
