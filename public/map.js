@@ -19,13 +19,13 @@ function clearFloors() {
     $('path').filter(function () {
         return this.id.includes("bloco_") && this.id.includes("-2");
     }).css("opacity", "1")
-        
+
 }
 
-function clearLabels(){
-    if(blocoOpened!=""){
-        $(document.getElementById(blocoOpened).getElementsByTagName("text")[document.getElementById(blocoOpened).getElementsByTagName("text").length - 1]).css("opacity","1");
-        $(document.getElementById(blocoOpened).getElementsByTagName("ellipse")[0]).css("opacity","1")
+function clearLabels() {
+    if (blocoOpened != "") {
+        $(document.getElementById(blocoOpened).getElementsByTagName("text")[document.getElementById(blocoOpened).getElementsByTagName("text").length - 1]).css("opacity", "1");
+        $(document.getElementById(blocoOpened).getElementsByTagName("ellipse")[0]).css("opacity", "1")
     }
 }
 
@@ -40,8 +40,9 @@ function leaveBloco(id) {
 function openFloor(andar) {
     clearFloors();
     $("#" + blocoOpened + "-2").css("opacity", "0");
-    
+
     $("#" + blocoOpened + "_andar_" + andar).css("opacity", "1");
+    $("#waypoints_andar_" + andar).css("opacity", "1");
     console.log("#" + blocoOpened + "_andar_" + andar);
 }
 
@@ -98,13 +99,13 @@ $('path').filter(function () {
 $("#bloco_B").on("click", (e) => {
     clearFloors()
     blocoOpened = "bloco_B";
-    $(document.getElementById(blocoOpened).getElementsByTagName("ellipse")[0]).css("opacity","0")
-    $(document.getElementById(blocoOpened).getElementsByTagName("text")[document.getElementById(blocoOpened).getElementsByTagName("text").length - 1]).css("opacity","0")
+    $(document.getElementById(blocoOpened).getElementsByTagName("ellipse")[0]).css("opacity", "0")
+    $(document.getElementById(blocoOpened).getElementsByTagName("text")[document.getElementById(blocoOpened).getElementsByTagName("text").length - 1]).css("opacity", "0")
     $("#" + e.target.id).css("opacity", "0");
     $("#bloco_B_andar_1").css("opacity", "1");
 })
 
-$(".floorButton").on("click", (e)=>{
+$(".floorButton").on("click", (e) => {
     openFloor(e.target.dataset.floor)
 });
 
@@ -146,3 +147,7 @@ var svg = d3.select('svg');
 
 var g = svg.select("#svgMapContainer");
 svg.attr("cursor", "grab").call(zoom);
+
+$('#demoImg').click(function () {
+    console.log('this works?')
+});

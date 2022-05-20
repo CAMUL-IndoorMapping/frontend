@@ -24,6 +24,7 @@ import { Box, Center, Flex, Icon, IconButton } from "@chakra-ui/react";
 import { BsFillChatFill, BsGearFill } from 'react-icons/bs'
 import { AiFillHome } from 'react-icons/ai'
 import { userData } from "../../store/user-reducer";
+import { pointer } from "d3";
 
 
 function Navigation() {
@@ -119,7 +120,7 @@ function Navigation() {
       </div>
 
       <BrowserView>
-        <div className="nav_container">
+        <div className={`nav_container ${page === 1 ? 'homepage' : ''}`}>
           {page !== Page.Login && (
             <div className="page_nav">
               <LogoNavBar className="app_logo" />
@@ -129,6 +130,7 @@ function Navigation() {
                 className="first_child"
                 style={{
                   fontWeight: page === 1 ? "700" : "400",
+                  cursor: 'pointer',
                 }}
               >
                 {t("homepage")}
@@ -138,6 +140,7 @@ function Navigation() {
                 onClick={handleNavigationClick}
                 style={{
                   fontWeight: page === 2 ? "700" : "400",
+                  cursor: 'pointer',
                 }}
               >
                 {t("feedback")}
@@ -147,6 +150,7 @@ function Navigation() {
                 onClick={handleNavigationClick}
                 style={{
                   fontWeight: page === 3 ? "700" : "400",
+                  cursor: 'pointer',
                 }}
               >
                 {t("settings")}
@@ -157,7 +161,8 @@ function Navigation() {
                   id="adminFeedback"
                   onClick={handleNavigationClick}
                   style={{
-                    fontWeight: page === 3 ? "700" : "400",
+                    fontWeight: page === 4 ? "700" : "400",
+                    cursor: 'pointer',
                   }}
                 >
                   {t("admin_feedback")}
@@ -169,7 +174,8 @@ function Navigation() {
                   id="adminBeacons"
                   onClick={handleNavigationClick}
                   style={{
-                    fontWeight: page === 3 ? "700" : "400",
+                    fontWeight: page === 5 ? "700" : "400",
+                    cursor: 'pointer',
                   }}
                 >
                   {t("admin_beacons")}
@@ -184,6 +190,9 @@ function Navigation() {
                 id='about_us'
                 className="about_us_copy"
                 onClick={handleNavigationClick}
+                style={{
+                  cursor: 'pointer',
+                }}
               >
                 {t("about_us")}
               </span>
@@ -196,6 +205,7 @@ function Navigation() {
                 }}
                 style={{
                   fontWeight: langCod === "PT" ? "700" : "300",
+                  cursor: 'pointer',
                 }}
               >
                 PT
@@ -206,6 +216,7 @@ function Navigation() {
                 }}
                 style={{
                   fontWeight: langCod === "EN" ? "700" : "300",
+                  cursor: 'pointer',
                 }}
               >
                 EN
@@ -213,7 +224,7 @@ function Navigation() {
             </div>
 
             {page !== Page.Login && (
-              <SingOut className="logout_icon" onClick={handleLogoutClick} />
+              <SingOut className="logout_icon" onClick={handleLogoutClick} style={{ cursor: 'pointer', }} />
             )}
           </div>
         </div>

@@ -3,33 +3,24 @@ import { Page } from "./types/pages";
 import { Text, Box } from "@chakra-ui/react";
 import useTranslation from "./i18n/use-translation";
 
-import { useStoreSelector, useStoreDispatch } from "./store";
-import { selectedPage, goToLoginPage } from "./store/navigation-reducer";
+import { useStoreSelector } from "./store";
+import { selectedPage } from "./store/navigation-reducer";
 import AdminFeedback from "./app/pages/admin/feedback";
-
-import CustomButton from "./components/buttons";
+import Home from "./app/pages/home";
 import AdminBeacons from "./app/pages/admin/beacons";
 import { BrowserView, MobileView } from "react-device-detect";
 import Feedback from "./app/pages/feedback";
 import UserSettings from "./app/pages/settings";
 
 import LoginPage from "../src/app/pages/login";
-import HomePage from "../src/app/pages/home";
 
 function App() {
   const { t } = useTranslation();
   const page = useStoreSelector(selectedPage);
-  const dispatch = useStoreDispatch();
-
-  // React.useEffect(() => {
-  //   setTimeout(() => {
-  //     dispatch(goToLoginPage());
-  //   }, 1000);
-  // });
 
   if (page === Page.HomePage) {
-    // Login Screen
-    return <HomePage />;
+    // Home Page
+    return <Home />;
   }
 
   if (page === Page.Login) {
@@ -103,17 +94,8 @@ function App() {
       </div>
     );
   }
-  return (
-    // <CustomButton
-    //   backgroundColor="isepBrick.300"
-    //   borderColor="isepGreen.500"
-    //   buttonColor="isepGrey.600"
-    //   hoverColor="isepBrick.400"
-    //   text="Hello There"
-    //   handleButtonClick={() => [alert("You Clicked with Button😂😂😂😂😂😂")]}
-    // />
-    <div></div>
-  );
+  return <></>
+
 }
 
 export default App;

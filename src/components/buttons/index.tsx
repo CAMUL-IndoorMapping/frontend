@@ -13,6 +13,7 @@ type ButtonProps = {
   text: ReactChild;
   disabledCondition?:boolean;
   isLoading?:boolean;
+  marginBottom? : string;
   handleButtonClick?: () => void;
 };
 
@@ -28,6 +29,7 @@ function CustomButton({
   text,
   disabledCondition,
   isLoading,
+  marginBottom,
   handleButtonClick,
 }: ButtonProps) {
   return (
@@ -46,6 +48,7 @@ function CustomButton({
         onClick={handleButtonClick}
         disabled={disabledCondition}
         isLoading={isLoading}
+        mb={marginBottom}
       >
         {text}
       </Button>
