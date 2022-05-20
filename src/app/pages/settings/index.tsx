@@ -78,50 +78,82 @@ function UserSettings() {
 
     const { t } = useTranslation();
 
+
     const toast = useToast();
 
-    const array1: Options[] = [ //endpoint Feedback/GET ALL
-        {
-            settingName: t("themes")
-        },
-        {
-            settingName: t("sounds")
-        },
-        {
-            settingName: t("delete_account")
-        },
-        {
-            settingName: t("change_password")
-        },
-        {
-            settingName: t("about_app")
-        },
-        {
-            settingName: t("contact_us")
-        },
-        {
-            settingName: t("terms_conditions")
-        },
-        {
-            settingName: t("patch_notes")
-        },
-        {
-            settingName: t("admin_feedback")
-        },
-        {
-            settingName: t("admin_beacons")
-        }
-    ];
+    const currentUser = useStoreSelector(userData);
+
+    console.log(currentUser);
+
+    const array1: Options[] =
+
+        (currentUser.isAdmin == true) ?
+            [ //endpoint Feedback/GET ALL
+
+                {
+                    settingName: t("themes")
+                },
+                {
+                    settingName: t("sounds")
+                },
+                {
+                    settingName: t("delete_account")
+                },
+                {
+                    settingName: t("change_password")
+                },
+                {
+                    settingName: t("about_app")
+                },
+                {
+                    settingName: t("contact_us")
+                },
+                {
+                    settingName: t("terms_conditions")
+                },
+                {
+                    settingName: t("patch_notes")
+                },
+                {
+                    settingName: t("admin_feedback")
+                },
+                {
+                    settingName: t("admin_beacons")
+                }
+            ] : [
+                {
+                    settingName: t("themes")
+                },
+                {
+                    settingName: t("sounds")
+                },
+                {
+                    settingName: t("delete_account")
+                },
+                {
+                    settingName: t("change_password")
+                },
+                {
+                    settingName: t("about_app")
+                },
+                {
+                    settingName: t("contact_us")
+                },
+                {
+                    settingName: t("terms_conditions")
+                },
+                {
+                    settingName: t("patch_notes")
+                },
+                {
+                    settingName: t("admin_feedback")
+                }];
 
     const [stateSettingName, setSettingName] = useState("Setting Name");
 
     const [isLoadingButton, setIsLoading] = useState(false);
 
     const [isInvalidOldPassword, setInvalidOldPassword] = useState(false);
-
-    const currentUser = useStoreSelector(userData);
-
-    console.log(currentUser);
 
     // Set das OPTIONS
     function setStates(
@@ -135,7 +167,7 @@ function UserSettings() {
 
     //Ação do botão de show password
     const [show, setShow] = React.useState(false)
-    const handleClickShowButton = () => {setShow(!show)}
+    const handleClickShowButton = () => { setShow(!show) }
 
     //Click numa opção
     const handleClick = (newSettingName: React.SetStateAction<string>) => {
@@ -703,11 +735,13 @@ function UserSettings() {
                 );
                 break;
             case t("admin_beacons"):
-                return (
-                    <>
-                        {dispatch(goToBeaconsPage())}
-                    </>
-                );
+                if (currentUser.isAdmin) {
+                    return (
+                        <>
+                            {dispatch(goToBeaconsPage())}
+                        </>
+                    );
+                }
                 break;
             default:
                 break;
