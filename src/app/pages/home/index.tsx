@@ -56,42 +56,7 @@ function Home() {
 
     const searchPath = async ({ origin, destination }) => {
         if (origin === undefined || destination === undefined || origin === destination) return
-        // const data = await searchWaypoints(origin, destination)
-
-        const data = [
-            {
-                idPath: 1,
-                x: "1",
-                y: "2",
-                z: "2"
-            },
-            {
-                idPath: 1,
-                x: "111",
-                y: "112",
-                z: "2"
-            },
-            {
-                idPath: 1,
-                x: "150",
-                y: "150",
-                z: "2"
-            },
-            {
-                idPath: 1,
-                x: "200",
-                y: "200",
-                z: "4"
-            },
-            {
-                idPath: 1,
-                x: "250",
-                y: "250",
-                z: "5"
-            }
-        ]
-
-        setPath(data)
+        await searchWaypoints(origin, destination, setPath)
     }
 
     const handleAddBeaconClick = (e: any) => {
@@ -160,7 +125,7 @@ function Home() {
                                         beacons.map((e, i) => (
                                             <>
                                                 {i === 0 && <option value={'self'}>{t("my_location")}</option>}
-                                                <option key={`o-${e.beaconId}`} value={e.beaconName}>{e.beaconName}</option>
+                                                <option key={`o-${e.beaconId}`} value={e.beaconId}>{e.beaconName}</option>
                                             </>
                                         ))
                                     }
@@ -169,7 +134,7 @@ function Home() {
                                     {
                                         beacons.map(e => (
                                             <>
-                                                <option key={`o-${e.beaconId}`} value={e.beaconName}>{e.beaconName}</option>
+                                                <option key={`o-${e.beaconId}`} value={e.beaconId}>{e.beaconName}</option>
                                             </>
                                         ))
                                     }
