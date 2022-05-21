@@ -101,7 +101,8 @@ $("#bloco_B").on("click", (e) => {
     blocoOpened = "bloco_B";
     $(document.getElementById(blocoOpened).getElementsByTagName("ellipse")[0]).css("opacity", "0")
     $(document.getElementById(blocoOpened).getElementsByTagName("text")[document.getElementById(blocoOpened).getElementsByTagName("text").length - 1]).css("opacity", "0")
-    $("#" + e.target.id).css("opacity", "0");
+    // $("#" + e.target.id).css("opacity", "0");
+    $("#bloco_B-2").css("display", "none");
     $("#bloco_B_andar_1").css("opacity", "1");
 })
 
@@ -147,7 +148,3 @@ var svg = d3.select('svg');
 
 var g = svg.select("#svgMapContainer");
 svg.attr("cursor", "grab").call(zoom);
-
-$('#demoImg').click(function () {
-    console.log('this works?')
-});
