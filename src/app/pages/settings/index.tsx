@@ -91,6 +91,10 @@ function UserSettings() {
             [ //endpoint Feedback/GET ALL
 
                 {
+                    settingName: "logout"
+                },
+
+                {
                     settingName: t("themes")
                 },
                 {
@@ -121,6 +125,9 @@ function UserSettings() {
                     settingName: t("admin_beacons")
                 }
             ] : [
+                {
+                    settingName: "logout"
+                },
                 {
                     settingName: t("themes")
                 },
@@ -184,6 +191,12 @@ function UserSettings() {
         setValueNew("");
         setValueNewConfirm("");
         onOpen()
+    }
+
+    const handleLogoutConfirm =() => {
+   
+        dispatch(logout());
+        dispatch(goToLoginPage())
     }
 
     const handleDeleteAccountConfirm = () => {
@@ -288,6 +301,39 @@ function UserSettings() {
 
     function getSettingContentBrowser(settingName: string): ReactNode {
         switch (settingName) {
+            case "logout":
+                return (
+                    <>
+                        <Text fontSize="md">
+                            {t("logoutConfirmation")}
+                        </Text>
+                        <br></br>
+                        <CustomButton
+                            backgroundColor="isepBrick.500"
+                            borderColor="isepGreen.500"
+                            buttonColor="isepGrey.600"
+                            hoverColor="isepBrick.400"
+                            text="CONFIRM"
+                            textColor="#FFFFFF"
+                            width="280px"
+                            isLoading={isLoadingButton}
+                            handleButtonClick={() => handleLogoutConfirm()}
+                        />
+                        <br></br>
+                        <CustomButton
+                            backgroundColor="white"
+                            borderColor="isepBrick.500"
+                            buttonColor="white"
+                            hoverColor="isepBrick.400"
+                            text="CANCEL"
+                            textColor="isepBrick.500"
+                            width="280px"
+                            handleButtonClick={() => onClose()}
+                        />
+                    </>
+                );
+                break;
+
             case t("themes"):
                 return (
                     <>
@@ -555,6 +601,40 @@ function UserSettings() {
 
     function getSettingContentMobile(settingName: string): ReactNode {
         switch (settingName) {
+
+            case "logout":
+                return (
+                    <>
+                        <Text fontSize="md">
+                            {t("logoutConfirmation")}
+                        </Text>
+                        <br></br>
+                        <CustomButton
+                            backgroundColor="isepBrick.500"
+                            borderColor="isepGreen.500"
+                            buttonColor="isepGrey.600"
+                            hoverColor="isepBrick.400"
+                            text="CONFIRM"
+                            textColor="#FFFFFF"
+                            width="280px"
+                            isLoading={isLoadingButton}
+                            handleButtonClick={() => handleLogoutConfirm()}
+                        />
+                        <br></br>
+                        <CustomButton
+                            backgroundColor="white"
+                            borderColor="isepBrick.500"
+                            buttonColor="white"
+                            hoverColor="isepBrick.400"
+                            text="CANCEL"
+                            textColor="isepBrick.500"
+                            width="280px"
+                            handleButtonClick={() => onClose()}
+                        />
+                    </>
+                );
+                break;
+
             case t("themes"):
                 return (
                     <>

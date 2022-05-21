@@ -166,5 +166,6 @@
   "origin": "Origin",
   "destination": "Destination",
   "building": "Building",
-  "my_location": "My Location"
+  "my_location": "My Location",
+  "logoutConfirmation": "Are you sure you want to logout your account?"
 }

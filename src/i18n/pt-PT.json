@@ -166,5 +166,6 @@
   "origin": "Origem",
   "destination": "Destino",
   "building": "Edifício",
-  "my_location": "Minha localização"
+  "my_location": "Minha localização",
+  "logoutConfirmation": "Tem certeza de que deseja fazer logout a sua conta?"
 }
