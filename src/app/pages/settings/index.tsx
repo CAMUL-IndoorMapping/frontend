@@ -43,6 +43,8 @@ import {
     InputRightElement,
     toast,
     useToast,
+    Heading,
+    Container,
 } from "@chakra-ui/react";
 import ReactAudioPlayer from "react-audio-player";
 import { BrowserView, MobileView } from "react-device-detect";
@@ -544,27 +546,42 @@ function UserSettings() {
                         </Text>
                         <br></br>
                         <Text fontSize="large">
-                            {t("about_app_content_1")}
+                            {t("aboutUsText_1")}
                         </Text>
                         <br></br>
                         <Text fontSize="md">
-                            {t("about_app_content_2")}
-                            {t("about_app_content_3")}
+                            {t("aboutUsText_2")}
+                            {t("aboutUsText_3")}
                         </Text>
-                        <Image src={"https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1653264000&Signature=DO-5QTTdSrt52S62TeXnUDv5kGF7x-H~XS2i9F7U4guJhpn1vX8oK4P5pZatIZw9UbnpJxN~D5MbvX~cCsnaNlIP5lVq3oTujy~hOUNMhwcbFpLrhhUXd0ZxLO1a1Ru-hQrrdOuskQoi55G4NjJFPm6rO9TynhaQzLlGiM~wdNb8xYA34f6a5N1TvtEp6GR~Z5vELnqHpZvfcMVCEALJwy8PsxbzyzA5-myfIIBa53xL9fixwJg~u2u5pEEeElhiRS7FyvZMeWQyb7jb3A7nyH8bbWbdXROqHDV1FozpluMmrmWMGG-8mT1DRBRRrBmPxF46tOa9n6ouvj13SUNxLw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"} alt="uploadImage" width={"50%"} />
                     </>
                 );
                 break;
             case t("contact_us"): //t("contact_us")
                 return (
                     <>
-                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
-                            {t("contact_us")}
-                        </Text>
-                        <br></br>
-                        <Text fontSize="md">
-                            {t("contact_us_content_1")}
-                        </Text>
+                        <Box>
+              <Heading color="#575757" pl="16px" mb="2rem">
+                {t("contact_us")}
+              </Heading>
+
+              {" "}
+              <Text fontFamily={"Montserrat-Medium"} margin={"10px"}>
+                {t("contacts_text")}
+              </Text>
+              <Container maxW="750px" color="#575757" mt="1rem">
+                <Text fontFamily={"Montserrat-Medium"}>André Gonçalves: 1191660@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>André Morais:    1210626@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Cárina Alas:     1181695@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Daniel Dias:     1181488@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Duarte:          1170467@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Francisco:       1180615@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Miguel:          1210632@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Narciso Correia:  @isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Rui:             1181056@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Sofia:           1200185@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Vítor Neto:      1210130@isep.ipp.pt</Text>
+              </Container>
+            </Box>
                     </>
                 );
                 break;
@@ -769,23 +786,42 @@ function UserSettings() {
                 return (
                     <>
                         <Text fontSize="large">
-                            {t("about_app_content_1")}
+                            {t("aboutUsText_1")}
                         </Text>
                         <br></br>
                         <Text fontSize="md">
-                            {t("about_app_content_2")}
-                            {t("about_app_content_3")}
+                            {t("aboutUsText_2")}
+                            {t("aboutUsText_3")}
                         </Text>
-                        <Image src={"https://s3-alpha-sig.figma.com/img/e61d/d2cb/0a63e30674435607b06b4d6b466384f5?Expires=1653264000&Signature=DO-5QTTdSrt52S62TeXnUDv5kGF7x-H~XS2i9F7U4guJhpn1vX8oK4P5pZatIZw9UbnpJxN~D5MbvX~cCsnaNlIP5lVq3oTujy~hOUNMhwcbFpLrhhUXd0ZxLO1a1Ru-hQrrdOuskQoi55G4NjJFPm6rO9TynhaQzLlGiM~wdNb8xYA34f6a5N1TvtEp6GR~Z5vELnqHpZvfcMVCEALJwy8PsxbzyzA5-myfIIBa53xL9fixwJg~u2u5pEEeElhiRS7FyvZMeWQyb7jb3A7nyH8bbWbdXROqHDV1FozpluMmrmWMGG-8mT1DRBRRrBmPxF46tOa9n6ouvj13SUNxLw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"} alt="uploadImage" width={"50%"} />
                     </>
                 );
                 break;
             case t("contact_us"): //t("contact_us")
                 return (
                     <>
-                        <Text fontSize="md">
-                            {t("contact_us_content_1")}
-                        </Text>
+                        <Box>
+              <Heading color="#575757" pl="16px" mb="2rem">
+                {t("contact_us")}
+              </Heading>
+
+              {" "}
+              <Text fontFamily={"Montserrat-Medium"} margin={"10px"}>
+                {t("contacts_text")}
+              </Text>
+              <Container maxW="750px" color="#575757" mt="1rem">
+                <Text fontFamily={"Montserrat-Medium"}>André Gonçalves: 1191660@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>André Morais:    1210626@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Cárina Alas:     1181695@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Daniel Dias:     1181488@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Duarte:          1170467@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Francisco:       1180615@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Miguel:          1210632@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Narciso Correia:  @isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Rui:             1181056@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Sofia:           1200185@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Vítor Neto:      1210130@isep.ipp.pt</Text>
+              </Container>
+            </Box>
                     </>
                 );
                 break;
