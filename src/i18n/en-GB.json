@@ -167,5 +167,7 @@
   "destination": "Destination",
   "building": "Building",
   "my_location": "My Location",
-  "logoutConfirmation": "Are you sure you want to logout your account?"
+  "logoutConfirmation": "Are you sure you want to logout your account?",
+  "language": "Language",
+  "choose_language": "Choose the language:"
 }

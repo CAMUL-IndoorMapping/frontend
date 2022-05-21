@@ -881,12 +881,12 @@ function LoginPage() {
                 <Text fontFamily={"Montserrat-Medium"}>André Morais:    1210626@isep.ipp.pt</Text>
                 <Text fontFamily={"Montserrat-Medium"}>Cárina Alas:     1181695@isep.ipp.pt</Text>
                 <Text fontFamily={"Montserrat-Medium"}>Daniel Dias:     1181488@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Duarte:          1170467@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Francisco:       1180615@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Miguel:          1210632@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Narciso Correia:  @isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Rui:             1181056@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Sofia:           1200185@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Duarte Marques:          1170467@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Francisco Dias:       1180615@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Miguel Cabeleira:          1210632@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Narciso Correia:  1200174@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Rui Afonso:             1181056@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Sofia Canelas:           1200185@isep.ipp.pt</Text>
                 <Text fontFamily={"Montserrat-Medium"}>Vítor Neto:      1210130@isep.ipp.pt</Text>
               </Container>
             </Box>

@@ -64,6 +64,7 @@ import { useSelector } from "react-redux";
 import { login, logout, userData } from "../../../store/user-reducer";
 import axios from "axios";
 import { MdPassword } from "react-icons/md";
+import i18n from "../../../i18n";
 
 interface Options {
     settingName: string
@@ -79,8 +80,16 @@ const api = "https://camul2022.pythonanywhere.com";
 function UserSettings() {
 
     const { t } = useTranslation();
+    const [langCod, setLangCode] = useState<"PT" | "EN">("PT");
 
-
+    React.useEffect(() => {
+        if (langCod === "PT") {
+          i18n.changeLanguage("pt-PT");
+        } else {
+          i18n.changeLanguage("en-GB");
+        }
+      }, [langCod]);
+      
     const toast = useToast();
 
     const currentUser = useStoreSelector(userData);
@@ -93,9 +102,11 @@ function UserSettings() {
             [ //endpoint Feedback/GET ALL
 
                 {
-                    settingName: "logout"
+                    settingName: "Logout"
                 },
-
+                {
+                    settingName:  t("language")
+                },
                 {
                     settingName: t("themes")
                 },
@@ -153,9 +164,6 @@ function UserSettings() {
                 },
                 {
                     settingName: t("patch_notes")
-                },
-                {
-                    settingName: t("admin_feedback")
                 }];
 
     const [stateSettingName, setSettingName] = useState("Setting Name");
@@ -573,12 +581,12 @@ function UserSettings() {
                 <Text fontFamily={"Montserrat-Medium"}>André Morais:    1210626@isep.ipp.pt</Text>
                 <Text fontFamily={"Montserrat-Medium"}>Cárina Alas:     1181695@isep.ipp.pt</Text>
                 <Text fontFamily={"Montserrat-Medium"}>Daniel Dias:     1181488@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Duarte:          1170467@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Francisco:       1180615@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Miguel:          1210632@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Narciso Correia:  @isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Rui:             1181056@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Sofia:           1200185@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Duarte Marques:          1170467@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Francisco Dias:       1180615@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Miguel Cabeleira:          1210632@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Narciso Correia:  1200174@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Rui Afonso:             1181056@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Sofia Canelas:           1200185@isep.ipp.pt</Text>
                 <Text fontFamily={"Montserrat-Medium"}>Vítor Neto:      1210130@isep.ipp.pt</Text>
               </Container>
             </Box>
@@ -648,6 +656,45 @@ function UserSettings() {
                             width="280px"
                             handleButtonClick={() => onClose()}
                         />
+                    </>
+                );
+                break;
+            
+            case t("language"):
+                return (
+                    <>
+                        <Text fontSize="md">
+                            {t("choose_language")}
+                        </Text>
+                        <Box margin={"10px"}></Box>
+                        <div className="lang_options_wrapper">
+                            <span
+                              onClick={() => {
+                                setLangCode("PT");
+                                onClose();
+                              }}
+                              style={{
+                                fontWeight: langCod === "PT" ? "700" : "300",
+                                cursor: 'pointer',
+                              }}
+                            >
+                              PT  |
+                            </span>
+                            <span ></span>
+                            <span
+                              onClick={() => {
+                                setLangCode("EN");
+                                onClose();
+                              }}
+                              style={{
+                                fontWeight: langCod === "EN" ? "700" : "300",
+                                cursor: 'pointer',
+                              }}
+                            >
+                               |  EN
+                            </span>
+                        </div>
+                        <Box margin={"10px"}></Box>
                     </>
                 );
                 break;
@@ -813,12 +860,12 @@ function UserSettings() {
                 <Text fontFamily={"Montserrat-Medium"}>André Morais:    1210626@isep.ipp.pt</Text>
                 <Text fontFamily={"Montserrat-Medium"}>Cárina Alas:     1181695@isep.ipp.pt</Text>
                 <Text fontFamily={"Montserrat-Medium"}>Daniel Dias:     1181488@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Duarte:          1170467@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Francisco:       1180615@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Miguel:          1210632@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Narciso Correia:  @isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Rui:             1181056@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Sofia:           1200185@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Duarte Marques:          1170467@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Francisco Dias:       1180615@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Miguel Cabeleira:          1210632@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Narciso Correia:  1200174@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Rui Afonso:             1181056@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Sofia Canelas:           1200185@isep.ipp.pt</Text>
                 <Text fontFamily={"Montserrat-Medium"}>Vítor Neto:      1210130@isep.ipp.pt</Text>
               </Container>
             </Box>

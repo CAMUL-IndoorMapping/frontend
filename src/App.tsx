@@ -55,7 +55,12 @@ function App() {
     return (
       <div className="App">
         <header className="App-header">
-          <Box height={"110px"}></Box>
+          <BrowserView>
+            <Box height={"110px"}></Box>
+          </BrowserView>
+          <MobileView>
+            <Box height={"5px"}></Box>
+          </MobileView>
           <Text fontSize="3xl" margin="7">
             {t("settings")}
           </Text>
