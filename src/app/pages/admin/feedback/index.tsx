@@ -100,7 +100,7 @@ function AdminFeedback() {
       } else if (type === "video") {
         return (
           <div>
-            <ReactPlayer url={result}></ReactPlayer>
+            <ReactPlayer url={result} controls ></ReactPlayer>
           </div>
         );
       }
