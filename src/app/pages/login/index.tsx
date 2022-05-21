@@ -19,6 +19,9 @@ import {
   goToRGPD,
   rgpdState,
   goToLoginPage,
+  termsAndConditionsState,
+  goToTermsAndConditions,
+  leaveTermsAndConditions
 } from "../../../store/navigation-reducer";
 import { ChevronLeftIcon } from "@chakra-ui/icons";
 import { userLogin } from "../../services/user";
@@ -73,6 +76,7 @@ function LoginPage() {
   const isContactUs = useStoreSelector(contactUsState);
   const isFAQs = useStoreSelector(faqsState);
   const isRGPD = useStoreSelector(rgpdState);
+  const isTermsConditions = useStoreSelector(termsAndConditionsState);
 
   const { t } = useTranslation();
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -348,7 +352,7 @@ function LoginPage() {
   return (
     <>
       <MobileView>
-        {!isAboutUs && !isContactUs && !isFAQs && !isRGPD && (
+        {!isAboutUs && !isContactUs && !isFAQs && !isRGPD && !isTermsConditions && (
           <div className="container">
             <Box>
 
@@ -465,7 +469,7 @@ function LoginPage() {
                 </FormControl>
               )}
 
-              {formType === "singIn" && (
+              {formType === "singIn" && !isTermsConditions && (
                 <FormControl isRequired>
                   <Center marginTop='20%' marginBottom='10%'>
                     <img width='35%' src="https://s3-alpha-sig.figma.com/img/b938/b663/821798adfdcd9a1accf9c42db95871f5?Expires=1653868800&Signature=BTxgYgGKYLaBFW0MF~Vcx8lC2~jpj9gekjTFJSwvnbPtE2LRcSopHUoujRTAOS~pmshzMQHqd14M161YGaBrlfmr8Fl6nR8OJ-NSCjU3N-imjsNaS1MalSmxcBhqVe2puGNwiSXhCP8I56WGjuiVp4UhA~gULoB3zUURp6dsVKCHqTQhUXkhThOXa~Xf9pc2BC7kDIIQXb6RvSWwm-0WRluwKgpkB-E4tXwgA15S2~7gti6ACSsniCX1FqLbRCCp~HBze0N2VCn7EwmhOxFQ1dGmwHVaA2UekWDTRPQJtSVbEayx1~F6f87IUM8y-eil5b2R1YVofRKxKfR4GgFGxw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA"></img>
@@ -606,7 +610,15 @@ function LoginPage() {
                         <span className="mobility_disability_span">
                           {t("confirm_read_terms")}
                           <br></br>
-                          <a> {`${t("terms")}*`}</a>
+                          <a
+                          style={{
+                            textDecoration: 'underline'
+                          }}
+                           
+                          onClick={() => {
+                            setShowError(false);
+                            dispatch(goToTermsAndConditions());
+                          }}> {`${t("terms")}*`}</a>
                         </span>
                       </Radio>
                     </Center>
@@ -773,6 +785,206 @@ function LoginPage() {
 
             </Box>
           </div>)}
+        {isTermsConditions && (
+          <Flex h="100%" direction="column" justifyContent="left">
+            <Box alignContent={"left"} marginBottom={"15px"}><IconButton
+              aria-label="back"
+              variant="ghost"
+              rounded="100"
+              size="sm"
+              icon={
+                <ChevronLeftIcon
+                  w="30px"
+                  h="30px"
+                  color="isepBrick.500"
+                />
+              }
+              onClick={() => {
+                dispatch(leaveTermsAndConditions());
+                setFormType("singIn");
+              }}
+            /></Box>
+
+            <Box>
+              <Heading color="#575757" pl="16px" mb="2rem">
+                {t("terms_conditions")}
+              </Heading>
+
+              <Text fontSize="md">{t("termsAndConditionsPart1")}</Text>
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart2")}</Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart3")}</Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart4")}</Text>
+
+              <br></br>
+              <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                {t("termsAndConditionsPart5")}
+              </Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart6")}</Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart7")}</Text>
+
+              <br></br>
+              <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                {t("termsAndConditionsPart8")}
+              </Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart9")}</Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart10")}</Text>
+
+              <Text fontSize="md">{t("termsAndConditionsPart11")}</Text>
+
+              <Text fontSize="md">{t("termsAndConditionsPart12")}</Text>
+
+              <Text fontSize="md">{t("termsAndConditionsPart13")}</Text>
+
+              <Text fontSize="md">{t("termsAndConditionsPart14")}</Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart15")}</Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart16")}</Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart17")}</Text>
+              <Text fontSize="md">{t("termsAndConditionsPart18")}</Text>
+              <Text fontSize="md">{t("termsAndConditionsPart19")}</Text>
+              <Text fontSize="md">{t("termsAndConditionsPart20")}</Text>
+              <Text fontSize="md">{t("termsAndConditionsPart21")}</Text>
+              <Text fontSize="md">{t("termsAndConditionsPart22")}</Text>
+
+              <br></br>
+              <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                {t("termsAndConditionsPart23")}
+              </Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart24")}</Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart25")}</Text>
+              <Text fontSize="md">{t("termsAndConditionsPart26")}</Text>
+              <Text fontSize="md">{t("termsAndConditionsPart27")}</Text>
+              <Text fontSize="md">{t("termsAndConditionsPart28")}</Text>
+              <Text fontSize="md">{t("termsAndConditionsPart29")}</Text>
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart30")}</Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart31")}</Text>
+
+              <Text fontSize="md">{t("termsAndConditionsPart32")}</Text>
+
+              <Text fontSize="md">{t("termsAndConditionsPart33")}</Text>
+
+              <Text fontSize="md">{t("termsAndConditionsPart34")}</Text>
+
+              <Text fontSize="md">{t("termsAndConditionsPart35")}</Text>
+
+              <Text fontSize="md">{t("termsAndConditionsPart36")}</Text>
+
+              <Text fontSize="md">{t("termsAndConditionsPart37")}</Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart38")}</Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart39")}</Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart40")}</Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart41")}</Text>
+
+              <Text fontSize="md">{t("termsAndConditionsPart42")}</Text>
+
+              <Text fontSize="md">{t("termsAndConditionsPart43")}</Text>
+
+              <Text fontSize="md">{t("termsAndConditionsPart44")}</Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart45")}</Text>
+
+              <br></br>
+              <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                {t("termsAndConditionsPart46")}
+              </Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart47")}</Text>
+
+              <br></br>
+              <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                {t("termsAndConditionsPart48")}
+              </Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart49")}</Text>
+
+              <br></br>
+              <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                {t("termsAndConditionsPart50")}
+              </Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart51")}</Text>
+
+              <br></br>
+              <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                {t("termsAndConditionsPart52")}
+              </Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart53")}</Text>
+
+              <br></br>
+              <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                {t("termsAndConditionsPart54")}
+              </Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart55")}</Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart56")}</Text>
+
+              <br></br>
+              <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                {t("termsAndConditionsPart57")}
+              </Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart58")}</Text>
+
+              <Text fontSize="md">{t("termsAndConditionsPart59")}</Text>
+
+              <Text fontSize="md">{t("termsAndConditionsPart60")}</Text>
+
+              <Text fontSize="md">{t("termsAndConditionsPart61")}</Text>
+
+              <Text fontSize="md">{t("termsAndConditionsPart62")}</Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart63")}</Text>
+
+              <br></br>
+              <Text fontSize="md">{t("termsAndConditionsPart64")}</Text>
+              <Box margin={"20px"}></Box>
+            </Box>
+          </Flex>
+        )}
         {isAboutUs && !isContactUs && (
           <Flex h="100%" direction="column" justifyContent="left">
             <Box alignContent={"left"} marginBottom={"15px"}><IconButton
@@ -881,12 +1093,12 @@ function LoginPage() {
                 <Text fontFamily={"Montserrat-Medium"}>André Morais:    1210626@isep.ipp.pt</Text>
                 <Text fontFamily={"Montserrat-Medium"}>Cárina Alas:     1181695@isep.ipp.pt</Text>
                 <Text fontFamily={"Montserrat-Medium"}>Daniel Dias:     1181488@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Duarte:          1170467@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Francisco:       1180615@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Miguel:          1210632@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Narciso Correia:  @isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Rui:             1181056@isep.ipp.pt</Text>
-                <Text fontFamily={"Montserrat-Medium"}>Sofia:           1200185@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Duarte Marques:          1170467@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Francisco Dias:       1180615@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Miguel Cabeleira:          1210632@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Narciso Correia:  1200174@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Rui Afonso:             1181056@isep.ipp.pt</Text>
+                <Text fontFamily={"Montserrat-Medium"}>Sofia Canelas:           1200185@isep.ipp.pt</Text>
                 <Text fontFamily={"Montserrat-Medium"}>Vítor Neto:      1210130@isep.ipp.pt</Text>
               </Container>
             </Box>
@@ -912,58 +1124,58 @@ function LoginPage() {
             /></Box>
             <Box>
 
-            <Heading
-                  color="#575757"
-                  pl="16px"
-                  mb="2rem"
-                  fontFamily={"Montserrat-Medium"}
-                >
-                  {t("faqs")}
-                </Heading>                
-                <Text fontFamily={"Montserrat-Medium"}>
-                  {t("faqs_1")}
-                </Text>
-                <Container maxW="750px" color="#575757" marginBottom={"10px"}>
-                  <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_1_answer")} </Text>
-                </Container>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  {t("faqs_2")}
-                </Text>
-                <Container maxW="750px" color="#575757"  marginBottom={"10px"}>
-                  <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_2_answer")} </Text>
-                </Container><Text fontFamily={"Montserrat-Medium"}>
-                  {t("faqs_3")}
-                </Text>
-                <Container maxW="750px" color="#575757" marginBottom={"10px"}>
-                  <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_3_answer")} </Text>
-                </Container><Text fontFamily={"Montserrat-Medium"}>
-                  {t("faqs_4")}
-                </Text>
-                <Container maxW="750px" color="#575757" marginBottom={"10px"}>
-                  <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_4_answer")} </Text>
-                </Container><Text fontFamily={"Montserrat-Medium"}>
-                  {t("faqs_5")}
-                </Text>
-                <Container maxW="750px" color="#575757" marginBottom={"10px"}>
-                  <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_5_answer")} </Text>
-                </Container><Text fontFamily={"Montserrat-Medium"}>
-                  {t("faqs_6")}
-                </Text>
-                <Container maxW="750px" color="#575757" marginBottom={"10px"}>
-                  <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_6_answer")} </Text>
-                </Container><Text fontFamily={"Montserrat-Medium"}>
-                  {t("faqs_7")}
-                </Text>
-                <Container maxW="750px" color="#575757" marginBottom={"10px"}>
-                  <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_7_answer")} </Text>
-                </Container>
-                
+              <Heading
+                color="#575757"
+                pl="16px"
+                mb="2rem"
+                fontFamily={"Montserrat-Medium"}
+              >
+                {t("faqs")}
+              </Heading>
+              <Text fontFamily={"Montserrat-Medium"}>
+                {t("faqs_1")}
+              </Text>
+              <Container maxW="750px" color="#575757" marginBottom={"10px"}>
+                <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_1_answer")} </Text>
+              </Container>
+              <Text fontFamily={"Montserrat-Medium"}>
+                {t("faqs_2")}
+              </Text>
+              <Container maxW="750px" color="#575757" marginBottom={"10px"}>
+                <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_2_answer")} </Text>
+              </Container><Text fontFamily={"Montserrat-Medium"}>
+                {t("faqs_3")}
+              </Text>
+              <Container maxW="750px" color="#575757" marginBottom={"10px"}>
+                <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_3_answer")} </Text>
+              </Container><Text fontFamily={"Montserrat-Medium"}>
+                {t("faqs_4")}
+              </Text>
+              <Container maxW="750px" color="#575757" marginBottom={"10px"}>
+                <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_4_answer")} </Text>
+              </Container><Text fontFamily={"Montserrat-Medium"}>
+                {t("faqs_5")}
+              </Text>
+              <Container maxW="750px" color="#575757" marginBottom={"10px"}>
+                <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_5_answer")} </Text>
+              </Container><Text fontFamily={"Montserrat-Medium"}>
+                {t("faqs_6")}
+              </Text>
+              <Container maxW="750px" color="#575757" marginBottom={"10px"}>
+                <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_6_answer")} </Text>
+              </Container><Text fontFamily={"Montserrat-Medium"}>
+                {t("faqs_7")}
+              </Text>
+              <Container maxW="750px" color="#575757" marginBottom={"10px"}>
+                <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_7_answer")} </Text>
+              </Container>
 
-              
+
+
             </Box>
           </Flex>
         )}
-        {isRGPD && !isAboutUs && !isFAQs && !isContactUs && (
+        {isRGPD && !isAboutUs && !isFAQs && !isContactUs && !isTermsConditions && (
           <Flex h="100%" direction="column" justifyContent="center">
             <Box alignContent={"left"} marginBottom={"15px"}><IconButton
               aria-label="back"
@@ -983,7 +1195,7 @@ function LoginPage() {
             /></Box>
             <Box>
 
-            <Heading
+              <Heading
                 color="#575757"
                 pl="16px"
                 mb="2rem"
@@ -1099,6 +1311,31 @@ function LoginPage() {
                     </Center>
                   </Flex>
                 )}
+
+              {(isTermsConditions) && (
+                <Flex position="fixed" top="200px" left="300px">
+                  <IconButton
+                    aria-label="back"
+                    variant="ghost"
+                    rounded="100"
+                    size="sm"
+                    icon={
+                      <ChevronLeftIcon
+                        w="30px"
+                        h="30px"
+                        color="isepBrick.500"
+                      />
+                    }
+                    onClick={() => {
+                      dispatch(leaveTermsAndConditions());
+                      setFormType("singIn");
+                    }}
+                  />
+                  <Center>
+                    <Text color="isepBrick.500">{t("back")}</Text>
+                  </Center>
+                </Flex>
+              )}
               <Logo />
               <span>
                 <Text fontFamily={"Montserrat-Medium"}>Where to go next?</Text>
@@ -1106,7 +1343,7 @@ function LoginPage() {
             </div>
           </div>
 
-          {!isAboutUs && !isContactUs && !isFAQs && !isRGPD && (
+          {!isAboutUs && !isContactUs && !isFAQs && !isRGPD && !isTermsConditions && (
             <div className="form-container">
               {formType === "longIn" && (
                 <div className="form-wrapper">
@@ -1176,7 +1413,7 @@ function LoginPage() {
                 </div>
               )}
 
-              {formType === "singIn" && (
+              {formType === "singIn" && !isTermsConditions && (
                 <div className="form-wrapper_extended">
                   <Input marginTop='100px'
                     isInvalid={showError && sigInUser.user === ""}
@@ -1289,7 +1526,11 @@ function LoginPage() {
                       <span className="mobility_disability_span">
                         {t("confirm_read_terms")}
                         <br></br>
-                        <a> {`${t("terms")}*`}</a>
+                        <a onClick={() => {
+                          setShowError(false);
+                          dispatch(goToTermsAndConditions());
+                        }}
+                        > {`${t("terms")}*`}</a>
                       </span>
                     </Radio>
                   </RadioGroup>
@@ -1481,6 +1722,194 @@ function LoginPage() {
               </Box>
             </Flex>
           )}
+
+          {isTermsConditions && (
+            <Flex h="100%" direction="column" justifyContent="center">
+              <Box>
+                <div className="center-col">
+
+                  <Heading color="#575757" pl="16px" mb="2rem">
+                    {t("terms_conditions")}
+                  </Heading>
+
+                  <Container maxW="750px" color="#575757">
+                    <Text fontSize="md">{t("termsAndConditionsPart1")}</Text>
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart2")}</Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart3")}</Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart4")}</Text>
+
+                    <br></br>
+                    <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                      {t("termsAndConditionsPart5")}
+                    </Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart6")}</Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart7")}</Text>
+
+                    <br></br>
+                    <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                      {t("termsAndConditionsPart8")}
+                    </Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart9")}</Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart10")}</Text>
+
+                    <Text fontSize="md">{t("termsAndConditionsPart11")}</Text>
+
+                    <Text fontSize="md">{t("termsAndConditionsPart12")}</Text>
+
+                    <Text fontSize="md">{t("termsAndConditionsPart13")}</Text>
+
+                    <Text fontSize="md">{t("termsAndConditionsPart14")}</Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart15")}</Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart16")}</Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart17")}</Text>
+                    <Text fontSize="md">{t("termsAndConditionsPart18")}</Text>
+                    <Text fontSize="md">{t("termsAndConditionsPart19")}</Text>
+                    <Text fontSize="md">{t("termsAndConditionsPart20")}</Text>
+                    <Text fontSize="md">{t("termsAndConditionsPart21")}</Text>
+                    <Text fontSize="md">{t("termsAndConditionsPart22")}</Text>
+
+                    <br></br>
+                    <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                      {t("termsAndConditionsPart23")}
+                    </Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart24")}</Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart25")}</Text>
+                    <Text fontSize="md">{t("termsAndConditionsPart26")}</Text>
+                    <Text fontSize="md">{t("termsAndConditionsPart27")}</Text>
+                    <Text fontSize="md">{t("termsAndConditionsPart28")}</Text>
+                    <Text fontSize="md">{t("termsAndConditionsPart29")}</Text>
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart30")}</Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart31")}</Text>
+
+                    <Text fontSize="md">{t("termsAndConditionsPart32")}</Text>
+
+                    <Text fontSize="md">{t("termsAndConditionsPart33")}</Text>
+
+                    <Text fontSize="md">{t("termsAndConditionsPart34")}</Text>
+
+                    <Text fontSize="md">{t("termsAndConditionsPart35")}</Text>
+
+                    <Text fontSize="md">{t("termsAndConditionsPart36")}</Text>
+
+                    <Text fontSize="md">{t("termsAndConditionsPart37")}</Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart38")}</Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart39")}</Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart40")}</Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart41")}</Text>
+
+                    <Text fontSize="md">{t("termsAndConditionsPart42")}</Text>
+
+                    <Text fontSize="md">{t("termsAndConditionsPart43")}</Text>
+
+                    <Text fontSize="md">{t("termsAndConditionsPart44")}</Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart45")}</Text>
+
+                    <br></br>
+                    <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                      {t("termsAndConditionsPart46")}
+                    </Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart47")}</Text>
+
+                    <br></br>
+                    <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                      {t("termsAndConditionsPart48")}
+                    </Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart49")}</Text>
+
+                    <br></br>
+                    <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                      {t("termsAndConditionsPart50")}
+                    </Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart51")}</Text>
+
+                    <br></br>
+                    <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                      {t("termsAndConditionsPart52")}
+                    </Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart53")}</Text>
+
+                    <br></br>
+                    <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                      {t("termsAndConditionsPart54")}
+                    </Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart55")}</Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart56")}</Text>
+
+                    <br></br>
+                    <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                      {t("termsAndConditionsPart57")}
+                    </Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart58")}</Text>
+
+                    <Text fontSize="md">{t("termsAndConditionsPart59")}</Text>
+
+                    <Text fontSize="md">{t("termsAndConditionsPart60")}</Text>
+
+                    <Text fontSize="md">{t("termsAndConditionsPart61")}</Text>
+
+                    <Text fontSize="md">{t("termsAndConditionsPart62")}</Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart63")}</Text>
+
+                    <br></br>
+                    <Text fontSize="md">{t("termsAndConditionsPart64")}</Text>
+                  </Container>
+                </div>
+              </Box>
+            </Flex>
+          )}
+
           {isContactUs && !isAboutUs && (
             <Flex h="100%" direction="column" justifyContent="center">
               <Box>
@@ -1559,7 +1988,7 @@ function LoginPage() {
                   fontFamily={"Montserrat-Medium"}
                 >
                   {t("faqs")}
-                </Heading>                
+                </Heading>
                 <Text fontFamily={"Montserrat-Medium"}>
                   {t("faqs_1")}
                 </Text>
@@ -1569,7 +1998,7 @@ function LoginPage() {
                 <Text fontFamily={"Montserrat-Medium"}>
                   {t("faqs_2")}
                 </Text>
-                <Container maxW="750px" color="#575757"  marginBottom={"10px"}>
+                <Container maxW="750px" color="#575757" marginBottom={"10px"}>
                   <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_2_answer")} </Text>
                 </Container><Text fontFamily={"Montserrat-Medium"}>
                   {t("faqs_3")}
@@ -1597,7 +2026,7 @@ function LoginPage() {
                 <Container maxW="750px" color="#575757" marginBottom={"10px"}>
                   <Text fontFamily={"Montserrat-Medium"} fontSize={"12px"}> {t("faqs_7_answer")} </Text>
                 </Container>
-                
+
               </Box>
             </Flex>
           )}
@@ -1634,104 +2063,104 @@ function LoginPage() {
                   {t("rgpd")}
                 </Heading>
 
-                
-                  <div className="center-col">
-      <span>
-                  <Heading
-                  color="#575757"
-                  pl="16px"
-                  mb="2rem"
-                  fontFamily={"Montserrat-Medium"}
-                  size='md'
-                >
-                  {t("rgpd_1")}
-                </Heading>
-                  
-                
-                <Container maxW="750px" color="#575757" mb="1rem">
-                  <Text fontFamily={"Montserrat-Medium"}>{t("rgpd_2")} </Text></Container>
-<Text fontFamily={"Montserrat-Medium"}>
-{t("rgpd_3")}
-                </Text>
-                <Container maxW="750px" color="#575757" mb="1rem">
-                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_4")}</Text></Container>
 
-<Text fontFamily={"Montserrat-Medium"}>
-{t("rgpd_5")}
-                </Text>
-                <Container maxW="750px" color="#575757" mb="1rem">
-                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_6")}</Text></Container>
+                <div className="center-col">
+                  <span>
+                    <Heading
+                      color="#575757"
+                      pl="16px"
+                      mb="2rem"
+                      fontFamily={"Montserrat-Medium"}
+                      size='md'
+                    >
+                      {t("rgpd_1")}
+                    </Heading>
 
-<Text fontFamily={"Montserrat-Medium"}>
-{t("rgpd_7")}
-                </Text>
-                <Container maxW="750px" color="#575757" mb="1rem">
-                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_8")}</Text>
-<UnorderedList>
-  <ListItem>{t("rgpd_9")}</ListItem>
-  <ListItem>{t("rgpd_10")}
-</ListItem>
-  <ListItem>{t("rgpd_11")}
-</ListItem>
-<ListItem>{t("rgpd_12")}</ListItem>  
-<ListItem>{t("rgpd_13")}</ListItem>  <ListItem>{t("rgpd_14")}
-</ListItem>  <ListItem>{t("rgpd_15")}
-</ListItem><ListItem>{t("rgpd_16")}
-</ListItem><ListItem>{t("rgpd_17")}
-</ListItem>
-</UnorderedList>
 
-</Container>
+                    <Container maxW="750px" color="#575757" mb="1rem">
+                      <Text fontFamily={"Montserrat-Medium"}>{t("rgpd_2")} </Text></Container>
+                    <Text fontFamily={"Montserrat-Medium"}>
+                      {t("rgpd_3")}
+                    </Text>
+                    <Container maxW="750px" color="#575757" mb="1rem">
+                      <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_4")}</Text></Container>
 
-<Text fontFamily={"Montserrat-Medium"}>
-{t("rgpd_18")}
+                    <Text fontFamily={"Montserrat-Medium"}>
+                      {t("rgpd_5")}
+                    </Text>
+                    <Container maxW="750px" color="#575757" mb="1rem">
+                      <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_6")}</Text></Container>
 
-                </Text>
-                <Container maxW="750px" color="#575757" mb="1rem">
-                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_19")}</Text></Container>
-<Text fontFamily={"Montserrat-Medium"}>
-{t("rgpd_20")}
-                </Text>
-                <Container maxW="750px" color="#575757" mb="1rem">
-                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_21")}</Text></Container>
-<Text fontFamily={"Montserrat-Medium"}>
-{t("rgpd_22")}
-                </Text>
-                <Container maxW="750px" color="#575757" mb="1rem">
-                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_23")}</Text></Container>
+                    <Text fontFamily={"Montserrat-Medium"}>
+                      {t("rgpd_7")}
+                    </Text>
+                    <Container maxW="750px" color="#575757" mb="1rem">
+                      <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_8")}</Text>
+                      <UnorderedList>
+                        <ListItem>{t("rgpd_9")}</ListItem>
+                        <ListItem>{t("rgpd_10")}
+                        </ListItem>
+                        <ListItem>{t("rgpd_11")}
+                        </ListItem>
+                        <ListItem>{t("rgpd_12")}</ListItem>
+                        <ListItem>{t("rgpd_13")}</ListItem>  <ListItem>{t("rgpd_14")}
+                        </ListItem>  <ListItem>{t("rgpd_15")}
+                        </ListItem><ListItem>{t("rgpd_16")}
+                        </ListItem><ListItem>{t("rgpd_17")}
+                        </ListItem>
+                      </UnorderedList>
 
-<Text fontFamily={"Montserrat-Medium"}>
-{t("rgpd_24")}
-                </Text>
-                <Container maxW="750px" color="#575757" mb="1rem">
-                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_25")}</Text></Container>
+                    </Container>
 
-<Text fontFamily={"Montserrat-Medium"}>
-{t("rgpd_26")}
-                </Text>
-                <Container maxW="750px" color="#575757" mb="1rem">
-                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_27")}</Text></Container>
-<Text fontFamily={"Montserrat-Medium"}>
-{t("rgpd_28")}
+                    <Text fontFamily={"Montserrat-Medium"}>
+                      {t("rgpd_18")}
 
-                </Text>
-                <Container maxW="750px" color="#575757" mb="1rem">
-                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_29")}</Text></Container>
-<Text fontFamily={"Montserrat-Medium"}>
-{t("rgpd_30")}
+                    </Text>
+                    <Container maxW="750px" color="#575757" mb="1rem">
+                      <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_19")}</Text></Container>
+                    <Text fontFamily={"Montserrat-Medium"}>
+                      {t("rgpd_20")}
+                    </Text>
+                    <Container maxW="750px" color="#575757" mb="1rem">
+                      <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_21")}</Text></Container>
+                    <Text fontFamily={"Montserrat-Medium"}>
+                      {t("rgpd_22")}
+                    </Text>
+                    <Container maxW="750px" color="#575757" mb="1rem">
+                      <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_23")}</Text></Container>
 
-                </Text>
-                <Container maxW="750px" color="#575757" mb="1rem">
-                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_31")}</Text></Container>
-<Text fontFamily={"Montserrat-Medium"}>
-{t("rgpd_32")}
+                    <Text fontFamily={"Montserrat-Medium"}>
+                      {t("rgpd_24")}
+                    </Text>
+                    <Container maxW="750px" color="#575757" mb="1rem">
+                      <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_25")}</Text></Container>
 
-                </Text>
-                <Container maxW="750px" color="#575757" mb="1rem">
-                  <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_33")}</Text></Container>
+                    <Text fontFamily={"Montserrat-Medium"}>
+                      {t("rgpd_26")}
+                    </Text>
+                    <Container maxW="750px" color="#575757" mb="1rem">
+                      <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_27")}</Text></Container>
+                    <Text fontFamily={"Montserrat-Medium"}>
+                      {t("rgpd_28")}
 
-</span>
-    </div>
+                    </Text>
+                    <Container maxW="750px" color="#575757" mb="1rem">
+                      <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_29")}</Text></Container>
+                    <Text fontFamily={"Montserrat-Medium"}>
+                      {t("rgpd_30")}
+
+                    </Text>
+                    <Container maxW="750px" color="#575757" mb="1rem">
+                      <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_31")}</Text></Container>
+                    <Text fontFamily={"Montserrat-Medium"}>
+                      {t("rgpd_32")}
+
+                    </Text>
+                    <Container maxW="750px" color="#575757" mb="1rem">
+                      <Text fontFamily={"Montserrat-Medium"}> {t("rgpd_33")}</Text></Container>
+
+                  </span>
+                </div>
               </Box>
             </Flex>
           )}
