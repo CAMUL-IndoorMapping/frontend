@@ -143,7 +143,7 @@ function UserSettings() {
         ]
       : [
           {
-            settingName: "logout",
+            settingName: "Logout",
           },
           {
             settingName: t("language"),
@@ -209,7 +209,7 @@ function UserSettings() {
         ]
       : [
           {
-            settingName: "logout",
+            settingName: "Logout",
           },
           {
             settingName: t("themes"),
@@ -402,7 +402,7 @@ function UserSettings() {
 
   function getSettingContentBrowser(settingName: string): ReactNode {
     switch (settingName) {
-      case "logout":
+      case "Logout":
         return (
           <>
             <Text fontSize="md">{t("logoutConfirmation")}</Text>
@@ -960,7 +960,7 @@ function UserSettings() {
 
   function getSettingContentMobile(settingName: string): ReactNode {
     switch (settingName) {
-      case "logout":
+      case "Logout":
         return (
           <>
             <Text fontSize="md">{t("logoutConfirmation")}</Text>
