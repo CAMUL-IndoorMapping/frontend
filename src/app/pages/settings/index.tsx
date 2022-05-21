@@ -601,8 +601,287 @@ function UserSettings() {
                         </Text>
                         <br></br>
                         <Text fontSize="md">
-                            {t("terms_conditions_content_1")}
+                            {t("termsAndConditionsPart1")}
                         </Text>
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart2")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart3")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart4")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("termsAndConditionsPart5")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart6")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart7")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("termsAndConditionsPart8")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart9")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart10")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart11")}
+                        </Text>
+                    
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart12")}
+                        </Text>
+        
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart13")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart14")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart15")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart16")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart17")}
+                        </Text>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart18")}
+                        </Text>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart19")}
+                        </Text>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart20")}
+                        </Text>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart21")}
+                        </Text>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart22")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("termsAndConditionsPart23")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart24")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart25")}
+                        </Text>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart26")}
+                        </Text>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart27")}
+                        </Text>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart28")}
+                        </Text>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart29")}
+                        </Text>
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart30")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart31")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart32")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart33")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart34")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart35")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart36")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart37")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart38")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart39")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart40")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart41")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart42")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart43")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart44")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart45")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("termsAndConditionsPart46")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart47")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("termsAndConditionsPart48")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart49")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("termsAndConditionsPart50")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart51")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("termsAndConditionsPart52")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart53")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("termsAndConditionsPart54")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart55")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart56")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("termsAndConditionsPart57")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart58")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart59")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart60")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart61")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart62")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart63")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart64")}
+                        </Text>
+
                     </>
                 );
                 break;
@@ -875,8 +1154,290 @@ function UserSettings() {
             case t("terms_conditions"): //t("terms_conditions")
                 return (
                     <>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("terms_conditions")}
+                        </Text>
+                        <br></br>
                         <Text fontSize="md">
-                            {t("terms_conditions_content_1")}
+                            {t("termsAndConditionsPart1")}
+                        </Text>
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart2")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart3")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart4")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("termsAndConditionsPart5")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart6")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart7")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("termsAndConditionsPart8")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart9")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart10")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart11")}
+                        </Text>
+                    
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart12")}
+                        </Text>
+        
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart13")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart14")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart15")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart16")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart17")}
+                        </Text>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart18")}
+                        </Text>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart19")}
+                        </Text>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart20")}
+                        </Text>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart21")}
+                        </Text>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart22")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("termsAndConditionsPart23")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart24")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart25")}
+                        </Text>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart26")}
+                        </Text>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart27")}
+                        </Text>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart28")}
+                        </Text>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart29")}
+                        </Text>
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart30")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart31")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart32")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart33")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart34")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart35")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart36")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart37")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart38")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart39")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart40")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart41")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart42")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart43")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart44")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart45")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("termsAndConditionsPart46")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart47")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("termsAndConditionsPart48")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart49")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("termsAndConditionsPart50")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart51")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("termsAndConditionsPart52")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart53")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("termsAndConditionsPart54")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart55")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart56")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="xx-large" textColor={"isepBrick.500"}>
+                            {t("termsAndConditionsPart57")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart58")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart59")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart60")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart61")}
+                        </Text>
+
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart62")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart63")}
+                        </Text>
+
+                        <br></br>
+                        <Text fontSize="md">
+                            {t("termsAndConditionsPart64")}
                         </Text>
                     </>
                 );
