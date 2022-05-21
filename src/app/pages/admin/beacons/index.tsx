@@ -17,6 +17,13 @@ import {
   HStack,
   Spinner,
   Select,
+  Drawer,
+  DrawerOverlay,
+  DrawerContent,
+  DrawerCloseButton,
+  DrawerBody,
+  DrawerHeader,
+  useDisclosure,
 } from "@chakra-ui/react";
 import {
   Table,
@@ -141,6 +148,8 @@ function AdminBeacons() {
   function handleInputZ(z: string): void {
     setZ(parseInt(z));
   }
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   function getBeaconUpdateForm(
     deviceId: string,
@@ -505,16 +514,36 @@ function AdminBeacons() {
                     width="280px"
                     handleButtonClick={() => handleAddOrUpdate()}
                   />
+                  <Box height="15px"></Box>
                   <CustomButton
-                    backgroundColor="isepBrick.300"
+                    backgroundColor="isepBrick.400"
                     borderColor="red"
                     buttonColor="white"
                     hoverColor="red"
                     text={t("beacon_delete")}
                     textColor="#FFFFFF"
                     width="280px"
-                    handleButtonClick={() => handleDelete()}
+                    handleButtonClick={() => onOpen()}
                   />
+                  <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
+                    <DrawerOverlay />
+                    <DrawerContent>
+                      <DrawerCloseButton />
+                      <DrawerHeader>{t("delete_beacon_confirm")}</DrawerHeader>
+                      <DrawerBody>
+                        <CustomButton
+                          backgroundColor="isepBrick.400"
+                          borderColor="red"
+                          buttonColor="white"
+                          hoverColor="red"
+                          text={t("beacon_delete")}
+                          textColor="#FFFFFF"
+                          width="280px"
+                          handleButtonClick={() => handleDelete()}
+                        />
+                      </DrawerBody>
+                    </DrawerContent>
+                  </Drawer>
                 </Box>
               </Center>
             </div>
@@ -713,15 +742,40 @@ function AdminBeacons() {
                     <Box height="15px"></Box>
 
                     <CustomButton
-                      backgroundColor="isepBrick.300"
+                      backgroundColor="isepBrick.400"
                       borderColor="red"
                       buttonColor="white"
                       hoverColor="red"
                       text={t("beacon_delete")}
                       textColor="#FFFFFF"
                       width="280px"
-                      handleButtonClick={() => handleDelete()}
+                      handleButtonClick={() => onOpen()}
                     />
+                    <Drawer
+                      isOpen={isOpen}
+                      placement="bottom"
+                      onClose={onClose}
+                    >
+                      <DrawerOverlay />
+                      <DrawerContent>
+                        <DrawerCloseButton />
+                        <DrawerHeader>
+                          {t("delete_beacon_confirm")}
+                        </DrawerHeader>
+                        <DrawerBody>
+                          <CustomButton
+                            backgroundColor="isepBrick.400"
+                            borderColor="red"
+                            buttonColor="white"
+                            hoverColor="red"
+                            text={t("beacon_delete")}
+                            textColor="#FFFFFF"
+                            width="280px"
+                            handleButtonClick={() => handleDelete()}
+                          />
+                        </DrawerBody>
+                      </DrawerContent>
+                    </Drawer>
                   </GridItem>
                 </Grid>
               </Box>

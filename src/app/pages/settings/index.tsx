@@ -96,7 +96,7 @@ function UserSettings() {
 
     console.log(currentUser);
 
-    const array1: Options[] =
+    const settings: Options[] =
 
         (currentUser.isAdmin == true) ?
             [ //endpoint Feedback/GET ALL
@@ -1475,7 +1475,7 @@ function UserSettings() {
     return (
         <>
             <MobileView>
-                {array1.map(({ settingName }) => (
+                {settings.map(({ settingName }) => (
                     <>
                         {/* <Accordion allowToggle>
                             <AccordionItem>
@@ -1535,7 +1535,7 @@ function UserSettings() {
             <BrowserView>
                 <SimpleGrid columns={[1, 2]} minChildWidth={"200px"}>
                     <Box width={"200px"}>
-                        {array1.map(({ settingName }) => (
+                        {settings.map(({ settingName }) => (
 
                             <Button variant='link'
                                 __css={{
