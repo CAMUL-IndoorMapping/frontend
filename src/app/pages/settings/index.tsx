@@ -45,6 +45,7 @@ import {
   useToast,
   Heading,
   Container,
+  Link
 } from "@chakra-ui/react";
 import ReactAudioPlayer from "react-audio-player";
 import { BrowserView, MobileView } from "react-device-detect";
@@ -102,141 +103,141 @@ function UserSettings() {
   const settingsForMobile: Options[] =
     currentUser.isAdmin == true
       ? [
-          //endpoint Feedback/GET ALL
+        //endpoint Feedback/GET ALL
 
-          {
-            settingName: "Logout",
-          },
-          {
-            settingName: t("language"),
-          },
-          {
-            settingName: t("themes"),
-          },
-          {
-            settingName: t("sounds"),
-          },
-          {
-            settingName: t("delete_account"),
-          },
-          {
-            settingName: t("change_password"),
-          },
-          {
-            settingName: t("about_app"),
-          },
-          {
-            settingName: t("contact_us"),
-          },
-          {
-            settingName: t("terms_conditions"),
-          },
-          {
-            settingName: t("patch_notes"),
-          },
-          {
-            settingName: t("admin_feedback"),
-          },
-          {
-            settingName: t("admin_beacons"),
-          },
-        ]
+        {
+          settingName: "Logout",
+        },
+        {
+          settingName: t("language"),
+        },
+        {
+          settingName: t("themes"),
+        },
+        {
+          settingName: t("sounds"),
+        },
+        {
+          settingName: t("delete_account"),
+        },
+        {
+          settingName: t("change_password"),
+        },
+        {
+          settingName: t("about_app"),
+        },
+        {
+          settingName: t("contact_us"),
+        },
+        {
+          settingName: t("terms_conditions"),
+        },
+        {
+          settingName: t("patch_notes"),
+        },
+        {
+          settingName: t("admin_feedback"),
+        },
+        {
+          settingName: t("admin_beacons"),
+        },
+      ]
       : [
-          {
-            settingName: "Logout",
-          },
-          {
-            settingName: t("language"),
-          },
-          {
-            settingName: t("themes"),
-          },
-          {
-            settingName: t("sounds"),
-          },
-          {
-            settingName: t("delete_account"),
-          },
-          {
-            settingName: t("change_password"),
-          },
-          {
-            settingName: t("about_app"),
-          },
-          {
-            settingName: t("contact_us"),
-          },
-          {
-            settingName: t("terms_conditions"),
-          },
-          {
-            settingName: t("patch_notes"),
-          },
-        ];
+        {
+          settingName: "Logout",
+        },
+        {
+          settingName: t("language"),
+        },
+        {
+          settingName: t("themes"),
+        },
+        {
+          settingName: t("sounds"),
+        },
+        {
+          settingName: t("delete_account"),
+        },
+        {
+          settingName: t("change_password"),
+        },
+        {
+          settingName: t("about_app"),
+        },
+        {
+          settingName: t("contact_us"),
+        },
+        {
+          settingName: t("terms_conditions"),
+        },
+        {
+          settingName: t("patch_notes"),
+        },
+      ];
 
   const settingsForWeb: Options[] =
     currentUser.isAdmin == true
       ? [
-          //endpoint Feedback/GET ALL
+        //endpoint Feedback/GET ALL
 
-          {
-            settingName: "Logout",
-          },
-          {
-            settingName: t("themes"),
-          },
-          {
-            settingName: t("sounds"),
-          },
-          {
-            settingName: t("delete_account"),
-          },
-          {
-            settingName: t("change_password"),
-          },
-          {
-            settingName: t("about_app"),
-          },
-          {
-            settingName: t("contact_us"),
-          },
-          {
-            settingName: t("terms_conditions"),
-          },
-          {
-            settingName: t("patch_notes"),
-          }
-        ]
+        {
+          settingName: "Logout",
+        },
+        {
+          settingName: t("themes"),
+        },
+        {
+          settingName: t("sounds"),
+        },
+        {
+          settingName: t("delete_account"),
+        },
+        {
+          settingName: t("change_password"),
+        },
+        {
+          settingName: t("about_app"),
+        },
+        {
+          settingName: t("contact_us"),
+        },
+        {
+          settingName: t("terms_conditions"),
+        },
+        {
+          settingName: t("patch_notes"),
+        }
+      ]
       : [
-          {
-            settingName: "Logout",
-          },
-          {
-            settingName: t("themes"),
-          },
-          {
-            settingName: t("sounds"),
-          },
-          {
-            settingName: t("delete_account"),
-          },
-          {
-            settingName: t("change_password"),
-          },
-          {
-            settingName: t("about_app"),
-          },
-          {
-            settingName: t("contact_us"),
-          },
-          {
-            settingName: t("terms_conditions"),
-          },
-          {
-            settingName: t("patch_notes"),
-          },
-        ];
-        
+        {
+          settingName: "Logout",
+        },
+        {
+          settingName: t("themes"),
+        },
+        {
+          settingName: t("sounds"),
+        },
+        {
+          settingName: t("delete_account"),
+        },
+        {
+          settingName: t("change_password"),
+        },
+        {
+          settingName: t("about_app"),
+        },
+        {
+          settingName: t("contact_us"),
+        },
+        {
+          settingName: t("terms_conditions"),
+        },
+        {
+          settingName: t("patch_notes"),
+        },
+      ];
+
   const [stateSettingName, setSettingName] = useState("Setting Name");
 
   const [isLoadingButton, setIsLoading] = useState(false);
@@ -399,6 +400,15 @@ function UserSettings() {
   }) => setValueNewConfirm(event.target.value);
 
   const handleVerifyOld = () => setInvalidOldPassword(true);
+
+  const renderText = (name: string, email: string) => (
+    <Text fontFamily={"Montserrat-Medium"}>
+      {name}:{' '}
+      <Link color='isepBrick.500' href={`mailto:${email}`}>
+        {email}
+      </Link>
+    </Text>
+  )
 
   function getSettingContentBrowser(settingName: string): ReactNode {
     switch (settingName) {
@@ -713,6 +723,7 @@ function UserSettings() {
         );
         break;
       case t("contact_us"): //t("contact_us")
+
         return (
           <>
             <Box>
@@ -723,39 +734,17 @@ function UserSettings() {
                 {t("contacts_text")}
               </Text>
               <Container maxW="750px" color="#575757" mt="1rem">
-                <Text fontFamily={"Montserrat-Medium"}>
-                  André Gonçalves: 1191660@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  André Morais: 1210626@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Cárina Alas: 1181695@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Daniel Dias: 1181488@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Duarte Marques: 1170467@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Francisco Dias: 1180615@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Miguel Cabeleira: 1210632@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Narciso Correia: 1200174@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Rui Afonso: 1181056@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Sofia Canelas: 1200185@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Vítor Neto: 1210130@isep.ipp.pt
-                </Text>
+                {renderText('André Gonçalves', '1191660@isep.ipp.pt')}
+                {renderText('André Morais', '1210626@isep.ipp.pt')}
+                {renderText('Cárina Alas', '1181695@isep.ipp.pt')}
+                {renderText('Daniel Dias', '1181488@isep.ipp.pt')}
+                {renderText('Duarte Marques', '1170467@isep.ipp.pt')}
+                {renderText('Francisco Dias', '1180615@isep.ipp.pt')}
+                {renderText('Miguel Cabeleira', '1210632@isep.ipp.pt')}
+                {renderText('Narciso Correia', '1200174@isep.ipp.pt')}
+                {renderText('Rui Afonso', '1181056@isep.ipp.pt')}
+                {renderText('Sofia Canelas', '1200185@isep.ipp.pt')}
+                {renderText('Vítor Neto', '1210130@isep.ipp.pt')}
               </Container>
             </Box>
           </>
@@ -950,6 +939,10 @@ function UserSettings() {
             </Text>
             <br></br>
             <Text fontSize="md">{t("patch_notes_content_1")}</Text>
+
+            <Text fontSize="md" mt='1rem'>
+              21-05-2022 v1.0 Initial release.
+            </Text>
           </>
         );
         break;
@@ -1228,39 +1221,17 @@ function UserSettings() {
                 {t("contacts_text")}
               </Text>
               <Container maxW="750px" color="#575757" mt="1rem">
-                <Text fontFamily={"Montserrat-Medium"}>
-                  André Gonçalves: 1191660@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  André Morais: 1210626@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Cárina Alas: 1181695@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Daniel Dias: 1181488@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Duarte Marques: 1170467@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Francisco Dias: 1180615@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Miguel Cabeleira: 1210632@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Narciso Correia: 1200174@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Rui Afonso: 1181056@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Sofia Canelas: 1200185@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Vítor Neto: 1210130@isep.ipp.pt
-                </Text>
+                {renderText('André Gonçalves', '1191660@isep.ipp.pt')}
+                {renderText('André Morais', '1210626@isep.ipp.pt')}
+                {renderText('Cárina Alas', '1181695@isep.ipp.pt')}
+                {renderText('Daniel Dias', '1181488@isep.ipp.pt')}
+                {renderText('Duarte Marques', '1170467@isep.ipp.pt')}
+                {renderText('Francisco Dias', '1180615@isep.ipp.pt')}
+                {renderText('Miguel Cabeleira', '1210632@isep.ipp.pt')}
+                {renderText('Narciso Correia', '1200174@isep.ipp.pt')}
+                {renderText('Rui Afonso', '1181056@isep.ipp.pt')}
+                {renderText('Sofia Canelas', '1200185@isep.ipp.pt')}
+                {renderText('Vítor Neto', '1210130@isep.ipp.pt')}
               </Container>
             </Box>
           </>

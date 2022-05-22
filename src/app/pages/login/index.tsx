@@ -21,6 +21,7 @@ import {
   useToast,
   ListItem,
   UnorderedList,
+  Link
 } from "@chakra-ui/react";
 import CustomButton from "../../../components/buttons";
 import React, { useState } from "react";
@@ -132,9 +133,9 @@ function LoginPage() {
       //userLogin(loginUser.mail, loginUser.password)
       console.log(
         "user: " +
-          JSON.stringify(loginUser.mail) +
-          ", " +
-          JSON.stringify(loginUser.password)
+        JSON.stringify(loginUser.mail) +
+        ", " +
+        JSON.stringify(loginUser.password)
       );
 
       const params: any = JSON.stringify({
@@ -148,9 +149,9 @@ function LoginPage() {
       axios
         .get(
           "https://camul2022.pythonanywhere.com/account/login?email=" +
-            loginUser.mail +
-            "&password=" +
-            loginUser.password
+          loginUser.mail +
+          "&password=" +
+          loginUser.password
         )
         .then(
           (response) => {
@@ -225,7 +226,7 @@ function LoginPage() {
       axios
         .get(
           "https://camul2022.pythonanywhere.com/account/forgot?email=" +
-            recoverEmail
+          recoverEmail
         )
         .then(
           (response) => {
@@ -395,6 +396,15 @@ function LoginPage() {
       }
     }
   };
+
+  const renderText = (name: string, email: string) => (
+    <Text fontFamily={"Montserrat-Medium"}>
+      {name}:{' '}
+      <Link color='isepBrick.500' href={`mailto:${email}`}>
+        {email}
+      </Link>
+    </Text>
+  )
 
   return (
     <>
@@ -1192,39 +1202,17 @@ function LoginPage() {
                 {t("contacts_text")}
               </Text>
               <Container maxW="750px" color="#575757" mt="1rem">
-                <Text fontFamily={"Montserrat-Medium"}>
-                  André Gonçalves: 1191660@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  André Morais: 1210626@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Cárina Alas: 1181695@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Daniel Dias: 1181488@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Duarte Marques: 1170467@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Francisco Dias: 1180615@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Miguel Cabeleira: 1210632@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Narciso Correia: 1200174@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Rui Afonso: 1181056@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Sofia Canelas: 1200185@isep.ipp.pt
-                </Text>
-                <Text fontFamily={"Montserrat-Medium"}>
-                  Vítor Neto: 1210130@isep.ipp.pt
-                </Text>
+                {renderText('André Gonçalves', '1191660@isep.ipp.pt')}
+                {renderText('André Morais', '1210626@isep.ipp.pt')}
+                {renderText('Cárina Alas', '1181695@isep.ipp.pt')}
+                {renderText('Daniel Dias', '1181488@isep.ipp.pt')}
+                {renderText('Duarte Marques', '1170467@isep.ipp.pt')}
+                {renderText('Francisco Dias', '1180615@isep.ipp.pt')}
+                {renderText('Miguel Cabeleira', '1210632@isep.ipp.pt')}
+                {renderText('Narciso Correia', '1200174@isep.ipp.pt')}
+                {renderText('Rui Afonso', '1181056@isep.ipp.pt')}
+                {renderText('Sofia Canelas', '1200185@isep.ipp.pt')}
+                {renderText('Vítor Neto', '1210130@isep.ipp.pt')}
               </Container>
             </Box>
           </Flex>
@@ -1416,29 +1404,29 @@ function LoginPage() {
               {(isAboutUs ||
                 formType === "recoverAccount" ||
                 formType === "resetPassword") && (
-                <Flex position="fixed" top="200px" left="300px">
-                  <IconButton
-                    aria-label="back"
-                    variant="ghost"
-                    rounded="100"
-                    size="sm"
-                    icon={
-                      <ChevronLeftIcon
-                        w="30px"
-                        h="30px"
-                        color="isepBrick.500"
-                      />
-                    }
-                    onClick={() => {
-                      dispatch(leaveAboutUs());
-                      setFormType("longIn");
-                    }}
-                  />
-                  <Center>
-                    <Text color="isepBrick.500">{t("back")}</Text>
-                  </Center>
-                </Flex>
-              )}
+                  <Flex position="fixed" top="200px" left="300px">
+                    <IconButton
+                      aria-label="back"
+                      variant="ghost"
+                      rounded="100"
+                      size="sm"
+                      icon={
+                        <ChevronLeftIcon
+                          w="30px"
+                          h="30px"
+                          color="isepBrick.500"
+                        />
+                      }
+                      onClick={() => {
+                        dispatch(leaveAboutUs());
+                        setFormType("longIn");
+                      }}
+                    />
+                    <Center>
+                      <Text color="isepBrick.500">{t("back")}</Text>
+                    </Center>
+                  </Flex>
+                )}
 
               {isTermsConditions && (
                 <Flex position="fixed" top="200px" left="300px">
@@ -2087,39 +2075,17 @@ function LoginPage() {
                   {t("contacts_text")}
                 </Text>
                 <Container maxW="750px" color="#575757" mt="1rem">
-                  <Text fontFamily={"Montserrat-Medium"}>
-                    André Gonçalves: 1191660@isep.ipp.pt
-                  </Text>
-                  <Text fontFamily={"Montserrat-Medium"}>
-                    André Morais: 1210626@isep.ipp.pt
-                  </Text>
-                  <Text fontFamily={"Montserrat-Medium"}>
-                    Cárina Alas: 1181695@isep.ipp.pt
-                  </Text>
-                  <Text fontFamily={"Montserrat-Medium"}>
-                    Daniel Dias: 1181488@isep.ipp.pt
-                  </Text>
-                  <Text fontFamily={"Montserrat-Medium"}>
-                    Duarte Marques: 1170467@isep.ipp.pt
-                  </Text>
-                  <Text fontFamily={"Montserrat-Medium"}>
-                    Francisco Dias: 1180615@isep.ipp.pt
-                  </Text>
-                  <Text fontFamily={"Montserrat-Medium"}>
-                    Miguel Cabeleira: 1210632@isep.ipp.pt
-                  </Text>
-                  <Text fontFamily={"Montserrat-Medium"}>
-                    Narciso Correia: 1200174@isep.ipp.pt
-                  </Text>
-                  <Text fontFamily={"Montserrat-Medium"}>
-                    Rui Afonso: 1181056@isep.ipp.pt
-                  </Text>
-                  <Text fontFamily={"Montserrat-Medium"}>
-                    Sofia Canelas: 1200185@isep.ipp.pt
-                  </Text>
-                  <Text fontFamily={"Montserrat-Medium"}>
-                    Vítor Neto: 1210130@isep.ipp.pt
-                  </Text>
+                  {renderText('André Gonçalves', '1191660@isep.ipp.pt')}
+                  {renderText('André Morais', '1210626@isep.ipp.pt')}
+                  {renderText('Cárina Alas', '1181695@isep.ipp.pt')}
+                  {renderText('Daniel Dias', '1181488@isep.ipp.pt')}
+                  {renderText('Duarte Marques', '1170467@isep.ipp.pt')}
+                  {renderText('Francisco Dias', '1180615@isep.ipp.pt')}
+                  {renderText('Miguel Cabeleira', '1210632@isep.ipp.pt')}
+                  {renderText('Narciso Correia', '1200174@isep.ipp.pt')}
+                  {renderText('Rui Afonso', '1181056@isep.ipp.pt')}
+                  {renderText('Sofia Canelas', '1200185@isep.ipp.pt')}
+                  {renderText('Vítor Neto', '1210130@isep.ipp.pt')}
                 </Container>
               </Box>
             </Flex>
